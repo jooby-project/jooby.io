@@ -580,7 +580,36 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </li>
 </ul>
 </li>
-<li><a href="#mvc-api">5. MVC API</a></li>
+<li><a href="#execution-model">5. Execution Model</a>
+<ul class="sectlevel2">
+<li><a href="#mode">5.1. Mode</a>
+<ul class="sectlevel3">
+<li><a href="#event-loop">5.1.1. Event Loop</a></li>
+<li><a href="#worker">5.1.2. Worker</a></li>
+<li><a href="#default">5.1.3. Default</a></li>
+</ul>
+</li>
+<li><a href="#worker-executor">5.2. Worker Executor</a></li>
+</ul>
+</li>
+<li><a href="#responses">6. Responses</a>
+<ul class="sectlevel2">
+<li><a href="#raw">6.1. Raw</a></li>
+<li><a href="#streaming-chunked">6.2. Streaming / Chunked</a></li>
+<li><a href="#file-download">6.3. File download</a></li>
+<li><a href="#nonblocking">6.4. NonBlocking</a>
+<ul class="sectlevel3">
+<li><a href="#limitations">6.4.1. Limitations</a></li>
+<li><a href="#completablefuture">6.4.2. CompletableFuture</a></li>
+<li><a href="#rxjava">6.4.3. RxJava</a></li>
+<li><a href="#reactor">6.4.4. Reactor</a></li>
+<li><a href="#kotlin-coroutines">6.4.5. Kotlin Coroutines</a></li>
+</ul>
+</li>
+<li><a href="#send-methods">6.5. Send methods</a></li>
+</ul>
+</li>
+<li><a href="#mvc-api">7. MVC API</a></li>
 </ul>
 </div>
 </div>
@@ -594,44 +623,40 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h2 id="introduction"><a class="anchor" href="#introduction"></a><a class="link" href="#introduction">1. Introduction</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Jooby is a modern, fun and easy to use web framework for Java built on top of your favorite web server.</p>
+<p>Jooby is a modern, performant and easy to use web framework for Java and Kotlin built on top of your favorite web server.</p>
 </div>
-<div class="listingblock">
-<div class="title">Hello World:</div>
+<div class="listingblock primary">
+<div class="title">Welcome!!</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">public class App extends Jooby {           <i class="conum" data-value="1"></i><b>(1)</b>
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">import io.jooby.Jooby;
+
+public class App extends Jooby {
 
   {
-    get("/", ctx -&gt; {                      <i class="conum" data-value="2"></i><b>(2)</b>
-      return "Hello Jooby";                <i class="conum" data-value="3"></i><b>(3)</b>
+    get("/", ctx -&gt; {
+      return "Welcome to Jooby!";
     });
   }
 
   public static void main(String[] args) {
-    run(App::new, args);                   <i class="conum" data-value="4"></i><b>(4)</b>
+    run(App::new, args);
   }
 }</code></pre>
 </div>
 </div>
-<div class="colist arabic">
-<table>
-<tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>Create a new instance of <code>Jooby</code></td>
-</tr>
-<tr>
-<td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>Define a route. A route consist of: a <code>HTTP method</code>, a <code>path pattern</code> and <code>handler</code> function</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="3"></i><b>3</b></td>
-<td>Returns <code>Hello Jooby</code> to the client</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="4"></i><b>4</b></td>
-<td>Initialize and run <code>App.java</code></td>
-</tr>
-</table>
+<div class="listingblock secondary">
+<div class="title">Kotlin</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">import io.jooby.run
+
+fun main(args: Array&lt;String&gt;) {
+  run(args) {
+    get ("/) { ctx -&gt;
+      "Welcome to Jooby!"
+    }
+  }
+}</code></pre>
+</div>
 </div>
 <div class="sect2">
 <h3 id="status"><a class="anchor" href="#status"></a><a class="link" href="#status">1.1. Status</a></h3>
@@ -643,14 +668,13 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </td>
 <td class="content">
 <div class="paragraph">
-<p>There is no stable release yet for <code>2.0.0</code>. API may change between <code>alpha/beta</code> releases without
-warning.</p>
+<p>There is no stable release yet for <code>2.0.0</code>. API may change between milestone releases without warning.</p>
 </div>
 <div class="paragraph">
 <p>This is a <strong>work-in-progress</strong> document and contains documentation and examples of what is ready to use. If it is not documented here, it is not implemented.</p>
 </div>
 <div class="paragraph">
-<p>Not ready to play yet? Try <a href="https://jooby.org">Jooby 1.x</a></p>
+<p>Not ready yet? Try <a href="https://jooby.org">Jooby 1.x</a></p>
 </div>
 <div class="paragraph">
 <p>Thank you &#9825;</p>
@@ -671,13 +695,10 @@ warning.</p>
 <p>Reflection and annotation free</p>
 </li>
 <li>
-<p>No dependency injection</p>
-</li>
-<li>
 <p>Only HTTP Routing</p>
 </li>
 <li>
-<p>Multi Server: <a href="server/jetty.html">Jetty</a>, Netty, Undertow</p>
+<p>Multi Server: <a href="server/jetty.html">Jetty</a>, <a href="server/netty.html">Netty</a>, <a href="server/undertow.html">Undertow</a></p>
 </li>
 </ul>
 </div>
@@ -690,7 +711,7 @@ warning.</p>
 <p>MVC programming model (subset of <a href="https://github.com/jax-rs">JAX-RS</a>)</p>
 </li>
 <li>
-<p>Extensive module ecosytem</p>
+<p>Module ecosytem</p>
 </li>
 </ul>
 </div>
@@ -703,14 +724,16 @@ warning.</p>
 <div class="paragraph">
 <p>We usually extends <code>Jooby</code> and define routes in the instance initializer:</p>
 </div>
-<div class="listingblock">
+<div class="listingblock primary">
 <div class="title">Script:</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">public class App extends Jooby {
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">import io.jooby.Jooby;
+
+public class App extends Jooby {
 
   {
     get("/", ctx -&gt; {
-      return "Hello Jooby";
+      return "Hello Jooby!";
     });
   }
 
@@ -720,20 +743,41 @@ warning.</p>
 }</code></pre>
 </div>
 </div>
+<div class="listingblock secondary">
+<div class="title">Kotlin</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">import io.jooby.Kooby;
+import io.jooby.run;
+
+class App : Kooby({
+
+  get("/") { ctx -&gt;
+    "Hello Jooby!"
+  }
+
+})
+
+fun main(args: Array&lt;String&gt;) {
+  run(::App, args)
+}</code></pre>
+</div>
+</div>
 <div class="paragraph">
 <p>This is not strictly necessary (of course), you may create a <code>Jooby</code> application like:</p>
 </div>
-<div class="listingblock">
+<div class="listingblock primary">
 <div class="title">No-subclass bootstrap:</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">public class App {
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">import io.jooby.Jooby;
+
+public class App {
 
   public static void main(String[] args) {
     run(() -&gt; {
       Jooby app = new Jooby();
 
       app.get("/", ctx -&gt; {
-        return "Hello Jooby";
+        return "Hello Jooby!";
       });
 
       return app;
@@ -742,18 +786,32 @@ warning.</p>
 }</code></pre>
 </div>
 </div>
+<div class="listingblock secondary">
+<div class="title">Kotlin</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">import io.jooby.run
+
+fun main(args: Array&lt;String&gt;) {
+  run(args) {
+    get("/") { ctx -&gt;
+      "Hello Jooby!"
+    }
+  }
+}</code></pre>
+</div>
+</div>
 </div>
 <div class="sect2">
 <h3 id="introduction-mvc-api"><a class="anchor" href="#introduction-mvc-api"></a><a class="link" href="#introduction-mvc-api">1.4. MVC API</a></h3>
 <div class="paragraph">
-<p>MVC API (a.k.a mvc routes) on the other hand uses annotation and reflection to define/execute routes.
+<p>On the other hand, the MVC API (a.k.a mvc routes) uses annotation and reflection to define/execute routes.
 Jooby implements a subset of <a href="https://github.com/jax-rs">JAX-RS</a> but not intended to be a fully
 <a href="https://github.com/jax-rs">JAX-RS</a> compliant implementation.</p>
 </div>
-<div class="listingblock">
+<div class="listingblock primary">
 <div class="title">MVC API:</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">public class App {
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">public class App extends Jooby {
 
   {
     use(new MyController());
@@ -762,17 +820,35 @@ Jooby implements a subset of <a href="https://github.com/jax-rs">JAX-RS</a> but 
   public static void main(String[] args) {
     run(App::new, args);
   }
+}
+
+public class MyController {
+
+  @GET
+  public String sayHi() {
+    return "Hello Jooby!";
+  }
 }</code></pre>
 </div>
 </div>
-<div class="listingblock">
-<div class="title">MyController:</div>
+<div class="listingblock secondary">
+<div class="title">Kotlin</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">public class MyController {
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">class App : Kooby({
+
+    use(MyController())
+
+})
+
+fun main(args: Array&lt;String&gt;) {
+  run(::App, args)
+}
+
+class MyController {
 
   @GET
-  public String hello() {
-    return "Hello Jooby";
+  fun sayHi() : String {
+    return "Hello Jooby!"
   }
 }</code></pre>
 </div>
@@ -792,14 +868,14 @@ Jooby implements a subset of <a href="https://github.com/jax-rs">JAX-RS</a> but 
 <pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
   &lt;artifactId&gt;jooby-netty&lt;/artifactId&gt;
-  &lt;version&gt;2.0.0-Alpha1&lt;/version&gt;
+  &lt;version&gt;2.0.0.M1&lt;/version&gt;
 &lt;/dependency&gt;</code></pre>
 </div>
 </div>
 <div class="listingblock secondary">
 <div class="title">Gradle</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-javascript hljs" data-lang="javascript">compile: 'io.jooby:jooby-netty:2.0.0-Alpha1'</code></pre>
+<pre class="highlightjs highlight"><code class="language-javascript hljs" data-lang="javascript">compile: 'io.jooby:jooby-netty:2.0.0.M1'</code></pre>
 </div>
 </div>
 <div class="admonitionblock tip">
@@ -820,8 +896,8 @@ Jooby implements a subset of <a href="https://github.com/jax-rs">JAX-RS</a> but 
 <div class="paragraph">
 <p>Write your application:</p>
 </div>
-<div class="listingblock">
-<div class="title">App.java:</div>
+<div class="listingblock primary">
+<div class="title">App:</div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">import io.jooby.Jooby;
 
@@ -836,8 +912,22 @@ public class App extends Jooby {
 }</code></pre>
 </div>
 </div>
+<div class="listingblock secondary">
+<div class="title">Kotlin</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">import io.jooby.run
+
+fun main(args: Array&lt;String&gt;) {
+  run(args) {
+    get("/") { ctx -&gt;
+      "Hello World!"
+    }
+  }
+}</code></pre>
+</div>
+</div>
 <div class="paragraph">
-<p>Run <code>App.java</code>:</p>
+<p>Run <code>App</code>:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -862,7 +952,7 @@ listening on:
 <h2 id="router"><a class="anchor" href="#router"></a><a class="link" href="#router">3. Router</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0-Alpha1/io/jooby/Router.html">Router</a> is the heart of Jooby and consist of:</p>
+<p>The <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M1/io/jooby/Router.html">Router</a> is the heart of Jooby and consist of:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -870,20 +960,20 @@ listening on:
 <p>Routing algorithm (radix tree)</p>
 </li>
 <li>
-<p>One or more <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0-Alpha1/io/jooby/Route.html">routes</a></p>
+<p>One or more <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M1/io/jooby/Route.html">routes</a></p>
 </li>
 <li>
-<p>Collection of operator over <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0-Alpha1/io/jooby/Route.html">routes</a></p>
+<p>Collection of operator over <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M1/io/jooby/Route.html">routes</a></p>
 </li>
 </ul>
 </div>
 <div class="sect2">
 <h3 id="route"><a class="anchor" href="#route"></a><a class="link" href="#route">3.1. Route</a></h3>
 <div class="paragraph">
-<p>A <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0-Alpha1/io/jooby/Route.html">Route</a> consist of three part:</p>
+<p>A <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M1/io/jooby/Route.html">Route</a> consist of three part:</p>
 </div>
-<div class="listingblock">
-<div class="title">routes:</div>
+<div class="listingblock primary">
+<div class="title">Routes:</div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">{
 
@@ -904,6 +994,28 @@ listening on:
 }</code></pre>
 </div>
 </div>
+<div class="listingblock secondary">
+<div class="title">Kotlin</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">{
+
+  <i class="conum" data-value="1"></i><b>(1)</b> <i class="conum" data-value="2"></i><b>(2)</b>
+  get("/foo") { ctx -&gt;
+    "foo" <i class="conum" data-value="3"></i><b>(3)</b>
+  }
+
+  // Get example with path variable
+  get("/foo/{id}") { ctx -&gt;
+    ctx.param("id").value()
+  }
+
+  // Post example
+  post("/") { ctx -&gt;
+    ctx.body().value()
+  }
+}</code></pre>
+</div>
+</div>
 <div class="colist arabic">
 <table>
 <tr>
@@ -921,7 +1033,7 @@ listening on:
 </table>
 </div>
 <div class="paragraph">
-<p>The <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0-Alpha1/io/jooby/Route.Handler.html">handler</a> function always produces a result, which is send it back
+<p>The <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M1/io/jooby/Route.Handler.html">handler</a> function always produces a result, which is send it back
 to the client.</p>
 </div>
 </div>
@@ -929,19 +1041,27 @@ to the client.</p>
 <h3 id="path-pattern"><a class="anchor" href="#path-pattern"></a><a class="link" href="#path-pattern">3.2. Path Pattern</a></h3>
 <div class="sect3">
 <h4 id="static"><a class="anchor" href="#static"></a><a class="link" href="#static">3.2.1. Static</a></h4>
-<div class="listingblock">
+<div class="listingblock primary">
+<div class="title">Java</div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">{
-
   get("/foo", ctx -&gt; "Foo");
+}</code></pre>
+</div>
+</div>
+<div class="listingblock secondary">
+<div class="title">Koltin</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">{
+  get("/foo") { ctx -&gt; "Foo" }
 }</code></pre>
 </div>
 </div>
 </div>
 <div class="sect3">
 <h4 id="variable"><a class="anchor" href="#variable"></a><a class="link" href="#variable">3.2.2. Variable</a></h4>
-<div class="listingblock">
-<div class="title">single path variable:</div>
+<div class="listingblock primary">
+<div class="title">Single path variable:</div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">{
   <i class="conum" data-value="1"></i><b>(1)</b>
@@ -949,6 +1069,18 @@ to the client.</p>
     int id = ctx.param("id").intValue(); <i class="conum" data-value="2"></i><b>(2)</b>
     return id;
   });
+}</code></pre>
+</div>
+</div>
+<div class="listingblock secondary">
+<div class="title">Kotlin</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">{
+  <i class="conum" data-value="1"></i><b>(1)</b>
+  get("/user/{id}") { ctx -&gt;
+    val id = ctx.param("id").intValue() <i class="conum" data-value="2"></i><b>(2)</b>
+    id
+  }
 }</code></pre>
 </div>
 </div>
@@ -964,16 +1096,29 @@ to the client.</p>
 </tr>
 </table>
 </div>
-<div class="listingblock">
-<div class="title">multiple path variables:</div>
+<div class="listingblock primary">
+<div class="title">Multiple path variables:</div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">{
   <i class="conum" data-value="1"></i><b>(1)</b>
   get("/file/{file}.{ext}", ctx -&gt; {
-    String file = ctx.param("file").value(); <i class="conum" data-value="2"></i><b>(2)</b>
+    String filename = ctx.param("file").value(); <i class="conum" data-value="2"></i><b>(2)</b>
     String ext = ctx.param("ext").value();   <i class="conum" data-value="3"></i><b>(3)</b>
-    return file + "." + ext;
+    return filename + "." + ext;
   });
+}</code></pre>
+</div>
+</div>
+<div class="listingblock secondary">
+<div class="title">Kotlin</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">{
+  <i class="conum" data-value="1"></i><b>(1)</b>
+  get("/file/{file}.{ext}") { ctx -&gt;
+    val filename = ctx.param("file").value() <i class="conum" data-value="2"></i><b>(2)</b>
+    val ext = ctx.param("ext").value()       <i class="conum" data-value="3"></i><b>(3)</b>
+    filename + "." + ext
+  }
 }</code></pre>
 </div>
 </div>
@@ -996,8 +1141,8 @@ to the client.</p>
 </div>
 <div class="sect3">
 <h4 id="regex"><a class="anchor" href="#regex"></a><a class="link" href="#regex">3.2.3. Regex</a></h4>
-<div class="listingblock">
-<div class="title">regex path variable:</div>
+<div class="listingblock primary">
+<div class="title">Regex path variable:</div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">{
   <i class="conum" data-value="1"></i><b>(1)</b>
@@ -1010,6 +1155,23 @@ to the client.</p>
     int id = ctx.param("id").intValue();
     return id;
   });
+}</code></pre>
+</div>
+</div>
+<div class="listingblock secondary">
+<div class="title">Kotlin</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">{
+  <i class="conum" data-value="1"></i><b>(1)</b>
+  get("/user/{id:[0-9]+}") { ctx -&gt;
+    val id = ctx.param("id").intValue() <i class="conum" data-value="2"></i><b>(2)</b>
+    id
+  }
+
+  get("/user/{id:[0-9]+}/edit") { ctx -&gt;
+    val id = ctx.param("id").intValue()
+    id
+  }
 }</code></pre>
 </div>
 </div>
@@ -1028,7 +1190,7 @@ to the client.</p>
 </div>
 <div class="sect3">
 <h4 id="catchall"><a class="anchor" href="#catchall"></a><a class="link" href="#catchall">3.2.4. * Catchall</a></h4>
-<div class="listingblock">
+<div class="listingblock primary">
 <div class="title">catchall</div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">{
@@ -1042,6 +1204,23 @@ to the client.</p>
     String path = ctx.param("path").value(); <i class="conum" data-value="3"></i><b>(3)</b>
     return path;
   });
+}</code></pre>
+</div>
+</div>
+<div class="listingblock secondary">
+<div class="title">Kotlin</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">{
+  <i class="conum" data-value="1"></i><b>(1)</b>
+  get("/articles/*") { ctx -&gt;
+    val catchall = ctx.param("*").value() <i class="conum" data-value="2"></i><b>(2)</b>
+    catchall
+  }
+
+  get("/articles/*path") { ctx -&gt;
+    val path = ctx.param("path").value()  <i class="conum" data-value="3"></i><b>(3)</b>
+    path
+  }
 }</code></pre>
 </div>
 </div>
@@ -1081,16 +1260,31 @@ variable name.</td>
 <div class="sect2">
 <h3 id="handler"><a class="anchor" href="#handler"></a><a class="link" href="#handler">3.3. Handler</a></h3>
 <div class="paragraph">
-<p>Application logic goes inside a <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0-Alpha1/io/jooby/Route.Handler.html">handler</a>. A
-<a href="https://static.javadoc.io/io.jooby/jooby/2.0.0-Alpha1/io/jooby/Route.Handler.html">handler</a> is a function that accepts a <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0-Alpha1/io/jooby/Context.html">context</a>
+<p>Application logic goes inside a <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M1/io/jooby/Route.Handler.html">handler</a>. A
+<a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M1/io/jooby/Route.Handler.html">handler</a> is a function that accepts a <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M1/io/jooby/Context.html">context</a>
 object and produces a <code>result</code>.</p>
 </div>
 <div class="paragraph">
-<p>A <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0-Alpha1/io/jooby/Context.html">context</a> allows you to interact with the <code>HTTP Request</code> and manipulate the
+<p>A <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M1/io/jooby/Context.html">context</a> allows you to interact with the <code>HTTP Request</code> and manipulate the
 <code>HTTP Response</code>.</p>
 </div>
-<div class="listingblock">
-<div class="title">Incoming request matches exactly <strong>one</strong> route handler:</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Incoming request matches exactly <strong>ONE</strong> route handler. If there is no handler, produces a <code>404</code>
+response.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="listingblock primary">
+<div class="title">Java</div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">{
   get("/user/{id}", ctx -&gt; ctx.param("id").value()); <i class="conum" data-value="1"></i><b>(1)</b>
@@ -1100,6 +1294,20 @@ object and produces a <code>result</code>.</p>
   get("/users", ctx -&gt; "users");                     <i class="conum" data-value="3"></i><b>(3)</b>
 
   get("/users", ctx -&gt; "new users");                 <i class="conum" data-value="4"></i><b>(4)</b>
+}</code></pre>
+</div>
+</div>
+<div class="listingblock secondary">
+<div class="title">Kotlin</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">{
+  get("/user/{id}") { ctx -&gt; ctx.param("id").value() } <i class="conum" data-value="1"></i><b>(1)</b>
+
+  get("/user/me") { ctx -&gt; "my profile" }              <i class="conum" data-value="2"></i><b>(2)</b>
+
+  get("/users") { ctx -&gt; "users" }                     <i class="conum" data-value="3"></i><b>(3)</b>
+
+  get("/users") { ctx -&gt; "new users" }                 <i class="conum" data-value="4"></i><b>(4)</b>
 }</code></pre>
 </div>
 </div>
@@ -1127,14 +1335,14 @@ object and produces a <code>result</code>.</p>
 </table>
 </div>
 <div class="paragraph">
-<p>Routes with most specific path pattern (<code>2</code> vs <code>1</code>) has more precedence. Also, route overrides is
-silently ignored and makes previous route unreachable.</p>
+<p>Routes with most specific path pattern (<code>2</code> vs <code>1</code>) has more precedence. Also, is one or more routes
+result in the same path pattern, like <code>3</code> and <code>4</code>, last registered route hides/overrides previous route.</p>
 </div>
 <div class="sect3">
 <h4 id="decorator"><a class="anchor" href="#decorator"></a><a class="link" href="#decorator">3.3.1. Decorator</a></h4>
 <div class="paragraph">
 <p>Cross cutting concerns such as response modification, verification, security, tracing, etc. is available
-via <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0-Alpha1/io/jooby/Route.Decorator.html">Route.Decorator</a> (a.k.a filter)</p>
+via <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M1/io/jooby/Route.Decorator.html">Route.Decorator</a> (a.k.a filter)</p>
 </div>
 <div class="paragraph">
 <p>A <code>decorator</code> takes the <code>next</code> handler in the pipeline and returns a <code>new</code> handler:</p>
@@ -1146,7 +1354,7 @@ via <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0-Alpha1/io/jooby/Rout
 }</code></pre>
 </div>
 </div>
-<div class="listingblock">
+<div class="listingblock primary">
 <div class="title">Timing decorator example:</div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">{
@@ -1169,11 +1377,35 @@ via <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0-Alpha1/io/jooby/Rout
 }</code></pre>
 </div>
 </div>
+<div class="listingblock secondary">
+<div class="title">Kotlin</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">{
+  /** Kotlin uses implicit variables: `ctx` and `next` */
+  decorator {
+    val start = System.currentTimeMillis()  <i class="conum" data-value="1"></i><b>(1)</b>
+
+    val response = next.apply(ctx)          <i class="conum" data-value="2"></i><b>(2)</b>
+
+    val end = System.currentTimeMillis()
+    val took = end - start
+
+    println("Took: " + took + "ms")         <i class="conum" data-value="3"></i><b>(3)</b>
+
+    response                                <i class="conum" data-value="4"></i><b>(4)</b>
+  }
+
+  get("/") { ctx -&gt;
+    "decorator"
+  }
+}</code></pre>
+</div>
+</div>
 <div class="colist arabic">
 <table>
 <tr>
 <td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>Save start time</td>
+<td>Saves start time</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="2"></i><b>2</b></td>
@@ -1189,73 +1421,25 @@ via <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0-Alpha1/io/jooby/Rout
 </tr>
 </table>
 </div>
-<div class="paragraph">
-<p>Unlike in other web frameworks a <code>decorator</code> lack of a <code>path pattern</code>. Sounds odd? All these is
-explained in the <a href="#pipeline">pipeline</a> section.</p>
-</div>
-<div class="admonitionblock important">
+<div class="admonitionblock note">
 <table>
 <tr>
 <td class="icon">
-<i class="fa icon-important" title="Important"></i>
+<i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
 <div class="paragraph">
-<p>Decorators (including before/after) must be defined before a <code>handler</code>:</p>
+<p>A <code>decorator</code> lacks of a <code>path pattern</code>. Sound strange? It is explained in the <a href="#pipeline">pipeline</a> section.</p>
 </div>
 </td>
 </tr>
 </table>
 </div>
-<div class="listingblock">
-<div class="title">It works:</div>
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">{
-  decorator(next -&gt; ctx -&gt; {
-    return "Hello " + next.apply(ctx);
-  });
-
-  // Produces: Hello Jooby
-  get("/", ctx -&gt; "Jooby");
-}</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Output:</p>
-</div>
-<div class="paragraph">
-<p>'/' &#8658; <code>Hello Jooby</code></p>
-</div>
-<div class="paragraph">
-<p>Now if you move the decorator after the handler:</p>
-</div>
-<div class="listingblock">
-<div class="title">Ignored:</div>
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">{
-  // Produces: Jooby
-  get("/", ctx -&gt; "Jooby");
-
-  decorator(next -&gt; ctx -&gt; {
-    return "Hello " + next.apply(ctx);
-  });
-}</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Output:</p>
-</div>
-<div class="paragraph">
-<p>'/' &#8658; <code>Jooby</code></p>
-</div>
-<div class="paragraph">
-<p>Decorator has no effect over route, due is defined after it.</p>
-</div>
 </div>
 <div class="sect3">
 <h4 id="before-decorator"><a class="anchor" href="#before-decorator"></a><a class="link" href="#before-decorator">3.3.2. Before Decorator</a></h4>
 <div class="paragraph">
-<p>The <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0-Alpha1/io/jooby/Route.Before.html">before</a> decorator is a specialized decorator that runs before a
+<p>The <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M1/io/jooby/Route.Before.html">before</a> decorator is a specialized decorator that runs before a
 <code>handler</code>.</p>
 </div>
 <div class="paragraph">
@@ -1269,17 +1453,31 @@ via side effects (usually modifying the HTTP response).</p>
 }</code></pre>
 </div>
 </div>
-<div class="listingblock">
-<div class="title">Example:</div>
+<div class="listingblock primary">
+<div class="title">Example</div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">{
   before(ctx -&gt; {
-    // your code goes here
+    ctx.setHeader("Server", "Jooby");
   });
 
   get("/", ctx -&gt; {
-    return ...;
+    return "...";
   });
+}</code></pre>
+</div>
+</div>
+<div class="listingblock secondary">
+<div class="title">Kotlin</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">{
+  before {
+    ctx.setHeader("Server", "Jooby")
+  }
+
+  get("/") { ctx -&gt;
+    "..."
+  }
 }</code></pre>
 </div>
 </div>
@@ -1287,7 +1485,7 @@ via side effects (usually modifying the HTTP response).</p>
 <div class="sect3">
 <h4 id="after-decorator"><a class="anchor" href="#after-decorator"></a><a class="link" href="#after-decorator">3.3.3. After Decorator</a></h4>
 <div class="paragraph">
-<p>The <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0-Alpha1/io/jooby/Route.After.html">after</a> decorator is a specialized decorator that runs after a
+<p>The <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M1/io/jooby/Route.After.html">after</a> decorator is a specialized decorator that runs after a
 <code>handler</code>.</p>
 </div>
 <div class="paragraph">
@@ -1301,7 +1499,7 @@ argument is the result/response from a <code>handler</code>.</p>
 }</code></pre>
 </div>
 </div>
-<div class="listingblock">
+<div class="listingblock primary">
 <div class="title">Example:</div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">{
@@ -1315,6 +1513,20 @@ argument is the result/response from a <code>handler</code>.</p>
 }</code></pre>
 </div>
 </div>
+<div class="listingblock secondary">
+<div class="title">Kotlin</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">{
+  after {
+    "Hello $result"
+  }
+
+  get("/") { ctx -&gt;
+    "Jooby"
+  }
+}</code></pre>
+</div>
+</div>
 </div>
 </div>
 <div class="sect2">
@@ -1322,7 +1534,8 @@ argument is the result/response from a <code>handler</code>.</p>
 <div class="paragraph">
 <p>Route pipeline (a.k.a route stack) is a composition of one or more decorator(s) tied to a single <code>handler</code>:</p>
 </div>
-<div class="listingblock">
+<div class="listingblock primary">
+<div class="title">Java</div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">{
   // Increment +1
@@ -1343,6 +1556,28 @@ argument is the result/response from a <code>handler</code>.</p>
 }</code></pre>
 </div>
 </div>
+<div class="listingblock secondary">
+<div class="title">Kotlin</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">{
+  // Increment +1
+  decorator {
+    val n = next.apply(ctx) as Int
+    1 + n
+  }
+
+  // Increment +1
+  decorator {
+    val n = next.apply(ctx) as Int
+    1 + n
+  }
+
+  get("/1") { ctx -&gt; 1 } <i class="conum" data-value="1"></i><b>(1)</b>
+
+  get("/2") { ctx -&gt; 2 } <i class="conum" data-value="2"></i><b>(2)</b>
+}</code></pre>
+</div>
+</div>
 <div class="paragraph">
 <p>Output:</p>
 </div>
@@ -1359,7 +1594,7 @@ argument is the result/response from a <code>handler</code>.</p>
 </table>
 </div>
 <div class="paragraph">
-<p>Behind the scene, Jooby build something like:</p>
+<p>Behind the scene, Jooby builds something like:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1384,7 +1619,7 @@ argument is the result/response from a <code>handler</code>.</p>
 </div>
 </div>
 <div class="paragraph">
-<p>Any <code>decorator</code> defined on top of the handler will be stacked/chained into a new handler, call it: <code>pipeline</code>.</p>
+<p>Any <code>decorator</code> defined on top of the handler will be stacked/chained into a new handler.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -1395,11 +1630,11 @@ argument is the result/response from a <code>handler</code>.</p>
 <td class="content">
 <div class="title">Decorator without path pattern</div>
 <div class="paragraph">
-<p>This was a hard decision to make, but we know is the right one. Other Java web framework
-(including Jooby 1.x) uses a path pattern to define <code>filter</code>.</p>
+<p>This was a hard decision to make, but we know is the right one. Jooby 1.x uses a path pattern to
+define <code>filter</code>/<code>decorator</code>.</p>
 </div>
 <div class="paragraph">
-<p>For example, the <code>pipeline</code> in Jooby 1.x consists of multiple filters and handlers. They are match
+<p>The <code>pipeline</code> in Jooby 1.x consists of multiple filters and handlers. They are match
 sequentially one by one. The following <code>filter</code> is always executed in Jooby 1.x</p>
 </div>
 <div class="listingblock">
@@ -1416,8 +1651,8 @@ sequentially one by one. The following <code>filter</code> is always executed in
 </div>
 <div class="paragraph">
 <p>Suppose there is bot trying to access and causing lot of <code>404</code> responses (path doesn&#8217;t exist).
-In Jooby 1.x (most of other web frameworks too) executed the <code>filter</code> for every single request sent
-by the bot to realize there is NO matching route and all we need is a <code>404</code>.</p>
+In Jooby 1.x the <code>filter</code> is executed for every single request sent by the bot just to realize
+there is NO matching route and all we need is a <code>404</code>.</p>
 </div>
 <div class="paragraph">
 <p>In Jooby 2.x this won&#8217;t happen anymore. If there is a matching handler, the <code>pipeline</code> will be
@@ -1432,7 +1667,7 @@ executed. Otherwise, nothing will do!</p>
 <div class="paragraph">
 <p>Order follows the <strong>what you see is what you get</strong> approach. Routes are stacked in the way they were added/defined.</p>
 </div>
-<div class="listingblock">
+<div class="listingblock primary">
 <div class="title">Order example:</div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">{
@@ -1451,6 +1686,28 @@ executed. Otherwise, nothing will do!</p>
   });
 
   get("/2", ctx -&gt; 2);               <i class="conum" data-value="2"></i><b>(2)</b>
+}</code></pre>
+</div>
+</div>
+<div class="listingblock secondary">
+<div class="title">Kotlin</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">{
+  // Increment +1
+  decorator {
+    val n = next.apply(ctx) as Int
+    1 + n
+  }
+
+  get("/1") { 1 }                <i class="conum" data-value="1"></i><b>(1)</b>
+
+  // Increment +1
+  decorator {
+    val n = next.apply(ctx) as Int
+    1 + n
+  }
+
+  get("/2") { ctx -&gt; 2 }                <i class="conum" data-value="2"></i><b>(2)</b>
 }</code></pre>
 </div>
 </div>
@@ -1473,9 +1730,13 @@ executed. Otherwise, nothing will do!</p>
 <div class="sect3">
 <h4 id="scoped-decorator"><a class="anchor" href="#scoped-decorator"></a><a class="link" href="#scoped-decorator">3.4.2. Scoped Decorator</a></h4>
 <div class="paragraph">
-<p>A <code>scoped decorator</code> allows us to selectively apply one or more <code>decorators</code> to one or more <code>routes</code>.</p>
+<p>The <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M1/io/jooby/Router.html#route-java.lang.Runnable-">route(Runnable)</a> and <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M1/io/jooby/Router.html#path-java.lang.Runnable-">path(Runnable)</a> operators
+are used to group one or more routes.</p>
 </div>
-<div class="listingblock">
+<div class="paragraph">
+<p>A <code>scoped decorator</code> looks like:</p>
+</div>
+<div class="listingblock primary">
 <div class="title">Scoped decorator:</div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">{
@@ -1499,6 +1760,30 @@ executed. Otherwise, nothing will do!</p>
 }</code></pre>
 </div>
 </div>
+<div class="listingblock secondary">
+<div class="title">Kotlin</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">{
+  // Increment +1
+  decorator {
+    val n = next.apply(ctx) as Int
+    return 1 + n
+  }
+
+  route {                                <i class="conum" data-value="1"></i><b>(1)</b>
+    // Multiply by 2
+    decorator {
+      val n = next.apply(ctx) as Int
+      1 + n
+    }
+
+    get("/4") { ctx -&gt; 4 }               <i class="conum" data-value="2"></i><b>(2)</b>
+  });
+
+  get("/3") { ctx -&gt; 3 }                 <i class="conum" data-value="3"></i><b>(3)</b>
+}</code></pre>
+</div>
+</div>
 <div class="paragraph">
 <p>Output:</p>
 </div>
@@ -1518,44 +1803,52 @@ executed. Otherwise, nothing will do!</p>
 </tr>
 </table>
 </div>
+<div class="paragraph">
+<p>It is a normal <code>decorator</code> inside of one of the group operators.</p>
+</div>
 </div>
 </div>
 <div class="sect2">
 <h3 id="grouping-routes"><a class="anchor" href="#grouping-routes"></a><a class="link" href="#grouping-routes">3.5. Grouping routes</a></h3>
 <div class="paragraph">
-<p>As showed previously, the <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0-Alpha1/io/jooby/Router.html#route-java.lang.Runnable-">route(Runnable)</a> operator push a new route <code>scope</code>
-and allows you to selectively apply one or more route <code>decorators</code>.</p>
+<p>As showed previously, the <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M1/io/jooby/Router.html#route-java.lang.Runnable-">route(Runnable)</a> operator push a new route <code>scope</code>
+and allows you to selectively apply one or more routes.</p>
 </div>
-<div class="listingblock">
-<div class="title">group operator</div>
+<div class="listingblock primary">
+<div class="title">Route operator</div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">{
   route(() -&gt; {
-    decorator(next -&gt; ctx -&gt; next.apply(ctx) + " Stack!"); <i class="conum" data-value="1"></i><b>(1)</b>
 
-    get("/", ctx -&gt; "Hello");                              <i class="conum" data-value="2"></i><b>(2)</b>
+    get("/", ctx -&gt; "Hello");
+
   });
 }</code></pre>
 </div>
 </div>
-<div class="colist arabic">
-<table>
-<tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>The <code>route</code> operator applies the <code>decorator</code> to the <code>handlers</code> defined below it.</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="2"></i><b>2</b></td>
-<td><code>/</code> &#8658; <code>Hello Stack!</code></td>
-</tr>
-</table>
+<div class="listingblock secondary">
+<div class="title">Kotlin</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">{
+  route {
+
+    get("/") { ctx -&gt;
+      "Hello"
+    }
+
+  }
+}</code></pre>
+</div>
 </div>
 <div class="paragraph">
-<p>In similar way the <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0-Alpha1/io/jooby/Router.html#path-java.lang.String,java.lang.Runnable-">path(String,Runnable)</a> operator groups
+<p>Route operator is for grouping one or more routes and apply cross cutting concerns to all them.</p>
+</div>
+<div class="paragraph">
+<p>In similar fashin the <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M1/io/jooby/Router.html#path-java.lang.String,java.lang.Runnable-">path(String,Runnable)</a> operator groups
 one or more routes under a common path pattern.</p>
 </div>
-<div class="listingblock">
-<div class="title">Group one or more route under a common path prefix:</div>
+<div class="listingblock primary">
+<div class="title">Routes with path prefix:</div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">{
    path("/api/user", () -&gt; {    <i class="conum" data-value="1"></i><b>(1)</b>
@@ -1565,6 +1858,23 @@ one or more routes under a common path pattern.</p>
      get("/", ctx -&gt; ...);      <i class="conum" data-value="3"></i><b>(3)</b>
 
      post("/", ctx -&gt; ...);     <i class="conum" data-value="4"></i><b>(4)</b>
+
+     ...
+   });
+}</code></pre>
+</div>
+</div>
+<div class="listingblock secondary">
+<div class="title">Kotlin</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">{
+   path("/api/user") {            <i class="conum" data-value="1"></i><b>(1)</b>
+
+     get("/{id}") { ctx -&gt; ...}   <i class="conum" data-value="2"></i><b>(2)</b>
+
+     get("/") { ctx -&gt; ...}       <i class="conum" data-value="3"></i><b>(3)</b>
+
+     post("/") { ctx -&gt; ...}      <i class="conum" data-value="4"></i><b>(4)</b>
 
      ...
    });
@@ -1595,13 +1905,13 @@ one or more routes under a common path pattern.</p>
 <div class="sect2">
 <h3 id="composing-routes"><a class="anchor" href="#composing-routes"></a><a class="link" href="#composing-routes">3.6. Composing routes</a></h3>
 <div class="paragraph">
-<p>Composition is a technique for building complex application. You can compose one or more
-router/application into a new one. Composition let you build modular applications.</p>
+<p>Composition is a technique for building modular applications. You can compose one or more
+router/application into a new one.</p>
 </div>
 <div class="paragraph">
-<p>Composition is available through the <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0-Alpha1/io/jooby/Router.html#use-io.jooby.Router-">use(Router)</a> operator:</p>
+<p>Composition is available through the <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M1/io/jooby/Router.html#use-io.jooby.Router-">use(Router)</a> operator:</p>
 </div>
-<div class="listingblock">
+<div class="listingblock primary">
 <div class="title">Composing</div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">public class Foo extends Jooby {
@@ -1627,15 +1937,39 @@ public class App extends Jooby {
 }</code></pre>
 </div>
 </div>
+<div class="listingblock secondary">
+<div class="title">Kotlin</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">class Foo: Kooby({
+
+  get("/foo") { ctx -&gt; ctx.pathString() }
+
+})
+
+class Bar: Kooby({
+
+  get("/bar") { ctx -&gt; ctx.pathString() }
+
+})
+
+class Bar: Kooby({
+  use(Foo())                       <i class="conum" data-value="1"></i><b>(1)</b>
+
+  use(Bar())                       <i class="conum" data-value="2"></i><b>(2)</b>
+
+  get("/app") { ctx -&gt; ctx.pathString() } <i class="conum" data-value="3"></i><b>(3)</b>
+})</code></pre>
+</div>
+</div>
 <div class="colist arabic">
 <table>
 <tr>
 <td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>Imports all routes from <code>Foo.java</code>. Output: <code>/foo</code> &#8658; <code>/foo</code></td>
+<td>Imports all routes from <code>Foo</code>. Output: <code>/foo</code> &#8658; <code>/foo</code></td>
 </tr>
 <tr>
 <td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>Imports all routes from <code>Bar.java</code>. Output: <code>/bar</code>  &#8658; <code>/bar</code></td>
+<td>Imports all routes from <code>Bar</code>. Output: <code>/bar</code> &#8658; <code>/bar</code></td>
 </tr>
 <tr>
 <td><i class="conum" data-value="3"></i><b>3</b></td>
@@ -1643,7 +1977,7 @@ public class App extends Jooby {
 </tr>
 </table>
 </div>
-<div class="listingblock">
+<div class="listingblock primary">
 <div class="title">Composing with path prefix</div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">public class Foo extends Jooby {
@@ -1657,6 +1991,22 @@ public class App extends Jooby {
     use("/prefix", new Foo());  <i class="conum" data-value="1"></i><b>(1)</b>
   }
 }</code></pre>
+</div>
+</div>
+<div class="listingblock secondary">
+<div class="title">Kotlin</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">class Foo: Kooby({
+
+  get("/foo") { ctx -&gt; ctx.pathString() }
+
+})
+
+class App: Kooby({
+
+  use("/prefix", Foo())  <i class="conum" data-value="1"></i><b>(1)</b>
+
+})</code></pre>
 </div>
 </div>
 <div class="colist arabic">
@@ -1695,7 +2045,7 @@ using a <code>predicate</code>.</p>
 <div class="paragraph">
 <p>Suppose you own two version of an <code>API</code> and for some time you need to support both: <code>old</code> and <code>new</code> API:</p>
 </div>
-<div class="listingblock">
+<div class="listingblock primary">
 <div class="title">Dynamic Routing</div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">public class V1 extends Jooby {
@@ -1712,11 +2062,35 @@ public class V2 extends Jooby {
 
 public class App extends Jooby {
   {
-    use(ctx -&gt; ctx.header("version").value().equals("v1"), v1); <i class="conum" data-value="1"></i><b>(1)</b>
+    use(ctx -&gt; ctx.header("version").value().equals("v1"), new V1()); <i class="conum" data-value="1"></i><b>(1)</b>
 
-    use(ctx -&gt; ctx.header("version").value().equals("v2"), v2); <i class="conum" data-value="2"></i><b>(2)</b>
+    use(ctx -&gt; ctx.header("version").value().equals("v2"), new V2()); <i class="conum" data-value="2"></i><b>(2)</b>
   }
 }</code></pre>
+</div>
+</div>
+<div class="listingblock secondary">
+<div class="title">Kotlin</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">class V1: Kooby({
+
+  get("/api") { ctx -&gt; "v1" }
+
+})
+
+class V2: Kooby({
+
+  get("/api") { ctx -&gt; "v2" }
+
+})
+
+class App: Kooby({
+
+  use(ctx -&gt; ctx.header("version").value().equals("v1"), V1()); <i class="conum" data-value="1"></i><b>(1)</b>
+
+  use(ctx -&gt; ctx.header("version").value().equals("v2"), V2()); <i class="conum" data-value="2"></i><b>(2)</b>
+
+})</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1744,7 +2118,7 @@ public class App extends Jooby {
 <h2 id="context"><a class="anchor" href="#context"></a><a class="link" href="#context">4. Context</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><a href="https://static.javadoc.io/io.jooby/jooby/2.0.0-Alpha1/io/jooby/Context.html">Context</a> gives you access to <code>HTTP Request/Response</code>.</p>
+<p>A <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M1/io/jooby/Context.html">Context</a> allows you to interact with the HTTP Request and manipulate the HTTP Response</p>
 </div>
 <div class="sect2">
 <h3 id="parameters"><a class="anchor" href="#parameters"></a><a class="link" href="#parameters">4.1. Parameters</a></h3>
@@ -1762,15 +2136,32 @@ unified/type-safe API for accessing and manipulating their values.</p>
 <p>HTTP headers allow the client and the server to pass additional information with the request or the
 response.</p>
 </div>
-<div class="listingblock">
+<div class="listingblock primary">
+<div class="title">Java</div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">{
-  get("/" ctx -&gt; {
-    String token = ctx.header("token").value();            <i class="conum" data-value="1"></i><b>(1)</b>
+  get("/", ctx -&gt; {
+    String token = ctx.header("token").value();      <i class="conum" data-value="1"></i><b>(1)</b>
 
-    Value headers = ctx.headers();                         <i class="conum" data-value="2"></i><b>(2)</b>
+    Value headers = ctx.headers();                   <i class="conum" data-value="2"></i><b>(2)</b>
 
     Map&lt;String, String&gt; headerMap = ctx.headerMap(); <i class="conum" data-value="3"></i><b>(3)</b>
+    ...
+  });
+
+}</code></pre>
+</div>
+</div>
+<div class="listingblock secondary">
+<div class="title">Kotlin</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">{
+  get("/") { ctx -&gt;
+    val token = ctx.header("token").value() <i class="conum" data-value="1"></i><b>(1)</b>
+
+    val headers = ctx.headers()             <i class="conum" data-value="2"></i><b>(2)</b>
+
+    val = ctx.headerMap();                  <i class="conum" data-value="3"></i><b>(3)</b>
     ...
   });
 
@@ -1785,7 +2176,7 @@ response.</p>
 </tr>
 <tr>
 <td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>All headers as <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0-Alpha1/io/jooby/Value.html">Value</a></td>
+<td>All headers as <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M1/io/jooby/Value.html">Value</a></td>
 </tr>
 <tr>
 <td><i class="conum" data-value="3"></i><b>3</b></td>
@@ -1799,7 +2190,7 @@ response.</p>
 <div class="paragraph">
 <p>Path parameter are part of the <code>URI</code>. To define a path variable you need to use the <code>{identifier}</code> notation.</p>
 </div>
-<div class="listingblock">
+<div class="listingblock primary">
 <div class="title">Syntax:</div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">{
@@ -1812,6 +2203,22 @@ response.</p>
   get("/file/*", ctx -&gt; ctx.path("*"))                                        <i class="conum" data-value="4"></i><b>(4)</b>
 
   get("/{id:[0-9]+}", ctx -&gt; ctx.path("id))                                   <i class="conum" data-value="5"></i><b>(5)</b>
+}</code></pre>
+</div>
+</div>
+<div class="listingblock secondary">
+<div class="title">Kotlin</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">{
+  get("/{id}") { ctx -&gt; ctx.path("id").value() }                                 <i class="conum" data-value="1"></i><b>(1)</b>
+
+  get("/@{id}") { ctx -&gt; ctx.path("id").value() }                                <i class="conum" data-value="2"></i><b>(2)</b>
+
+  get("/file/{name}.{ext}") { ctx -&gt; cxt.path("name") + "." + ctx.path("ext") }  <i class="conum" data-value="3"></i><b>(3)</b>
+
+  get("/file/*") { ctx -&gt; ctx.path("*") }                                        <i class="conum" data-value="4"></i><b>(4)</b>
+
+  get("/{id:[0-9]+}") { ctx -&gt; ctx.path("id) }                                   <i class="conum" data-value="5"></i><b>(5)</b>
 }</code></pre>
 </div>
 </div>
@@ -1839,7 +2246,8 @@ response.</p>
 </tr>
 </table>
 </div>
-<div class="listingblock">
+<div class="listingblock primary">
+<div class="title">Java</div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">{
   get("/{name}", ctx -&gt; {
@@ -1850,6 +2258,24 @@ response.</p>
     Map&lt;String, String&gt; pathMap = ctx.pathMap();  <i class="conum" data-value="3"></i><b>(3)</b>
 
     String name = ctx.path("name").value();       <i class="conum" data-value="4"></i><b>(4)</b>
+
+    ...
+  });
+}</code></pre>
+</div>
+</div>
+<div class="listingblock secondary">
+<div class="title">Kotlin</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">{
+  get("/{name}") { ctx -&gt;
+    val pathString = ctx.pathString()     <i class="conum" data-value="1"></i><b>(1)</b>
+
+    val path = ctx.path()                 <i class="conum" data-value="2"></i><b>(2)</b>
+
+    val pathMap = ctx.pathMap()           <i class="conum" data-value="3"></i><b>(3)</b>
+
+    val name = ctx.path("name").value()   <i class="conum" data-value="4"></i><b>(4)</b>
 
     ...
   });
@@ -1877,7 +2303,7 @@ response.</p>
 </tr>
 <tr>
 <td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>Path as <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0-Alpha1/io/jooby/Value.html">Value</a> object:
+<td>Path as <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M1/io/jooby/Value.html">Value</a> object:
 <div class="ulist">
 <ul>
 <li>
@@ -1934,7 +2360,8 @@ response.</p>
 <div class="paragraph">
 <p>Query String is part of the <code>URI</code> that start after the <code>?</code> character.</p>
 </div>
-<div class="listingblock">
+<div class="listingblock primary">
+<div class="title">Java</div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">{
   get("/search", ctx -&gt; {
@@ -1962,6 +2389,28 @@ class SearchQuery {
 }</code></pre>
 </div>
 </div>
+<div class="listingblock secondary">
+<div class="title">Kotlin</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">{
+  get("/search") { ctx -&gt;
+    val queryString = ctx.queryString()         <i class="conum" data-value="1"></i><b>(1)</b>
+
+    val query = ctx.query()                     <i class="conum" data-value="2"></i><b>(2)</b>
+
+    val queryMap = ctx.queryMultimap()          <i class="conum" data-value="3"></i><b>(3)</b>
+
+    val q = ctx.query("q").value()              <i class="conum" data-value="4"></i><b>(4)</b>
+
+    val searchQuery = ctx.query&lt;SearchQuery&gt;()  <i class="conum" data-value="5"></i><b>(5)</b>
+
+    ...
+  });
+}
+
+data class SearchQuery (val q: String)</code></pre>
+</div>
+</div>
 <div class="colist arabic">
 <table>
 <tr>
@@ -1983,7 +2432,7 @@ class SearchQuery {
 </tr>
 <tr>
 <td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>Query String as <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0-Alpha1/io/jooby/QueryString.html">QueryString</a> object:
+<td>Query String as <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M1/io/jooby/QueryString.html">QueryString</a> object:
 <div class="ulist">
 <ul>
 <li>
@@ -2060,7 +2509,8 @@ class SearchQuery {
 <div class="paragraph">
 <p>Data is expected to be encoded as <code>application/x-www-form-urlencoded</code>.</p>
 </div>
-<div class="listingblock">
+<div class="listingblock primary">
+<div class="title">Java</div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">{
   post("/user", ctx -&gt; {
@@ -2091,6 +2541,28 @@ class User {
 }</code></pre>
 </div>
 </div>
+<div class="listingblock secondary">
+<div class="title">Kotlin</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">{
+  post("/user") { ctx -&gt;
+    val form = ctx.form()               <i class="conum" data-value="1"></i><b>(1)</b>
+
+    val formMap = ctx.formMultimap()    <i class="conum" data-value="2"></i><b>(2)</b>
+
+    val userId = ctx.form("id").value() <i class="conum" data-value="3"></i><b>(3)</b>
+
+    val pass = ctx.form("pass").value() <i class="conum" data-value="4"></i><b>(4)</b>
+
+    val user = ctx.form&lt;User&gt;()         <i class="conum" data-value="5"></i><b>(5)</b>
+
+    ...
+  });
+}
+
+data class User (val id: String, val pass: String)</code></pre>
+</div>
+</div>
 <div class="listingblock">
 <div class="content">
 <pre>curl -d "id=root&amp;pass=pwd" -X POST http://localhost:8080/user</pre>
@@ -2100,7 +2572,7 @@ class User {
 <table>
 <tr>
 <td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>Form as <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0-Alpha1/io/jooby/Formdata.html">Formdata</a> &#8658; <code>{id=root, pass=pwd}</code></td>
+<td>Form as <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M1/io/jooby/Formdata.html">Formdata</a> &#8658; <code>{id=root, pass=pwd}</code></td>
 </tr>
 <tr>
 <td><i class="conum" data-value="2"></i><b>2</b></td>
@@ -2126,7 +2598,8 @@ class User {
 <div class="paragraph">
 <p>Form-data must be present in the HTTP body and encoded as <code>multipart/form-data</code>:</p>
 </div>
-<div class="listingblock">
+<div class="listingblock primary">
+<div class="title">Java</div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">{
   post("/user", ctx -&gt; {
@@ -2162,6 +2635,30 @@ class User {
 }</code></pre>
 </div>
 </div>
+<div class="listingblock secondary">
+<div class="title">Kotlin</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">{
+  post("/user") { ctx -&gt;
+    val multipart = ctx.multipart()              <i class="conum" data-value="1"></i><b>(1)</b>
+
+    val multipartMap = ctx.multipartMultimap()   <i class="conum" data-value="2"></i><b>(2)</b>
+
+    val userId = ctx.multipart("id").value()     <i class="conum" data-value="3"></i><b>(3)</b>
+
+    val pass = ctx.multipart("pass").value()     <i class="conum" data-value="4"></i><b>(4)</b>
+
+    val pic = ctx.multipart("pic").fileUpload()  <i class="conum" data-value="5"></i><b>(5)</b>
+
+    val user = ctx.multipart&lt;User&gt;()             <i class="conum" data-value="6"></i><b>(6)</b>
+
+    ...
+  });
+}
+
+data class User (val id: String, val pass: String, val pic: FileUpload)</code></pre>
+</div>
+</div>
 <div class="listingblock">
 <div class="content">
 <pre>curl -F id=root -F pass=root -F pic=@/path/to/local/file/profile.png http://localhost:8080/user</pre>
@@ -2171,7 +2668,7 @@ class User {
 <table>
 <tr>
 <td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>Form as <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0-Alpha1/io/jooby/Multipart.html">Multipart</a> &#8658; <code>{id=root, pass=pwd, pic=profile.png}</code></td>
+<td>Form as <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M1/io/jooby/Multipart.html">Multipart</a> &#8658; <code>{id=root, pass=pwd, pic=profile.png}</code></td>
 </tr>
 <tr>
 <td><i class="conum" data-value="2"></i><b>2</b></td>
@@ -2187,7 +2684,7 @@ class User {
 </tr>
 <tr>
 <td><i class="conum" data-value="5"></i><b>5</b></td>
-<td><a href="https://static.javadoc.io/io.jooby/jooby/2.0.0-Alpha1/io/jooby/FileUpload.html">FileUpload</a> variable <code>pic</code></td>
+<td><a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M1/io/jooby/FileUpload.html">FileUpload</a> variable <code>pic</code></td>
 </tr>
 <tr>
 <td><i class="conum" data-value="6"></i><b>6</b></td>
@@ -2206,13 +2703,24 @@ class User {
 <div class="paragraph">
 <p>You may prefer to use one of the utility methods:</p>
 </div>
-<div class="listingblock">
+<div class="listingblock primary">
+<div class="title">Java</div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">  FileUpload pic = ctx.file("pic");         <i class="conum" data-value="1"></i><b>(1)</b>
 
   List&lt;FileUpload&gt; pic = ctx.files("pic");  <i class="conum" data-value="2"></i><b>(2)</b>
 
   List&lt;FileUpload&gt; files = ctx.files();     <i class="conum" data-value="3"></i><b>(3)</b></code></pre>
+</div>
+</div>
+<div class="listingblock secondary">
+<div class="title">Kotlin</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">  val pic = ctx.file("pic")   <i class="conum" data-value="1"></i><b>(1)</b>
+
+  val pic = ctx.files("pic")  <i class="conum" data-value="2"></i><b>(2)</b>
+
+  val files = ctx.files()     <i class="conum" data-value="3"></i><b>(3)</b></code></pre>
 </div>
 </div>
 <div class="colist arabic">
@@ -2240,7 +2748,7 @@ class User {
 <div class="sect2">
 <h3 id="value-api"><a class="anchor" href="#value-api"></a><a class="link" href="#value-api">4.2. Value API</a></h3>
 <div class="paragraph">
-<p>The <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0-Alpha1/io/jooby/Value.html">Value</a> is an unified and type-safe API across all parameter types:</p>
+<p>The <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M1/io/jooby/Value.html">Value</a> is an unified and type-safe API across all parameter types:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -2262,7 +2770,7 @@ class User {
 </ul>
 </div>
 <div class="paragraph">
-<p>For learning purpose we are going to show all the <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0-Alpha1/io/jooby/Value.html">Value</a> features using query
+<p>For learning purpose we are going to show all the <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M1/io/jooby/Value.html">Value</a> features using query
 parameters, but keep in mind these features apply to all the parameter types.</p>
 </div>
 <div class="sect3">
@@ -2270,7 +2778,8 @@ parameters, but keep in mind these features apply to all the parameter types.</p
 <div class="paragraph">
 <p>Single value is available via <code>value()</code> or <code>[type]Value()</code> functions:</p>
 </div>
-<div class="listingblock">
+<div class="listingblock primary">
+<div class="title">Java</div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">{
   get("/", ctx -&gt; {
@@ -2286,9 +2795,26 @@ parameters, but keep in mind these features apply to all the parameter types.</p
 }</code></pre>
 </div>
 </div>
+<div class="listingblock secondary">
+<div class="title">Kotlin</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">{
+  get("/") { ctx -&gt;
+    val name = ctx.query("name").value()                     <i class="conum" data-value="1"></i><b>(1)</b>
+
+    val score = ctx.query("score").floatValue()              <i class="conum" data-value="2"></i><b>(2)</b>
+
+    val enabled = ctx.query("enabled").booleanValue()        <i class="conum" data-value="3"></i><b>(3)</b>
+
+    val decimal = ctx.query("decimal").value(::BigDecimal)   <i class="conum" data-value="4"></i><b>(4)</b>
+    ...
+  });
+}</code></pre>
+</div>
+</div>
 <div class="paragraph">
-<p>The <code><strong>value()</code> family methods always retrieve a <code>value</code>. If there is no value, a
-<code>BadRequest(400)</code> response is generated. So single value parameters *are required</strong>:</p>
+<p>The <code>value()</code> family methods always retrieve a <code>value</code>. If there is no value, a
+<code>BadRequest(400)</code> response is generated. So single value parameters <strong>are required</strong>:</p>
 </div>
 <div class="colist arabic">
 <table>
@@ -2375,7 +2901,8 @@ parameters, but keep in mind these features apply to all the parameter types.</p
 </li>
 </ul>
 </div>
-<div class="listingblock">
+<div class="listingblock primary">
+<div class="title">Java</div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">{
   get("/search", ctx -&gt; {
@@ -2386,6 +2913,22 @@ parameters, but keep in mind these features apply to all the parameter types.</p
   get("/search", ctx -&gt; {
     Optional&lt;String&gt; q = ctx.query("q").toOptional();   <i class="conum" data-value="2"></i><b>(2)</b>
     return q;
+  });
+}</code></pre>
+</div>
+</div>
+<div class="listingblock secondary">
+<div class="title">Kotlin</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">{
+  get("/search") { ctx -&gt;
+    val q = ctx.query("q").value("*:*")    <i class="conum" data-value="1"></i><b>(1)</b>
+    q
+  });
+
+  get("/search") { ctx -&gt;
+    val q = ctx.query("q").toOptional();   <i class="conum" data-value="2"></i><b>(2)</b>
+    q
   });
 }</code></pre>
 </div>
@@ -2422,15 +2965,6 @@ parameters, but keep in mind these features apply to all the parameter types.</p
 </tr>
 </table>
 </div>
-<div class="paragraph">
-<p>Conversion to other types is also possible:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">  int n = ctx.query("n").intValue(0);
-  Optional&lt;Integer&gt; oInt = ctx.query("n").toOptional(Integer.class);</code></pre>
-</div>
-</div>
 </div>
 <div class="sect3">
 <h4 id="multiple-values"><a class="anchor" href="#multiple-values"></a><a class="link" href="#multiple-values">4.2.3. Multiple values</a></h4>
@@ -2440,14 +2974,15 @@ parameters, but keep in mind these features apply to all the parameter types.</p
 <div class="ulist">
 <ul>
 <li>
-<p><a href="https://static.javadoc.io/io.jooby/jooby/2.0.0-Alpha1/io/jooby/Value.html#toList--">toList()</a>: Returns a <code>java.util.List</code> of values</p>
+<p><a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M1/io/jooby/Value.html#toList--">toList()</a>: Returns a <code>java.util.List</code> of values</p>
 </li>
 <li>
-<p><a href="https://static.javadoc.io/io.jooby/jooby/2.0.0-Alpha1/io/jooby/Value.html#toSet--">toSet()</a>: Returns a <code>java.util.Set</code> of values</p>
+<p><a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M1/io/jooby/Value.html#toSet--">toSet()</a>: Returns a <code>java.util.Set</code> of values</p>
 </li>
 </ul>
 </div>
-<div class="listingblock">
+<div class="listingblock primary">
+<div class="title">Java</div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">{
   get("/", ctx -&gt; {
@@ -2456,6 +2991,22 @@ parameters, but keep in mind these features apply to all the parameter types.</p
     List&lt;Integer&gt; n = ctx.query("n").toList(Integer.class);              <i class="conum" data-value="2"></i><b>(2)</b>
 
     List&lt;BigDecimal&gt; decimals = ctx.query("d").toList(BigDecimal::new);  <i class="conum" data-value="3"></i><b>(3)</b>
+
+    ...
+  });
+}</code></pre>
+</div>
+</div>
+<div class="listingblock secondary">
+<div class="title">Kotlin</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">{
+  get("/") { ctx -&gt;
+    val q = ctx.query("q").toList()                     <i class="conum" data-value="1"></i><b>(1)</b>
+
+    val n = ctx.query("n").toList(Integer.class)        <i class="conum" data-value="2"></i><b>(2)</b>
+
+    val decimals = ctx.query("d").toList(::BigDecimal)  <i class="conum" data-value="3"></i><b>(3)</b>
 
     ...
   });
@@ -2521,14 +3072,14 @@ parameters, but keep in mind these features apply to all the parameter types.</p
 <div class="sect3">
 <h4 id="structured-data"><a class="anchor" href="#structured-data"></a><a class="link" href="#structured-data">4.2.4. Structured data</a></h4>
 <div class="paragraph">
-<p>The <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0-Alpha1/io/jooby/Value.html">Value API</a> provides a way to traverse and parse structured data:</p>
+<p>The <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M1/io/jooby/Value.html">Value API</a> provides a way to traverse and parse structured data:</p>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre>/?user.name=root&amp;user.pass=pass</pre>
 </div>
 </div>
-<div class="listingblock">
+<div class="listingblock primary">
 <div class="title">Traversal</div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">{
@@ -2537,6 +3088,20 @@ parameters, but keep in mind these features apply to all the parameter types.</p
     String name  = user.get("name").value();         <i class="conum" data-value="2"></i><b>(2)</b>
     String pass  = user.get("pass").value();         <i class="conum" data-value="3"></i><b>(3)</b>
     String email = user.get("email").value("none");  <i class="conum" data-value="4"></i><b>(4)</b>
+    ...
+  }}
+}</code></pre>
+</div>
+</div>
+<div class="listingblock secondary">
+<div class="title">Kotlin</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">{
+  get{"/") { ctx -&gt;
+    val user = ctx.query("user")              <i class="conum" data-value="1"></i><b>(1)</b>
+    val name  = user["name"].value()          <i class="conum" data-value="2"></i><b>(2)</b>
+    val pass  = user["pass"].value()          <i class="conum" data-value="3"></i><b>(3)</b>
+    val email = user["email"].value("none")   <i class="conum" data-value="4"></i><b>(4)</b>
     ...
   }}
 }</code></pre>
@@ -2563,7 +3128,7 @@ parameters, but keep in mind these features apply to all the parameter types.</p
 </table>
 </div>
 <div class="paragraph">
-<p>The <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0-Alpha1/io/jooby/Value.html#get-java.lang.String-">get(String)</a> takes a <code>path</code> and returns another value. The returning
+<p>The <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M1/io/jooby/Value.html#get-java.lang.String-">get(String)</a> takes a <code>path</code> and returns another value. The returning
 value may or may not exists.</p>
 </div>
 <div class="sect4">
@@ -2611,8 +3176,8 @@ value may or may not exists.</p>
 <div class="paragraph">
 <p>We are going to use a <code>Group</code> and <code>Member</code> objects to demonstrate how the parser works:</p>
 </div>
-<div class="listingblock">
-<div class="title">Member.java</div>
+<div class="listingblock primary">
+<div class="title">Example</div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">class Member {
   public final String firstname;
@@ -2622,13 +3187,9 @@ value may or may not exists.</p>
     this.firstname = firstname;
     this.lastname = lastname;
   }
-}</code></pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="title">Group.java</div>
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">class Group {
+}
+
+class Group {
   public final String id;
   public final List&lt;Member&gt; members;
 
@@ -2639,13 +3200,22 @@ value may or may not exists.</p>
 }</code></pre>
 </div>
 </div>
+<div class="listingblock secondary">
+<div class="title">Kotlin</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">class Member (val firstname: String, lastName: String)
+
+class Group (val id: String, val members: List&lt;Member&gt;)</code></pre>
+</div>
+</div>
 <div class="listingblock">
 <div class="title">Member parsing example:</div>
 <div class="content">
 <pre>/?firstname=Pedro&amp;lastName=Picapiedra</pre>
 </div>
 </div>
-<div class="listingblock">
+<div class="listingblock primary">
+<div class="title">Java</div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">{
   get("/", ctx -&gt; {
@@ -2655,17 +3225,40 @@ value may or may not exists.</p>
 }</code></pre>
 </div>
 </div>
+<div class="listingblock secondary">
+<div class="title">Kotlin</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">{
+  get("/") { ctx -&gt;
+    val member = ctx.query&lt;Member&gt;()
+    ...
+  }
+}</code></pre>
+</div>
+</div>
 <div class="listingblock">
 <div class="title">Member parsing example from base node:</div>
 <div class="content">
 <pre>/?member.firstname=Pedro&amp;member.lastName=Picapiedra</pre>
 </div>
 </div>
-<div class="listingblock">
+<div class="listingblock primary">
+<div class="title">Java</div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">{
   get("/", ctx -&gt; {
     Member member = ctx.query("member").to(Member.class);
+    ...
+  });
+}</code></pre>
+</div>
+</div>
+<div class="listingblock secondary">
+<div class="title">Kotlin</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">{
+  get("/") { ctx -&gt;
+    val member = ctx.query("member").to&lt;Member&gt;()
     ...
   });
 }</code></pre>
@@ -2680,11 +3273,23 @@ value may or may not exists.</p>
 <pre>/?[0]firstname=Pedro&amp;[0]lastName=Picapiedra&amp;[1]firstname=Pablo&amp;[2]lastname=Marmol</pre>
 </div>
 </div>
-<div class="listingblock">
+<div class="listingblock primary">
+<div class="title">Java</div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">{
   get("/", ctx -&gt; {
     List&lt;Member&gt; members = ctx.query().toList(Member.class);
+    ...
+  });
+}</code></pre>
+</div>
+</div>
+<div class="listingblock secondary">
+<div class="title">Kotlin</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">{
+  get("/") { ctx -&gt;
+    val members = ctx.query&lt;List&lt;Member&gt;&gt;()
     ...
   });
 }</code></pre>
@@ -2696,11 +3301,23 @@ value may or may not exists.</p>
 <pre>/?id=flintstones&amp;members[0]firstname=Pedro&amp;members[0]lastName=Picapiedra</pre>
 </div>
 </div>
-<div class="listingblock">
+<div class="listingblock primary">
+<div class="title">Java</div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">{
   get("/", ctx -&gt; {
     Group group = ctx.query(Group.class);
+    ...
+  });
+}</code></pre>
+</div>
+</div>
+<div class="listingblock secondary">
+<div class="title">Kotlin</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">{
+  get("/") { ctx -&gt;
+    val group = ctx.query&lt;Group&gt;()
     ...
   });
 }</code></pre>
@@ -2739,7 +3356,8 @@ value may or may not exists.</p>
 <div class="paragraph">
 <p>HTTP parameter name which are not a valid Java identifier must be annotated with <a href="https://static.javadoc.io/javax.inject/javax.inject/1/javax/inject/Named.html">Named</a>:</p>
 </div>
-<div class="listingblock">
+<div class="listingblock primary">
+<div class="title">Java</div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">class Member {
   public final String firstname;
@@ -2752,6 +3370,12 @@ value may or may not exists.</p>
 }</code></pre>
 </div>
 </div>
+<div class="listingblock secondary">
+<div class="title">Kotlin</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">class Member (@Named("first-name") val firstname: String, @Named("last-name") val lastName: String)</code></pre>
+</div>
+</div>
 <div class="paragraph">
 <p>&#9825;&#9825;</p>
 </div>
@@ -2761,9 +3385,10 @@ value may or may not exists.</p>
 <div class="sect2">
 <h3 id="request-body"><a class="anchor" href="#request-body"></a><a class="link" href="#request-body">4.3. Request Body</a></h3>
 <div class="paragraph">
-<p>Raw <code>request body</code> is available via <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0-Alpha1/io/jooby/Context.html#body--">body()</a> method:</p>
+<p>Raw <code>request body</code> is available via <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M1/io/jooby/Context.html#body--">body()</a> method:</p>
 </div>
-<div class="listingblock">
+<div class="listingblock primary">
+<div class="title">Java</div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">{
   post("/string", ctx -&gt; {
@@ -2780,6 +3405,27 @@ value may or may not exists.</p>
     InputStream body = ctx.body().stream();  <i class="conum" data-value="3"></i><b>(3)</b>
     ...
   });
+}</code></pre>
+</div>
+</div>
+<div class="listingblock secondary">
+<div class="title">Kotlin</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">{
+  post("/string") { ctx -&gt;
+    val body = ctx.body().value()   <i class="conum" data-value="1"></i><b>(1)</b>
+    ...
+  }
+
+  post("/bytes") ctx -&gt; {
+    val body = ctx.body().bytes()   <i class="conum" data-value="2"></i><b>(2)</b>
+    ...
+  }
+
+  post("/stream") { ctx -&gt;
+    val body = ctx.body().stream()  <i class="conum" data-value="3"></i><b>(3)</b>
+    ...
+  }
 }</code></pre>
 </div>
 </div>
@@ -2805,7 +3451,7 @@ value may or may not exists.</p>
 <div class="sect3">
 <h4 id="parser"><a class="anchor" href="#parser"></a><a class="link" href="#parser">4.3.1. Parser</a></h4>
 <div class="paragraph">
-<p>Request body parsing is achieved using the <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0-Alpha1/io/jooby/Parser.html">Parser</a> functional interface.</p>
+<p>Request body parsing is achieved using the <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M1/io/jooby/Parser.html">Parser</a> functional interface.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -2816,14 +3462,14 @@ value may or may not exists.</p>
 </div>
 </div>
 <div class="paragraph">
-<p><a href="https://static.javadoc.io/io.jooby/jooby/2.0.0-Alpha1/io/jooby/Parser.html">Parser</a> has a single <code>parse</code> method that takes two input arguments: <code>(context, type)</code>
+<p><a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M1/io/jooby/Parser.html">Parser</a> has a single <code>parse</code> method that takes two input arguments: <code>(context, type)</code>
 and returns a single result of the given type.</p>
 </div>
-<div class="listingblock">
+<div class="listingblock primary">
 <div class="title">JSON example:</div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">{
-  FavoriteJson lib = ...;                          <i class="conum" data-value="1"></i><b>(1)</b>
+  FavoriteJson lib = new FavoriteJson();           <i class="conum" data-value="1"></i><b>(1)</b>
 
   parser(MediaType.json, (ctx, type) -&gt; {          <i class="conum" data-value="2"></i><b>(2)</b>
 
@@ -2835,6 +3481,25 @@ and returns a single result of the given type.</p>
   post("/", ctx -&gt; {
     MyObject myObject = ctx.body(MyObject.class);  <i class="conum" data-value="5"></i><b>(5)</b>
   });
+}</code></pre>
+</div>
+</div>
+<div class="listingblock secondary">
+<div class="title">Kotlin</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">{
+  val lib = FavoriteJson()                 <i class="conum" data-value="1"></i><b>(1)</b>
+
+  parser(MediaType.json, { ctx, type -&gt;    <i class="conum" data-value="2"></i><b>(2)</b>
+
+    val body = ctx.body().bytes()          <i class="conum" data-value="3"></i><b>(3)</b>
+
+    lib.fromJson(body, type)               <i class="conum" data-value="4"></i><b>(4)</b>
+  }
+
+  post("/") { ctx -&gt;
+    val myObject = ctx.body&lt;MyObject&gt;()    <i class="conum" data-value="5"></i><b>(5)</b>
+  }
 }</code></pre>
 </div>
 </div>
@@ -2878,14 +3543,14 @@ and returns a single result of the given type.</p>
 <pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
   &lt;artifactId&gt;jooby-jackson&lt;/artifactId&gt;
-  &lt;version&gt;2.0.0-Alpha1&lt;/version&gt;
+  &lt;version&gt;2.0.0.M1&lt;/version&gt;
 &lt;/dependency&gt;</code></pre>
 </div>
 </div>
 <div class="listingblock secondary">
 <div class="title">Gradle</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-javascript hljs" data-lang="javascript">compile: 'io.jooby:jooby-jackson:2.0.0-Alpha1'</code></pre>
+<pre class="highlightjs highlight"><code class="language-javascript hljs" data-lang="javascript">compile: 'io.jooby:jooby-jackson:2.0.0.M1'</code></pre>
 </div>
 </div>
 </td>
@@ -2899,7 +3564,7 @@ and returns a single result of the given type.</p>
 <div class="paragraph">
 <p>Response body is generated from <code>handler</code> function:</p>
 </div>
-<div class="listingblock">
+<div class="listingblock primary">
 <div class="title">Response body</div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">{
@@ -2912,6 +3577,22 @@ and returns a single result of the given type.</p>
 
     return "Response";              <i class="conum" data-value="4"></i><b>(4)</b>
   });
+}</code></pre>
+</div>
+</div>
+<div class="listingblock secondary">
+<div class="title">Kotlin</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">{
+  get("/") { ctx -&gt;
+    ctx.statusCode(200)        <i class="conum" data-value="1"></i><b>(1)</b>
+
+    ctx.type(MediaType.text)   <i class="conum" data-value="2"></i><b>(2)</b>
+
+    ctx.header("Date", Date()) <i class="conum" data-value="3"></i><b>(3)</b>
+
+    "Response"                 <i class="conum" data-value="4"></i><b>(4)</b>
+  }
 }</code></pre>
 </div>
 </div>
@@ -2938,7 +3619,7 @@ and returns a single result of the given type.</p>
 <div class="sect3">
 <h4 id="renderer"><a class="anchor" href="#renderer"></a><a class="link" href="#renderer">4.4.1. Renderer</a></h4>
 <div class="paragraph">
-<p>Response rendering is achieved using the <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0-Alpha1/io/jooby/Renderer.html">Renderer</a> functional interface.</p>
+<p>Response rendering is achieved using the <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M1/io/jooby/Renderer.html">Renderer</a> functional interface.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -2952,11 +3633,11 @@ and returns a single result of the given type.</p>
 <p>Renderer has a single <code>render</code> method that accepts two input arguments: <code>(context, result)</code> and
 produces a result.</p>
 </div>
-<div class="listingblock">
+<div class="listingblock primary">
 <div class="title">JSON example:</div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">{
-  FavoriteJson lib = ...;                          <i class="conum" data-value="1"></i><b>(1)</b>
+  FavoriteJson lib = new FavoriteJson();           <i class="conum" data-value="1"></i><b>(1)</b>
 
   renderer(MediaType.json, (ctx, result) -&gt; {      <i class="conum" data-value="2"></i><b>(2)</b>
 
@@ -2971,6 +3652,28 @@ produces a result.</p>
     MyObject myObject = ...;
     return myObject;                               <i class="conum" data-value="6"></i><b>(6)</b>
   });
+}</code></pre>
+</div>
+</div>
+<div class="listingblock secondary">
+<div class="title">Kotlin</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">{
+  val lib = FavoriteJson()                         <i class="conum" data-value="1"></i><b>(1)</b>
+
+  renderer(MediaType.json, { ctx, result -&gt;        <i class="conum" data-value="2"></i><b>(2)</b>
+
+    val json = lib.toJson(result)                  <i class="conum" data-value="3"></i><b>(3)</b>
+
+    ctx.defaultResponseType(MediaType.json)        <i class="conum" data-value="4"></i><b>(4)</b>
+
+    json                                           <i class="conum" data-value="5"></i><b>(5)</b>
+  }
+
+  get("/item") { ctx -&gt;
+    val myObject = ...;
+    myObject                                       <i class="conum" data-value="6"></i><b>(6)</b>
+  }
 }</code></pre>
 </div>
 </div>
@@ -3018,29 +3721,1284 @@ produces a result.</p>
 <pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
   &lt;artifactId&gt;jooby-jackson&lt;/artifactId&gt;
-  &lt;version&gt;2.0.0-Alpha1&lt;/version&gt;
+  &lt;version&gt;2.0.0.M1&lt;/version&gt;
 &lt;/dependency&gt;</code></pre>
 </div>
 </div>
 <div class="listingblock secondary">
 <div class="title">Gradle</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-javascript hljs" data-lang="javascript">compile: 'io.jooby:jooby-jackson:2.0.0-Alpha1'</code></pre>
+<pre class="highlightjs highlight"><code class="language-javascript hljs" data-lang="javascript">compile: 'io.jooby:jooby-jackson:2.0.0.M1'</code></pre>
 </div>
 </div>
 </td>
 </tr>
 </table>
 </div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="execution-model"><a class="anchor" href="#execution-model"></a><a class="link" href="#execution-model">5. Execution Model</a></h2>
+<div class="sectionbody">
 <div class="paragraph">
-<p>Unresolved directive in index.adoc - include::thread-model.adoc[]</p>
+<p>Jooby is a flexible performant microframework providing both blocking and non-blocking APIs for
+building web applications in Java and Kotlin.</p>
+</div>
+<div class="paragraph">
+<p>In this chapter we are going to learn about Jooby execution model, more specifically:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Execute code on the <strong>event loop</strong></p>
+</li>
+<li>
+<p>Safely execution of blocking code</p>
+</li>
+<li>
+<p>Working with non-blocking types, like: <code>CompletableFuture</code>, Reactive Streams, Kotlin Coroutines, etc.</p>
+</li>
+</ul>
+</div>
+<div class="sect2">
+<h3 id="mode"><a class="anchor" href="#mode"></a><a class="link" href="#mode">5.1. Mode</a></h3>
+<div class="sect3">
+<h4 id="event-loop"><a class="anchor" href="#event-loop"></a><a class="link" href="#event-loop">5.1.1. Event Loop</a></h4>
+<div class="paragraph">
+<p>The <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M1/io/jooby/ExecutionMode.html#EVENT_LOOP">EVENT_LOOP</a> mode allows us to run a route handler from the
+<strong>event loop</strong> (a.k.a as non-blocking mode).</p>
+</div>
+<div class="listingblock primary">
+<div class="title">Java</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">{
+  mode(EVENT_LOOP);
+
+  get("/", ctx -&gt; {
+    return "I'm non-blocking!"
+  });
+}</code></pre>
+</div>
+</div>
+<div class="listingblock secondary">
+<div class="title">Kotlin</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">{
+  mode(EVENT_LOOP)
+
+  get("/") { ctx -&gt;
+    "I'm non-blocking!"
+  }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M1/io/jooby/ExecutionMode.html#EVENT_LOOP">EVENT_LOOP</a> mode is the more advanced execution mode and requires you carefully
+design and implement your application due to that <strong>BLOCKING IS NOT ALLOWED</strong></p>
+</div>
+<div class="paragraph">
+<p>What if you need to block?</p>
+</div>
+<div class="paragraph">
+<p>The <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M1/io/jooby/Router.html#dispatch-java.lang.Runnable-">dispatch(Runnable)</a> operator moves execution to a <strong>worker executor</strong> which
+allows to do <strong>blocking calls</strong>:</p>
+</div>
+<div class="listingblock primary">
+<div class="title">Java</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">{
+  mode(EVENT_LOOP);
+
+  get("/", ctx -&gt; {
+    return "I'm non-blocking!";
+  });
+
+  dispatch(() -&gt; {
+    // All the routes defined here are allowed to block:
+
+    get("/db-list", ctx -&gt; {
+      /** Safe to block! */
+      Object result = ...; // Remote service, db call, etc..
+      return result;
+    });
+
+  });
+}</code></pre>
+</div>
+</div>
+<div class="listingblock secondary">
+<div class="title">Koltin</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">{
+  mode(EVENT_LOOP)
+
+  get("/") { ctx -&gt;
+    "I'm non-blocking!"
+  }
+
+  dispatch {
+    // All the routes defined here are allowed to block:
+
+    get("/db-list") { ctx -&gt;
+      /** Safe to block! */
+      val result = ...; // Remote service, db call, etc..
+      result
+    }
+
+  }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>By default, the <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M1/io/jooby/Router.html#dispatch-java.lang.Runnable-">dispatch(Runnable)</a> operator moves execution to the <strong>server
+worker executor</strong> (executor provided by web server).</p>
+</div>
+<div class="paragraph">
+<p>You can provide your own <strong>worker executor</strong> at application level or at dispatch level:</p>
+</div>
+<div class="listingblock primary">
+<div class="title">Java</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">{
+  mode(EVENT_LOOP);
+
+  // Application level executor
+  worker(Executors.newCachedThreadPool());
+
+  // Dispatch to application level executor which is cached thread pool
+  dispatch(() -&gt; {
+    ...
+  });
+
+  // Dispatch to a explicit executor
+  Executor cpuIntensive = Executors.newSingleThreadExecutor();
+  dispatch(cpuIntesive, () -&gt; {
+    ...
+  });
+}</code></pre>
+</div>
+</div>
+<div class="listingblock secondary">
+<div class="title">Kotlin</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">{
+  mode(EVENT_LOOP)
+
+  // Application level executor
+  worker(Executors.newCachedThreadPool())
+
+  // Dispatch to application level executor which is cached thread pool
+  dispatch {
+    ...
+  }
+
+  // Dispatch to a explicit executor
+  Executor cpuIntensive = Executors.newSingleThreadExecutor()
+  dispatch(cpuIntesive) {
+    ...
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="worker"><a class="anchor" href="#worker"></a><a class="link" href="#worker">5.1.2. Worker</a></h4>
+<div class="paragraph">
+<p>The <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M1/io/jooby/ExecutionMode.html#WORKER">WORKER</a> mode allows us to do blocking calls from a route handler (a.k.a blocking mode).
+You just write code without worrying about blocking calls.</p>
+</div>
+<div class="listingblock primary">
+<div class="title">Java</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">{
+  mode(WORKER);
+
+  get("/", ctx -&gt; {
+    /** Safe to block! */
+    Object result = // Remote service, db call, etc..
+    return result;
+  });
+}</code></pre>
+</div>
+</div>
+<div class="listingblock secondary">
+<div class="title">Kotlin</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">{
+  mode(WORKER)
+
+  get("/") { ctx -&gt;
+    /** Safe to block! */
+    val result = ...;// Remote service, db call, etc..
+    result
+  }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Like with <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M1/io/jooby/ExecutionMode.html#EVENT_LOOP">EVENT_LOOP</a> mode, you can provide your own worker executor:</p>
+</div>
+<div class="listingblock primary">
+<div class="title">Java</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">{
+  mode(WORKER);
+
+  worker(Executors.newCachedThreadPool());
+
+  get("/", ctx -&gt; {
+    /** Safe to block from cached thread pool! */
+    Object result = // Remote service, db call, etc..
+    return result;
+  });
+}</code></pre>
+</div>
+</div>
+<div class="listingblock secondary">
+<div class="title">Kotlin</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">{
+  mode(WORKER)
+
+  worker(Executors.newCachedThreadPool())
+
+  get("/") { ctx -&gt;
+    /** Safe to block from cached thread pool! */
+    val result = ...;// Remote service, db call, etc..
+    result
+  }
+}</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>While running in <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M1/io/jooby/ExecutionMode.html#WORKER">WORKER</a> mode, Jooby internally does the dispatch call to the
+worker executor. This is done per route, not globally.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="default"><a class="anchor" href="#default"></a><a class="link" href="#default">5.1.3. Default</a></h4>
+<div class="paragraph">
+<p>The <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M1/io/jooby/ExecutionMode.html#DEFAULT">DEFAULT</a> execution mode is a mix between <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M1/io/jooby/ExecutionMode.html#WORKER">WORKER</a>
+and <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M1/io/jooby/ExecutionMode.html#EVENT_LOOP">EVENT_LOOP</a> modes. This (as name implies) is the default execution mode in Jooby.</p>
+</div>
+<div class="paragraph">
+<p>Jooby detects the route response type and determines which execution mode fits better.</p>
+</div>
+<div class="paragraph">
+<p>If the response type is considered non-blocking, then it uses the <strong>event loop</strong>. Otherwise, it uses
+the <strong>worker executor</strong>.</p>
+</div>
+<div class="paragraph">
+<p>A response type is considered <strong>non-blocking</strong> when route handler produces:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>A <code>CompletableFuture</code> type</p>
+</li>
+<li>
+<p>A <a href="https://github.com/ReactiveX/RxJava">RxJava type</a></p>
+</li>
+<li>
+<p>A <a href="https://projectreactor.io/">Reactor type</a></p>
+</li>
+<li>
+<p>A <a href="https://kotlinlang.org/docs/reference/coroutines/coroutines-guide.html">Kotlin coroutine</a></p>
+</li>
+</ul>
+</div>
+<div class="listingblock primary">
+<div class="title">Java</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">{
+  get("/non-blocking", ctx -&gt; {
+    return CompletableFuture
+        .supplyAsync(() -&gt; "I'm non-blocking!")  <i class="conum" data-value="1"></i><b>(1)</b>
+  });
+
+  get("/blocking", ctx -&gt; {
+    return "I'm blocking";                       <i class="conum" data-value="2"></i><b>(2)</b>
+  });
+}</code></pre>
+</div>
+</div>
+<div class="listingblock secondary">
+<div class="title">Kotlin</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">{
+  get("/non-blocking") { ctx -&gt;
+    CompletableFuture
+        .supplyAsync { "I'm non-blocking!" }  <i class="conum" data-value="1"></i><b>(1)</b>
+  }
+
+  get("/blocking") { ctx -&gt;
+    "I'm blocking"                            <i class="conum" data-value="2"></i><b>(2)</b>
+  }
+}</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td><code>CompletableFuture</code> is a non-blocking type, run in <strong>event loop</strong></td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td><code>String</code> is a blocking type, run in <strong>worker executor</strong></td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>You are free to use <strong>non-blocking</strong> types in all the other execution mode too. Non-blocking response
+types are not specific to the <strong>default mode</strong> execution. All the <strong>default mode</strong> does with them is
+to dispatch or not to a <strong>worker executor</strong>.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="worker-executor"><a class="anchor" href="#worker-executor"></a><a class="link" href="#worker-executor">5.2. Worker Executor</a></h3>
+<div class="paragraph">
+<p>This section described some details about the default <strong>worker executor</strong> provided by web server. The
+worker executor is used when:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Application mode was set to <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M1/io/jooby/ExecutionMode.html#WORKER">WORKER</a></p>
+</li>
+<li>
+<p>Application mode was set to <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M1/io/jooby/ExecutionMode.html#EVENT_LOOP">EVENT_LOOP</a> and there is a <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M1/io/jooby/Router.html#dispatch-java.lang.Runnable-">dispatch(Runnable)</a> call</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Each web server provides a default <strong>worker executor</strong>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Netty: The <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M1/io/jooby/netty/Netty.html">Netty server</a> implementation multiply the number of available processors
+(with a minimum of 2) by 8.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>workerThreads = Math.max(Runtime.getRuntime().availableProcessors(), 2) * 8</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>For example <code>8</code> cores gives us <code>64</code> worker threads.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Undertow: The <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M1/io/jooby/utow/Utow.html">Undertow server</a> implementation multiply the number of available processors
+(with a minimum of 2) by 8.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>workerThreads = Math.max(Runtime.getRuntime().availableProcessors(), 2) * 8</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>For example <code>8</code> cores gives us <code>64</code> worker threads.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Jetty: The <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M1/io/jooby/jetty/Jetty.html">Jetty server</a> implementation uses the default configuration
+with <code>200</code> worker threads.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>These are sensible defaults suggested by the server implementation. If you need to increase/decrease
+worker threads:</p>
+</div>
+<div class="listingblock primary">
+<div class="title">Java</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">{
+  configureServer(server -&gt; {
+    server.workerThreads(Number);
+  });
+}</code></pre>
+</div>
+</div>
+<div class="listingblock secondary">
+<div class="title">Kotlin</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">{
+  configureServer { server -&gt;
+    server.workerThreads(Number)
+  }
+}</code></pre>
 </div>
 </div>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="mvc-api"><a class="anchor" href="#mvc-api"></a><a class="link" href="#mvc-api">5. MVC API</a></h2>
+<h2 id="responses"><a class="anchor" href="#responses"></a><a class="link" href="#responses">6. Responses</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This chapter covers some special response types, like <code>raw responses</code>, <code>streaming</code>, <code>file download</code>, <code>non-blocking</code>, etc&#8230;&#8203;</p>
+</div>
+<div class="sect2">
+<h3 id="raw"><a class="anchor" href="#raw"></a><a class="link" href="#raw">6.1. Raw</a></h3>
+<div class="paragraph">
+<p>Raw responses are NOT processed by a <a href="#renderer">Renderer</a>. These response types are considered <code>raw</code>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>String/CharSequence</p>
+</li>
+<li>
+<p>byte[]</p>
+</li>
+<li>
+<p>java.nio.ByteBuffer/io.netty.buffer.ByteBuf</p>
+</li>
+<li>
+<p>java.io.File/java.io.InputStream/java.nio.file.Path/java.nio.channels.FileChannel</p>
+</li>
+</ul>
+</div>
+<div class="listingblock primary">
+<div class="title">Generate a JSON String from handler</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">{
+  get("/json", ctx -&gt; {
+    ctx.setContentType(MediaType.json);
+    return "{\"message\": \"Hello Raw Response\"}";
+  });
+}</code></pre>
+</div>
+</div>
+<div class="listingblock secondary">
+<div class="title">Kotlin</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">{
+  get("/json") { ctx -&gt;
+    ctx.contentType = MediaType.json
+    """
+      "message": "Hello Raw Response"
+    """
+  }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>No matter if there is a JSON renderer installed, a raw response is always send directly to client.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="streaming-chunked"><a class="anchor" href="#streaming-chunked"></a><a class="link" href="#streaming-chunked">6.2. Streaming / Chunked</a></h3>
+<div class="paragraph">
+<p>Streaming/chunked API is available via:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M1/io/jooby/Context.html#responseStream--">responseStream()</a>: blocking API that provides an <code>OutputStream</code></p>
+</li>
+<li>
+<p><a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M1/io/jooby/Context.html#responseWriter--">responseWriter()</a>: blocking API that provides a <code>PrintWriter</code></p>
+</li>
+<li>
+<p><a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M1/io/jooby/Context.html#responseSender--">responseSender()</a>: non-blocking API that provides a <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M1/io/jooby/Sender.html">Sender</a></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Only one of these methods must be call it per request. At the time you call one of these methods Jooby
+automatically adds the <code>Transfer-Encoding: chunked</code> header when <code>Content-Length</code> is missing.</p>
+</div>
+<div class="paragraph">
+<p>All the three APIs have a <code>close</code> method. You must call it once you finish.</p>
+</div>
+<div class="listingblock primary">
+<div class="title">Writer example</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">{
+  get("/chunk", ctx -&gt; {
+    try(Writer writer = ctx.responseWriter()) { <i class="conum" data-value="1"></i><b>(1)</b>
+      writer.write("chunk1");                   <i class="conum" data-value="2"></i><b>(2)</b>
+      ...
+      writer.write("chunkN");
+    }
+
+    return ctx;                                 <i class="conum" data-value="3"></i><b>(3)</b>
+  });
+}</code></pre>
+</div>
+</div>
+<div class="listingblock secondary">
+<div class="title">Kotlin</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">{
+  get("/chunk") { ctx -&gt;
+    ctx.responseWriter().use {                  <i class="conum" data-value="1"></i><b>(1)</b>
+      writer.write("chunk1")                    <i class="conum" data-value="2"></i><b>(2)</b>
+      ...
+      writer.write("chunkN")
+    }
+    ctx                                         <i class="conum" data-value="3"></i><b>(3)</b>
+  }
+}</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Get the <code>Writer</code> inside a try-with-resources statement, so close it automatically.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Write chunks</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Return the <code>Context</code></td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>There is an overloaded version (for Java mainly) that let you skip the try-with-resources and
+automatically close the writer/stream:</p>
+</div>
+<div class="listingblock primary">
+<div class="title">Writer example</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">{
+  get("/chunk", ctx -&gt; {
+    return ctx.responseWriter(writer -&gt; { <i class="conum" data-value="1"></i><b>(1)</b>
+      writer.write("chunk1");             <i class="conum" data-value="2"></i><b>(2)</b>
+      ...
+      writer.write("chunkN");
+    });
+  });
+}</code></pre>
+</div>
+</div>
+<div class="listingblock secondary">
+<div class="title">Kotlin</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">{
+  get("/chunk") { ctx -&gt;
+    ctx.responseWriter {                  <i class="conum" data-value="1"></i><b>(1)</b>
+      writer.write("chunk1")              <i class="conum" data-value="2"></i><b>(2)</b>
+      ...
+      writer.write("chunkN")
+    }
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="file-download"><a class="anchor" href="#file-download"></a><a class="link" href="#file-download">6.3. File download</a></h3>
+<div class="paragraph">
+<p>The <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M1/io/jooby/AttachedFile.html">AttachedFile</a> is used to generate file downloads, i.e. responses with
+<code>Content-Disposition</code> header.</p>
+</div>
+<div class="listingblock primary">
+<div class="title">File download example</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">{
+  get("/download-file", ctx -&gt; {
+    Path source = Paths.get("logo.png");
+    return new AttachedFile(source);               <i class="conum" data-value="1"></i><b>(1)</b>
+  });
+
+  get("/download-stream", ctx -&gt; {
+    InputStream source = ...;
+    return new AttachedFile("myfile.txt", source); <i class="conum" data-value="2"></i><b>(2)</b>
+  });
+}</code></pre>
+</div>
+</div>
+<div class="listingblock secondary">
+<div class="title">Kotlin</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">{
+  get("/download-file") { ctx -&gt;
+    val source = Paths.get("logo.png")
+    AttachedFile(source)                <i class="conum" data-value="1"></i><b>(1)</b>
+  }
+
+  get("/download-stream") { ctx -&gt;
+    val source = ...
+    AttachedFile("myfile.txt", source)  <i class="conum" data-value="2"></i><b>(2)</b>
+  }
+}</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Send a download from an <code>InputStream</code></td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Send a download from a <code>File</code></td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="nonblocking"><a class="anchor" href="#nonblocking"></a><a class="link" href="#nonblocking">6.4. NonBlocking</a></h3>
+<div class="paragraph">
+<p>Non-blocking responses are a new feature of Jooby 2.x.</p>
+</div>
+<div class="paragraph">
+<p>From user point of view there is nothing special about them, you just write your route handler as
+usually due with blocking types.</p>
+</div>
+<div class="paragraph">
+<p>In Jooby 1.x we are force to produces directly/indirectly a <code>Deferred</code> result. All that is gone now,
+we don&#8217;t need a custom type to do the integration.</p>
+</div>
+<div class="paragraph">
+<p>Before we jump to each of the supported types, we need to learn what occurs in the pipeline when
+there is a non-blocking route handler.</p>
+</div>
+<div class="listingblock primary">
+<div class="title">In event loop</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">{
+  mode(EVENT_LOOP);                 <i class="conum" data-value="1"></i><b>(1)</b>
+
+  get("/non-blocking", ctx -&gt; {
+
+    ...                             <i class="conum" data-value="2"></i><b>(2)</b>
+
+    return CompletableFuture        <i class="conum" data-value="3"></i><b>(3)</b>
+        .supplyAsync(() -&gt; {
+          ...                       <i class="conum" data-value="4"></i><b>(4)</b>
+        });
+  })
+}</code></pre>
+</div>
+</div>
+<div class="listingblock secondary">
+<div class="title">Kotlin</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">{
+  mode(EVENT_LOOP)                  <i class="conum" data-value="1"></i><b>(1)</b>
+
+  get("/non-blocking") {
+
+    ...                             <i class="conum" data-value="2"></i><b>(2)</b>
+
+    CompletableFuture               <i class="conum" data-value="3"></i><b>(3)</b>
+        .supplyAsync {
+          ...                       <i class="conum" data-value="4"></i><b>(4)</b>
+        }
+  }
+}</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>App run in <strong>event loop</strong></td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Route block run in <strong>event loop</strong>. No blocking code is permitted</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Value is provided from <strong>event loop</strong>. No blocking code is permitted</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>Value is computed/produces from completable future context</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Running your <code>App</code> in <strong>worker</strong> mode works identically, except for we are able to do blocking calls:</p>
+</div>
+<div class="listingblock primary">
+<div class="title">In worker mode</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">{
+  mode(WORKER);                     <i class="conum" data-value="1"></i><b>(1)</b>
+
+  get("/blocking", ctx -&gt; {
+
+    ...                             <i class="conum" data-value="2"></i><b>(2)</b>
+
+    return CompletableFuture        <i class="conum" data-value="3"></i><b>(3)</b>
+        .supplyAsync(() -&gt; {
+          ...                       <i class="conum" data-value="4"></i><b>(4)</b>
+        });
+  })
+}</code></pre>
+</div>
+</div>
+<div class="listingblock secondary">
+<div class="title">Kotlin</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">{
+  mode(WORKER)                      <i class="conum" data-value="1"></i><b>(1)</b>
+
+  get("/blocking") {
+
+    ...                             <i class="conum" data-value="2"></i><b>(2)</b>
+
+    CompletableFuture               <i class="conum" data-value="3"></i><b>(3)</b>
+        .supplyAsync {
+          ...                       <i class="conum" data-value="4"></i><b>(4)</b>
+        }
+  }
+}</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>App run in <strong>worker mode</strong></td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Route block run in <strong>worker mode</strong>. Blocking code is permitted</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Value is provided from <strong>worker mode</strong>. Blocking code is permitted</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>Value is computed/produces from completable future context</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Running your <code>App</code> in <strong>default</strong> mode works identically to running in the <strong>event loop</strong> mode:</p>
+</div>
+<div class="listingblock primary">
+<div class="title">In default mode</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">{
+  mode(DEFAULT);                    <i class="conum" data-value="1"></i><b>(1)</b>
+
+  get("/non-blocking", ctx -&gt; {
+
+    ...                             <i class="conum" data-value="2"></i><b>(2)</b>
+
+    return CompletableFuture        <i class="conum" data-value="3"></i><b>(3)</b>
+        .supplyAsync(() -&gt; {
+          ...                       <i class="conum" data-value="4"></i><b>(4)</b>
+        });
+  })
+}</code></pre>
+</div>
+</div>
+<div class="listingblock secondary">
+<div class="title">Kotlin</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">{
+  mode(DEFAULT)                     <i class="conum" data-value="1"></i><b>(1)</b>
+
+  get("/non-blocking") {
+
+    ...                             <i class="conum" data-value="2"></i><b>(2)</b>
+
+    CompletableFuture               <i class="conum" data-value="3"></i><b>(3)</b>
+        .supplyAsync {
+          ...                       <i class="conum" data-value="4"></i><b>(4)</b>
+        }
+  }
+}</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>App run in <strong>event loop</strong></td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Route block run in <strong>event loop</strong>. No blocking code is permitted</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Value is provided from <strong>event loop</strong>. No blocking code is permitted</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>Value is computed/produces from completable future context</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The <strong>default</strong> mode mimics the <strong>event loop</strong> mode execution when route produces a <strong>non-blocking</strong> type.</p>
+</div>
+<div class="sect3">
+<h4 id="limitations"><a class="anchor" href="#limitations"></a><a class="link" href="#limitations">6.4.1. Limitations</a></h4>
+<div class="paragraph">
+<p>While writing non-blocking/reactive responses we should <strong>avoid the use of Jooby filters</strong>: <a href="#decorator">decorator</a>, <a href="#before">before</a> and <a href="#after">after</a>.</p>
+</div>
+<div class="paragraph">
+<p>In most use cases they won&#8217;t work, so it is preferred to avoid them while programming
+non-blocking/reactive responses.</p>
+</div>
+<div class="paragraph">
+<p>On non-blocking/reactive responses there is always a "dispatch call". This call moves execution to
+somewhere else (usually a different thread). Because of this is almost impossible to ensure the
+execution of pipeline.</p>
+</div>
+<div class="quoteblock">
+<blockquote>
+If you have a non-blocking route handler, it is better to not have any type of filter in the pipeline
+</blockquote>
+</div>
+<div class="paragraph">
+<p>The alternative options is to write cross-cutting concerns we usually put inside a filter using the
+non-blocking API.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="completablefuture"><a class="anchor" href="#completablefuture"></a><a class="link" href="#completablefuture">6.4.2. CompletableFuture</a></h4>
+<div class="paragraph">
+<p>CompletableFuture is considered a non-blocking type which is able to produces a single result:</p>
+</div>
+<div class="listingblock primary">
+<div class="title">Java</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">{
+  get("/non-blocking", ctx -&gt; {
+    return CompletableFuture
+        .supplyAsync(() -&gt; "Completable Future!")
+        .thenApply(it -&gt; "Hello " + it);
+  })
+}</code></pre>
+</div>
+</div>
+<div class="listingblock secondary">
+<div class="title">Kotlin</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">{
+  get("/non-blocking") {
+    CompletableFuture
+        .supplyAsync { "Completable Future!" }
+        .thenApply { "Hello $it" }
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="rxjava"><a class="anchor" href="#rxjava"></a><a class="link" href="#rxjava">6.4.3. RxJava</a></h4>
+<div class="paragraph">
+<p>Jooby produces different responses based on the reactive type: <code>Single</code> vs <code>Flowable</code></p>
+</div>
+<div class="sect4">
+<h5 id="single"><a class="anchor" href="#single"></a><a class="link" href="#single">Single</a></h5>
+<div class="listingblock primary">
+<div class="title">Java</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">{
+  get("/non-blocking", ctx -&gt; {
+    return Single
+        .fromCallable(() -&gt; "Single")
+        .map(it -&gt; "Hello " + it);
+  })
+}</code></pre>
+</div>
+</div>
+<div class="listingblock secondary">
+<div class="title">Kotlin</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">{
+  get("/non-blocking") {
+    Single
+        .fromCallable { "Single" }
+        .map { "Hello $it" }
+  }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Jooby is able to set the <code>Content-Length</code> header when using <strong>Single</strong> responses.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="flowable"><a class="anchor" href="#flowable"></a><a class="link" href="#flowable">Flowable</a></h5>
+<div class="listingblock primary">
+<div class="title">Java</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">{
+  get("/non-blocking", ctx -&gt; {
+    return Flowable.range(1, 10)
+        .map(it -&gt; it + ", ");
+  })
+}</code></pre>
+</div>
+</div>
+<div class="listingblock secondary">
+<div class="title">Kotlin</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">{
+  get("/non-blocking") {
+    Flowable.range(1, 10)
+        .map{ "$it, " }
+  }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Flowable responses are handled bit different because is impossible to know how many item are going
+to be generated.</p>
+</div>
+<div class="paragraph">
+<p>Jooby builds a <code>chunked</code> response. That:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Set the <code>Transfer-Encoding: chunked</code> header</p>
+</li>
+<li>
+<p>Each item means new <code>chunk</code> send it to client</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="reactor"><a class="anchor" href="#reactor"></a><a class="link" href="#reactor">6.4.4. Reactor</a></h4>
+<div class="paragraph">
+<p>It works like <a href="#rxjava">RxJava</a> using reactor types <code>Mono</code> and <code>Flux</code>.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="kotlin-coroutines"><a class="anchor" href="#kotlin-coroutines"></a><a class="link" href="#kotlin-coroutines">6.4.5. Kotlin Coroutines</a></h4>
+<div class="paragraph">
+<p>Probably one of most exciting new features of Jooby 2.x is the builtin integration with <a href="https://kotlinlang.org/docs/reference/coroutines/coroutines-guide.html">Kotlin Coroutines</a>:</p>
+</div>
+<div class="listingblock primary">
+<div class="title">Coroutine handler:</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">{
+  get("/") {         <i class="conum" data-value="1"></i><b>(1)</b>
+    ctx.pathString()
+  }
+}</code></pre>
+</div>
+</div>
+<div class="listingblock secondary">
+<div class="title">Normal handler:</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">{
+  get("/") { ctx -&gt;  <i class="conum" data-value="2"></i><b>(2)</b>
+    ctx.pathString()
+  }
+}</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Coroutine handler uses a implicit <code>Context</code> parameter: <code>ctx</code></td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Normal handler has an explicit 'Context' parameter</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Also, if you try to call a suspending function from normal handler, Kotlin complains about:</p>
+</div>
+<div class="listingblock">
+<div class="title">Not allowed it:</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">{
+  get("/") { ctx -&gt;
+    delay(100)      <i class="conum" data-value="1"></i><b>(1)</b>
+    "..."
+  }
+}</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Suspend function 'delay' should be called only from a coroutine or another suspend function</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Now, if we remove the explicit parameter we have our first coroutine handler:</p>
+</div>
+<div class="listingblock">
+<div class="title">Hello Coroutines</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">{
+  get("/") {
+    delay(100)           <i class="conum" data-value="1"></i><b>(1)</b>
+    "Hello Coroutines!"  <i class="conum" data-value="2"></i><b>(2)</b>
+  }
+}</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Call a suspending function</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Send response to client</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="title">Normal vs Coroutine handler</div>
+<div class="paragraph">
+<p>The difference between them is really small, just the presences/abscense of the <code>Context</code> parameter.
+We realize this might be confusion at first, but the reason why was done like this was to keep
+<strong>DSL simple and natural</strong>.</p>
+</div>
+<div class="paragraph">
+<p>For example we don&#8217;t need an extra keyword or route names to write a
+coroutine handler.</p>
+</div>
+<div class="paragraph">
+<p>The existing <code>get</code>, <code>post</code>, &#8230;&#8203;, etc. DSL methods just works.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="listingblock">
+<div class="title">Here is another example with an extension and suspending function:</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">{
+  get("/") {
+    ctx.doSomething()         <i class="conum" data-value="1"></i><b>(1)</b>
+  }
+}
+
+suspend fun Context.doSomething(): String {
+  delay(100)                  <i class="conum" data-value="2"></i><b>(2)</b>
+  return "Hello Coroutines!"  <i class="conum" data-value="3"></i><b>(3)</b>
+}</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Call extension suspending function</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Call a suspending function or do a blocking call</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Send response to client</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>A coroutine works like any of the other non-blocking types. You start Jooby using the <strong>event loop</strong>
+or <strong>default mode</strong>, Jooby detects we produce a coroutine and creates a coroutine context to execute
+it.</p>
+</div>
+<div class="paragraph">
+<p>Jooby uses the <strong>worker executor</strong> to creates a coroutine context. As described in <a href="#worker-executor">worker executor section</a>
+this is provided by the web server implementation unless you provided your own.</p>
+</div>
+<div class="listingblock">
+<div class="title">Coroutines with custom executor:</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">{
+  worker(Executors.newCachedThreadPool())
+
+  get("/") {
+    val n = 5 * 5        <i class="conum" data-value="1"></i><b>(1)</b>
+    delay(100)           <i class="conum" data-value="2"></i><b>(2)</b>
+    "Hello Coroutines!"  <i class="conum" data-value="3"></i><b>(3)</b>
+  }
+}</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Statement run in the <strong>worker executor</strong> (cached thread pool)</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Call a suspending function</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Produces a response</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Coroutines always run in the <a href="#worker-executor">worker executor</a>. There is an experimental API where
+coroutines run in the <strong>caller thread</strong>(event loop in this case) until a suspending function is found.</p>
+</div>
+<div class="paragraph">
+<p>Jooby allows you to use this experimental API by setting the <code>coroutineStart</code> option:</p>
+</div>
+<div class="listingblock">
+<div class="title">UNDISPATCHED</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">{
+  coroutineStart = CoroutineStart.UNDISPATCHED
+
+  get("/") {
+    val n = 5 * 5        <i class="conum" data-value="1"></i><b>(1)</b>
+    delay(100)           <i class="conum" data-value="2"></i><b>(2)</b>
+    "Hello Coroutines!"  <i class="conum" data-value="3"></i><b>(3)</b>
+  }
+}</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Statement run in the <strong>event loop</strong> (caller thread)</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Call a suspending function and dispatch to <strong>worker executor</strong></td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Produces a response from <strong>worker executor</strong></td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>&#9825; &#9825;!</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="send-methods"><a class="anchor" href="#send-methods"></a><a class="link" href="#send-methods">6.5. Send methods</a></h3>
+<div class="paragraph">
+<p>Jooby provides a family of <code>sendXXX()</code> methods that produces a response via side effects.</p>
+</div>
+<div class="listingblock primary">
+<div class="title">sendString example</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">{
+  get("/", ctx -&gt; {
+    return ctx.sendString("Hello World!");
+  });
+}</code></pre>
+</div>
+</div>
+<div class="listingblock secondary">
+<div class="title">Kotlin</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">{
+  get("/") { ctx -&gt;
+    ctx.sendString("Hello World!")
+  }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Beside we operate via side effects, the route still returns something. This is required because a route
+handler is a function which always produces a result.</p>
+</div>
+<div class="paragraph">
+<p>All the send methods returns the current <code>Context</code>, this signal Jooby that we want to operate via
+side effects ignoring the output of the route handler.</p>
+</div>
+<div class="paragraph">
+<p>Family of send methods include:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M1/io/jooby/Context.html#sendBytes-byte[-">sendBytes(byte[)</a>]</p>
+</li>
+<li>
+<p><a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M1/io/jooby/Context.html#sendBytes-java.nio.Buffer-">sendBytes(Buffer)</a></p>
+</li>
+<li>
+<p><a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M1/io/jooby/Context.html#sendString-java.lang.String-">sendString(String)</a></p>
+</li>
+<li>
+<p><a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M1/io/jooby/Context.html#sendFile-java.nio.file.Path-">sendFile(Path)</a></p>
+</li>
+<li>
+<p><a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M1/io/jooby/Context.html#sendFile-java.io.File-">sendFile(File)</a></p>
+</li>
+<li>
+<p><a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M1/io/jooby/Context.html#sendFile-java.nio.channels.FileChannel-">sendFile(FileChannel)</a></p>
+</li>
+<li>
+<p><a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M1/io/jooby/Context.html#sendAttachment-io.jooby.AttachedFile-">sendAttachment(AttachedFile)</a></p>
+</li>
+<li>
+<p><a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M1/io/jooby/Context.html#sendStatusCode-io.jooby.StatusCode-">sendStatusCode(StatusCode)</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="mvc-api"><a class="anchor" href="#mvc-api"></a><a class="link" href="#mvc-api">7. MVC API</a></h2>
 <div class="sectionbody">
 <div class="admonitionblock important">
 <table>
@@ -3095,15 +5053,25 @@ produces a result.</p>
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/zepto/1.2.0/zepto.min.js"></script>
 <script>
+  var primarySelector = '.primary';
+  var secondarySelector = '.secondary';
   function addBlockSwitches() {
-    $('.primary').each(function() {
+    $(primarySelector).each(function() {
       primary = $(this);
       createSwitchItem(primary, createBlockSwitch(primary)).item.addClass("selected");
       primary.children('.title').remove();
     });
-    $('.secondary').each(function(idx, node) {
+    $(secondarySelector).each(function(idx, node) {
       secondary = $(node);
       primary = findPrimary(secondary);
+      var title = secondary.children('.title').text();
+      if (title === 'Kotlin') {
+        var item = primary.children('.switch').children('.switch--item');
+        if (item.text() !== 'Java') {
+          primary.prepend('<div class="title">' + item.text() + '</div>');
+          item.text('Java');
+        }
+      }
       switchItem = createSwitchItem(secondary, primary.children('.switch'));
       switchItem.content.addClass('hidden');
       findPrimary(secondary).append(switchItem.content);
@@ -3119,7 +5087,7 @@ produces a result.</p>
 
   function findPrimary(secondary) {
     candidate = secondary.prev();
-    while (!candidate.is('.primary')) {
+    while (!candidate.is(primarySelector)) {
       candidate = candidate.prev();
     }
     return candidate;
@@ -3127,7 +5095,7 @@ produces a result.</p>
 
   function createSwitchItem(block, blockSwitch) {
     blockName = block.children('.title').text();
-    content = block.children('.content').first().append(block.next('.colist'));
+    content = block.children('.content').first();
     item = $('<div class="switch--item">' + blockName + '</div>');
     item.on('click', '', content, function(e) {
       $(this).addClass('selected');
@@ -3177,8 +5145,8 @@ produces a result.</p>
     });
   });
 </script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/agate.min.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script>
+<link rel="stylesheet" href="js/styles/agate.min.css">
+<script src="js/highlight.min.js"></script>
 <script>hljs.initHighlighting()</script>
 </body>
 </html>
