@@ -611,27 +611,58 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#responses-send-methods">6.5. Send methods</a></li>
 </ul>
 </li>
-<li><a href="#mvc-api-2">7. MVC API</a>
+<li><a href="#mvc-api">7. MVC API</a>
 <ul class="sectlevel2">
-<li><a href="#mvc-api-2-parameters">7.1. Parameters</a>
+<li><a href="#mvc-api-parameters">7.1. Parameters</a>
 <ul class="sectlevel3">
-<li><a href="#mvc-api-2-parameters-header">7.1.1. Header</a></li>
-<li><a href="#mvc-api-2-parameters-path">7.1.2. Path</a></li>
-<li><a href="#mvc-api-2-parameters-query">7.1.3. Query</a></li>
-<li><a href="#mvc-api-2-parameters-formdatamultipart">7.1.4. Formdata/Multipart</a></li>
-<li><a href="#mvc-api-2-parameters-body">7.1.5. Body</a></li>
+<li><a href="#mvc-api-parameters-header">7.1.1. Header</a></li>
+<li><a href="#mvc-api-parameters-path">7.1.2. Path</a></li>
+<li><a href="#mvc-api-parameters-query">7.1.3. Query</a></li>
+<li><a href="#mvc-api-parameters-formdatamultipart">7.1.4. Formdata/Multipart</a></li>
+<li><a href="#mvc-api-parameters-body">7.1.5. Body</a></li>
 </ul>
 </li>
-<li><a href="#mvc-api-2-registration">7.2. Registration</a></li>
-<li><a href="#mvc-api-2-suspend-functions">7.3. Suspend functions</a></li>
+<li><a href="#mvc-api-registration">7.2. Registration</a></li>
+<li><a href="#mvc-api-suspend-functions">7.3. Suspend functions</a></li>
+<li><a href="#mvc-api-jax-rs-annotations">7.4. JAX-RS Annotations</a></li>
 </ul>
 </li>
-<li><a href="#dependency-injection">8. Dependency Injection</a>
+<li><a href="#configuration">8. Configuration</a>
 <ul class="sectlevel2">
-<li><a href="#dependency-injection-dagger">8.1. Dagger</a></li>
-<li><a href="#dependency-injection-guice">8.2. Guice</a></li>
-<li><a href="#dependency-injection-spring">8.3. Spring</a></li>
-<li><a href="#dependency-injection-weld">8.4. Weld</a></li>
+<li><a href="#configuration-environment">8.1. Environment</a></li>
+<li><a href="#configuration-default-environment">8.2. Default Environment</a></li>
+<li><a href="#configuration-overrides">8.3. Overrides</a></li>
+<li><a href="#configuration-custom-environment">8.4. Custom environment</a></li>
+<li><a href="#configuration-logging">8.5. Logging</a>
+<ul class="sectlevel3">
+<li><a href="#configuration-logging-logback">8.5.1. Logback</a></li>
+<li><a href="#configuration-logging-log4j2">8.5.2. Log4j2</a></li>
+<li><a href="#configuration-logging-environment">8.5.3. Environment logging</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#dependency-injection">9. Dependency Injection</a>
+<ul class="sectlevel2">
+<li><a href="#dependency-injection-dagger">9.1. Dagger</a></li>
+<li><a href="#dependency-injection-guice">9.2. Guice</a>
+<ul class="sectlevel3">
+<li><a href="#dependency-injection-guice-property">9.2.1. Property Injection</a></li>
+<li><a href="#dependency-injection-guice-mvc-routes-2">9.2.2. MVC routes</a></li>
+</ul>
+</li>
+<li><a href="#dependency-injection-spring">9.3. Spring</a>
+<ul class="sectlevel3">
+<li><a href="#dependency-injection-spring-property-2">9.3.1. Property Injection</a></li>
+<li><a href="#dependency-injection-spring-mvc-routes-3">9.3.2. MVC routes</a></li>
+</ul>
+</li>
+<li><a href="#dependency-injection-weld">9.4. Weld</a>
+<ul class="sectlevel3">
+<li><a href="#dependency-injection-weld-property-3">9.4.1. Property Injection</a></li>
+<li><a href="#dependency-injection-weld-mvc-routes-4">9.4.2. MVC routes</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -692,7 +723,7 @@ fun main(args: Array&lt;String&gt;) {
 <p>This is a <strong>work-in-progress</strong> document and contains documentation and examples of what is ready to use. If it is not documented here, it is not implemented.</p>
 </div>
 <div class="paragraph">
-<p>Not ready yet? Try <a href="https://jooby.org">Jooby 1.x</a></p>
+<p>Not ready yet? Try <a href="https://jooby.org" target="_blank">Jooby 1.x</a></p>
 </div>
 <div class="paragraph">
 <p>Thank you ♡</p>
@@ -716,13 +747,13 @@ fun main(args: Array&lt;String&gt;) {
 <p>Reactive responses: Completable futures, RxJava, Reactor and Kotlin coroutines</p>
 </li>
 <li>
-<p>Configuration using <a href="https://github.com/lightbend/config">config</a> library</p>
+<p>Configuration using <a href="https://github.com/lightbend/config" target="_blank">config</a> library</p>
 </li>
 <li>
-<p><a href="https://www.slf4j.org">slf4j</a> logging</p>
+<p><a href="https://www.slf4j.org" target="_blank">Slf4j</a> logging</p>
 </li>
 <li>
-<p>Multi Server: <a href="https://https://www.eclipse.org/jetty">Jetty</a>, <a href="https://netty.io">Netty</a>, <a href="http://undertow.io">Undertow</a></p>
+<p>Multi Server: <a href="https://https://www.eclipse.org/jetty" target="_blank">Jetty</a>, <a href="https://netty.io" target="_blank">Netty</a>, <a href="http://undertow.io" target="_blank">Undertow</a></p>
 </li>
 <li>
 <p>Extension system for commons technical tasks: connection pool, json, template engine, etc…​</p>
@@ -877,10 +908,10 @@ fun main(args: Array&lt;String&gt;) {
 <pre class="highlightjs highlight"><code class="language-xml hljs">&lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
   &lt;artifactId&gt;jooby-netty&lt;/artifactId&gt;
-  &lt;version&gt;2.0.0.M2&lt;/version&gt;
+  &lt;version&gt;2.0.0.M3&lt;/version&gt;
 &lt;/dependency&gt;</code><button class="clipboard">Copy</button></pre>
 </div><div class="content hidden">
-<pre class="highlightjs highlight"><code class="language-javascript hljs">compile: 'io.jooby:jooby-netty:2.0.0.M2'</code><button class="clipboard">Copy</button></pre>
+<pre class="highlightjs highlight"><code class="language-javascript hljs">compile: 'io.jooby:jooby-netty:2.0.0.M3'</code><button class="clipboard">Copy</button></pre>
 </div></div>
 
 <div class="admonitionblock tip">
@@ -1023,7 +1054,7 @@ A code example will looks like:</p>
 <h2 id="router"><a class="anchor" href="#router"></a><a class="link" href="#router">3. Router</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M2/io/jooby/Router.html">Router</a> is the heart of Jooby and consist of:</p>
+<p>The <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M3/io/jooby/Router.html" target="_blank">Router</a> is the heart of Jooby and consist of:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -1031,17 +1062,17 @@ A code example will looks like:</p>
 <p>Routing algorithm (radix tree)</p>
 </li>
 <li>
-<p>One or more <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M2/io/jooby/Route.html">routes</a></p>
+<p>One or more <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M3/io/jooby/Route.html" target="_blank">routes</a></p>
 </li>
 <li>
-<p>Collection of operator over <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M2/io/jooby/Route.html">routes</a></p>
+<p>Collection of operator over <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M3/io/jooby/Route.html" target="_blank">routes</a></p>
 </li>
 </ul>
 </div>
 <div class="sect2">
 <h3 id="router-route"><a class="anchor" href="#router-route"></a><a class="link" href="#router-route">3.1. Route</a></h3>
 <div class="paragraph">
-<p>A <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M2/io/jooby/Route.html">Route</a> consists of three part:</p>
+<p>A <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M3/io/jooby/Route.html" target="_blank">Route</a> consists of three part:</p>
 </div>
 <div class="listingblock primary">
 <div class="title">Routes:</div>
@@ -1101,7 +1132,7 @@ A code example will looks like:</p>
 </tbody></table>
 </div>
 <div class="paragraph">
-<p>The <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M2/io/jooby/Route.Handler.html">handler</a> function always produces a result, which is send it back
+<p>The <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M3/io/jooby/Route.Handler.html" target="_blank">handler</a> function always produces a result, which is send it back
 to the client.</p>
 </div>
 </div>
@@ -1303,12 +1334,12 @@ variable name.</td>
 <div class="sect2">
 <h3 id="router-handler"><a class="anchor" href="#router-handler"></a><a class="link" href="#router-handler">3.3. Handler</a></h3>
 <div class="paragraph">
-<p>Application logic goes inside a <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M2/io/jooby/Route.Handler.html">handler</a>. A
-<a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M2/io/jooby/Route.Handler.html">handler</a> is a function that accepts a <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M2/io/jooby/Context.html">context</a>
+<p>Application logic goes inside a <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M3/io/jooby/Route.Handler.html" target="_blank">handler</a>. A
+<a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M3/io/jooby/Route.Handler.html" target="_blank">handler</a> is a function that accepts a <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M3/io/jooby/Context.html" target="_blank">context</a>
 object and produces a <code>result</code>.</p>
 </div>
 <div class="paragraph">
-<p>A <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M2/io/jooby/Context.html">context</a> allows you to interact with the <code>HTTP Request</code> and manipulate the
+<p>A <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M3/io/jooby/Context.html" target="_blank">context</a> allows you to interact with the <code>HTTP Request</code> and manipulate the
 <code>HTTP Response</code>.</p>
 </div>
 <div class="admonitionblock note">
@@ -1382,7 +1413,7 @@ result in the same path pattern, like <code>3</code> and <code>4</code>, last re
 <h4 id="router-handler-decorator"><a class="anchor" href="#router-handler-decorator"></a><a class="link" href="#router-handler-decorator">3.3.1. Decorator</a></h4>
 <div class="paragraph">
 <p>Cross cutting concerns such as response modification, verification, security, tracing, etc. is available
-via <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M2/io/jooby/Route.Decorator.html">Route.Decorator</a> (a.k.a filter)</p>
+via <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M3/io/jooby/Route.Decorator.html" target="_blank">Route.Decorator</a> (a.k.a filter)</p>
 </div>
 <div class="paragraph">
 <p>A <code>decorator</code> takes the <code>next</code> handler in the pipeline and returns a <code>new</code> handler:</p>
@@ -1466,7 +1497,7 @@ via <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M2/io/jooby/Route.De
 </td>
 <td class="content">
 <div class="paragraph">
-<p>A <code>decorator</code> lacks of a <code>path pattern</code>. Sound strange? It is explained in the <a href="#pipeline">pipeline</a> section.</p>
+<p>A <code>decorator</code> lacks of a <code>path pattern</code>. Sound strange? It is explained in the <a href="#router-pipeline">pipeline</a> section.</p>
 </div>
 </td>
 </tr>
@@ -1476,7 +1507,7 @@ via <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M2/io/jooby/Route.De
 <div class="sect3">
 <h4 id="router-handler-before-decorator"><a class="anchor" href="#router-handler-before-decorator"></a><a class="link" href="#router-handler-before-decorator">3.3.2. Before Decorator</a></h4>
 <div class="paragraph">
-<p>The <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M2/io/jooby/Route.Before.html">before</a> decorator is a specialized decorator that runs before a
+<p>The <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M3/io/jooby/Route.Before.html" target="_blank">before</a> decorator is a specialized decorator that runs before a
 <code>handler</code>.</p>
 </div>
 <div class="paragraph">
@@ -1519,7 +1550,7 @@ via side effects (usually modifying the HTTP response).</p>
 <div class="sect3">
 <h4 id="router-handler-after-decorator"><a class="anchor" href="#router-handler-after-decorator"></a><a class="link" href="#router-handler-after-decorator">3.3.3. After Decorator</a></h4>
 <div class="paragraph">
-<p>The <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M2/io/jooby/Route.After.html">after</a> decorator is a specialized decorator that runs after a
+<p>The <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M3/io/jooby/Route.After.html" target="_blank">after</a> decorator is a specialized decorator that runs after a
 <code>handler</code>.</p>
 </div>
 <div class="paragraph">
@@ -1755,7 +1786,7 @@ executed. Otherwise, nothing will do!</p>
 <div class="sect3">
 <h4 id="router-pipeline-scoped-decorator"><a class="anchor" href="#router-pipeline-scoped-decorator"></a><a class="link" href="#router-pipeline-scoped-decorator">3.4.2. Scoped Decorator</a></h4>
 <div class="paragraph">
-<p>The <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M2/io/jooby/Router.html#route-java.lang.Runnable-">route(Runnable)</a> and <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M2/io/jooby/Router.html#path-java.lang.Runnable-">path(Runnable)</a> operators
+<p>The <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M3/io/jooby/Router.html#route-java.lang.Runnable-" target="_blank">route(Runnable)</a> and <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M3/io/jooby/Router.html#path-java.lang.Runnable-" target="_blank">path(Runnable)</a> operators
 are used to group one or more routes.</p>
 </div>
 <div class="paragraph">
@@ -1833,7 +1864,7 @@ are used to group one or more routes.</p>
 <div class="sect2">
 <h3 id="router-grouping-routes"><a class="anchor" href="#router-grouping-routes"></a><a class="link" href="#router-grouping-routes">3.5. Grouping routes</a></h3>
 <div class="paragraph">
-<p>As showed previously, the <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M2/io/jooby/Router.html#route-java.lang.Runnable-">route(Runnable)</a> operator push a new route <code>scope</code>
+<p>As showed previously, the <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M3/io/jooby/Router.html#route-java.lang.Runnable-" target="_blank">route(Runnable)</a> operator push a new route <code>scope</code>
 and allows you to selectively apply one or more routes.</p>
 </div>
 <div class="listingblock primary">
@@ -1863,7 +1894,7 @@ and allows you to selectively apply one or more routes.</p>
 <p>Route operator is for grouping one or more routes and apply cross cutting concerns to all them.</p>
 </div>
 <div class="paragraph">
-<p>In similar fashin the <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M2/io/jooby/Router.html#path-java.lang.String,java.lang.Runnable-">path(String,Runnable)</a> operator groups
+<p>In similar fashin the <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M3/io/jooby/Router.html#path-java.lang.String,java.lang.Runnable-" target="_blank">path(String,Runnable)</a> operator groups
 one or more routes under a common path pattern.</p>
 </div>
 <div class="listingblock primary">
@@ -1925,7 +1956,7 @@ one or more routes under a common path pattern.</p>
 router/application into a new one.</p>
 </div>
 <div class="paragraph">
-<p>Composition is available through the <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M2/io/jooby/Router.html#use-io.jooby.Router-">use(Router)</a> operator:</p>
+<p>Composition is available through the <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M3/io/jooby/Router.html#use-io.jooby.Router-" target="_blank">use(Router)</a> operator:</p>
 </div>
 <div class="listingblock primary">
 <div class="title">Composing</div>
@@ -2125,7 +2156,7 @@ class App: Kooby({
 <h2 id="context"><a class="anchor" href="#context"></a><a class="link" href="#context">4. Context</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>A <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M2/io/jooby/Context.html">Context</a> allows you to interact with the HTTP Request and manipulate the HTTP Response</p>
+<p>A <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M3/io/jooby/Context.html" target="_blank">Context</a> allows you to interact with the HTTP Request and manipulate the HTTP Response</p>
 </div>
 <div class="sect2">
 <h3 id="context-parameters"><a class="anchor" href="#context-parameters"></a><a class="link" href="#context-parameters">4.1. Parameters</a></h3>
@@ -2180,7 +2211,7 @@ response.</p>
 </tr>
 <tr>
 <td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>All headers as <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M2/io/jooby/Value.html">Value</a></td>
+<td>All headers as <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M3/io/jooby/Value.html" target="_blank">Value</a></td>
 </tr>
 <tr>
 <td><i class="conum" data-value="3"></i><b>3</b></td>
@@ -2301,7 +2332,7 @@ response.</p>
 </tr>
 <tr>
 <td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>Path as <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M2/io/jooby/Value.html">Value</a> object:
+<td>Path as <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M3/io/jooby/Value.html" target="_blank">Value</a> object:
 <div class="ulist">
 <ul>
 <li>
@@ -2427,7 +2458,7 @@ data class SearchQuery (val q: String)</code><button class="clipboard">Copy</but
 </tr>
 <tr>
 <td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>Query String as <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M2/io/jooby/QueryString.html">QueryString</a> object:
+<td>Query String as <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M3/io/jooby/QueryString.html" target="_blank">QueryString</a> object:
 <div class="ulist">
 <ul>
 <li>
@@ -2564,7 +2595,7 @@ data class User (val id: String, val pass: String)</code><button class="clipboar
 <table>
 <tbody><tr>
 <td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>Form as <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M2/io/jooby/Formdata.html">Formdata</a> ⇒ <code>{id=root, pass=pwd}</code></td>
+<td>Form as <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M3/io/jooby/Formdata.html" target="_blank">Formdata</a> ⇒ <code>{id=root, pass=pwd}</code></td>
 </tr>
 <tr>
 <td><i class="conum" data-value="2"></i><b>2</b></td>
@@ -2657,7 +2688,7 @@ data class User (val id: String, val pass: String, val pic: FileUpload)</code><b
 <table>
 <tbody><tr>
 <td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>Form as <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M2/io/jooby/Multipart.html">Multipart</a> ⇒ <code>{id=root, pass=pwd, pic=profile.png}</code></td>
+<td>Form as <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M3/io/jooby/Multipart.html" target="_blank">Multipart</a> ⇒ <code>{id=root, pass=pwd, pic=profile.png}</code></td>
 </tr>
 <tr>
 <td><i class="conum" data-value="2"></i><b>2</b></td>
@@ -2673,7 +2704,7 @@ data class User (val id: String, val pass: String, val pic: FileUpload)</code><b
 </tr>
 <tr>
 <td><i class="conum" data-value="5"></i><b>5</b></td>
-<td><a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M2/io/jooby/FileUpload.html">FileUpload</a> variable <code>pic</code></td>
+<td><a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M3/io/jooby/FileUpload.html" target="_blank">FileUpload</a> variable <code>pic</code></td>
 </tr>
 <tr>
 <td><i class="conum" data-value="6"></i><b>6</b></td>
@@ -2734,7 +2765,7 @@ data class User (val id: String, val pass: String, val pic: FileUpload)</code><b
 <div class="sect2">
 <h3 id="context-value-api"><a class="anchor" href="#context-value-api"></a><a class="link" href="#context-value-api">4.2. Value API</a></h3>
 <div class="paragraph">
-<p>The <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M2/io/jooby/Value.html">Value</a> is an unified and type-safe API across all parameter types:</p>
+<p>The <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M3/io/jooby/Value.html" target="_blank">Value</a> is an unified and type-safe API across all parameter types:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -2756,7 +2787,7 @@ data class User (val id: String, val pass: String, val pic: FileUpload)</code><b
 </ul>
 </div>
 <div class="paragraph">
-<p>For learning purpose we are going to show all the <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M2/io/jooby/Value.html">Value</a> features using query
+<p>For learning purpose we are going to show all the <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M3/io/jooby/Value.html" target="_blank">Value</a> features using query
 parameters, but keep in mind these features apply to all the parameter types.</p>
 </div>
 <div class="sect3">
@@ -2954,10 +2985,10 @@ parameters, but keep in mind these features apply to all the parameter types.</p
 <div class="ulist">
 <ul>
 <li>
-<p><a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M2/io/jooby/Value.html#toList--">toList()</a>: Returns a <code>java.util.List</code> of values</p>
+<p><a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M3/io/jooby/Value.html#toList--" target="_blank">toList()</a>: Returns a <code>java.util.List</code> of values</p>
 </li>
 <li>
-<p><a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M2/io/jooby/Value.html#toSet--">toSet()</a>: Returns a <code>java.util.Set</code> of values</p>
+<p><a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M3/io/jooby/Value.html#toSet--" target="_blank">toSet()</a>: Returns a <code>java.util.Set</code> of values</p>
 </li>
 </ul>
 </div>
@@ -3049,7 +3080,7 @@ parameters, but keep in mind these features apply to all the parameter types.</p
 <div class="sect3">
 <h4 id="context-value-api-structured-data"><a class="anchor" href="#context-value-api-structured-data"></a><a class="link" href="#context-value-api-structured-data">4.2.4. Structured data</a></h4>
 <div class="paragraph">
-<p>The <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M2/io/jooby/Value.html">Value API</a> provides a way to traverse and parse structured data:</p>
+<p>The <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M3/io/jooby/Value.html" target="_blank">Value API</a> provides a way to traverse and parse structured data:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -3102,7 +3133,7 @@ parameters, but keep in mind these features apply to all the parameter types.</p
 </tbody></table>
 </div>
 <div class="paragraph">
-<p>The <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M2/io/jooby/Value.html#get-java.lang.String-">get(String)</a> takes a <code>path</code> and returns another value. The returning
+<p>The <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M3/io/jooby/Value.html#get-java.lang.String-" target="_blank">get(String)</a> takes a <code>path</code> and returns another value. The returning
 value may or may not exists.</p>
 </div>
 <div class="sect4">
@@ -3137,7 +3168,7 @@ value may or may not exists.</p>
 <div class="ulist">
 <ul>
 <li>
-<p><a href="#query">Query</a> encoded as <a href="https://tools.ietf.org/html/rfc3986#section-2">RFC 3986</a></p>
+<p><a href="#query">Query</a> encoded as <a href="https://tools.ietf.org/html/rfc3986#section-2" target="_blank">RFC 3986</a></p>
 </li>
 <li>
 <p><a href="#formdata">Formdata</a> encoded as <code>application/x-www-form-urlencoded</code></p>
@@ -3295,7 +3326,7 @@ class Group (val id: String, val members: List&lt;Member&gt;)</code><button clas
 </li>
 <li>
 <p>Has multiple constructors, but only one is annotated with
-<a href="https://static.javadoc.io/javax.inject/javax.inject/1/javax/inject/Inject.html">Inject</a></p>
+<a href="https://static.javadoc.io/javax.inject/javax.inject/1/javax/inject/Inject.html" target="_blank">Inject</a></p>
 </li>
 </ul>
 </div>
@@ -3313,7 +3344,7 @@ class Group (val id: String, val members: List&lt;Member&gt;)</code><button clas
 </ul>
 </div>
 <div class="paragraph">
-<p>HTTP parameter name which are not a valid Java identifier must be annotated with <a href="https://static.javadoc.io/javax.inject/javax.inject/1/javax/inject/Named.html">Named</a>:</p>
+<p>HTTP parameter name which are not a valid Java identifier must be annotated with <a href="https://static.javadoc.io/javax.inject/javax.inject/1/javax/inject/Named.html" target="_blank">Named</a>:</p>
 </div>
 <div class="listingblock primary">
 
@@ -3341,7 +3372,7 @@ class Group (val id: String, val members: List&lt;Member&gt;)</code><button clas
 <div class="sect2">
 <h3 id="context-request-body"><a class="anchor" href="#context-request-body"></a><a class="link" href="#context-request-body">4.3. Request Body</a></h3>
 <div class="paragraph">
-<p>Raw <code>request body</code> is available via <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M2/io/jooby/Context.html#body--">body()</a> method:</p>
+<p>Raw <code>request body</code> is available via <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M3/io/jooby/Context.html#body--" target="_blank">body()</a> method:</p>
 </div>
 <div class="listingblock primary">
 
@@ -3404,7 +3435,7 @@ class Group (val id: String, val members: List&lt;Member&gt;)</code><button clas
 <div class="sect3">
 <h4 id="context-request-body-parser"><a class="anchor" href="#context-request-body-parser"></a><a class="link" href="#context-request-body-parser">4.3.1. Parser</a></h4>
 <div class="paragraph">
-<p>Request body parsing is achieved using the <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M2/io/jooby/Parser.html">Parser</a> functional interface.</p>
+<p>Request body parsing is achieved using the <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M3/io/jooby/Parser.html" target="_blank">Parser</a> functional interface.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -3415,7 +3446,7 @@ class Group (val id: String, val members: List&lt;Member&gt;)</code><button clas
 </div>
 </div>
 <div class="paragraph">
-<p><a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M2/io/jooby/Parser.html">Parser</a> has a single <code>parse</code> method that takes two input arguments: <code>(context, type)</code>
+<p><a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M3/io/jooby/Parser.html" target="_blank">Parser</a> has a single <code>parse</code> method that takes two input arguments: <code>(context, type)</code>
 and returns a single result of the given type.</p>
 </div>
 <div class="listingblock primary">
@@ -3485,7 +3516,7 @@ and returns a single result of the given type.</p>
 </td>
 <td class="content">
 <div class="paragraph">
-<p>Jooby comes with a <code>json</code> parser built on top of <a href="https://github.com/FasterXML/jackson-databind">Jackson</a>:</p>
+<p>Jooby comes with a <code>json</code> parser built on top of <a href="https://github.com/FasterXML/jackson-databind" target="_blank">Jackson</a>:</p>
 </div>
 <div class="listingblock primary">
 
@@ -3494,10 +3525,10 @@ and returns a single result of the given type.</p>
 <pre class="highlightjs highlight"><code class="language-xml hljs">&lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
   &lt;artifactId&gt;jooby-jackson&lt;/artifactId&gt;
-  &lt;version&gt;2.0.0.M2&lt;/version&gt;
+  &lt;version&gt;2.0.0.M3&lt;/version&gt;
 &lt;/dependency&gt;</code><button class="clipboard">Copy</button></pre>
 </div><div class="content hidden">
-<pre class="highlightjs highlight"><code class="language-javascript hljs">compile: 'io.jooby:jooby-jackson:2.0.0.M2'</code><button class="clipboard">Copy</button></pre>
+<pre class="highlightjs highlight"><code class="language-javascript hljs">compile: 'io.jooby:jooby-jackson:2.0.0.M3'</code><button class="clipboard">Copy</button></pre>
 </div></div>
 
 </td>
@@ -3563,7 +3594,7 @@ and returns a single result of the given type.</p>
 <div class="sect3">
 <h4 id="context-response-body-renderer"><a class="anchor" href="#context-response-body-renderer"></a><a class="link" href="#context-response-body-renderer">4.4.1. Renderer</a></h4>
 <div class="paragraph">
-<p>Response rendering is achieved using the <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M2/io/jooby/Renderer.html">Renderer</a> functional interface.</p>
+<p>Response rendering is achieved using the <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M3/io/jooby/Renderer.html" target="_blank">Renderer</a> functional interface.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -3654,7 +3685,7 @@ produces a result.</p>
 </td>
 <td class="content">
 <div class="paragraph">
-<p>Jooby comes with a <code>json</code> renderer built on top of <a href="https://github.com/FasterXML/jackson-databind">Jackson</a>:</p>
+<p>Jooby comes with a <code>json</code> renderer built on top of <a href="https://github.com/FasterXML/jackson-databind" target="_blank">Jackson</a>:</p>
 </div>
 <div class="listingblock primary">
 
@@ -3663,10 +3694,10 @@ produces a result.</p>
 <pre class="highlightjs highlight"><code class="language-xml hljs">&lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
   &lt;artifactId&gt;jooby-jackson&lt;/artifactId&gt;
-  &lt;version&gt;2.0.0.M2&lt;/version&gt;
+  &lt;version&gt;2.0.0.M3&lt;/version&gt;
 &lt;/dependency&gt;</code><button class="clipboard">Copy</button></pre>
 </div><div class="content hidden">
-<pre class="highlightjs highlight"><code class="language-javascript hljs">compile: 'io.jooby:jooby-jackson:2.0.0.M2'</code><button class="clipboard">Copy</button></pre>
+<pre class="highlightjs highlight"><code class="language-javascript hljs">compile: 'io.jooby:jooby-jackson:2.0.0.M3'</code><button class="clipboard">Copy</button></pre>
 </div></div>
 
 </td>
@@ -3705,7 +3736,7 @@ building web applications in Java and Kotlin.</p>
 <div class="sect3">
 <h4 id="execution-model-mode-event-loop"><a class="anchor" href="#execution-model-mode-event-loop"></a><a class="link" href="#execution-model-mode-event-loop">5.1.1. Event Loop</a></h4>
 <div class="paragraph">
-<p>The <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M2/io/jooby/ExecutionMode.html#EVENT_LOOP">EVENT_LOOP</a> mode allows us to run a route handler from the
+<p>The <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M3/io/jooby/ExecutionMode.html#EVENT_LOOP" target="_blank">EVENT_LOOP</a> mode allows us to run a route handler from the
 <strong>event loop</strong> (a.k.a as non-blocking mode).</p>
 </div>
 <div class="listingblock primary">
@@ -3737,14 +3768,14 @@ fun main(args: Array&lt;String&gt;) {
 </div></div>
 
 <div class="paragraph">
-<p>The <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M2/io/jooby/ExecutionMode.html#EVENT_LOOP">EVENT_LOOP</a> mode is the more advanced execution mode and requires you carefully
+<p>The <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M3/io/jooby/ExecutionMode.html#EVENT_LOOP" target="_blank">EVENT_LOOP</a> mode is the more advanced execution mode and requires you carefully
 design and implement your application due to that <strong>BLOCKING IS NOT ALLOWED</strong></p>
 </div>
 <div class="paragraph">
 <p>What if you need to block?</p>
 </div>
 <div class="paragraph">
-<p>The <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M2/io/jooby/Router.html#dispatch-java.lang.Runnable-">dispatch(Runnable)</a> operator moves execution to a <strong>worker executor</strong> which
+<p>The <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M3/io/jooby/Router.html#dispatch-java.lang.Runnable-" target="_blank">dispatch(Runnable)</a> operator moves execution to a <strong>worker executor</strong> which
 allows to do <strong>blocking calls</strong>:</p>
 </div>
 <div class="listingblock primary">
@@ -3803,7 +3834,7 @@ fun main(args: Array&lt;String&gt;) {
 </div></div>
 
 <div class="paragraph">
-<p>By default, the <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M2/io/jooby/Router.html#dispatch-java.lang.Runnable-">dispatch(Runnable)</a> operator moves execution to the <strong>server
+<p>By default, the <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M3/io/jooby/Router.html#dispatch-java.lang.Runnable-" target="_blank">dispatch(Runnable)</a> operator moves execution to the <strong>server
 worker executor</strong> (executor provided by web server).</p>
 </div>
 <div class="paragraph">
@@ -3866,7 +3897,7 @@ fun main(args: Array&lt;String&gt;) {
 <div class="sect3">
 <h4 id="execution-model-mode-worker"><a class="anchor" href="#execution-model-mode-worker"></a><a class="link" href="#execution-model-mode-worker">5.1.2. Worker</a></h4>
 <div class="paragraph">
-<p>The <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M2/io/jooby/ExecutionMode.html#WORKER">WORKER</a> mode allows us to do blocking calls from a route handler (a.k.a blocking mode).
+<p>The <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M3/io/jooby/ExecutionMode.html#WORKER" target="_blank">WORKER</a> mode allows us to do blocking calls from a route handler (a.k.a blocking mode).
 You just write code without worrying about blocking calls.</p>
 </div>
 <div class="listingblock primary">
@@ -3907,7 +3938,7 @@ fun main(args: Array&lt;String&gt;) {
 </div></div>
 
 <div class="paragraph">
-<p>Like with <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M2/io/jooby/ExecutionMode.html#EVENT_LOOP">EVENT_LOOP</a> mode, you can provide your own worker executor:</p>
+<p>Like with <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M3/io/jooby/ExecutionMode.html#EVENT_LOOP" target="_blank">EVENT_LOOP</a> mode, you can provide your own worker executor:</p>
 </div>
 <div class="listingblock primary">
 
@@ -3958,7 +3989,7 @@ fun main(args: Array&lt;String&gt;) {
 </td>
 <td class="content">
 <div class="paragraph">
-<p>While running in <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M2/io/jooby/ExecutionMode.html#WORKER">WORKER</a> mode, Jooby internally does the dispatch call to the
+<p>While running in <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M3/io/jooby/ExecutionMode.html#WORKER" target="_blank">WORKER</a> mode, Jooby internally does the dispatch call to the
 worker executor. This is done per route, not globally.</p>
 </div>
 </td>
@@ -3969,8 +4000,8 @@ worker executor. This is done per route, not globally.</p>
 <div class="sect3">
 <h4 id="execution-model-mode-default"><a class="anchor" href="#execution-model-mode-default"></a><a class="link" href="#execution-model-mode-default">5.1.3. Default</a></h4>
 <div class="paragraph">
-<p>The <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M2/io/jooby/ExecutionMode.html#DEFAULT">DEFAULT</a> execution mode is a mix between <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M2/io/jooby/ExecutionMode.html#WORKER">WORKER</a>
-and <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M2/io/jooby/ExecutionMode.html#EVENT_LOOP">EVENT_LOOP</a> modes. This (as name implies) is the default execution mode in Jooby.</p>
+<p>The <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M3/io/jooby/ExecutionMode.html#DEFAULT" target="_blank">DEFAULT</a> execution mode is a mix between <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M3/io/jooby/ExecutionMode.html#WORKER" target="_blank">WORKER</a>
+and <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M3/io/jooby/ExecutionMode.html#EVENT_LOOP" target="_blank">EVENT_LOOP</a> modes. This (as name implies) is the default execution mode in Jooby.</p>
 </div>
 <div class="paragraph">
 <p>Jooby detects the route response type and determines which execution mode fits better.</p>
@@ -3988,13 +4019,13 @@ the <strong>worker executor</strong>.</p>
 <p>A <code>CompletableFuture</code> type</p>
 </li>
 <li>
-<p>A <a href="https://github.com/ReactiveX/RxJava">RxJava type</a></p>
+<p>A <a href="https://github.com/ReactiveX/RxJava" target="_blank">RxJava type</a></p>
 </li>
 <li>
-<p>A <a href="https://projectreactor.io/">Reactor type</a></p>
+<p>A <a href="https://projectreactor.io/" target="_blank">Reactor type</a></p>
 </li>
 <li>
-<p>A <a href="https://kotlinlang.org/docs/reference/coroutines/coroutines-guide.html">Kotlin coroutine</a></p>
+<p>A <a href="https://kotlinlang.org/docs/reference/coroutines/coroutines-guide.html" target="_blank">Kotlin coroutine</a></p>
 </li>
 </ul>
 </div>
@@ -4077,10 +4108,10 @@ worker executor is used when:</p>
 <div class="ulist">
 <ul>
 <li>
-<p>Application mode was set to <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M2/io/jooby/ExecutionMode.html#WORKER">WORKER</a></p>
+<p>Application mode was set to <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M3/io/jooby/ExecutionMode.html#WORKER" target="_blank">WORKER</a></p>
 </li>
 <li>
-<p>Application mode was set to <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M2/io/jooby/ExecutionMode.html#EVENT_LOOP">EVENT_LOOP</a> and there is a <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M2/io/jooby/Router.html#dispatch-java.lang.Runnable-">dispatch(Runnable)</a> call</p>
+<p>Application mode was set to <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M3/io/jooby/ExecutionMode.html#EVENT_LOOP" target="_blank">EVENT_LOOP</a> and there is a <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M3/io/jooby/Router.html#dispatch-java.lang.Runnable-" target="_blank">dispatch(Runnable)</a> call</p>
 </li>
 </ul>
 </div>
@@ -4090,7 +4121,7 @@ worker executor is used when:</p>
 <div class="ulist">
 <ul>
 <li>
-<p>Netty: The <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M2/io/jooby/netty/Netty.html">Netty server</a> implementation multiply the number of available processors
+<p>Netty: The <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M3/io/jooby/netty/Netty.html" target="_blank">Netty server</a> implementation multiply the number of available processors
 (with a minimum of 2) by 8.</p>
 </li>
 </ul>
@@ -4106,7 +4137,7 @@ worker executor is used when:</p>
 <div class="ulist">
 <ul>
 <li>
-<p>Undertow: The <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M2/io/jooby/utow/Utow.html">Undertow server</a> implementation multiply the number of available processors
+<p>Undertow: The <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M3/io/jooby/utow/Utow.html" target="_blank">Undertow server</a> implementation multiply the number of available processors
 (with a minimum of 2) by 8.</p>
 </li>
 </ul>
@@ -4122,7 +4153,7 @@ worker executor is used when:</p>
 <div class="ulist">
 <ul>
 <li>
-<p>Jetty: The <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M2/io/jooby/jetty/Jetty.html">Jetty server</a> implementation uses the default configuration
+<p>Jetty: The <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M3/io/jooby/jetty/Jetty.html" target="_blank">Jetty server</a> implementation uses the default configuration
 with <code>200</code> worker threads.</p>
 </li>
 </ul>
@@ -4211,13 +4242,13 @@ worker threads:</p>
 <div class="ulist">
 <ul>
 <li>
-<p><a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M2/io/jooby/Context.html#responseStream--">responseStream()</a>: blocking API that provides an <code>OutputStream</code></p>
+<p><a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M3/io/jooby/Context.html#responseStream--" target="_blank">responseStream()</a>: blocking API that provides an <code>OutputStream</code></p>
 </li>
 <li>
-<p><a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M2/io/jooby/Context.html#responseWriter--">responseWriter()</a>: blocking API that provides a <code>PrintWriter</code></p>
+<p><a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M3/io/jooby/Context.html#responseWriter--" target="_blank">responseWriter()</a>: blocking API that provides a <code>PrintWriter</code></p>
 </li>
 <li>
-<p><a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M2/io/jooby/Context.html#responseSender--">responseSender()</a>: non-blocking API that provides a <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M2/io/jooby/Sender.html">Sender</a></p>
+<p><a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M3/io/jooby/Context.html#responseSender--" target="_blank">responseSender()</a>: non-blocking API that provides a <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M3/io/jooby/Sender.html" target="_blank">Sender</a></p>
 </li>
 </ul>
 </div>
@@ -4305,7 +4336,7 @@ automatically close the writer/stream:</p>
 <div class="sect2">
 <h3 id="responses-file-download"><a class="anchor" href="#responses-file-download"></a><a class="link" href="#responses-file-download">6.3. File download</a></h3>
 <div class="paragraph">
-<p>The <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M2/io/jooby/AttachedFile.html">AttachedFile</a> is used to generate file downloads, i.e. responses with
+<p>The <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M3/io/jooby/AttachedFile.html" target="_blank">AttachedFile</a> is used to generate file downloads, i.e. responses with
 <code>Content-Disposition</code> header.</p>
 </div>
 <div class="listingblock primary">
@@ -4589,7 +4620,7 @@ non-blocking API.</p>
 <div class="sect3">
 <h4 id="responses-nonblocking-rxjava"><a class="anchor" href="#responses-nonblocking-rxjava"></a><a class="link" href="#responses-nonblocking-rxjava">6.4.3. RxJava</a></h4>
 <div class="paragraph">
-<p>1) Add the <a href="https://github.com/ReactiveX/RxJava">RxJava</a> dependency:</p>
+<p>1) Add the <a href="https://github.com/ReactiveX/RxJava" target="_blank">RxJava</a> dependency:</p>
 </div>
 <div class="listingblock primary">
 
@@ -4670,7 +4701,7 @@ non-blocking API.</p>
 <div class="sect3">
 <h4 id="responses-nonblocking-reactor"><a class="anchor" href="#responses-nonblocking-reactor"></a><a class="link" href="#responses-nonblocking-reactor">6.4.4. Reactor</a></h4>
 <div class="paragraph">
-<p>1) Add the <a href="https://projectreactor.io/">Reactor</a> dependency:</p>
+<p>1) Add the <a href="https://projectreactor.io/" target="_blank">Reactor</a> dependency:</p>
 </div>
 <div class="listingblock primary">
 
@@ -4751,7 +4782,7 @@ non-blocking API.</p>
 <div class="sect3">
 <h4 id="responses-nonblocking-kotlin-coroutines"><a class="anchor" href="#responses-nonblocking-kotlin-coroutines"></a><a class="link" href="#responses-nonblocking-kotlin-coroutines">6.4.5. Kotlin Coroutines</a></h4>
 <div class="paragraph">
-<p>Probably one of most exciting new features of Jooby 2.x is the builtin integration with <a href="https://kotlinlang.org/docs/reference/coroutines/coroutines-guide.html">Kotlin Coroutines</a>:</p>
+<p>Probably one of most exciting new features of Jooby 2.x is the builtin integration with <a href="https://kotlinlang.org/docs/reference/coroutines/coroutines-guide.html" target="_blank">Kotlin Coroutines</a>:</p>
 </div>
 <div class="listingblock primary">
 
@@ -4977,13 +5008,13 @@ coroutines run in the <strong>caller thread</strong>(event loop in this case) un
 <div class="switch"><div class="switch--item selected">Java</div><div class="switch--item">Kotlin</div></div><div class="content">
 <pre class="highlightjs highlight"><code class="language-java hljs">{
   get("/", ctx -&gt; {
-    return ctx.sendString("Hello World!");
+    return ctx.send("Hello World!");
   });
 }</code><button class="clipboard">Copy</button></pre>
 </div><div class="content hidden">
 <pre class="highlightjs highlight"><code class="language-kotlin hljs">{
   get("/") { ctx -&gt;
-    ctx.sendString("Hello World!")
+    ctx.send("Hello World!")
   }
 }</code><button class="clipboard">Copy</button></pre>
 </div></div>
@@ -5002,28 +5033,28 @@ side effects ignoring the output of the route handler.</p>
 <div class="ulist">
 <ul>
 <li>
-<p><a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M2/io/jooby/Context.html#sendBytes-byte[-">sendBytes(byte[)</a>]</p>
+<p><a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M3/io/jooby/Context.html#send-byte[-" target="_blank">send(byte[)</a>]</p>
 </li>
 <li>
-<p><a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M2/io/jooby/Context.html#sendBytes-java.nio.Buffer-">sendBytes(Buffer)</a></p>
+<p><a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M3/io/jooby/Context.html#send-java.nio.Buffer-" target="_blank">send(Buffer)</a></p>
 </li>
 <li>
-<p><a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M2/io/jooby/Context.html#sendString-java.lang.String-">sendString(String)</a></p>
+<p><a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M3/io/jooby/Context.html#send-java.lang.String-" target="_blank">send(String)</a></p>
 </li>
 <li>
-<p><a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M2/io/jooby/Context.html#sendFile-java.nio.file.Path-">sendFile(Path)</a></p>
+<p><a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M3/io/jooby/Context.html#send-java.nio.file.Path-" target="_blank">send(Path)</a></p>
 </li>
 <li>
-<p><a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M2/io/jooby/Context.html#sendFile-java.io.File-">sendFile(File)</a></p>
+<p><a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M3/io/jooby/Context.html#send-java.io.File-" target="_blank">send(File)</a></p>
 </li>
 <li>
-<p><a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M2/io/jooby/Context.html#sendFile-java.nio.channels.FileChannel-">sendFile(FileChannel)</a></p>
+<p><a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M3/io/jooby/Context.html#send-java.nio.channels.FileChannel-" target="_blank">send(FileChannel)</a></p>
 </li>
 <li>
-<p><a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M2/io/jooby/Context.html#sendAttachment-io.jooby.AttachedFile-">sendAttachment(AttachedFile)</a></p>
+<p><a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M3/io/jooby/Context.html#send-io.jooby.AttachedFile-" target="_blank">send(AttachedFile)</a></p>
 </li>
 <li>
-<p><a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M2/io/jooby/Context.html#sendStatusCode-io.jooby.StatusCode-">sendStatusCode(StatusCode)</a></p>
+<p><a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M3/io/jooby/Context.html#send-io.jooby.StatusCode-" target="_blank">send(StatusCode)</a></p>
 </li>
 </ul>
 </div>
@@ -5031,7 +5062,7 @@ side effects ignoring the output of the route handler.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="mvc-api-2"><a class="anchor" href="#mvc-api-2"></a><a class="link" href="#mvc-api-2">7. MVC API</a></h2>
+<h2 id="#mvc-api"><a class="anchor" href="#mvc-api"></a><a class="link" href="#mvc-api">7. MVC API</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>MVC API is an alternative way to define routes in Jooby. It uses annotations and byte code generation
@@ -5102,14 +5133,14 @@ fun main(args: Array&lt;String&gt;) {
 </tbody></table>
 </div>
 <div class="sect2">
-<h3 id="mvc-api-2-parameters"><a class="anchor" href="#mvc-api-2-parameters"></a><a class="link" href="#mvc-api-2-parameters">7.1. Parameters</a></h3>
+<h3 id="mvc-api-parameters"><a class="anchor" href="#mvc-api-parameters"></a><a class="link" href="#mvc-api-parameters">7.1. Parameters</a></h3>
 <div class="paragraph">
 <p>HTTP parameter provision is available via <code>*Param</code> annotations.</p>
 </div>
 <div class="sect3">
-<h4 id="mvc-api-2-parameters-header"><a class="anchor" href="#mvc-api-2-parameters-header"></a><a class="link" href="#mvc-api-2-parameters-header">7.1.1. Header</a></h4>
+<h4 id="mvc-api-parameters-header"><a class="anchor" href="#mvc-api-parameters-header"></a><a class="link" href="#mvc-api-parameters-header">7.1.1. Header</a></h4>
 <div class="paragraph">
-<p>Provision of headers is available via <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M2/io/jooby/annotations/HeaderParam.html">HeaderParam</a> annotation:</p>
+<p>Provision of headers is available via <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M3/io/jooby/annotations/HeaderParam.html" target="_blank">HeaderParam</a> annotation:</p>
 </div>
 <div class="listingblock primary">
 <div class="title">Headers</div>
@@ -5167,9 +5198,9 @@ non valid Java names:</p>
 
 </div>
 <div class="sect3">
-<h4 id="mvc-api-2-parameters-path"><a class="anchor" href="#mvc-api-2-parameters-path"></a><a class="link" href="#mvc-api-2-parameters-path">7.1.2. Path</a></h4>
+<h4 id="mvc-api-parameters-path"><a class="anchor" href="#mvc-api-parameters-path"></a><a class="link" href="#mvc-api-parameters-path">7.1.2. Path</a></h4>
 <div class="paragraph">
-<p>For path parameters the <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M2/io/jooby/annotations/PathParam.html">PathParam</a> annotation is required:</p>
+<p>For path parameters the <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M3/io/jooby/annotations/PathParam.html" target="_blank">PathParam</a> annotation is required:</p>
 </div>
 <div class="listingblock primary">
 <div class="title">PathParam</div>
@@ -5194,9 +5225,9 @@ non valid Java names:</p>
 
 </div>
 <div class="sect3">
-<h4 id="mvc-api-2-parameters-query"><a class="anchor" href="#mvc-api-2-parameters-query"></a><a class="link" href="#mvc-api-2-parameters-query">7.1.3. Query</a></h4>
+<h4 id="mvc-api-parameters-query"><a class="anchor" href="#mvc-api-parameters-query"></a><a class="link" href="#mvc-api-parameters-query">7.1.3. Query</a></h4>
 <div class="paragraph">
-<p>For query parameters the <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M2/io/jooby/annotations/QueryParam.html">QueryParam</a> annotation is required:</p>
+<p>For query parameters the <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M3/io/jooby/annotations/QueryParam.html" target="_blank">QueryParam</a> annotation is required:</p>
 </div>
 <div class="listingblock primary">
 <div class="title">QueryParam</div>
@@ -5221,9 +5252,9 @@ non valid Java names:</p>
 
 </div>
 <div class="sect3">
-<h4 id="mvc-api-2-parameters-formdatamultipart"><a class="anchor" href="#mvc-api-2-parameters-formdatamultipart"></a><a class="link" href="#mvc-api-2-parameters-formdatamultipart">7.1.4. Formdata/Multipart</a></h4>
+<h4 id="mvc-api-parameters-formdatamultipart"><a class="anchor" href="#mvc-api-parameters-formdatamultipart"></a><a class="link" href="#mvc-api-parameters-formdatamultipart">7.1.4. Formdata/Multipart</a></h4>
 <div class="paragraph">
-<p>For formdata/multipart parameters the <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M2/io/jooby/annotations/FormParam.html">FormParam</a> annotation is required:</p>
+<p>For formdata/multipart parameters the <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M3/io/jooby/annotations/FormParam.html" target="_blank">FormParam</a> annotation is required:</p>
 </div>
 <div class="listingblock primary">
 <div class="title">QueryParam</div>
@@ -5250,7 +5281,7 @@ non valid Java names:</p>
 
 </div>
 <div class="sect3">
-<h4 id="mvc-api-2-parameters-body"><a class="anchor" href="#mvc-api-2-parameters-body"></a><a class="link" href="#mvc-api-2-parameters-body">7.1.5. Body</a></h4>
+<h4 id="mvc-api-parameters-body"><a class="anchor" href="#mvc-api-parameters-body"></a><a class="link" href="#mvc-api-parameters-body">7.1.5. Body</a></h4>
 <div class="paragraph">
 <p>Body parameter doesn’t require an annotation:</p>
 </div>
@@ -5280,7 +5311,7 @@ non valid Java names:</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="mvc-api-2-registration"><a class="anchor" href="#mvc-api-2-registration"></a><a class="link" href="#mvc-api-2-registration">7.2. Registration</a></h3>
+<h3 id="mvc-api-registration"><a class="anchor" href="#mvc-api-registration"></a><a class="link" href="#mvc-api-registration">7.2. Registration</a></h3>
 <div class="paragraph">
 <p>Mvc routes need to be registered (no classpath scanning). Registration is done from your application
 class:</p>
@@ -5309,7 +5340,7 @@ fun main(args: Array&lt;String&gt;) {
 </div></div>
 
 <div class="paragraph">
-<p>The <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M2/io/jooby/Jooby.html#mvc-java.lang.Object-">mvc(Object)</a> install the mvc route. As showed in the example there is
+<p>The <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M3/io/jooby/Jooby.html#mvc-java.lang.Object-" target="_blank">mvc(Object)</a> install the mvc route. As showed in the example there is
 no dependency injection involved, you just instantiate a MVC route and register.</p>
 </div>
 <div class="listingblock primary">
@@ -5336,7 +5367,7 @@ fun main(args: Array&lt;String&gt;) {
 </div></div>
 
 <div class="paragraph">
-<p>The <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M2/io/jooby/Jooby.html#mvc-java.lang.Class-">mvc(Class)</a> does the same job, but delegates route instantiation to a
+<p>The <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M3/io/jooby/Jooby.html#mvc-java.lang.Class-" target="_blank">mvc(Class)</a> does the same job, but delegates route instantiation to a
 dependency injection framework of your choice.</p>
 </div>
 <div class="admonitionblock note">
@@ -5383,13 +5414,13 @@ fun main(args: Array&lt;String&gt;) {
 </div></div>
 
 <div class="paragraph">
-<p>The <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M2/io/jooby/Jooby.html#mvc-javax.inject.Provider-">mvc(Provider)</a> does the same job, might or might not delegate
+<p>The <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M3/io/jooby/Jooby.html#mvc-javax.inject.Provider-" target="_blank">mvc(Provider)</a> does the same job, might or might not delegate
 instantiation to a dependency injection framework but most important let you control lifecycle of
 MVC routes (Singleton vs Non-Singleton routes).</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="mvc-api-2-suspend-functions"><a class="anchor" href="#mvc-api-2-suspend-functions"></a><a class="link" href="#mvc-api-2-suspend-functions">7.3. Suspend functions</a></h3>
+<h3 id="mvc-api-suspend-functions"><a class="anchor" href="#mvc-api-suspend-functions"></a><a class="link" href="#mvc-api-suspend-functions">7.3. Suspend functions</a></h3>
 <div class="paragraph">
 <p>For Kotlin users MVC routes are allowed to use suspend functions</p>
 </div>
@@ -5416,10 +5447,634 @@ fun main(args: Array&lt;String&gt;) {
 <p>♡</p>
 </div>
 </div>
+<div class="sect2">
+<h3 id="mvc-api-jax-rs-annotations"><a class="anchor" href="#mvc-api-jax-rs-annotations"></a><a class="link" href="#mvc-api-jax-rs-annotations">7.4. JAX-RS Annotations</a></h3>
+<div class="paragraph">
+<p>Alternative you can use JAX-RS annotations to define MVC routes.</p>
+</div>
+<div class="listingblock primary">
+<div class="title">Resource</div>
+
+<div class="switch"><div class="switch--item selected">Java</div><div class="switch--item">Kotlin</div></div><div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs">import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+
+@Path("/jaxrs")
+public class Resource {
+
+  @GET
+  public String getIt() {
+    return "Got it!";
+  }
+}</code><button class="clipboard">Copy</button></pre>
+</div><div class="content hidden">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs">import javax.ws.rs.GET
+import javax.ws.rs.Path
+
+@Path("/jaxrs")
+class Resource {
+
+  @GET
+  fun getIt() : String {
+    return "Got it!"
+  }
+}</code><button class="clipboard">Copy</button></pre>
+</div></div>
+
+<div class="paragraph">
+<p>Annotations work exactly like the Jooby MVC annotations, but keep in mind we don’t implement the
+JAX-RS specification and there is no immediate plan to do it.</p>
+</div>
+<div class="paragraph">
+<p>The main reason to support JAX-RS annotations is to let you plug-in third-party tools that rely
+on them (mostly annotations processors).</p>
+</div>
+</div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="dependency-injection"><a class="anchor" href="#dependency-injection"></a><a class="link" href="#dependency-injection">8. Dependency Injection</a></h2>
+<h2 id="configuration"><a class="anchor" href="#configuration"></a><a class="link" href="#configuration">8. Configuration</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Application configuration is based on <a href="https://github.com/lightbend/config" target="_blank">config</a> library. Configuration
+can by default be provided in either Java properties, JSON, and <a href="https://github.com/lightbend/config/blob/master/HOCON.md" target="_blank">HOCON</a> files.</p>
+</div>
+<div class="paragraph">
+<p>Jooby allows overriding any property via system properties or environment variables.</p>
+</div>
+<div class="sect2">
+<h3 id="configuration-environment"><a class="anchor" href="#configuration-environment"></a><a class="link" href="#configuration-environment">8.1. Environment</a></h3>
+<div class="paragraph">
+<p>The application environment is available via the <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M3/io/jooby/Env.html" target="_blank">Env</a> class, which allows specifying one
+or many unique environment names.</p>
+</div>
+<div class="paragraph">
+<p>The active environment names serve the purpose of allowing loading different configuration files
+depending on the environment. Also, <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M3/io/jooby/Extension.html" target="_blank">Extension</a> modules might configure application
+services differently depending on the environment too. For example: turn on/off caches, reload files, etc.</p>
+</div>
+<div class="listingblock primary">
+<div class="title">Initializing the Environment</div>
+
+<div class="switch"><div class="switch--item selected">Java</div><div class="switch--item">Kotlin</div></div><div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs">{
+  Environment env = getEnvironment();
+}</code><button class="clipboard">Copy</button></pre>
+</div><div class="content hidden">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs">{
+  val env = environment
+}</code><button class="clipboard">Copy</button></pre>
+</div></div>
+
+<div class="paragraph">
+<p>The active environment names property is set in one of this way:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>As program argument: <code>java -jar myapp.jar application.env=foo,bar</code>; or just <code>java -jar myapp.jar foo,bar</code></p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock note">
+<table>
+<tbody><tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+This method works as long you start the application using one of the <code>runApp</code> methods
+</td>
+</tr>
+</tbody></table>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>As system property: <code>java -Dapplication.env=foo,bar -jar myapp.jar</code></p>
+</li>
+<li>
+<p>As environment variable: <code>application.env=foo,bar</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M3/io/jooby/Jooby.html#getEnvironment--" target="_blank">getEnvironment()</a> loads the default environment.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="configuration-default-environment"><a class="anchor" href="#configuration-default-environment"></a><a class="link" href="#configuration-default-environment">8.2. Default Environment</a></h3>
+<div class="paragraph">
+<p>The default environment is available via <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M3/io/jooby/Env.html#loadEnvironment-java.lang.ClassLoader-" target="_blank">loadEnvironment(ClassLoader)</a> method.</p>
+</div>
+<div class="paragraph">
+<p>This method search for an <code>application.conf</code> file in three location (first-listed are higher priority):</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>${user.dir}/conf</code>. This is a file system location, useful is you want to externalize configuration (outside of jar file)</p>
+</li>
+<li>
+<p><code>${user.dir}</code>. This is a file system location, useful is you want to externalize configuration (outside of jar file)</p>
+</li>
+<li>
+<p><code>classpath://</code> (root of classpath). No external configuration, configuration file lives inside the jar file</p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock note">
+<table>
+<tbody><tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+We use <code>$user.dir</code> to reference <code>System.getProperty("user.dir")</code>. This system property is set
+by the JVM at application startup time. It represent the current directory from where the JVM was
+launch it.
+</td>
+</tr>
+</tbody></table>
+</div>
+<div class="listingblock">
+<div class="title">File system loading</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs">└── conf
+    └── application.conf
+└── myapp.jar</code><button class="clipboard">Copy</button></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>A call to:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code>  Environment env = getEnvironment();</code><button class="clipboard">Copy</button></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Loads the <code>application.conf</code> from <code>conf</code> directory. You get the same thing if you
+move the <code>application.conf</code> to <code>myapp.jar</code> directory.</p>
+</div>
+<div class="listingblock">
+<div class="title">Classpath loading</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs">└── myapp.jar
+   └── application.conf (file inside jar)</code><button class="clipboard">Copy</button></pre>
+</div>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tbody><tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+Jooby favors file system property loading over classpath property loading. So, if there
+is a property file either in the current directory or conf directory it hides the same file
+available in the classpath.
+</td>
+</tr>
+</tbody></table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="configuration-overrides"><a class="anchor" href="#configuration-overrides"></a><a class="link" href="#configuration-overrides">8.3. Overrides</a></h3>
+<div class="paragraph">
+<p>Property overrides is done in multiple ways (first-listed are higher priority):</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Program arguments</p>
+</li>
+<li>
+<p>System properties</p>
+</li>
+<li>
+<p>Environment variables</p>
+</li>
+<li>
+<p>Environment property file</p>
+</li>
+<li>
+<p>Property file</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="title">application.conf</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-properties hljs">foo = foo</code><button class="clipboard">Copy</button></pre>
+</div>
+</div>
+<div class="listingblock primary">
+<div class="title">Property access</div>
+
+<div class="switch"><div class="switch--item selected">Java</div><div class="switch--item">Kotlin</div></div><div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs">{
+  Environment env = getEnvironment();                <i class="conum" data-value="1"></i><b>(1)</b>
+  Config conf = env.getConfig();             <i class="conum" data-value="2"></i><b>(2)</b>
+  System.out.println(conf.getString("foo")); <i class="conum" data-value="3"></i><b>(3)</b>
+}</code><button class="clipboard">Copy</button></pre>
+</div><div class="content hidden">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs">{
+  val env = environment          <i class="conum" data-value="1"></i><b>(1)</b>
+  val conf = env.config          <i class="conum" data-value="2"></i><b>(2)</b>
+  println(conf.getString("foo")) <i class="conum" data-value="3"></i><b>(3)</b>
+}</code><button class="clipboard">Copy</button></pre>
+</div></div>
+
+<div class="colist arabic">
+<table>
+<tbody><tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Get environment</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Get configuration</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Get <code>foo</code> property and prints <code>foo</code></td>
+</tr>
+</tbody></table>
+</div>
+<div class="paragraph">
+<p>At runtime you can override properties using:</p>
+</div>
+<div class="listingblock">
+<div class="title">Program argument</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs">java -jar myapp.jar foo=argument</code><button class="clipboard">Copy</button></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Example prints: <code>argument</code></p>
+</div>
+<div class="listingblock">
+<div class="title">System property</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs">java -Dfoo=sysprop -jar myapp.jar</code><button class="clipboard">Copy</button></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Prints: <code>syspro</code></p>
+</div>
+<div class="listingblock">
+<div class="title">Environment variable</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs">foo=envar java -jar myapp.jar</code><button class="clipboard">Copy</button></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Prints: <code>envar</code></p>
+</div>
+<div class="paragraph">
+<p>If you have multiple properties to override, it is probably better to collect all them into a new file
+and use active environment name to select them.</p>
+</div>
+<div class="listingblock">
+<div class="title">Environment property file</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs">└── application.conf
+└── application.prod.conf</code><button class="clipboard">Copy</button></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">application.conf</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-properties hljs">foo = foo
+bar = devbar</code><button class="clipboard">Copy</button></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">application.prod.conf</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-properties hljs">bar = prodbar</code><button class="clipboard">Copy</button></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Run with <code>prod</code> environment</div>
+<div class="content">
+<pre>java -jar my.app application.env=prod</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Or just</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>java -jar my.app prod</pre>
+</div>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tbody><tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+You only need to override the properties that changes between environment not all the properties.
+</td>
+</tr>
+</tbody></table>
+</div>
+<div class="paragraph">
+<p>The <code>application.conf</code> defines two properties : <code>foo</code> and <code>bar</code>, while the environment property file
+defines only <code>bar</code>.</p>
+</div>
+<div class="paragraph">
+<p>For Multiple environment activation you need to separate them with <code>,</code> (comma):</p>
+</div>
+<div class="listingblock">
+<div class="title">Run with <code>prod</code> and <code>cloud</code> environment</div>
+<div class="content">
+<pre> java -jar my.app application.env=prod,cloud</pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="configuration-custom-environment"><a class="anchor" href="#configuration-custom-environment"></a><a class="link" href="#configuration-custom-environment">8.4. Custom environment</a></h3>
+<div class="paragraph">
+<p>Custom configuration and environment are available too using:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M3/io/jooby/EnvironmentOptions.html" target="_blank">EnvironmentOptions</a> class, or</p>
+</li>
+<li>
+<p>Direct instantiation of the <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M3/io/jooby/Environment.html" target="_blank">Environment</a> class</p>
+</li>
+</ul>
+</div>
+<div class="listingblock primary">
+<div class="title">Environment options</div>
+
+<div class="switch"><div class="switch--item selected">Java</div><div class="switch--item">Kotlin</div></div><div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs">{
+  Environment env = setEnvironmentOptions(new EnvOptions() <i class="conum" data-value="1"></i><b>(1)</b>
+    .setFilename("myapp.conf")
+  )
+}</code><button class="clipboard">Copy</button></pre>
+</div><div class="content hidden">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs">{
+  val env = environmentOptions {                   <i class="conum" data-value="1"></i><b>(1)</b>
+    filename = "myapp.conf"
+  }
+}</code><button class="clipboard">Copy</button></pre>
+</div></div>
+
+<div class="colist arabic">
+<table>
+<tbody><tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Load <code>myapp.conf</code> using the loading and precedence mechanism described before</td>
+</tr>
+</tbody></table>
+</div>
+<div class="paragraph">
+<p>The <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M3/io/jooby/Jooby.html#setEnvironmentOptions-io.jooby.EnvironmentOptions-" target="_blank">setEnvironmentOptions(EnvironmentOptions)</a> method loads, set and returns
+the environment.</p>
+</div>
+<div class="paragraph">
+<p>To skip/ignore Jooby loading and precedence mechanism, just instantiate and set the environment:</p>
+</div>
+<div class="listingblock primary">
+<div class="title">Direct instantiation</div>
+
+<div class="switch"><div class="switch--item selected">Java</div><div class="switch--item">Kotlin</div></div><div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs">{
+  Config conf = ConfigFatory.load("/path/to/myapp.conf");  <i class="conum" data-value="1"></i><b>(1)</b>
+  Environment env = new Env(customConfig, "prod");                 <i class="conum" data-value="2"></i><b>(2)</b>
+  setEnvironment(env);                                     <i class="conum" data-value="3"></i><b>(3)</b>
+}</code><button class="clipboard">Copy</button></pre>
+</div><div class="content hidden">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs">{
+  val conf = ConfigFatory.load("/path/to/myapp.conf")      <i class="conum" data-value="1"></i><b>(1)</b>
+  val env = new Env(conf, "prod")                          <i class="conum" data-value="2"></i><b>(2)</b>
+  environment = env                                        <i class="conum" data-value="3"></i><b>(3)</b>
+}</code><button class="clipboard">Copy</button></pre>
+</div></div>
+
+<div class="colist arabic">
+<table>
+<tbody><tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Loads and parses configuration</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Create a new environment with configuration and (<a href="http://optionally" target="_blank">optionally</a>) active names</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Set environment on Jooby instance</td>
+</tr>
+</tbody></table>
+</div>
+<div class="admonitionblock important">
+<table>
+<tbody><tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+Custom configuration is very flexible. You can reuse Jooby mechanism or provide your own.
+The only thing to keep in mind is that environment setting must be done at very early stage, before
+installing extensions.
+</td>
+</tr>
+</tbody></table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="configuration-logging"><a class="anchor" href="#configuration-logging"></a><a class="link" href="#configuration-logging">8.5. Logging</a></h3>
+<div class="paragraph">
+<p>Jooby uses <a href="https://www.slf4j.org" target="_blank">Slf4j</a> for logging which give you some flexibility for choosing
+the logging framework.</p>
+</div>
+<div class="sect3">
+<h4 id="configuration-logging-logback"><a class="anchor" href="#configuration-logging-logback"></a><a class="link" href="#configuration-logging-logback">8.5.1. Logback</a></h4>
+<div class="paragraph">
+<p>The <a href="https://logback.qos.ch/manual/index.html" target="_blank">Logback</a> is probably the first alternative for
+<a href="https://www.slf4j.org" target="_blank">Slf4j</a> due its natively implements the SLF4J API. Follow the next steps to use
+logback in your project:</p>
+</div>
+<div class="paragraph">
+<p>1) Add dependency</p>
+</div>
+<div class="listingblock primary">
+
+
+<div class="switch"><div class="switch--item selected">Maven</div><div class="switch--item">Gradle</div></div><div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs">&lt;dependency&gt;
+  &lt;groupId&gt;ch.qos.logback&lt;/groupId&gt;
+  &lt;artifactId&gt;logback-classic&lt;/artifactId&gt;
+  &lt;version&gt;1.2.3&lt;/version&gt;
+&lt;/dependency&gt;</code><button class="clipboard">Copy</button></pre>
+</div><div class="content hidden">
+<pre class="highlightjs highlight"><code class="language-javascript hljs">compile: 'ch.qos.logback:logback-classic:1.2.3'</code><button class="clipboard">Copy</button></pre>
+</div></div>
+
+<div class="listingblock">
+<div class="title">logback.xml</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;configuration&gt;
+
+  &lt;appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender"&gt;
+    &lt;encoder&gt;
+      &lt;pattern&gt;%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n&lt;/pattern&gt;
+    &lt;/encoder&gt;
+  &lt;/appender&gt;
+
+  &lt;root level="INFO"&gt;
+    &lt;appender-ref ref="STDOUT" /&gt;
+  &lt;/root&gt;
+&lt;/configuration&gt;</code><button class="clipboard">Copy</button></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>That’s all! <a href="https://www.slf4j.org" target="_blank">Slf4j</a> is going to redirect log message to logback.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="configuration-logging-log4j2"><a class="anchor" href="#configuration-logging-log4j2"></a><a class="link" href="#configuration-logging-log4j2">8.5.2. Log4j2</a></h4>
+<div class="paragraph">
+<p>The <a href="https://logging.apache.org/log4j" target="_blank">Log4j2</a> project is another good alternative for logging. Follow
+the next steps to use logback in your project:</p>
+</div>
+<div class="paragraph">
+<p>1) Add dependencies</p>
+</div>
+<div class="listingblock primary">
+
+
+<div class="switch"><div class="switch--item selected">Maven</div><div class="switch--item">Gradle</div></div><div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs">&lt;dependency&gt;
+  &lt;groupId&gt;org.apache.logging.log4j&lt;/groupId&gt;
+  &lt;artifactId&gt;log4j-slf4j-impl&lt;/artifactId&gt;
+  &lt;version&gt;2.11.2&lt;/version&gt;
+&lt;/dependency&gt;
+
+&lt;dependency&gt;
+  &lt;groupId&gt;org.apache.logging.log4j&lt;/groupId&gt;
+  &lt;artifactId&gt;log4j-core&lt;/artifactId&gt;
+  &lt;version&gt;2.11.2&lt;/version&gt;
+&lt;/dependency&gt;</code><button class="clipboard">Copy</button></pre>
+</div><div class="content hidden">
+<pre class="highlightjs highlight"><code class="language-javascript hljs">compile: 'org.apache.logging.log4j:log4j-slf4j-impl:2.11.2'
+
+compile: 'org.apache.logging.log4j:log4j-core:2.11.2'</code><button class="clipboard">Copy</button></pre>
+</div></div>
+
+<div class="listingblock">
+<div class="title">log4j.xml</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;Configuration&gt;
+  &lt;Appenders&gt;
+    &lt;Console name="stdout"&gt;
+      &lt;PatternLayout pattern="%d [%t] %-5level: %msg%n%throwable" /&gt;
+    &lt;/Console&gt;
+  &lt;/Appenders&gt;
+  &lt;Loggers&gt;
+    &lt;Root level="INFO" additivity="true"&gt;
+      &lt;AppenderRef ref="stdout" /&gt;
+    &lt;/Root&gt;
+  &lt;/Loggers&gt;
+&lt;/Configuration&gt;</code><button class="clipboard">Copy</button></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>All these extensions are considered valid: <code>.xml</code>, <code>.propertines</code>, <code>.yaml</code> and <code>.json</code>. As well as <code>log4j2</code> for file name.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="configuration-logging-environment"><a class="anchor" href="#configuration-logging-environment"></a><a class="link" href="#configuration-logging-environment">8.5.3. Environment logging</a></h4>
+<div class="paragraph">
+<p>Logging is integrated with the environment names. So it is possible to have a file name:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>logback[.name].xml</code> (for loggback)</p>
+</li>
+<li>
+<p><code>log4j[.name].xml</code> (for log4j2)</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Jooby favors the environment specific logging configuration file over regular/normal logging configuration file.</p>
+</div>
+<div class="listingblock">
+<div class="title">Example</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs">conf
+└── logback.conf
+└── logback.prod.conf</code><button class="clipboard">Copy</button></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To use <code>logback.prod.conf</code>, start your application like:</p>
+</div>
+<div class="paragraph">
+<p><code>java -jar myapp.jar application.env=prod</code></p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tbody><tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The logging configuration file per environment works as long you don’t use <strong>static</strong> loggers
+before application has been start it. The next example won’t work:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs">public class App extends Jooby {
+  private static final Logger log = ...
+
+  public static void main(String[] args) {
+    runApp(args, App::new);
+  }
+}</code><button class="clipboard">Copy</button></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The <code>runApp</code> method is the one who configures the logging framework. Adding a static logger force
+the logging framework to configure without taking care the environment setup.</p>
+</div>
+<div class="paragraph">
+<p>There are a couple of solution is for this:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>use an instance logger</p>
+</li>
+<li>
+<p>use the getLog() method of Jooby</p>
+</li>
+</ul>
+</div>
+</td>
+</tr>
+</tbody></table>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="dependency-injection"><a class="anchor" href="#dependency-injection"></a><a class="link" href="#dependency-injection">9. Dependency Injection</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>In Jooby 2.x there is no dependency injection framework. This is another major difference with 1.x which
@@ -5430,7 +6085,7 @@ was built with Guice.</p>
 dependency injection of your choice.</p>
 </div>
 <div class="sect2">
-<h3 id="dependency-injection-dagger"><a class="anchor" href="#dependency-injection-dagger"></a><a class="link" href="#dependency-injection-dagger">8.1. Dagger</a></h3>
+<h3 id="dependency-injection-dagger"><a class="anchor" href="#dependency-injection-dagger"></a><a class="link" href="#dependency-injection-dagger">9.1. Dagger</a></h3>
 <div class="paragraph">
 <p>1) Add Dagger to your project</p>
 </div>
@@ -5637,7 +6292,7 @@ fun main(args: Array&lt;String&gt;) {
 </div>
 </div>
 <div class="sect2">
-<h3 id="dependency-injection-guice"><a class="anchor" href="#dependency-injection-guice"></a><a class="link" href="#dependency-injection-guice">8.2. Guice</a></h3>
+<h3 id="dependency-injection-guice"><a class="anchor" href="#dependency-injection-guice"></a><a class="link" href="#dependency-injection-guice">9.2. Guice</a></h3>
 <div class="paragraph">
 <p>1) Add Guice dependency to your project:</p>
 </div>
@@ -5648,10 +6303,10 @@ fun main(args: Array&lt;String&gt;) {
 <pre class="highlightjs highlight"><code class="language-xml hljs">&lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
   &lt;artifactId&gt;jooby-guice&lt;/artifactId&gt;
-  &lt;version&gt;2.0.0.M2&lt;/version&gt;
+  &lt;version&gt;2.0.0.M3&lt;/version&gt;
 &lt;/dependency&gt;</code><button class="clipboard">Copy</button></pre>
 </div><div class="content hidden">
-<pre class="highlightjs highlight"><code class="language-javascript hljs">compile: 'io.jooby:jooby-guice:2.0.0.M2'</code><button class="clipboard">Copy</button></pre>
+<pre class="highlightjs highlight"><code class="language-javascript hljs">compile: 'io.jooby:jooby-guice:2.0.0.M3'</code><button class="clipboard">Copy</button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -5703,11 +6358,45 @@ fun main(args: Array&lt;String&gt;) {
 </tr>
 <tr>
 <td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>The <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M2/io/jooby/Jooby.html#require-java.lang.Class-">require(Class)</a> call is now resolved by Guice</td>
+<td>The <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M3/io/jooby/Jooby.html#require-java.lang.Class-" target="_blank">require(Class)</a> call is now resolved by Guice</td>
 </tr>
 </tbody></table>
 </div>
-<h4 id="mvc-routes-2" class="discrete">MVC routes</h4>
+<div class="sect3">
+<h4 id="dependency-injection-guice-property"><a class="anchor" href="#dependency-injection-guice-property"></a><a class="link" href="#dependency-injection-guice-property">9.2.1. Property Injection</a></h4>
+<div class="paragraph">
+<p>Configuration properties can be injected using the <code>@Named</code> annotation:</p>
+</div>
+<div class="listingblock">
+<div class="title">application.conf</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs">currency = USD</code><button class="clipboard">Copy</button></pre>
+</div>
+</div>
+<div class="listingblock primary">
+
+
+<div class="switch"><div class="switch--item selected">Java</div><div class="switch--item">Kotlin</div></div><div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs">import javax.injext.Named;
+import javax.injext.Inject;
+
+public class BillingService {
+
+  @Inject
+  public BillingService(@Named("currency") String currency) {
+    ...
+  }
+
+}</code><button class="clipboard">Copy</button></pre>
+</div><div class="content hidden">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs">class BillingService @Inject constructor(@Named("currency") currency: String) {
+  ...
+}</code><button class="clipboard">Copy</button></pre>
+</div></div>
+
+</div>
+<div class="sect3">
+<h4 id="dependency-injection-guice-mvc-routes-2"><a class="anchor" href="#dependency-injection-guice-mvc-routes-2"></a><a class="link" href="#dependency-injection-guice-mvc-routes-2">9.2.2. MVC routes</a></h4>
 <div class="paragraph">
 <p>Guice will also provisioning MVC routes</p>
 </div>
@@ -5769,8 +6458,9 @@ fun main(args: Array&lt;String&gt;) {
 </ul>
 </div>
 </div>
+</div>
 <div class="sect2">
-<h3 id="dependency-injection-spring"><a class="anchor" href="#dependency-injection-spring"></a><a class="link" href="#dependency-injection-spring">8.3. Spring</a></h3>
+<h3 id="dependency-injection-spring"><a class="anchor" href="#dependency-injection-spring"></a><a class="link" href="#dependency-injection-spring">9.3. Spring</a></h3>
 <div class="paragraph">
 <p>1) Add Spring dependency to your project:</p>
 </div>
@@ -5781,10 +6471,10 @@ fun main(args: Array&lt;String&gt;) {
 <pre class="highlightjs highlight"><code class="language-xml hljs">&lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
   &lt;artifactId&gt;jooby-spring&lt;/artifactId&gt;
-  &lt;version&gt;2.0.0.M2&lt;/version&gt;
+  &lt;version&gt;2.0.0.M3&lt;/version&gt;
 &lt;/dependency&gt;</code><button class="clipboard">Copy</button></pre>
 </div><div class="content hidden">
-<pre class="highlightjs highlight"><code class="language-javascript hljs">compile: 'io.jooby:jooby-spring:2.0.0.M2'</code><button class="clipboard">Copy</button></pre>
+<pre class="highlightjs highlight"><code class="language-javascript hljs">compile: 'io.jooby:jooby-spring:2.0.0.M3'</code><button class="clipboard">Copy</button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -5794,15 +6484,15 @@ fun main(args: Array&lt;String&gt;) {
 <div class="title">Installing Spring</div>
 
 <div class="switch"><div class="switch--item selected">Java</div><div class="switch--item">Kotlin</div></div><div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs">package myapp;                                      <i class="conum" data-value="1"></i><b>(1)</b>
+<pre class="highlightjs highlight"><code class="language-java hljs">package myapp;                                       <i class="conum" data-value="1"></i><b>(1)</b>
 
 import static io.jooby.Jooby.runApp;
-import io.jooby.di.Spring;
+import io.jooby.di.Springby;
 
 public class App extends Jooby {
 
   {
-    install(new Spring());                           <i class="conum" data-value="2"></i><b>(2)</b>
+    install(new Springby());                         <i class="conum" data-value="2"></i><b>(2)</b>
 
     get("/", ctx -&gt; {
       MyService service = require(MyService.class);  <i class="conum" data-value="3"></i><b>(3)</b>
@@ -5818,12 +6508,12 @@ public class App extends Jooby {
 <pre class="highlightjs highlight"><code class="language-kotlin hljs">package myapp                                        <i class="conum" data-value="1"></i><b>(1)</b>
 
 import io.jooby.runApp
-import io.jooby.di.Spring
+import io.jooby.di.Springby
 
 fun main(args: Array&lt;String&gt;) {
   runApp(args) {
 
-    install(new Spring())                            <i class="conum" data-value="2"></i><b>(2)</b>
+    install(new Springby())                          <i class="conum" data-value="2"></i><b>(2)</b>
 
     get ("/") { ctx -&gt;
       val service = require(MyService::class)        <i class="conum" data-value="3"></i><b>(3)</b>
@@ -5845,7 +6535,7 @@ fun main(args: Array&lt;String&gt;) {
 </tr>
 <tr>
 <td><i class="conum" data-value="3"></i><b>3</b></td>
-<td>The <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M2/io/jooby/Jooby.html#require-java.lang.Class-">require(Class)</a> call is now resolved by Spring</td>
+<td>The <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M3/io/jooby/Jooby.html#require-java.lang.Class-" target="_blank">require(Class)</a> call is now resolved by Spring</td>
 </tr>
 </tbody></table>
 </div>
@@ -5857,7 +6547,44 @@ fun main(args: Array&lt;String&gt;) {
 <pre>install(new Spring("foo", "bar"));</pre>
 </div>
 </div>
-<h4 id="mvc-routes-3" class="discrete">MVC routes</h4>
+<div class="sect3">
+<h4 id="dependency-injection-spring-property-2"><a class="anchor" href="#dependency-injection-spring-property-2"></a><a class="link" href="#dependency-injection-spring-property-2">9.3.1. Property Injection</a></h4>
+<div class="paragraph">
+<p>Configuration properties can be injected using the <code>@Value</code> annotation:</p>
+</div>
+<div class="listingblock">
+<div class="title">application.conf</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs">currency = USD</code><button class="clipboard">Copy</button></pre>
+</div>
+</div>
+<div class="listingblock primary">
+
+
+<div class="switch"><div class="switch--item selected">Java</div><div class="switch--item">Kotlin</div></div><div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs">import javax.injext.Inject;
+import org.springframework.beans.factory.annotation.Value;
+
+public class BillingService {
+
+  @Inject
+  public BillingService(@Value("currency") String currency) {
+    ...
+  }
+
+}</code><button class="clipboard">Copy</button></pre>
+</div><div class="content hidden">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs">import javax.injext.Inject
+import org.springframework.beans.factory.annotation.Value
+
+class BillingService @Inject constructor(@Value("${currency}") currency: String) {
+  ...
+}</code><button class="clipboard">Copy</button></pre>
+</div></div>
+
+</div>
+<div class="sect3">
+<h4 id="dependency-injection-spring-mvc-routes-3"><a class="anchor" href="#dependency-injection-spring-mvc-routes-3"></a><a class="link" href="#dependency-injection-spring-mvc-routes-3">9.3.2. MVC routes</a></h4>
 <div class="paragraph">
 <p>The Spring extension does a bit more in relation to MVC routes:</p>
 </div>
@@ -5900,8 +6627,9 @@ class Hello {
 </div></div>
 
 </div>
+</div>
 <div class="sect2">
-<h3 id="dependency-injection-weld"><a class="anchor" href="#dependency-injection-weld"></a><a class="link" href="#dependency-injection-weld">8.4. Weld</a></h3>
+<h3 id="dependency-injection-weld"><a class="anchor" href="#dependency-injection-weld"></a><a class="link" href="#dependency-injection-weld">9.4. Weld</a></h3>
 <div class="paragraph">
 <p>1) Add Weld dependency to your project:</p>
 </div>
@@ -5912,10 +6640,10 @@ class Hello {
 <pre class="highlightjs highlight"><code class="language-xml hljs">&lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
   &lt;artifactId&gt;jooby-weld&lt;/artifactId&gt;
-  &lt;version&gt;2.0.0.M2&lt;/version&gt;
+  &lt;version&gt;2.0.0.M3&lt;/version&gt;
 &lt;/dependency&gt;</code><button class="clipboard">Copy</button></pre>
 </div><div class="content hidden">
-<pre class="highlightjs highlight"><code class="language-javascript hljs">compile: 'io.jooby:jooby-weld:2.0.0.M2'</code><button class="clipboard">Copy</button></pre>
+<pre class="highlightjs highlight"><code class="language-javascript hljs">compile: 'io.jooby:jooby-weld:2.0.0.M3'</code><button class="clipboard">Copy</button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -5967,22 +6695,60 @@ fun main(args: Array&lt;String&gt;) {
 </tr>
 <tr>
 <td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>The <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M2/io/jooby/Jooby.html#require-java.lang.Class-">require(Class)</a> call is now resolved by Weld</td>
+<td>The <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.M3/io/jooby/Jooby.html#require-java.lang.Class-" target="_blank">require(Class)</a> call is now resolved by Weld</td>
 </tr>
 </tbody></table>
 </div>
-<h4 id="mvc-routes-4" class="discrete">MVC routes</h4>
+<div class="sect3">
+<h4 id="dependency-injection-weld-property-3"><a class="anchor" href="#dependency-injection-weld-property-3"></a><a class="link" href="#dependency-injection-weld-property-3">9.4.1. Property Injection</a></h4>
+<div class="paragraph">
+<p>Configuration properties can be injected using the <code>@Named</code> annotation:</p>
+</div>
+<div class="listingblock">
+<div class="title">application.conf</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs">currency = USD</code><button class="clipboard">Copy</button></pre>
+</div>
+</div>
+<div class="listingblock primary">
+
+
+<div class="switch"><div class="switch--item selected">Java</div><div class="switch--item">Kotlin</div></div><div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs">import javax.injext.Inject;
+import javax.injext.Named;
+
+public class BillingService {
+
+  @Inject
+  public BillingService(@Named("currency") String currency) {
+    ...
+  }
+
+}</code><button class="clipboard">Copy</button></pre>
+</div><div class="content hidden">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs">import javax.injext.Inject
+import javax.injext.Named
+
+class BillingService @Inject constructor(@Named("currency") currency: String) {
+  ...
+}</code><button class="clipboard">Copy</button></pre>
+</div></div>
+
+</div>
+<div class="sect3">
+<h4 id="dependency-injection-weld-mvc-routes-4"><a class="anchor" href="#dependency-injection-weld-mvc-routes-4"></a><a class="link" href="#dependency-injection-weld-mvc-routes-4">9.4.2. MVC routes</a></h4>
 <div class="paragraph">
 <p>The Weld extension does a bit more in relation to MVC routes:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>A MVC route annotated with the <code>io.jooby.annotations.Controller</code> annotation is
+<p>A MVC route annotated with the <code>io.jooby.annotations.Path</code> annotation is
 automatically registered. No need to register it manually</p>
 </li>
 <li>
-<p>A MVC route provided by Weld is a singleton object by default. Singleton is the default scope in Weld</p>
+<p>The default scope is <code>prototype</code> (creates a new instance per request). If you prefer a single
+instance add the <code>javax.inject.Singleton</code> annotation</p>
 </li>
 </ul>
 </div>
@@ -5992,7 +6758,7 @@ automatically registered. No need to register it manually</p>
 <div class="switch"><div class="switch--item selected">Java</div><div class="switch--item">Kotlin</div></div><div class="content">
 <pre class="highlightjs highlight"><code class="language-java hljs">import io.jooby.annotations.*;
 
-@Controller
+@Path("/")
 public class Hello {
 
    @GET
@@ -6003,7 +6769,7 @@ public class Hello {
 </div><div class="content hidden">
 <pre class="highlightjs highlight"><code class="language-kotlin hljs">import io.jooby.annotations.*;
 
-@Controller
+@Path("/")
 class Hello {
 
    @GET
@@ -6013,6 +6779,7 @@ class Hello {
 }</code><button class="clipboard">Copy</button></pre>
 </div></div>
 
+</div>
 </div>
 </div>
 </div>
