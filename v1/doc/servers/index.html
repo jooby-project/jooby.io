@@ -1,0 +1,632 @@
+<!doctype html>
+<html lang="en">
+ <head> 
+  <meta charset="UTF-8"> 
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"> 
+  <title>jooby: servers module</title> 
+  <meta name="description" content="Scalable, fast and modular micro web framework for Java. Build small/large apps easily and quickly with Netty, Undertow or Jetty."> 
+  <meta name="keywords" content="Java, Micro Web Framework, Async, Easy to use, Micro, Sinatra, Express, Scalable, Modern, Best, Web, Framework, Lightweight, Microservices, servers"> 
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+  <link rel="canonical" href="#"> 
+  <link rel="publisher" href="#"> 
+  <meta name="robots" content="robots.txt"> 
+  <meta name="og:title" content="jooby: servers module"> 
+  <meta name="og:description" content="Run your application on top of your favorite server!"> 
+  <!--
+    og:type
+    SI EL TEMPLATE ES UN ARTICULO (NOTA, VIDEO, ETC) CAMBIAR
+    "website" por "article"
+    --> 
+  <meta name="og:type" content="website"> 
+  <meta name="og:url" content="https://jooby.org"> 
+  <!--
+    og:image
+    SI ES UNA NOTA Y LA NOTA TIENE UNA IMAGEN DE PREVIEW SE DEBE
+    CAMBIAR POR UNA IMAGEN CON LAS SIGUIENTES ESPECIFICACIONES
+    ANCHO: 200
+    ALTO: 200
+    FORMATO: JPG
+    --> 
+  <meta name="og:image" content="https://jooby.org/resources/images/apps/facebook.jpg"> 
+  <meta name="og:site_name" content="jooby: servers module"> 
+  <meta name="twitter:card" content="summary"> 
+  <meta name="twitter:title" content="jooby: servers module"> 
+  <!--
+    twitter:image
+    SI ES UNA NOTA Y LA NOTA TIENE UNA IMAGEN DE PREVIEW SE DEBE
+    CAMBIAR POR UNA IMAGEN CON LAS SIGUIENTES ESPECIFICACIONES
+    ANCHO: 280
+    ALTO: 150
+    FORMATO: JPG
+    TAMAÑO MAXIMO: 1MB
+    --> 
+  <meta name="twitter:image" content="https://jooby.org/resources/images/apps/twitter.jpg"> 
+  <meta name="twitter:site" content="@joobyproject"> 
+  <meta name="twitter:creator" content="https://twitter.com/edgarespina"> 
+  <meta name="twitter:domain" content="https://jooby.org"> 
+  <meta name="twitter:url" content="https://twitter.com/joobyproject"> 
+  <meta name="twitter:description" content="Run your application on top of your favorite server!"> 
+  <link rel="apple-touch-icon-precomposed" href="/v1/resources/images/apps/precomposed57.png" sizes="57x57"> 
+  <link rel="apple-touch-icon-precomposed" href="/v1/resources/images/apps/precomposed60.png" sizes="60x60"> 
+  <link rel="apple-touch-icon-precomposed" href="/v1/resources/images/apps/precomposed72.png" sizes="72x72"> 
+  <link rel="apple-touch-icon-precomposed" href="/v1/resources/images/apps/precomposed76.png" sizes="76x76"> 
+  <link rel="apple-touch-icon-precomposed" href="/v1/resources/images/apps/precomposed114.png" sizes="114x114"> 
+  <link rel="apple-touch-icon-precomposed" href="/v1/resources/images/apps/precomposed120.png" sizes="120x120"> 
+  <link rel="apple-touch-icon-precomposed" href="/v1/resources/images/apps/precomposed144.png" sizes="144x144"> 
+  <link rel="apple-touch-icon-precomposed" href="/v1/resources/images/apps/precomposed152.png" sizes="152x152"> 
+  <link rel="apple-touch-icon-precomposed" href="/v1/resources/images/apps/precomposed180.png" sizes="180x180"> 
+  <link href="/v1/resources/images/apps/favicon.ico" rel="shortcut icon"> 
+  <link href="/v1/resources/images/apps/favicon.png" rel="icon" sizes="16x16" type="image/png"> 
+  <link href="/v1/resources/images/apps/favicon32.png" rel="icon" sizes="32x32" type="image/png"> 
+  <link href="/v1/resources/images/apps/favicon96.png" rel="icon" sizes="96x96" type="image/png"> 
+  <link href="/v1/resources/images/apps/android-chrome.png" rel="icon" sizes="192x192" type="image/png"> 
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway:400,300,500,700"> 
+  <link rel="stylesheet" href="/v1/resources/styles/application.css"> 
+  <link rel="stylesheet" href="/v1/resources/styles/github.css"> 
+  <link rel="stylesheet" href="/v1/resources/styles/devices.css"> 
+  <link rel="stylesheet" href="/v1/resources/styles/sprites.css"> 
+ </head> 
+ <body class="page-section page-sidebar"> 
+  <header class="site-header"> 
+   <div class="row"> 
+    <a href="/v1/" title="Home" class="site-logo"><img src="/v1/resources/images/logo_jooby-2x.png" alt="Logo Jooby" width="76" height="31"></a> 
+    <a class="show-mobile open-menu" href="/v1"><span></span></a> 
+    <nav class="site-nav"> 
+     <ul> 
+      <li class=""><a href="/v1/quickstart" title="Quick start">QUICK START</a></li> 
+      <li class=""><a href="/v1/doc" title="Doc">DOCS</a></li> 
+      <li class="active"><a href="/v1/modules" title="Modules">MODULES</a></li> 
+      <li class=""><a href="/v1/community" title="Community">COMMUNITY</a></li> 
+      <li class=""><a href="/v1/faq" title="FAQ">FAQ</a></li> 
+      <li><a href="https://javadoc.io/doc/org.jooby/jooby/1.6.2" target="_blank" title="API docs">API DOCS</a></li> 
+     </ul> 
+    </nav> 
+   </div> 
+  </header> 
+  <main role="main" class="site-content"> 
+   <div class="section-title"> 
+    <div class="row"> 
+     <a href="/v1/modules" class="jsback" title="Go back"><span class="icon-arrowback-big-circle"></span></a> 
+     <h1>servers</h1> 
+    </div> 
+   </div> 
+   <div class="row"> 
+    <div class="section-sidebar" style="position: fixed; left: 120px; top: 160px; bottom: 20px;"> 
+     <div class="show-mobile menu-open">
+       servers 
+     </div> 
+     <ul> 
+      <li class="active"> <a href="#servers">servers</a></li> 
+      <li class=""> <a href="#netty">netty</a> 
+       <ul> 
+        <li> <a href="#netty-exports">exports</a></li> 
+        <li> <a href="#netty-dependency">dependency</a></li> 
+        <li> <a href="#netty-usage">usage</a></li> 
+        <li> <a href="#netty-http-2">http/2</a></li> 
+        <li> <a href="#netty-server-conf">server.conf</a></li> 
+       </ul></li> 
+      <li class=""> <a href="#undertow">undertow</a> 
+       <ul> 
+        <li> <a href="#undertow-exports">exports</a></li> 
+        <li> <a href="#undertow-dependency">dependency</a></li> 
+        <li> <a href="#undertow-usage">usage</a></li> 
+        <li> <a href="#undertow-http-2">http/2</a></li> 
+        <li> <a href="#undertow-server-conf">server.conf</a></li> 
+       </ul></li> 
+      <li class=""> <a href="#jetty">jetty</a> 
+       <ul> 
+        <li> <a href="#jetty-exports">exports</a></li> 
+        <li> <a href="#jetty-dependency">dependency</a></li> 
+        <li> <a href="#jetty-usage">usage</a></li> 
+        <li> <a href="#jetty-http-2">http/2</a></li> 
+        <li> <a href="#jetty-server-conf">server.conf</a></li> 
+       </ul></li> 
+      <li class=""> <a href="#servlets">servlets</a> 
+       <ul> 
+        <li> <a href="#servlets-usage">usage</a></li> 
+        <li> <a href="#servlets-limitations">limitations</a></li> 
+        <li> <a href="#servlets-how-does-it-work-">how does it work?</a></li> 
+       </ul></li> 
+     </ul> 
+    </div> 
+    <div class="section-content"> 
+     <div class="datalist" id="servers"> 
+      <div class="datalist-title active"> 
+       <h2>servers</h2> 
+      </div> 
+      <div class="datalist-content"> 
+       <p>Run your application on top of your favorite server!</p> 
+       <p>Change one line and switch between <a href="http://netty.io" target="_blank">Netty</a>, <a href="http://www.eclipse.org/jetty/" target="_blank">Jetty</a> or <a href="http://undertow.io" target="_blank">Undertow</a>!!</p> 
+      </div> 
+     </div> 
+     <div class="datalist" id="netty"> 
+      <div class="datalist-title "> 
+       <h2>netty</h2> 
+      </div> 
+      <div class="datalist-content"> 
+       <p><a href="http://netty.io" target="_blank">Netty</a> is an asynchronous event-driven network application framework for rapid development of maintainable high performance protocol servers &amp; clients.</p> 
+       <h3 id="netty-exports">exports</h3> 
+       <ul> 
+        <li><code class="highlighter-rouge codehilite">Server</code></li> 
+       </ul> 
+       <h3 id="netty-dependency">dependency</h3> 
+       <div class="highlighter-rouge codehilite"> 
+        <div class="copy-bar"> 
+         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        </div> 
+        <pre class="highlight"><code><span class="nt">&lt;dependency&gt;</span>
+  <span class="nt">&lt;groupId&gt;</span>org.jooby<span class="nt">&lt;/groupId&gt;</span>
+  <span class="nt">&lt;artifactId&gt;</span>jooby-netty<span class="nt">&lt;/artifactId&gt;</span>
+  <span class="nt">&lt;version&gt;</span>1.6.2<span class="nt">&lt;/version&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+</code></pre> 
+       </div> 
+       <h3 id="netty-usage">usage</h3> 
+       <p>In order to use a web server all you have to do is add the dependency to your build system.</p> 
+       <h3 id="netty-http-2">http/2</h3> 
+       <p><code class="highlighter-rouge codehilite">HTTP/2</code> is fully supported:</p> 
+       <div class="highlighter-rouge codehilite"> 
+        <div class="copy-bar"> 
+         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        </div> 
+        <pre class="highlight"><code>| H2        | H2C           | PUSH  |
+| --------- | ------------- | ----- |
+| Yes       | Yes           | Yes   |
+</code></pre> 
+       </div> 
+       <p>No extra configuration is necessary.</p> 
+       <h3 id="netty-server-conf">server.conf</h3> 
+       <p>These are the default properties for netty:</p> 
+       <div class="highlighter-rouge codehilite"> 
+        <div class="copy-bar"> 
+         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        </div> 
+        <pre class="highlight"><code><span class="c"># netty defaults </span>
+<span class="py">server.module</span> <span class="p">=</span> <span class="s">org.jooby.netty.Netty</span>
+
+<span class="py">server.http2.cleartext</span> <span class="p">=</span> <span class="s">true</span>
+
+<span class="err">netty</span> <span class="err">{</span>
+
+  <span class="err">http</span> <span class="err">{</span>
+
+    <span class="py">MaxInitialLineLength</span> <span class="p">=</span> <span class="s">4k</span>
+
+    <span class="py">MaxHeaderSize</span> <span class="p">=</span> <span class="s">${server.http.HeaderSize}</span>
+
+    <span class="py">MaxChunkSize</span> <span class="p">=</span> <span class="s">16k</span>
+
+    <span class="py">MaxContentLength</span> <span class="p">=</span> <span class="s">${server.http.MaxRequestSize}</span>
+
+    <span class="py">IdleTimeout</span> <span class="p">=</span> <span class="s">${server.http.IdleTimeout}</span>
+
+  <span class="err">}</span>
+
+  <span class="err">threads</span> <span class="err">{</span>
+
+    <span class="py">Min</span> <span class="p">=</span> <span class="s">${server.threads.Min}</span>
+
+    <span class="py">Max</span> <span class="p">=</span> <span class="s">${server.threads.Max}</span>
+
+    <span class="py">Name</span> <span class="p">=</span> <span class="s">netty task</span>
+
+    <span class="py">Boss</span> <span class="p">=</span> <span class="s">1</span>
+
+    <span class="py">Worker</span> <span class="p">=</span> <span class="s">${runtime.processors-x2}</span>
+
+  <span class="err">}</span>
+
+  <span class="err">options</span> <span class="err">{</span>
+
+    <span class="py">SO_REUSEADDR</span> <span class="p">=</span> <span class="s">true</span>
+
+  <span class="err">}</span>
+
+  <span class="err">worker</span> <span class="err">{</span>
+
+    <span class="err">options</span> <span class="err">{</span>
+
+      <span class="py">SO_REUSEADDR</span> <span class="p">=</span> <span class="s">true</span>
+
+    <span class="err">}</span>
+
+  <span class="err">}</span>
+
+<span class="err">}</span>
+</code></pre> 
+       </div> 
+      </div> 
+     </div> 
+     <div class="datalist" id="undertow"> 
+      <div class="datalist-title "> 
+       <h2>undertow</h2> 
+      </div> 
+      <div class="datalist-content"> 
+       <p><a href="http://undertow.io/" target="_blank">Undertow</a> is a flexible performant web server written in java, providing both blocking and non-blocking API’s based on NIO.</p> 
+       <h3 id="undertow-exports">exports</h3> 
+       <ul> 
+        <li><code class="highlighter-rouge codehilite">Server</code></li> 
+       </ul> 
+       <h3 id="undertow-dependency">dependency</h3> 
+       <div class="highlighter-rouge codehilite"> 
+        <div class="copy-bar"> 
+         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        </div> 
+        <pre class="highlight"><code><span class="nt">&lt;dependency&gt;</span>
+  <span class="nt">&lt;groupId&gt;</span>org.jooby<span class="nt">&lt;/groupId&gt;</span>
+  <span class="nt">&lt;artifactId&gt;</span>jooby-undertow<span class="nt">&lt;/artifactId&gt;</span>
+  <span class="nt">&lt;version&gt;</span>1.6.2<span class="nt">&lt;/version&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+</code></pre> 
+       </div> 
+       <h3 id="undertow-usage">usage</h3> 
+       <p>In order to use a web server all you have to do is add the dependency to your build system.</p> 
+       <h3 id="undertow-http-2">http/2</h3> 
+       <p><code class="highlighter-rouge codehilite">HTTP/2</code> is fully supported:</p> 
+       <div class="highlighter-rouge codehilite"> 
+        <div class="copy-bar"> 
+         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        </div> 
+        <pre class="highlight"><code>| H2        | H2C           | PUSH  |
+| --------- | ------------- | ----- |
+| Yes       | Yes           | Yes   |
+</code></pre> 
+       </div> 
+       <p>You need <code class="highlighter-rouge codehilite">Java 8 Update 71</code> or higher (integration tests uses <code class="highlighter-rouge codehilite">Java 8 Update 101</code>).</p> 
+       <p>See <a href="https://www.java.com/en/download/faq/release_dates.xml" target="_blank">Java 8 releases</a> for more details.</p> 
+       <h3 id="undertow-server-conf">server.conf</h3> 
+       <p>These are the default properties for undertow:</p> 
+       <div class="highlighter-rouge codehilite"> 
+        <div class="copy-bar"> 
+         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        </div> 
+        <pre class="highlight"><code><span class="c"># undertow defaults </span>
+<span class="py">server.module</span> <span class="p">=</span> <span class="s">org.jooby.undertow.Undertow</span>
+
+<span class="py">server.http2.cleartext</span> <span class="p">=</span> <span class="s">true</span>
+
+<span class="err">undertow</span> <span class="err">{</span>
+
+  <span class="py">bufferSize</span> <span class="p">=</span> <span class="s">${server.http.ResponseBufferSize}</span>
+
+  <span class="py">workerThreads</span> <span class="p">=</span> <span class="s">${server.threads.Max}</span>
+
+  <span class="c"># Waits a set length of time for the handler to shut down. It provides a way to prevent the server </span>
+  <span class="c"># from accepting new requests, and wait for existing requests to complete </span>
+  <span class="py">awaitShutdown</span> <span class="p">=</span> <span class="s">1000</span>
+
+  <span class="err">server</span> <span class="err">{</span>
+
+    <span class="py">ALLOW_EQUALS_IN_COOKIE_VALUE</span> <span class="p">=</span> <span class="s">true</span>
+
+    <span class="py">ALWAYS_SET_KEEP_ALIVE</span> <span class="p">=</span> <span class="s">true</span>
+
+    <span class="c"># The maximum size in bytes of a http request header. </span>
+    <span class="py">MAX_HEADER_SIZE</span> <span class="p">=</span> <span class="s">${server.http.HeaderSize}</span>
+
+    <span class="c"># The default maximum size of the HTTP entity body. </span>
+    <span class="py">MAX_ENTITY_SIZE</span> <span class="p">=</span> <span class="s">${server.http.MaxRequestSize}</span>
+
+    <span class="c"># The maximum number of parameters that will be parsed. This is used to protect against hash </span>
+    <span class="c"># vulnerabilities. </span>
+    <span class="c"># This applies to both query parameters, and to POST data, but is not cumulative </span>
+    <span class="c"># (i.e. you can potentially have max parameters * 2 total parameters). </span>
+    <span class="py">MAX_PARAMETERS</span> <span class="p">=</span> <span class="s">1000</span>
+
+    <span class="c"># The maximum number of headers that will be parsed. This is used to protect against hash </span>
+    <span class="c"># vulnerabilities. </span>
+    <span class="py">MAX_HEADERS</span> <span class="p">=</span> <span class="s">200</span>
+
+    <span class="c"># The maximum number of headers that will be parsed. This is used to protect against hash </span>
+    <span class="c"># vulnerabilities. </span>
+    <span class="py">MAX_COOKIES</span> <span class="p">=</span> <span class="s">200</span>
+
+    <span class="py">URL_CHARSET</span> <span class="p">=</span> <span class="s">${application.charset}</span>
+
+    <span class="c"># If this is true then the parser will decode the URL and query parameters using the selected </span>
+    <span class="c"># character encoding (URL_CHARSET by default). If this is false they will not be decoded. </span>
+    <span class="c"># This will allow a later handler to decode them into whatever charset is desired. </span>
+    <span class="py">DECODE_URL</span> <span class="p">=</span> <span class="s">true</span>
+
+    <span class="c"># The idle timeout in milliseconds after which the channel will be closed. </span>
+    <span class="c"># If the underlying channel already has a read or write timeout set the smaller of the two values will be used </span>
+    <span class="c"># for read/write timeouts. </span>
+    <span class="py">IDLE_TIMEOUT</span> <span class="p">=</span> <span class="s">${server.http.IdleTimeout}</span>
+
+  <span class="err">}</span>
+
+  <span class="err">worker</span> <span class="err">{</span>
+
+    <span class="py">WORKER_NAME</span> <span class="p">=</span> <span class="s">utow</span>
+
+  <span class="err">}</span>
+
+  <span class="err">socket</span> <span class="err">{</span>
+
+    <span class="py">BACKLOG</span> <span class="p">=</span> <span class="s">1024</span>
+
+  <span class="err">}</span>
+
+  <span class="err">ws</span> <span class="err">{</span>
+
+    <span class="c"># The maximum size of a text message during parsing/generating. </span>
+    <span class="py">MaxTextBufferSize</span> <span class="p">=</span> <span class="s">${server.ws.MaxTextMessageSize}</span>
+
+    <span class="c"># The maximum size of a binary message during parsing/generating. </span>
+    <span class="py">MaxBinaryBufferSize</span> <span class="p">=</span> <span class="s">${server.ws.MaxBinaryMessageSize}</span>
+
+    <span class="c"># The time in ms (milliseconds) that a websocket may be idle before closing. </span>
+    <span class="py">IdleTimeout</span> <span class="p">=</span> <span class="s">${server.ws.IdleTimeout}</span>
+
+  <span class="err">}</span>
+
+<span class="err">}</span>
+</code></pre> 
+       </div> 
+      </div> 
+     </div> 
+     <div class="datalist" id="jetty"> 
+      <div class="datalist-title "> 
+       <h2>jetty</h2> 
+      </div> 
+      <div class="datalist-content"> 
+       <p><a href="https://www.eclipse.org/jetty" target="_blank">Jetty</a> provides a Web server and javax.servlet container, plus support for HTTP/2, WebSocket and many other integrations.</p> 
+       <h3 id="jetty-exports">exports</h3> 
+       <ul> 
+        <li>Jetty Server</li> 
+       </ul> 
+       <h3 id="jetty-dependency">dependency</h3> 
+       <div class="highlighter-rouge codehilite"> 
+        <div class="copy-bar"> 
+         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        </div> 
+        <pre class="highlight"><code><span class="nt">&lt;dependency&gt;</span>
+  <span class="nt">&lt;groupId&gt;</span>org.jooby<span class="nt">&lt;/groupId&gt;</span>
+  <span class="nt">&lt;artifactId&gt;</span>jooby-jetty<span class="nt">&lt;/artifactId&gt;</span>
+  <span class="nt">&lt;version&gt;</span>1.6.2<span class="nt">&lt;/version&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+</code></pre> 
+       </div> 
+       <h3 id="jetty-usage">usage</h3> 
+       <p>In order to use a web server all you have to do is add the dependency to your build system. <a href="https://jooby.org">Jooby</a> will find the server and start it.</p> 
+       <h3 id="jetty-http-2">http/2</h3> 
+       <p><code class="highlighter-rouge codehilite">HTTP/2</code> is fully supported:</p> 
+       <div class="highlighter-rouge codehilite"> 
+        <div class="copy-bar"> 
+         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        </div> 
+        <pre class="highlight"><code>| H2        | H2C           | PUSH  |
+| --------- | ------------- | ----- |
+| Yes       | Yes           | Yes   |
+</code></pre> 
+       </div> 
+       <p>You need to add <code class="highlighter-rouge codehilite">alpn-boot</code> to the <code class="highlighter-rouge codehilite">JVM bootstrap</code> path. See <a href="https://www.eclipse.org/jetty/documentation/9.3.x/http2.html" target="_blank">Jetty HTTP2</a> documentation.</p> 
+       <h3 id="jetty-server-conf">server.conf</h3> 
+       <p>These are the default properties for jetty:</p> 
+       <div class="highlighter-rouge codehilite"> 
+        <div class="copy-bar"> 
+         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        </div> 
+        <pre class="highlight"><code><span class="c"># jetty defaults </span>
+<span class="py">server.module</span> <span class="p">=</span> <span class="s">org.jooby.jetty.Jetty</span>
+
+<span class="py">server.http2.cleartext</span> <span class="p">=</span> <span class="s">true</span>
+
+<span class="err">jetty</span> <span class="err">{</span>
+
+  <span class="err">threads</span> <span class="err">{</span>
+
+    <span class="py">MinThreads</span> <span class="p">=</span> <span class="s">${server.threads.Min}</span>
+
+    <span class="py">MaxThreads</span> <span class="p">=</span> <span class="s">${server.threads.Max}</span>
+
+    <span class="py">IdleTimeout</span> <span class="p">=</span> <span class="s">${server.threads.IdleTimeout}</span>
+
+    <span class="py">Name</span> <span class="p">=</span> <span class="s">jetty task</span>
+
+  <span class="err">}</span>
+
+  <span class="py">FileSizeThreshold</span> <span class="p">=</span> <span class="s">16k</span>
+
+  <span class="err">http</span> <span class="err">{</span>
+
+    <span class="py">HeaderCacheSize</span> <span class="p">=</span> <span class="s">${server.http.HeaderSize}</span>
+
+    <span class="py">RequestHeaderSize</span> <span class="p">=</span> <span class="s">${server.http.HeaderSize}</span>
+
+    <span class="py">ResponseHeaderSize</span> <span class="p">=</span> <span class="s">${server.http.HeaderSize}</span>
+
+    <span class="py">OutputBufferSize</span> <span class="p">=</span> <span class="s">${server.http.ResponseBufferSize}</span>
+
+    <span class="py">SendServerVersion</span> <span class="p">=</span> <span class="s">false</span>
+
+    <span class="py">SendXPoweredBy</span> <span class="p">=</span> <span class="s">false</span>
+
+    <span class="py">SendDateHeader</span> <span class="p">=</span> <span class="s">false</span>
+
+    <span class="err">connector</span> <span class="err">{</span>
+
+      <span class="c"># The accept queue size (also known as accept backlog) </span>
+      <span class="py">AcceptQueueSize</span> <span class="p">=</span> <span class="s">0</span>
+
+      <span class="py">StopTimeout</span> <span class="p">=</span> <span class="s">30000</span>
+
+      <span class="c"># Sets the maximum Idle time for a connection, which roughly translates to the Socket#setSoTimeout(int) </span>
+      <span class="c"># call, although with NIO implementations other mechanisms may be used to implement the timeout. </span>
+      <span class="c"># The max idle time is applied: </span>
+      <span class="c"># When waiting for a new message to be received on a connection </span>
+      <span class="c"># When waiting for a new message to be sent on a connection </span>
+      <span class="c"># This value is interpreted as the maximum time between some progress being made on the connection. </span>
+      <span class="c"># So if a single byte is read or written, then the timeout is reset. </span>
+      <span class="py">IdleTimeout</span> <span class="p">=</span> <span class="s">${server.http.IdleTimeout}</span>
+
+    <span class="err">}</span>
+
+  <span class="err">}</span>
+
+  <span class="err">ws</span> <span class="err">{</span>
+
+    <span class="c"># The maximum size of a text message during parsing/generating. </span>
+    <span class="c"># Text messages over this maximum will result in a close code 1009 {@link StatusCode#MESSAGE_TOO_LARGE} </span>
+    <span class="py">MaxTextMessageSize</span> <span class="p">=</span> <span class="s">${server.ws.MaxTextMessageSize}</span>
+
+    <span class="c"># The maximum size of a text message buffer. </span>
+    <span class="c"># Used ONLY for stream based message writing. </span>
+    <span class="py">MaxTextMessageBufferSize</span> <span class="p">=</span> <span class="s">32k</span>
+
+    <span class="c"># The maximum size of a binary message during parsing/generating. </span>
+    <span class="c"># Binary messages over this maximum will result in a close code 1009 {@link StatusCode#MESSAGE_TOO_LARGE} </span>
+    <span class="py">MaxBinaryMessageSize</span> <span class="p">=</span> <span class="s">${server.ws.MaxBinaryMessageSize}</span>
+
+    <span class="c"># The maximum size of a binary message buffer </span>
+    <span class="c"># Used ONLY for for stream based message writing </span>
+    <span class="py">MaxBinaryMessageBufferSize</span> <span class="p">=</span> <span class="s">32k</span>
+
+    <span class="c"># The timeout in ms (milliseconds) for async write operations. </span>
+    <span class="c"># Negative values indicate a disabled timeout. </span>
+    <span class="py">AsyncWriteTimeout</span> <span class="p">=</span> <span class="s">60000</span>
+
+    <span class="c"># The time in ms (milliseconds) that a websocket may be idle before closing. </span>
+    <span class="py">IdleTimeout</span> <span class="p">=</span> <span class="s">${server.ws.IdleTimeout}</span>
+
+    <span class="c"># The size of the input (read from network layer) buffer size. </span>
+    <span class="py">InputBufferSize</span> <span class="p">=</span> <span class="s">4k</span>
+
+  <span class="err">}</span>
+
+  <span class="py">url.charset</span> <span class="p">=</span> <span class="s">${application.charset}</span>
+
+<span class="err">}</span>
+</code></pre> 
+       </div> 
+      </div> 
+     </div> 
+     <div class="datalist" id="servlets"> 
+      <div class="datalist-title "> 
+       <h2>servlets</h2> 
+      </div> 
+      <div class="datalist-content"> 
+       <p>This module exists for strict environments where the ONLY option is to deploy into a Servlet Container. It’s strongly recommended to avoid this and rather opt for using one of <a href="http://netty.io" target="_blank">Netty</a>, <a href="http://www.eclipse.org/jetty/" target="_blank">Jetty</a> or <a href="http://undertow.io" target="_blank">Undertow</a>.</p> 
+       <h3 id="servlets-usage">usage</h3> 
+       <p>In order to deploy into a Servlet Container, you need to generate a <code class="highlighter-rouge codehilite">*.war</code> file. Here’s how:</p> 
+       <ul> 
+        <li> <p>Create a <code class="highlighter-rouge codehilite">war.activator</code> file in the <code class="highlighter-rouge codehilite">src/etc</code> directory.</p> </li> 
+        <li> <p>Open a console and type: <code class="highlighter-rouge codehilite">mvn clean package</code></p> </li> 
+        <li> <p>Find the <code class="highlighter-rouge codehilite">*.war</code> file in the <code class="highlighter-rouge codehilite">target</code> directory.</p> </li> 
+       </ul> 
+       <h3 id="servlets-limitations">limitations</h3> 
+       <ul> 
+        <li>web-sockets are not supported</li> 
+        <li>some properties has no effect when deploying into a Servlet Container: 
+         <ul> 
+          <li>application.path / contextPath</li> 
+          <li>appplication.port</li> 
+          <li>max upload file sizes</li> 
+          <li>any other server specific property: server.<em>, jetty.</em>, netty.<em>, undertow.</em></li> 
+         </ul> </li> 
+       </ul> 
+       <h4 id="servlets-special-note-on-contextPath">special note on contextPath</h4> 
+       <p>To avoid potential headaches, make sure to use the <code class="highlighter-rouge codehilite">contextPath</code> variable while loading static/dynamic resources (.css, .js, etc..).</p> 
+       <p>For example:</p> 
+       <div class="highlighter-rouge codehilite"> 
+        <div class="copy-bar"> 
+         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        </div> 
+        <pre class="highlight"><code><span class="nt">&lt;html&gt;</span>
+<span class="nt">&lt;head&gt;</span>
+  <span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"stylesheet"</span> <span class="na">text=</span><span class="s">"text/css"</span> <span class="na">href=</span><span class="s">"{{contextPath}}/css/styles.css"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"{{contextPath}}/js/app.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+<span class="nt">&lt;/head&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</code></pre> 
+       </div> 
+       <p>The expression: <code class="highlighter-rouge codehilite"><span class="p">{</span><span class="err">{contextPath</span><span class="p">}</span><span class="err">}</span></code> corresponds to the template engine (handlebars in that case) or <code class="highlighter-rouge codehilite">${contextPath}</code> for Freemarker.</p> 
+       <h3 id="servlets-how-does-it-work-">how does it work?</h3> 
+       <p>The presence of the <code class="highlighter-rouge codehilite">src/etc/war.activator</code> file triggers a Maven profile. The contents of the file doesn’t matter, it just needs to be present.</p> 
+       <p>The Maven profile builds the <code class="highlighter-rouge codehilite">*.war</code> file using the <code class="highlighter-rouge codehilite">maven-assembly-plugin</code>. The assembly descriptor can be found <a href="https://github.com/jooby-project/jooby/blob/master/jooby-dist/src/main/resources/assemblies/jooby.war.xml" target="_blank">here</a></p> 
+       <h4 id="servlets-web-xml">web.xml</h4> 
+       <p>A default <code class="highlighter-rouge codehilite">web.xml</code> file is generated by the assembly plugin. This file looks like:</p> 
+       <div class="highlighter-rouge codehilite"> 
+        <div class="copy-bar"> 
+         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        </div> 
+        <pre class="highlight"><code><span class="cp">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span>
+<span class="nt">&lt;web-app</span> <span class="na">xmlns=</span><span class="s">"http://xmlns.jcp.org/xml/ns/javaee"</span> <span class="na">xmlns:xsi=</span><span class="s">"http://www.w3.org/2001/XMLSchema-instance"</span>
+  <span class="na">xsi:schemaLocation=</span><span class="s">"http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"</span>
+  <span class="na">version=</span><span class="s">"3.1"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;context-param&gt;</span>
+    <span class="nt">&lt;param-name&gt;</span>application.class<span class="nt">&lt;/param-name&gt;</span>
+    <span class="nt">&lt;param-value&gt;</span>${application.class}<span class="nt">&lt;/param-value&gt;</span>
+  <span class="nt">&lt;/context-param&gt;</span>
+
+  <span class="nt">&lt;listener&gt;</span>
+    <span class="nt">&lt;listener-class&gt;</span>org.jooby.servlet.ServerInitializer<span class="nt">&lt;/listener-class&gt;</span>
+  <span class="nt">&lt;/listener&gt;</span>
+
+  <span class="nt">&lt;servlet&gt;</span>
+    <span class="nt">&lt;servlet-name&gt;</span>jooby<span class="nt">&lt;/servlet-name&gt;</span>
+    <span class="nt">&lt;servlet-class&gt;</span>org.jooby.servlet.ServletHandler<span class="nt">&lt;/servlet-class&gt;</span>
+    <span class="nt">&lt;load-on-startup&gt;</span>0<span class="nt">&lt;/load-on-startup&gt;</span>
+    <span class="c">&lt;!-- MultiPart setup --&gt;</span>
+    <span class="nt">&lt;multipart-config&gt;</span>
+      <span class="nt">&lt;file-size-threshold&gt;</span>0<span class="nt">&lt;/file-size-threshold&gt;</span>
+      <span class="c">&lt;!-- Default 200k --&gt;</span>
+      <span class="nt">&lt;max-request-size&gt;</span>${war.maxRequestSize}<span class="nt">&lt;/max-request-size&gt;</span>
+    <span class="nt">&lt;/multipart-config&gt;</span>
+  <span class="nt">&lt;/servlet&gt;</span>
+
+  <span class="nt">&lt;servlet-mapping&gt;</span>
+    <span class="nt">&lt;servlet-name&gt;</span>jooby<span class="nt">&lt;/servlet-name&gt;</span>
+    <span class="nt">&lt;url-pattern&gt;</span>/*<span class="nt">&lt;/url-pattern&gt;</span>
+  <span class="nt">&lt;/servlet-mapping&gt;</span>
+<span class="nt">&lt;/web-app&gt;</span>
+</code></pre> 
+       </div> 
+       <h5>max upload size</h5> 
+       <p>The default max upload size is set to <code class="highlighter-rouge codehilite">204800b</code> (200kb). If you need to increase this, add the <code class="highlighter-rouge codehilite">war.maxRequestSize</code> property to <code class="highlighter-rouge codehilite">pom.xml</code>:</p> 
+       <div class="highlighter-rouge codehilite"> 
+        <div class="copy-bar"> 
+         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        </div> 
+        <pre class="highlight"><code><span class="nt">&lt;properties&gt;</span>
+  <span class="nt">&lt;war.maxRequestSize&gt;</span>1048576<span class="nt">&lt;/war.maxRequestSize&gt;</span> <span class="c">&lt;!-- 1mb --&gt;</span>
+<span class="nt">&lt;/properties&gt;</span>
+</code></pre> 
+       </div> 
+       <h5>custom web.xml</h5> 
+       <p>When the generated file isn’t enough, follow these steps:</p> 
+       <ol> 
+        <li>create a dir: <code class="highlighter-rouge codehilite">src/etc/war/WEB-INF</code></li> 
+        <li>save a <code class="highlighter-rouge codehilite">web.xml</code> file inside that dir</li> 
+        <li>run: <code class="highlighter-rouge codehilite">mvn clean package</code></li> 
+       </ol> 
+      </div> 
+     </div> 
+    </div> 
+   </div> 
+  </main> 
+  <footer class="site-footer"> 
+   <div class="row"> 
+    <p class="pull-left">©2014-2019 <a href="https://twitter.com/joobyproject" target="_blank">The Jooby Project</a>, all rights reserved.</p> 
+    <div class="follow-us pull-right"> 
+     <p>Follow us</p> 
+     <a href="https://github.com/jooby-project/jooby" title="Follow us on Github" target="_blank" rel="nofollow"><span class="icon-github-medium-circle"></span></a> 
+     <a href="https://twitter.com/joobyproject" title="Follow us on Twitter" target="_blank" rel="nofollow"><span class="icon-twitter-medium-circle"></span></a> 
+    </div> 
+   </div> 
+  </footer> 
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script> 
+  <script>window.jQuery || document.write('<script src="/v1/resources/scripts/libs/jquery-2.1.4.min.js"><\/script>')</script> 
+  <script src="/v1/resources/scripts/libs/swiper.min.js"></script> 
+  <script src="/v1/resources/scripts/application.js"></script> 
+  <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-57151281-1', 'auto');
+      ga('send', 'pageview');
+    </script>   
+ </body>
+</html>

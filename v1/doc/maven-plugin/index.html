@@ -1,0 +1,290 @@
+<!doctype html>
+<html lang="en">
+ <head> 
+  <meta charset="UTF-8"> 
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"> 
+  <title>jooby: maven module</title> 
+  <meta name="description" content="Scalable, fast and modular micro web framework for Java. Build small/large apps easily and quickly with Netty, Undertow or Jetty."> 
+  <meta name="keywords" content="Java, Micro Web Framework, Async, Easy to use, Micro, Sinatra, Express, Scalable, Modern, Best, Web, Framework, Lightweight, Microservices, maven"> 
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+  <link rel="canonical" href="#"> 
+  <link rel="publisher" href="#"> 
+  <meta name="robots" content="robots.txt"> 
+  <meta name="og:title" content="jooby: mvn jooby:run"> 
+  <meta name="og:description" content="Maven 3+ plugin for running, debugging and reloading your application"> 
+  <!--
+    og:type
+    SI EL TEMPLATE ES UN ARTICULO (NOTA, VIDEO, ETC) CAMBIAR
+    "website" por "article"
+    --> 
+  <meta name="og:type" content="website"> 
+  <meta name="og:url" content="https://jooby.org"> 
+  <!--
+    og:image
+    SI ES UNA NOTA Y LA NOTA TIENE UNA IMAGEN DE PREVIEW SE DEBE
+    CAMBIAR POR UNA IMAGEN CON LAS SIGUIENTES ESPECIFICACIONES
+    ANCHO: 200
+    ALTO: 200
+    FORMATO: JPG
+    --> 
+  <meta name="og:image" content="https://jooby.org/resources/images/apps/facebook.jpg"> 
+  <meta name="og:site_name" content="jooby: mvn jooby:run"> 
+  <meta name="twitter:card" content="summary"> 
+  <meta name="twitter:title" content="jooby: mvn jooby:run"> 
+  <!--
+    twitter:image
+    SI ES UNA NOTA Y LA NOTA TIENE UNA IMAGEN DE PREVIEW SE DEBE
+    CAMBIAR POR UNA IMAGEN CON LAS SIGUIENTES ESPECIFICACIONES
+    ANCHO: 280
+    ALTO: 150
+    FORMATO: JPG
+    TAMAÑO MAXIMO: 1MB
+    --> 
+  <meta name="twitter:image" content="https://jooby.org/resources/images/apps/twitter.jpg"> 
+  <meta name="twitter:site" content="@joobyproject"> 
+  <meta name="twitter:creator" content="https://twitter.com/edgarespina"> 
+  <meta name="twitter:domain" content="https://jooby.org"> 
+  <meta name="twitter:url" content="https://twitter.com/joobyproject"> 
+  <meta name="twitter:description" content="Maven 3+ plugin for running, debugging and reloading your application"> 
+  <link rel="apple-touch-icon-precomposed" href="/v1/resources/images/apps/precomposed57.png" sizes="57x57"> 
+  <link rel="apple-touch-icon-precomposed" href="/v1/resources/images/apps/precomposed60.png" sizes="60x60"> 
+  <link rel="apple-touch-icon-precomposed" href="/v1/resources/images/apps/precomposed72.png" sizes="72x72"> 
+  <link rel="apple-touch-icon-precomposed" href="/v1/resources/images/apps/precomposed76.png" sizes="76x76"> 
+  <link rel="apple-touch-icon-precomposed" href="/v1/resources/images/apps/precomposed114.png" sizes="114x114"> 
+  <link rel="apple-touch-icon-precomposed" href="/v1/resources/images/apps/precomposed120.png" sizes="120x120"> 
+  <link rel="apple-touch-icon-precomposed" href="/v1/resources/images/apps/precomposed144.png" sizes="144x144"> 
+  <link rel="apple-touch-icon-precomposed" href="/v1/resources/images/apps/precomposed152.png" sizes="152x152"> 
+  <link rel="apple-touch-icon-precomposed" href="/v1/resources/images/apps/precomposed180.png" sizes="180x180"> 
+  <link href="/v1/resources/images/apps/favicon.ico" rel="shortcut icon"> 
+  <link href="/v1/resources/images/apps/favicon.png" rel="icon" sizes="16x16" type="image/png"> 
+  <link href="/v1/resources/images/apps/favicon32.png" rel="icon" sizes="32x32" type="image/png"> 
+  <link href="/v1/resources/images/apps/favicon96.png" rel="icon" sizes="96x96" type="image/png"> 
+  <link href="/v1/resources/images/apps/android-chrome.png" rel="icon" sizes="192x192" type="image/png"> 
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway:400,300,500,700"> 
+  <link rel="stylesheet" href="/v1/resources/styles/application.css"> 
+  <link rel="stylesheet" href="/v1/resources/styles/github.css"> 
+  <link rel="stylesheet" href="/v1/resources/styles/devices.css"> 
+  <link rel="stylesheet" href="/v1/resources/styles/sprites.css"> 
+ </head> 
+ <body class="page-section page-sidebar"> 
+  <header class="site-header"> 
+   <div class="row"> 
+    <a href="/v1/" title="Home" class="site-logo"><img src="/v1/resources/images/logo_jooby-2x.png" alt="Logo Jooby" width="76" height="31"></a> 
+    <a class="show-mobile open-menu" href="/v1"><span></span></a> 
+    <nav class="site-nav"> 
+     <ul> 
+      <li class=""><a href="/v1/quickstart" title="Quick start">QUICK START</a></li> 
+      <li class=""><a href="/v1/doc" title="Doc">DOCS</a></li> 
+      <li class="active"><a href="/v1/modules" title="Modules">MODULES</a></li> 
+      <li class=""><a href="/v1/community" title="Community">COMMUNITY</a></li> 
+      <li class=""><a href="/v1/faq" title="FAQ">FAQ</a></li> 
+      <li><a href="https://javadoc.io/doc/org.jooby/jooby/1.6.2" target="_blank" title="API docs">API DOCS</a></li> 
+     </ul> 
+    </nav> 
+   </div> 
+  </header> 
+  <main role="main" class="site-content"> 
+   <div class="section-title"> 
+    <div class="row"> 
+     <a href="/v1/modules" class="jsback" title="Go back"><span class="icon-arrowback-big-circle"></span></a> 
+     <h1>maven</h1> 
+    </div> 
+   </div> 
+   <div class="row"> 
+    <div class="section-sidebar" style="position: fixed; left: 120px; top: 160px; bottom: 20px;"> 
+     <div class="show-mobile menu-open">
+       maven 
+     </div> 
+     <ul> 
+      <li class="active"> <a href="#maven">maven</a> 
+       <ul> 
+        <li> <a href="#maven-usage">usage</a></li> 
+        <li> <a href="#maven-hot-reload">hot reload</a></li> 
+        <li> <a href="#maven-options">options</a></li> 
+       </ul></li> 
+     </ul> 
+    </div> 
+    <div class="section-content"> 
+     <div class="datalist" id="maven"> 
+      <div class="datalist-title active"> 
+       <h2>maven</h2> 
+      </div> 
+      <div class="datalist-content"> 
+       <p><a href="http://maven.apache.org/" target="_blank">Maven 3+</a> plugin for running, debugging and reloading your application.</p> 
+       <h3 id="maven-usage">usage</h3> 
+       <div class="highlighter-rouge codehilite"> 
+        <div class="copy-bar"> 
+         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        </div> 
+        <pre class="highlight"><code>mvn jooby:run
+</code></pre> 
+       </div> 
+       <p>Prints something similar to:</p> 
+       <div class="highlighter-rouge codehilite"> 
+        <div class="copy-bar"> 
+         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        </div> 
+        <pre class="highlight"><code><span class="gp">&gt;&gt;&gt; </span>jooby:run[info|main]: Hotswap available on: /my-app
+<span class="gp">&gt;&gt;&gt; </span>jooby:run[info|main]:   includes: <span class="o">[</span><span class="k">**</span>/<span class="k">*</span>.class,<span class="k">**</span>/<span class="k">*</span>.conf,<span class="k">**</span>/<span class="k">*</span>.properties,<span class="k">*</span>.js, src/<span class="k">*</span>.js]
+<span class="gp">&gt;&gt;&gt; </span>jooby:run[info|main]:   excludes: <span class="o">[]</span>
+INFO  <span class="o">[</span>2015-03-31 17:47:33,000] <span class="o">[</span>dev@netty]: App server started <span class="k">in </span>401ms
+
+  GET /assets/<span class="k">**</span>           <span class="o">[</span><span class="k">*</span>/<span class="k">*</span><span class="o">]</span>     <span class="o">[</span><span class="k">*</span>/<span class="k">*</span><span class="o">]</span>    <span class="o">(</span>anonymous<span class="o">)</span>
+  GET /                    <span class="o">[</span><span class="k">*</span>/<span class="k">*</span><span class="o">]</span>     <span class="o">[</span><span class="k">*</span>/<span class="k">*</span><span class="o">]</span>    <span class="o">(</span>anonymous<span class="o">)</span>
+
+listening on:
+  http://localhost:8080/
+</code></pre> 
+       </div> 
+       <h3 id="maven-hot-reload">hot reload</h3> 
+       <p>The <code class="highlighter-rouge codehilite">jooby:run</code> tool restart the application every time a change is detected on:</p> 
+       <ul> 
+        <li>classes (*.class)</li> 
+        <li>config files (*.conf and *.properties)</li> 
+       </ul> 
+       <p>Changes on templates and/or static files (*.html, *.js, *.css) wont restart the application, because they are not compiled or cached while running on <code class="highlighter-rouge codehilite">application.env = dev</code>.</p> 
+       <p>It’s worth to mention that dynamic reload of classes is done via <a href="https://github.com/jboss-modules/jboss-modules" target="_blank">JBoss Modules</a>.</p> 
+       <h3 id="maven-options">options</h3> 
+       <div class="highlighter-rouge codehilite"> 
+        <div class="copy-bar"> 
+         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        </div> 
+        <pre class="highlight"><code><span class="nt">&lt;plugin&gt;</span>
+  <span class="nt">&lt;groupId&gt;</span>org.jooby<span class="nt">&lt;/groupId&gt;</span>
+  <span class="nt">&lt;artifactId&gt;</span>jooby-maven-plugin<span class="nt">&lt;/artifactId&gt;</span>
+  <span class="nt">&lt;version&gt;</span>1.6.2<span class="nt">&lt;/version&gt;</span>
+  <span class="nt">&lt;configuration&gt;</span>
+    <span class="nt">&lt;mainClass&gt;</span>${application.class}<span class="nt">&lt;/mainClass&gt;</span>
+    <span class="nt">&lt;commands&gt;</span>
+    <span class="nt">&lt;/commands&gt;</span>
+    <span class="nt">&lt;compiler&gt;</span>on<span class="nt">&lt;/compiler&gt;</span>
+    <span class="nt">&lt;fork&gt;</span>false<span class="nt">&lt;/fork&gt;</span>
+    <span class="nt">&lt;vmArgs&gt;&lt;/vmArgs&gt;</span>
+    <span class="nt">&lt;debug&gt;</span>true<span class="nt">&lt;/debug&gt;</span>
+    <span class="nt">&lt;includes&gt;</span>
+      <span class="nt">&lt;include&gt;</span>**/*.class<span class="nt">&lt;/include&gt;</span>
+      <span class="nt">&lt;include&gt;</span>**/*.conf<span class="nt">&lt;/include&gt;</span>
+      <span class="nt">&lt;include&gt;</span>**/*.properties<span class="nt">&lt;/include&gt;</span>
+    <span class="nt">&lt;/includes&gt;</span>
+    <span class="nt">&lt;excludes&gt;</span>
+    <span class="nt">&lt;/excludes&gt;</span>
+    <span class="nt">&lt;srcExtensions&gt;</span>.java,.kt,.conf,.properties<span class="nt">&lt;/srcExtensions&gt;</span>
+  <span class="nt">&lt;/configuration&gt;</span>
+<span class="nt">&lt;/plugin&gt;</span>
+</code></pre> 
+       </div> 
+       <h4 id="maven--application-class-">${application.class}</h4> 
+       <p>A <a href="http://maven.apache.org/" target="_blank">Maven 3+</a> property that contains the fully qualified name of the <code class="highlighter-rouge codehilite">main class</code>. <strong>Required</strong>.</p> 
+       <h4 id="maven-fork">fork</h4> 
+       <p>Allows running the application in a separate JVM. If false it uses the JVM started by <a href="http://maven.apache.org/" target="_blank">Maven 3+</a>, while if true it will use a new JVM. Default is: <code class="highlighter-rouge codehilite">false</code>.</p> 
+       <p>This property can be set from command line using the <code class="highlighter-rouge codehilite">application.fork</code> system property:</p> 
+       <div class="highlighter-rouge codehilite"> 
+        <div class="copy-bar"> 
+         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        </div> 
+        <pre class="highlight"><code>mvn jooby:run -Dapplication.fork=true
+</code></pre> 
+       </div> 
+       <h4 id="maven-compiler">compiler</h4> 
+       <p>The compiler is <code class="highlighter-rouge codehilite">on</code> by default, unless:</p> 
+       <ul> 
+        <li> <p>A <code class="highlighter-rouge codehilite">.classpath</code> file is present in the project directory. If present, means you’re a Eclipse user and we turn off the compiler and let Eclipse recompiles the code on save.</p> </li> 
+        <li> <p>The compiler is set to <code class="highlighter-rouge codehilite">off</code>.</p> </li> 
+       </ul> 
+       <p>On compilation success, the application is effectively reloaded.</p> 
+       <p>On compilation error, the application won’t reload.</p> 
+       <p>Compilation success or error messages are displayed in the console (not at the browser).</p> 
+       <h4 id="maven-debug">debug</h4> 
+       <p>Start the <code class="highlighter-rouge codehilite">JVM</code> in debug mode so you can attach a remote debugger at the <code class="highlighter-rouge codehilite">8000</code> port. Available when <code class="highlighter-rouge codehilite">fork = true</code>, otherwise is ignored.</p> 
+       <p>This property can be one of these:</p> 
+       <ul> 
+        <li><code class="highlighter-rouge codehilite">true</code>: Turn on debug mode using: <strong>-agentlib:jdwp=transport=dt_socket,address=8000,server=y,suspend=n</strong></li> 
+        <li><code class="highlighter-rouge codehilite">false</code>: Turn off debug mode (run normally)</li> 
+        <li><code class="highlighter-rouge codehilite">int</code>: Turn on debug mode using the given number as debug port: <code class="highlighter-rouge codehilite">&lt;debug&gt;8000&lt;/debug&gt;</code></li> 
+        <li><code class="highlighter-rouge codehilite">string</code>: Turn on debug via <code class="highlighter-rouge codehilite">string</code> value, something like: <strong>-agentlib:jdwp=transport=dt_socket,address=8000,server=y,suspend=n</strong></li> 
+       </ul> 
+       <p>This property can be set from command line using the <code class="highlighter-rouge codehilite">application.debug</code> system property:</p> 
+       <div class="highlighter-rouge codehilite"> 
+        <div class="copy-bar"> 
+         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        </div> 
+        <pre class="highlight"><code>mvn jooby:run -Dapplication.debug=9999
+</code></pre> 
+       </div> 
+       <h4 id="maven-commands">commands</h4> 
+       <p>List of commands to execute before starting the <code class="highlighter-rouge codehilite">application</code>. Useful for <a href="https://www.npmjs.com" target="_blank">npm</a>, <a href="http://gruntjs.com" target="_blank">npm</a>, etc…</p> 
+       <div class="highlighter-rouge codehilite"> 
+        <div class="copy-bar"> 
+         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        </div> 
+        <pre class="highlight"><code><span class="nt">&lt;plugin&gt;</span>
+  <span class="nt">&lt;groupId&gt;</span>org.jooby<span class="nt">&lt;/groupId&gt;</span>
+  <span class="nt">&lt;artifactId&gt;</span>jooby-maven-plugin<span class="nt">&lt;/artifactId&gt;</span>
+  <span class="nt">&lt;version&gt;</span>1.6.2<span class="nt">&lt;/version&gt;</span>
+  <span class="nt">&lt;configuration&gt;</span>
+    <span class="nt">&lt;mainClass&gt;</span>${application.class}<span class="nt">&lt;/mainClass&gt;</span>
+    <span class="nt">&lt;commands&gt;</span>
+      <span class="nt">&lt;command&gt;</span>npm install<span class="nt">&lt;/command&gt;</span>
+      <span class="nt">&lt;command&gt;</span>grunt local<span class="nt">&lt;/command&gt;</span>
+    <span class="nt">&lt;/commands&gt;</span>
+  <span class="nt">&lt;/configuration&gt;</span>
+<span class="nt">&lt;/plugin&gt;</span>
+</code></pre> 
+       </div> 
+       <p>All processes are stopped it on <code class="highlighter-rouge codehilite">CTRL+C</code></p> 
+       <h4 id="maven-vmArgs">vmArgs</h4> 
+       <p>Set one or more <code class="highlighter-rouge codehilite">JVM args</code>:</p> 
+       <div class="highlighter-rouge codehilite"> 
+        <div class="copy-bar"> 
+         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        </div> 
+        <pre class="highlight"><code><span class="nt">&lt;plugin&gt;</span>
+  <span class="nt">&lt;groupId&gt;</span>org.jooby<span class="nt">&lt;/groupId&gt;</span>
+  <span class="nt">&lt;artifactId&gt;</span>jooby-maven-plugin<span class="nt">&lt;/artifactId&gt;</span>
+  <span class="nt">&lt;version&gt;</span>1.6.2<span class="nt">&lt;/version&gt;</span>
+  <span class="nt">&lt;configuration&gt;</span>
+    <span class="nt">&lt;mainClass&gt;</span>${application.class}<span class="nt">&lt;/mainClass&gt;</span>
+    <span class="nt">&lt;fork&gt;</span>true<span class="nt">&lt;/fork&gt;</span>
+    <span class="nt">&lt;vmArgs&gt;</span>
+      <span class="nt">&lt;vmArg&gt;</span>-Xms512m<span class="nt">&lt;/vmArg&gt;</span>
+      <span class="nt">&lt;vmArg&gt;</span>-Xmx1024m<span class="nt">&lt;/vmArg&gt;</span>
+    <span class="nt">&lt;/vmArgs&gt;</span>
+  <span class="nt">&lt;/configuration&gt;</span>
+<span class="nt">&lt;/plugin&gt;</span>
+</code></pre> 
+       </div> 
+       <p>Make sure to enable the <code class="highlighter-rouge codehilite">fork</code> option too, otherwise <code class="highlighter-rouge codehilite">vmArgs</code> are ignored.</p> 
+       <h4 id="maven-includes-excludes">includes / excludes</h4> 
+       <p>List of file patterns to listen for file changes and trigger restarting the server.</p> 
+       <h4 id="maven-srcExtensions">srcExtensions</h4> 
+       <p>List of file extensions to listen for file changes and trigger re-compilation.</p> 
+      </div> 
+     </div> 
+    </div> 
+   </div> 
+  </main> 
+  <footer class="site-footer"> 
+   <div class="row"> 
+    <p class="pull-left">©2014-2019 <a href="https://twitter.com/joobyproject" target="_blank">The Jooby Project</a>, all rights reserved.</p> 
+    <div class="follow-us pull-right"> 
+     <p>Follow us</p> 
+     <a href="https://github.com/jooby-project/jooby" title="Follow us on Github" target="_blank" rel="nofollow"><span class="icon-github-medium-circle"></span></a> 
+     <a href="https://twitter.com/joobyproject" title="Follow us on Twitter" target="_blank" rel="nofollow"><span class="icon-twitter-medium-circle"></span></a> 
+    </div> 
+   </div> 
+  </footer> 
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script> 
+  <script>window.jQuery || document.write('<script src="/v1/resources/scripts/libs/jquery-2.1.4.min.js"><\/script>')</script> 
+  <script src="/v1/resources/scripts/libs/swiper.min.js"></script> 
+  <script src="/v1/resources/scripts/application.js"></script> 
+  <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-57151281-1', 'auto');
+      ga('send', 'pageview');
+    </script>   
+ </body>
+</html>

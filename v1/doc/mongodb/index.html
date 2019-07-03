@@ -1,0 +1,372 @@
+<!doctype html>
+<html lang="en">
+ <head> 
+  <meta charset="UTF-8"> 
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"> 
+  <title>jooby: mongodb driver module</title> 
+  <meta name="description" content="Scalable, fast and modular micro web framework for Java. Build small/large apps easily and quickly with Netty, Undertow or Jetty."> 
+  <meta name="keywords" content="Java, Micro Web Framework, Async, Easy to use, Micro, Sinatra, Express, Scalable, Modern, Best, Web, Framework, Lightweight, Microservices, mongodb driver"> 
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+  <link rel="canonical" href="#"> 
+  <link rel="publisher" href="#"> 
+  <meta name="robots" content="robots.txt"> 
+  <meta name="og:title" content="jooby: mongodb module"> 
+  <meta name="og:description" content="MongoDB driver for Jooby"> 
+  <!--
+    og:type
+    SI EL TEMPLATE ES UN ARTICULO (NOTA, VIDEO, ETC) CAMBIAR
+    "website" por "article"
+    --> 
+  <meta name="og:type" content="website"> 
+  <meta name="og:url" content="https://jooby.org"> 
+  <!--
+    og:image
+    SI ES UNA NOTA Y LA NOTA TIENE UNA IMAGEN DE PREVIEW SE DEBE
+    CAMBIAR POR UNA IMAGEN CON LAS SIGUIENTES ESPECIFICACIONES
+    ANCHO: 200
+    ALTO: 200
+    FORMATO: JPG
+    --> 
+  <meta name="og:image" content="https://jooby.org/resources/images/apps/facebook.jpg"> 
+  <meta name="og:site_name" content="jooby: mongodb module"> 
+  <meta name="twitter:card" content="summary"> 
+  <meta name="twitter:title" content="jooby: mongodb module"> 
+  <!--
+    twitter:image
+    SI ES UNA NOTA Y LA NOTA TIENE UNA IMAGEN DE PREVIEW SE DEBE
+    CAMBIAR POR UNA IMAGEN CON LAS SIGUIENTES ESPECIFICACIONES
+    ANCHO: 280
+    ALTO: 150
+    FORMATO: JPG
+    TAMAÑO MAXIMO: 1MB
+    --> 
+  <meta name="twitter:image" content="https://jooby.org/resources/images/apps/twitter.jpg"> 
+  <meta name="twitter:site" content="@joobyproject"> 
+  <meta name="twitter:creator" content="https://twitter.com/edgarespina"> 
+  <meta name="twitter:domain" content="https://jooby.org"> 
+  <meta name="twitter:url" content="https://twitter.com/joobyproject"> 
+  <meta name="twitter:description" content="MongoDB driver for Jooby"> 
+  <link rel="apple-touch-icon-precomposed" href="/v1/resources/images/apps/precomposed57.png" sizes="57x57"> 
+  <link rel="apple-touch-icon-precomposed" href="/v1/resources/images/apps/precomposed60.png" sizes="60x60"> 
+  <link rel="apple-touch-icon-precomposed" href="/v1/resources/images/apps/precomposed72.png" sizes="72x72"> 
+  <link rel="apple-touch-icon-precomposed" href="/v1/resources/images/apps/precomposed76.png" sizes="76x76"> 
+  <link rel="apple-touch-icon-precomposed" href="/v1/resources/images/apps/precomposed114.png" sizes="114x114"> 
+  <link rel="apple-touch-icon-precomposed" href="/v1/resources/images/apps/precomposed120.png" sizes="120x120"> 
+  <link rel="apple-touch-icon-precomposed" href="/v1/resources/images/apps/precomposed144.png" sizes="144x144"> 
+  <link rel="apple-touch-icon-precomposed" href="/v1/resources/images/apps/precomposed152.png" sizes="152x152"> 
+  <link rel="apple-touch-icon-precomposed" href="/v1/resources/images/apps/precomposed180.png" sizes="180x180"> 
+  <link href="/v1/resources/images/apps/favicon.ico" rel="shortcut icon"> 
+  <link href="/v1/resources/images/apps/favicon.png" rel="icon" sizes="16x16" type="image/png"> 
+  <link href="/v1/resources/images/apps/favicon32.png" rel="icon" sizes="32x32" type="image/png"> 
+  <link href="/v1/resources/images/apps/favicon96.png" rel="icon" sizes="96x96" type="image/png"> 
+  <link href="/v1/resources/images/apps/android-chrome.png" rel="icon" sizes="192x192" type="image/png"> 
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway:400,300,500,700"> 
+  <link rel="stylesheet" href="/v1/resources/styles/application.css"> 
+  <link rel="stylesheet" href="/v1/resources/styles/github.css"> 
+  <link rel="stylesheet" href="/v1/resources/styles/devices.css"> 
+  <link rel="stylesheet" href="/v1/resources/styles/sprites.css"> 
+ </head> 
+ <body class="page-section page-sidebar"> 
+  <header class="site-header"> 
+   <div class="row"> 
+    <a href="/v1/" title="Home" class="site-logo"><img src="/v1/resources/images/logo_jooby-2x.png" alt="Logo Jooby" width="76" height="31"></a> 
+    <a class="show-mobile open-menu" href="/v1"><span></span></a> 
+    <nav class="site-nav"> 
+     <ul> 
+      <li class=""><a href="/v1/quickstart" title="Quick start">QUICK START</a></li> 
+      <li class=""><a href="/v1/doc" title="Doc">DOCS</a></li> 
+      <li class="active"><a href="/v1/modules" title="Modules">MODULES</a></li> 
+      <li class=""><a href="/v1/community" title="Community">COMMUNITY</a></li> 
+      <li class=""><a href="/v1/faq" title="FAQ">FAQ</a></li> 
+      <li><a href="https://javadoc.io/doc/org.jooby/jooby/1.6.2" target="_blank" title="API docs">API DOCS</a></li> 
+     </ul> 
+    </nav> 
+   </div> 
+  </header> 
+  <main role="main" class="site-content"> 
+   <div class="section-title"> 
+    <div class="row"> 
+     <a href="/v1/modules" class="jsback" title="Go back"><span class="icon-arrowback-big-circle"></span></a> 
+     <h1>mongodb driver</h1> 
+    </div> 
+   </div> 
+   <div class="row"> 
+    <div class="section-sidebar" style="position: fixed; left: 120px; top: 160px; bottom: 20px;"> 
+     <div class="show-mobile menu-open">
+       mongodb driver 
+     </div> 
+     <ul> 
+      <li class="active"> <a href="#mongodb-driver">mongodb driver</a> 
+       <ul> 
+        <li> <a href="#mongodb-driver-exports">exports</a></li> 
+        <li> <a href="#mongodb-driver-dependency">dependency</a></li> 
+        <li> <a href="#mongodb-driver-usage">usage</a></li> 
+        <li> <a href="#mongodb-driver-options">options</a></li> 
+        <li> <a href="#mongodb-driver-two-or-more-connections">two or more connections</a></li> 
+       </ul></li> 
+      <li class=""> <a href="#mongodb-session-store">mongodb session store</a> 
+       <ul> 
+        <li> <a href="#mongodb-session-store-dependency">dependency</a></li> 
+        <li> <a href="#mongodb-session-store-usage">usage</a></li> 
+        <li> <a href="#mongodb-session-store-options">options</a></li> 
+        <li> <a href="#mongodb-session-store-mongodb-conf">mongodb.conf</a></li> 
+       </ul></li> 
+     </ul> 
+    </div> 
+    <div class="section-content"> 
+     <div class="datalist" id="mongodb-driver"> 
+      <div class="datalist-title active"> 
+       <h2>mongodb driver</h2> 
+      </div> 
+      <div class="datalist-content"> 
+       <p><a href="http://mongodb.github.io/mongo-java-driver/" target="_blank">MongoDB</a> driver for Jooby.</p> 
+       <h3 id="mongodb-driver-exports">exports</h3> 
+       <ul> 
+        <li><a href="http://api.mongodb.org/java/2.13/com/mongodb/MongoClient.html" target="_blank">MongoClient</a></li> 
+        <li><a href="http://api.mongodb.org/java/2.13/com/mongodb/DB.html" target="_blank">MongoDatabase</a></li> 
+        <li><a href="/v1/apidocs/org/jooby/mongodb/MongoSessionStore.html" target="_blank">Session Store</a></li> 
+       </ul> 
+       <h3 id="mongodb-driver-dependency">dependency</h3> 
+       <div class="highlighter-rouge codehilite"> 
+        <div class="copy-bar"> 
+         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        </div> 
+        <pre class="highlight"><code><span class="nt">&lt;dependency&gt;</span>
+  <span class="nt">&lt;groupId&gt;</span>org.jooby<span class="nt">&lt;/groupId&gt;</span>
+  <span class="nt">&lt;artifactId&gt;</span>jooby-mongodb<span class="nt">&lt;/artifactId&gt;</span>
+  <span class="nt">&lt;version&gt;</span>1.6.2<span class="nt">&lt;/version&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+</code></pre> 
+       </div> 
+       <h3 id="mongodb-driver-usage">usage</h3> 
+       <p>application.conf:</p> 
+       <div class="highlighter-rouge codehilite"> 
+        <div class="copy-bar"> 
+         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        </div> 
+        <pre class="highlight"><code><span class="py">db</span> <span class="p">=</span> <span class="s">"mongodb://localhost/mydb"</span>
+</code></pre> 
+       </div> 
+       <div class="highlighter-rouge codehilite"> 
+        <div class="copy-bar"> 
+         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        </div> 
+        <pre class="highlight"><code><span class="o">{</span>
+  <span class="n">use</span><span class="o">(</span><span class="k">new</span> <span class="n">Mongodb</span><span class="o">());</span>
+
+  <span class="n">get</span><span class="o">(</span><span class="s">"/"</span><span class="o">,</span> <span class="n">req</span> <span class="o">-&gt;</span> <span class="o">{</span>
+    <span class="n">MongoClient</span> <span class="n">client</span> <span class="o">=</span> <span class="n">require</span><span class="o">(</span><span class="n">MongoClient</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+    <span class="c1">// work with client</span>
+    <span class="n">MongoDatabase</span> <span class="o">=</span> <span class="n">require</span><span class="o">(</span><span class="n">MongoDatabase</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+    <span class="c1">// work with mydb</span>
+  <span class="o">});</span>
+<span class="o">}</span>
+</code></pre> 
+       </div> 
+       <p>Default URI connection property is <code class="highlighter-rouge codehilite">db</code> but of course you can use any other name:</p> 
+       <p>application.conf:</p> 
+       <div class="highlighter-rouge codehilite"> 
+        <div class="copy-bar"> 
+         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        </div> 
+        <pre class="highlight"><code><span class="py">mydb</span> <span class="p">=</span> <span class="s">"mongodb://localhost/mydb"</span>
+</code></pre> 
+       </div> 
+       <div class="highlighter-rouge codehilite"> 
+        <div class="copy-bar"> 
+         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        </div> 
+        <pre class="highlight"><code><span class="o">{</span>
+  <span class="n">use</span><span class="o">(</span><span class="k">new</span> <span class="n">Mongodb</span><span class="o">(</span><span class="s">"mydb"</span><span class="o">));</span>
+
+  <span class="n">get</span><span class="o">(</span><span class="s">"/"</span><span class="o">,</span> <span class="n">req</span> <span class="o">-&gt;</span> <span class="o">{</span>
+    <span class="n">MongoDatabase</span> <span class="n">mydb</span> <span class="o">=</span> <span class="n">require</span><span class="o">(</span><span class="n">MongoDatabase</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+    <span class="c1">// work with mydb</span>
+  <span class="o">});</span>
+<span class="o">}</span>
+</code></pre> 
+       </div> 
+       <h3 id="mongodb-driver-options">options</h3> 
+       <p>Options can be set via <code class="highlighter-rouge codehilite">.conf</code> file:</p> 
+       <div class="highlighter-rouge codehilite"> 
+        <div class="copy-bar"> 
+         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        </div> 
+        <pre class="highlight"><code><span class="py">mongodb.connectionsPerHost</span>  <span class="p">=</span> <span class="s">100</span>
+</code></pre> 
+       </div> 
+       <p>or programmatically:</p> 
+       <div class="highlighter-rouge codehilite"> 
+        <div class="copy-bar"> 
+         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        </div> 
+        <pre class="highlight"><code><span class="o">{</span>
+  <span class="n">use</span><span class="o">(</span><span class="k">new</span> <span class="n">Mongodb</span><span class="o">()</span>
+    <span class="o">.</span><span class="na">options</span><span class="o">((</span><span class="n">options</span><span class="o">,</span> <span class="n">config</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="o">{</span>
+      <span class="n">options</span><span class="o">.</span><span class="na">connectionsPerHost</span><span class="o">(</span><span class="mi">100</span><span class="o">);</span>
+    <span class="o">})</span>
+  <span class="o">);</span>
+<span class="o">}</span>
+</code></pre> 
+       </div> 
+       <h4 id="mongodb-driver-connection-URI">connection URI</h4> 
+       <p>Default connection URI is defined by the <code class="highlighter-rouge codehilite">db</code> property. Mongodb URI looks like:</p> 
+       <div class="highlighter-rouge codehilite"> 
+        <div class="copy-bar"> 
+         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        </div> 
+        <pre class="highlight"><code><span class="py">db</span> <span class="p">=</span> <span class="s">mongodb://[username:password@]host1[:port1][,host2[:port2],...[,hostN[:portN]]][/[database[.collection]][?options]]</span>
+</code></pre> 
+       </div> 
+       <p>For more detailed information please check: <a href="http://api.mongodb.org/java/2.13/com/mongodb/MongoClientURI.html" target="_blank">MongoClientURI</a>.</p> 
+       <h3 id="mongodb-driver-two-or-more-connections">two or more connections</h3> 
+       <p>Use <a href="/v1/apidocs/org/jooby/mongodb/Mongodb.html#-named" target="_blank">named</a> when you need two or more <code class="highlighter-rouge codehilite">mongodb</code> connections:</p> 
+       <div class="highlighter-rouge codehilite"> 
+        <div class="copy-bar"> 
+         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        </div> 
+        <pre class="highlight"><code><span class="o">{</span>
+  <span class="n">use</span><span class="o">(</span><span class="k">new</span> <span class="n">Mongodb</span><span class="o">(</span><span class="s">"db1"</span><span class="o">));</span>
+  <span class="n">use</span><span class="o">(</span><span class="k">new</span> <span class="n">Mongodb</span><span class="o">(</span><span class="s">"db2"</span><span class="o">));</span>
+
+  <span class="n">get</span><span class="o">(</span><span class="s">"/"</span><span class="o">,</span> <span class="n">req</span> <span class="o">-&gt;</span> <span class="o">{</span>
+    <span class="n">MongoClient</span> <span class="n">client1</span> <span class="o">=</span> <span class="n">require</span><span class="o">(</span><span class="s">"db1"</span><span class="o">,</span> <span class="n">MongoClient</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+    <span class="c1">// work with db1</span>
+    <span class="n">MongoClient</span> <span class="n">client2</span> <span class="o">=</span> <span class="n">require</span><span class="o">(</span><span class="s">"db2"</span><span class="o">,</span> <span class="n">MongoClient</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+    <span class="c1">// work with db2</span>
+  <span class="o">});</span>
+<span class="o">}</span>
+</code></pre> 
+       </div> 
+      </div> 
+     </div> 
+     <div class="datalist" id="mongodb-session-store"> 
+      <div class="datalist-title "> 
+       <h2>mongodb session store</h2> 
+      </div> 
+      <div class="datalist-content"> 
+       <h3 id="mongodb-session-store-dependency">dependency</h3> 
+       <div class="highlighter-rouge codehilite"> 
+        <div class="copy-bar"> 
+         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        </div> 
+        <pre class="highlight"><code><span class="nt">&lt;dependency&gt;</span>
+  <span class="nt">&lt;groupId&gt;</span>org.jooby<span class="nt">&lt;/groupId&gt;</span>
+  <span class="nt">&lt;artifactId&gt;</span>jooby-mongodb<span class="nt">&lt;/artifactId&gt;</span>
+  <span class="nt">&lt;version&gt;</span>1.6.2<span class="nt">&lt;/version&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+</code></pre> 
+       </div> 
+       <h3 id="mongodb-session-store-usage">usage</h3> 
+       <div class="highlighter-rouge codehilite"> 
+        <div class="copy-bar"> 
+         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        </div> 
+        <pre class="highlight"><code><span class="o">{</span>
+  <span class="n">use</span><span class="o">(</span><span class="k">new</span> <span class="n">Mongodb</span><span class="o">());</span>
+
+  <span class="n">session</span><span class="o">(</span><span class="n">MongoSessionStore</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+
+  <span class="n">get</span><span class="o">(</span><span class="s">"/"</span><span class="o">,</span> <span class="n">req</span> <span class="o">-&gt;</span> <span class="o">{</span>
+   <span class="n">req</span><span class="o">.</span><span class="na">session</span><span class="o">().</span><span class="na">set</span><span class="o">(</span><span class="s">"name"</span><span class="o">,</span> <span class="s">"jooby"</span><span class="o">);</span>
+  <span class="o">});</span>
+<span class="o">}</span>
+</code></pre> 
+       </div> 
+       <p>The <code class="highlighter-rouge codehilite">name</code> attribute and value will be stored in a <a href="http://mongodb.github.io/mongo-java-driver/" target="_blank">MongoDB</a>.</p> 
+       <h3 id="mongodb-session-store-options">options</h3> 
+       <h4 id="mongodb-session-store-timeout">timeout</h4> 
+       <p>By default, a mongodb session will expire after <code class="highlighter-rouge codehilite">30 minutes</code>. Changing the default timeout is as simple as:</p> 
+       <div class="highlighter-rouge codehilite"> 
+        <div class="copy-bar"> 
+         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        </div> 
+        <pre class="highlight"><code>
+<span class="c"># 8 hours </span>
+<span class="py">session.timeout</span> <span class="p">=</span> <span class="s">8h</span>
+
+<span class="c"># 15 seconds </span>
+<span class="py">session.timeout</span> <span class="p">=</span> <span class="s">15</span>
+
+<span class="c"># 120 minutes </span>
+<span class="py">session.timeout</span> <span class="p">=</span> <span class="s">120m</span>
+
+<span class="c"># no timeout </span>
+<span class="py">session.timeout</span> <span class="p">=</span> <span class="s">-1</span>
+</code></pre> 
+       </div> 
+       <p>It uses <a href="/v1docs.mongodb.org/manual/core/index-ttl">MongoDB’s TTL</a> collection feature (2.2+) to have <code class="highlighter-rouge codehilite">mongod</code> automatically remove expired sessions.</p> 
+       <h4 id="mongodb-session-store-session-collection">session collection</h4> 
+       <p>Default <a href="http://mongodb.github.io/mongo-java-driver/" target="_blank">MongoDB</a> collection is <code class="highlighter-rouge codehilite">sessions</code>.</p> 
+       <p>It’s possible to change the default key setting the <code class="highlighter-rouge codehilite">mongodb.sesssion.collection</code> properties.</p> 
+       <h3 id="mongodb-session-store-mongodb-conf">mongodb.conf</h3> 
+       <p>These are the default properties for mongodb:</p> 
+       <div class="highlighter-rouge codehilite"> 
+        <div class="copy-bar"> 
+         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        </div> 
+        <pre class="highlight"><code><span class="c">################################################################################################### </span>
+<span class="c"># mongodb </span>
+<span class="c">################################################################################################### </span>
+<span class="py">mongodb.connectionsPerHost</span> <span class="p">=</span> <span class="s">100</span>
+
+<span class="py">mongodb.threadsAllowedToBlockForConnectionMultiplier</span> <span class="p">=</span> <span class="s">5</span>
+
+<span class="py">mongodb.maxWaitTime</span> <span class="p">=</span> <span class="s">120s</span>
+
+<span class="py">mongodb.connectTimeout</span> <span class="p">=</span> <span class="s">10s</span>
+
+<span class="py">mongodb.socketTimeout</span> <span class="p">=</span> <span class="s">0</span>
+
+<span class="py">mongodb.socketKeepAlive</span> <span class="p">=</span> <span class="s">false</span>
+
+<span class="py">mongodb.cursorFinalizerEnabled</span> <span class="p">=</span> <span class="s">true</span>
+
+<span class="py">mongodb.alwaysUseMBeans</span> <span class="p">=</span> <span class="s">false</span>
+
+<span class="py">mongodb.heartbeatFrequency</span> <span class="p">=</span> <span class="s">5000</span>
+
+<span class="py">mongodb.minHeartbeatFrequency</span> <span class="p">=</span> <span class="s">500</span>
+
+<span class="py">mongodb.heartbeatConnectTimeout</span> <span class="p">=</span> <span class="s">20s</span>
+
+<span class="py">mongodb.heartbeatSocketTimeout</span> <span class="p">=</span> <span class="s">20s</span>
+
+<span class="c">################################################################################################### </span>
+<span class="c"># session datastore </span>
+<span class="c"># collection: sessions </span>
+<span class="c"># timeout: 30m </span>
+<span class="c">################################################################################################### </span>
+<span class="py">mongodb.session.collection</span> <span class="p">=</span> <span class="s">sessions</span>
+</code></pre> 
+       </div> 
+      </div> 
+     </div> 
+    </div> 
+   </div> 
+  </main> 
+  <footer class="site-footer"> 
+   <div class="row"> 
+    <p class="pull-left">©2014-2019 <a href="https://twitter.com/joobyproject" target="_blank">The Jooby Project</a>, all rights reserved.</p> 
+    <div class="follow-us pull-right"> 
+     <p>Follow us</p> 
+     <a href="https://github.com/jooby-project/jooby" title="Follow us on Github" target="_blank" rel="nofollow"><span class="icon-github-medium-circle"></span></a> 
+     <a href="https://twitter.com/joobyproject" title="Follow us on Twitter" target="_blank" rel="nofollow"><span class="icon-twitter-medium-circle"></span></a> 
+    </div> 
+   </div> 
+  </footer> 
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script> 
+  <script>window.jQuery || document.write('<script src="/v1/resources/scripts/libs/jquery-2.1.4.min.js"><\/script>')</script> 
+  <script src="/v1/resources/scripts/libs/swiper.min.js"></script> 
+  <script src="/v1/resources/scripts/application.js"></script> 
+  <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-57151281-1', 'auto');
+      ga('send', 'pageview');
+    </script>   
+ </body>
+</html>

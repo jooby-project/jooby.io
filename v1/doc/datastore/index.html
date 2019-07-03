@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="en">
+ <head> 
+  <meta charset="UTF-8"> 
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"> 
+  <title>jooby: data store module</title> 
+  <meta name="description" content="Scalable, fast and modular micro web framework for Java. Build small/large apps easily and quickly with Netty, Undertow or Jetty."> 
+  <meta name="keywords" content="Java, Micro Web Framework, Async, Easy to use, Micro, Sinatra, Express, Scalable, Modern, Best, Web, Framework, Lightweight, Microservices, data store"> 
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+  <link rel="canonical" href="#"> 
+  <link rel="publisher" href="#"> 
+  <meta name="robots" content="robots.txt"> 
+  <meta name="og:title" content="jooby: datastore module"> 
+  <meta name="og:description" content="These are modules providing access to various data stores, including relational, document oriented, key/value stores, etc"> 
+  <!--
+    og:type
+    SI EL TEMPLATE ES UN ARTICULO (NOTA, VIDEO, ETC) CAMBIAR
+    "website" por "article"
+    --> 
+  <meta name="og:type" content="website"> 
+  <meta name="og:url" content="https://jooby.org"> 
+  <!--
+    og:image
+    SI ES UNA NOTA Y LA NOTA TIENE UNA IMAGEN DE PREVIEW SE DEBE
+    CAMBIAR POR UNA IMAGEN CON LAS SIGUIENTES ESPECIFICACIONES
+    ANCHO: 200
+    ALTO: 200
+    FORMATO: JPG
+    --> 
+  <meta name="og:image" content="https://jooby.org/resources/images/apps/facebook.jpg"> 
+  <meta name="og:site_name" content="jooby: datastore module"> 
+  <meta name="twitter:card" content="summary"> 
+  <meta name="twitter:title" content="jooby: datastore module"> 
+  <!--
+    twitter:image
+    SI ES UNA NOTA Y LA NOTA TIENE UNA IMAGEN DE PREVIEW SE DEBE
+    CAMBIAR POR UNA IMAGEN CON LAS SIGUIENTES ESPECIFICACIONES
+    ANCHO: 280
+    ALTO: 150
+    FORMATO: JPG
+    TAMAÑO MAXIMO: 1MB
+    --> 
+  <meta name="twitter:image" content="https://jooby.org/resources/images/apps/twitter.jpg"> 
+  <meta name="twitter:site" content="@joobyproject"> 
+  <meta name="twitter:creator" content="https://twitter.com/edgarespina"> 
+  <meta name="twitter:domain" content="https://jooby.org"> 
+  <meta name="twitter:url" content="https://twitter.com/joobyproject"> 
+  <meta name="twitter:description" content="These are modules providing access to various data stores, including relational, document oriented, key/value stores, etc"> 
+  <link rel="apple-touch-icon-precomposed" href="/v1/resources/images/apps/precomposed57.png" sizes="57x57"> 
+  <link rel="apple-touch-icon-precomposed" href="/v1/resources/images/apps/precomposed60.png" sizes="60x60"> 
+  <link rel="apple-touch-icon-precomposed" href="/v1/resources/images/apps/precomposed72.png" sizes="72x72"> 
+  <link rel="apple-touch-icon-precomposed" href="/v1/resources/images/apps/precomposed76.png" sizes="76x76"> 
+  <link rel="apple-touch-icon-precomposed" href="/v1/resources/images/apps/precomposed114.png" sizes="114x114"> 
+  <link rel="apple-touch-icon-precomposed" href="/v1/resources/images/apps/precomposed120.png" sizes="120x120"> 
+  <link rel="apple-touch-icon-precomposed" href="/v1/resources/images/apps/precomposed144.png" sizes="144x144"> 
+  <link rel="apple-touch-icon-precomposed" href="/v1/resources/images/apps/precomposed152.png" sizes="152x152"> 
+  <link rel="apple-touch-icon-precomposed" href="/v1/resources/images/apps/precomposed180.png" sizes="180x180"> 
+  <link href="/v1/resources/images/apps/favicon.ico" rel="shortcut icon"> 
+  <link href="/v1/resources/images/apps/favicon.png" rel="icon" sizes="16x16" type="image/png"> 
+  <link href="/v1/resources/images/apps/favicon32.png" rel="icon" sizes="32x32" type="image/png"> 
+  <link href="/v1/resources/images/apps/favicon96.png" rel="icon" sizes="96x96" type="image/png"> 
+  <link href="/v1/resources/images/apps/android-chrome.png" rel="icon" sizes="192x192" type="image/png"> 
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway:400,300,500,700"> 
+  <link rel="stylesheet" href="/v1/resources/styles/application.css"> 
+  <link rel="stylesheet" href="/v1/resources/styles/github.css"> 
+  <link rel="stylesheet" href="/v1/resources/styles/devices.css"> 
+  <link rel="stylesheet" href="/v1/resources/styles/sprites.css"> 
+ </head> 
+ <body class="page-section page-sidebar"> 
+  <header class="site-header"> 
+   <div class="row"> 
+    <a href="/v1/" title="Home" class="site-logo"><img src="/v1/resources/images/logo_jooby-2x.png" alt="Logo Jooby" width="76" height="31"></a> 
+    <a class="show-mobile open-menu" href="/v1"><span></span></a> 
+    <nav class="site-nav"> 
+     <ul> 
+      <li class=""><a href="/v1/quickstart" title="Quick start">QUICK START</a></li> 
+      <li class=""><a href="/v1/doc" title="Doc">DOCS</a></li> 
+      <li class="active"><a href="/v1/modules" title="Modules">MODULES</a></li> 
+      <li class=""><a href="/v1/community" title="Community">COMMUNITY</a></li> 
+      <li class=""><a href="/v1/faq" title="FAQ">FAQ</a></li> 
+      <li><a href="https://javadoc.io/doc/org.jooby/jooby/1.6.2" target="_blank" title="API docs">API DOCS</a></li> 
+     </ul> 
+    </nav> 
+   </div> 
+  </header> 
+  <main role="main" class="site-content"> 
+   <div class="section-title"> 
+    <div class="row"> 
+     <a href="/v1/modules" class="jsback" title="Go back"><span class="icon-arrowback-big-circle"></span></a> 
+     <h1>data store</h1> 
+    </div> 
+   </div> 
+   <div class="row"> 
+    <div class="section-sidebar" style="position: fixed; left: 120px; top: 160px; bottom: 20px;"> 
+     <div class="show-mobile menu-open">
+       data store 
+     </div> 
+     <ul> 
+      <li class="active"> <a href="#data-store">data store</a></li> 
+      <li class=""> <a href="#jdbc">jdbc</a> 
+       <ul> 
+        <li> <a href="#jdbc-hikari-pool">hikari pool</a></li> 
+        <li> <a href="#jdbc-Ebean">Ebean</a></li> 
+        <li> <a href="#jdbc-Hibernate">Hibernate</a></li> 
+        <li> <a href="#jdbc-jdbi">jdbi</a></li> 
+        <li> <a href="#jdbc-jooq">jooq</a></li> 
+        <li> <a href="#jdbc-querydsl">querydsl</a></li> 
+        <li> <a href="#jdbc-requery">requery</a></li> 
+        <li> <a href="#jdbc-rxjdbc">rxjdbc</a></li> 
+        <li> <a href="#jdbc-flyway-database-migration-">flyway (database migration)</a></li> 
+       </ul></li> 
+      <li class=""> <a href="#NoSQL">NoSQL</a> 
+       <ul> 
+        <li> <a href="#NoSQL-cassandra">cassandra</a></li> 
+        <li> <a href="#NoSQL-couchbase">couchbase</a></li> 
+        <li> <a href="#NoSQL-elasticsearch">elasticsearch</a></li> 
+        <li> <a href="#NoSQL-mongodb">mongodb</a></li> 
+        <li> <a href="#NoSQL-jongo">jongo</a></li> 
+        <li> <a href="#NoSQL-morphia">morphia</a></li> 
+        <li> <a href="#NoSQL-mongodb-rx">mongodb-rx</a></li> 
+        <li> <a href="#NoSQL-neo4j">neo4j</a></li> 
+       </ul></li> 
+     </ul> 
+    </div> 
+    <div class="section-content"> 
+     <div class="datalist" id="data-store"> 
+      <div class="datalist-title active"> 
+       <h2>data store</h2> 
+      </div> 
+      <div class="datalist-content"> 
+       <p>These are modules providing access to various data stores, including relational, document oriented, key/value stores, etc.</p> 
+      </div> 
+     </div> 
+     <div class="datalist" id="jdbc"> 
+      <div class="datalist-title "> 
+       <h2>jdbc</h2> 
+      </div> 
+      <div class="datalist-content"> 
+       <h3 id="jdbc-hikari-pool">hikari pool</h3> 
+       <p>The <a href="/v1/doc/jdbc">jdbc</a> module provides a high performance connection pool for jdbc via <a href="https://github.com/brettwooldridge/HikariCP" target="_blank">Hikari</a>.</p> 
+       <h3 id="jdbc-Ebean">Ebean</h3> 
+       <p>The <a href="/v1/doc/ebean">ebean</a> module provides object relational mapping via <a href="http://ebean-orm.github.io" target="_blank">Ebean ORM</a>.</p> 
+       <h3 id="jdbc-Hibernate">Hibernate</h3> 
+       <p>The <a href="/v1/doc/hbm">hibernate</a> module provides object relational mapping via <a href="http://hibernate.org" target="_blank">Hibernate</a>.</p> 
+       <h3 id="jdbc-jdbi">jdbi</h3> 
+       <p>The <a href="/v1/doc/jdbi3">jdbi</a> module provides a fluent and lightweight SQL library for <em>jdbc</em>.</p> 
+       <h3 id="jdbc-jooq">jooq</h3> 
+       <p>The <a href="/v1/doc/jooq">jOOQ</a> module lets you build type safe SQL queries through its fluent API.</p> 
+       <h3 id="jdbc-querydsl">querydsl</h3> 
+       <p>The <a href="/v1/doc/querydsl">querydsl</a> module provides unified Queries for SQL. <a href="http://www.querydsl.com/" target="_blank">Querydsl</a> is compact, safe and easy to learn.</p> 
+       <p>The <a href="/v1/doc/querydsl-jpa">querydsl-jpa</a> provides unified Queries for JPA. <a href="http://www.querydsl.com/" target="_blank">Querydsl</a> is compact, safe and easy to learn.</p> 
+       <h3 id="jdbc-requery">requery</h3> 
+       <p><a href="/v1/doc/requery">Requery</a> is a light but powerful object mapping and SQL generator for Java/Kotlin/Android with RxJava and Java 8 support. Easily map to or create databases, perform queries and updates from any platform that uses Java.</p> 
+       <h3 id="jdbc-rxjdbc">rxjdbc</h3> 
+       <p>The <a href="/v1/doc/rxjava-jdbc">rxjdbc</a> provides efficient execution, concise code, and functional composition of database calls using JDBC and RxJava Observable</p> 
+       <h3 id="jdbc-flyway-database-migration-">flyway (database migration)</h3> 
+       <p>The <a href="/v1/doc/flyway">flyway</a> module provides database migrations via <a href="http://flywaydb.org" target="_blank">Flyway</a>.</p> 
+      </div> 
+     </div> 
+     <div class="datalist" id="NoSQL"> 
+      <div class="datalist-title "> 
+       <h2>NoSQL</h2> 
+      </div> 
+      <div class="datalist-content"> 
+       <h3 id="NoSQL-cassandra">cassandra</h3> 
+       <p>The <a href="/v1/doc/cassandra">cassandra</a> module provides access to <a href="http://cassandra.apache.org" target="_blank">Cassandra</a> instances.</p> 
+       <h3 id="NoSQL-couchbase">couchbase</h3> 
+       <p>The <a href="/v1/doc/couchbase">couchbase</a> module provides access to <a href="http://www.couchbase.com" target="_blank">Couchbase</a> instances.</p> 
+       <h3 id="NoSQL-elasticsearch">elasticsearch</h3> 
+       <p>The <a href="/v1/doc/elasticsearch">elasticsearch</a> module provides access to <a href="https://github.com/elastic/elasticsearch" target="_blank">elasticsearch</a> instances.</p> 
+       <h3 id="NoSQL-mongodb">mongodb</h3> 
+       <p>The <a href="/v1/doc/mongodb">mongodb</a> module provides access to <a href="http://mongodb.github.io/mongo-java-driver/" target="_blank">MongoDB</a> instances.</p> 
+       <h3 id="NoSQL-jongo">jongo</h3> 
+       <p>The <a href="/v1/doc/jongo">jongo</a> module provides query in Java as in Mongo Shell.</p> 
+       <h3 id="NoSQL-morphia">morphia</h3> 
+       <p>The <a href="/v1/doc/morphia">morphia</a> module provides object to document mapper via <a href="https://github.com/mongodb/morphia" target="_blank">Morphia</a>.</p> 
+       <h3 id="NoSQL-mongodb-rx">mongodb-rx</h3> 
+       <p>The <a href="/v1/doc/mongodb-rx">mongodb-rx</a> module provides composable asynchronous and event-based observable sequences for <a href="http://mongodb.github.io/mongo-java-driver/" target="_blank">MongoDB</a>.</p> 
+       <h3 id="NoSQL-neo4j">neo4j</h3> 
+       <p>The <a href="/v1/doc/neo4j">neo4j</a> module provides access to <a href="https://neo4j.com" target="_blank">Neo4j</a> databases.</p> 
+      </div> 
+     </div> 
+    </div> 
+   </div> 
+  </main> 
+  <footer class="site-footer"> 
+   <div class="row"> 
+    <p class="pull-left">©2014-2019 <a href="https://twitter.com/joobyproject" target="_blank">The Jooby Project</a>, all rights reserved.</p> 
+    <div class="follow-us pull-right"> 
+     <p>Follow us</p> 
+     <a href="https://github.com/jooby-project/jooby" title="Follow us on Github" target="_blank" rel="nofollow"><span class="icon-github-medium-circle"></span></a> 
+     <a href="https://twitter.com/joobyproject" title="Follow us on Twitter" target="_blank" rel="nofollow"><span class="icon-twitter-medium-circle"></span></a> 
+    </div> 
+   </div> 
+  </footer> 
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script> 
+  <script>window.jQuery || document.write('<script src="/v1/resources/scripts/libs/jquery-2.1.4.min.js"><\/script>')</script> 
+  <script src="/v1/resources/scripts/libs/swiper.min.js"></script> 
+  <script src="/v1/resources/scripts/application.js"></script> 
+  <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-57151281-1', 'auto');
+      ga('send', 'pageview');
+    </script>   
+ </body>
+</html>

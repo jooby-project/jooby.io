@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="en">
+ <head> 
+  <meta charset="UTF-8"> 
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"> 
+  <title>jooby: parser and renderer module</title> 
+  <meta name="description" content="Scalable, fast and modular micro web framework for Java. Build small/large apps easily and quickly with Netty, Undertow or Jetty."> 
+  <meta name="keywords" content="Java, Micro Web Framework, Async, Easy to use, Micro, Sinatra, Express, Scalable, Modern, Best, Web, Framework, Lightweight, Microservices, parser and renderer"> 
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+  <link rel="canonical" href="#"> 
+  <link rel="publisher" href="#"> 
+  <meta name="robots" content="robots.txt"> 
+  <meta name="og:title" content="jooby: parser-and-renderer module"> 
+  <meta name="og:description" content="Choose your favorite template engine and/or serialization library"> 
+  <!--
+    og:type
+    SI EL TEMPLATE ES UN ARTICULO (NOTA, VIDEO, ETC) CAMBIAR
+    "website" por "article"
+    --> 
+  <meta name="og:type" content="website"> 
+  <meta name="og:url" content="https://jooby.org"> 
+  <!--
+    og:image
+    SI ES UNA NOTA Y LA NOTA TIENE UNA IMAGEN DE PREVIEW SE DEBE
+    CAMBIAR POR UNA IMAGEN CON LAS SIGUIENTES ESPECIFICACIONES
+    ANCHO: 200
+    ALTO: 200
+    FORMATO: JPG
+    --> 
+  <meta name="og:image" content="https://jooby.org/resources/images/apps/facebook.jpg"> 
+  <meta name="og:site_name" content="jooby: parser-and-renderer module"> 
+  <meta name="twitter:card" content="summary"> 
+  <meta name="twitter:title" content="jooby: parser-and-renderer module"> 
+  <!--
+    twitter:image
+    SI ES UNA NOTA Y LA NOTA TIENE UNA IMAGEN DE PREVIEW SE DEBE
+    CAMBIAR POR UNA IMAGEN CON LAS SIGUIENTES ESPECIFICACIONES
+    ANCHO: 280
+    ALTO: 150
+    FORMATO: JPG
+    TAMAÑO MAXIMO: 1MB
+    --> 
+  <meta name="twitter:image" content="https://jooby.org/resources/images/apps/twitter.jpg"> 
+  <meta name="twitter:site" content="@joobyproject"> 
+  <meta name="twitter:creator" content="https://twitter.com/edgarespina"> 
+  <meta name="twitter:domain" content="https://jooby.org"> 
+  <meta name="twitter:url" content="https://twitter.com/joobyproject"> 
+  <meta name="twitter:description" content="Choose your favorite template engine and/or serialization library"> 
+  <link rel="apple-touch-icon-precomposed" href="/v1/resources/images/apps/precomposed57.png" sizes="57x57"> 
+  <link rel="apple-touch-icon-precomposed" href="/v1/resources/images/apps/precomposed60.png" sizes="60x60"> 
+  <link rel="apple-touch-icon-precomposed" href="/v1/resources/images/apps/precomposed72.png" sizes="72x72"> 
+  <link rel="apple-touch-icon-precomposed" href="/v1/resources/images/apps/precomposed76.png" sizes="76x76"> 
+  <link rel="apple-touch-icon-precomposed" href="/v1/resources/images/apps/precomposed114.png" sizes="114x114"> 
+  <link rel="apple-touch-icon-precomposed" href="/v1/resources/images/apps/precomposed120.png" sizes="120x120"> 
+  <link rel="apple-touch-icon-precomposed" href="/v1/resources/images/apps/precomposed144.png" sizes="144x144"> 
+  <link rel="apple-touch-icon-precomposed" href="/v1/resources/images/apps/precomposed152.png" sizes="152x152"> 
+  <link rel="apple-touch-icon-precomposed" href="/v1/resources/images/apps/precomposed180.png" sizes="180x180"> 
+  <link href="/v1/resources/images/apps/favicon.ico" rel="shortcut icon"> 
+  <link href="/v1/resources/images/apps/favicon.png" rel="icon" sizes="16x16" type="image/png"> 
+  <link href="/v1/resources/images/apps/favicon32.png" rel="icon" sizes="32x32" type="image/png"> 
+  <link href="/v1/resources/images/apps/favicon96.png" rel="icon" sizes="96x96" type="image/png"> 
+  <link href="/v1/resources/images/apps/android-chrome.png" rel="icon" sizes="192x192" type="image/png"> 
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway:400,300,500,700"> 
+  <link rel="stylesheet" href="/v1/resources/styles/application.css"> 
+  <link rel="stylesheet" href="/v1/resources/styles/github.css"> 
+  <link rel="stylesheet" href="/v1/resources/styles/devices.css"> 
+  <link rel="stylesheet" href="/v1/resources/styles/sprites.css"> 
+ </head> 
+ <body class="page-section page-sidebar"> 
+  <header class="site-header"> 
+   <div class="row"> 
+    <a href="/v1/" title="Home" class="site-logo"><img src="/v1/resources/images/logo_jooby-2x.png" alt="Logo Jooby" width="76" height="31"></a> 
+    <a class="show-mobile open-menu" href="/v1"><span></span></a> 
+    <nav class="site-nav"> 
+     <ul> 
+      <li class=""><a href="/v1/quickstart" title="Quick start">QUICK START</a></li> 
+      <li class=""><a href="/v1/doc" title="Doc">DOCS</a></li> 
+      <li class="active"><a href="/v1/modules" title="Modules">MODULES</a></li> 
+      <li class=""><a href="/v1/community" title="Community">COMMUNITY</a></li> 
+      <li class=""><a href="/v1/faq" title="FAQ">FAQ</a></li> 
+      <li><a href="https://javadoc.io/doc/org.jooby/jooby/1.6.2" target="_blank" title="API docs">API DOCS</a></li> 
+     </ul> 
+    </nav> 
+   </div> 
+  </header> 
+  <main role="main" class="site-content"> 
+   <div class="section-title"> 
+    <div class="row"> 
+     <a href="/v1/modules" class="jsback" title="Go back"><span class="icon-arrowback-big-circle"></span></a> 
+     <h1>parser and renderer</h1> 
+    </div> 
+   </div> 
+   <div class="row"> 
+    <div class="section-sidebar" style="position: fixed; left: 120px; top: 160px; bottom: 20px;"> 
+     <div class="show-mobile menu-open">
+       parser and renderer 
+     </div> 
+     <ul> 
+      <li class="active"> <a href="#parser-and-renderer">parser and renderer</a></li> 
+      <li class=""> <a href="#template-engines">template engines</a> 
+       <ul> 
+        <li> <a href="#template-engines-freemarker">freemarker</a></li> 
+        <li> <a href="#template-engines-jade">jade</a></li> 
+        <li> <a href="#template-engines-handlebars">handlebars</a></li> 
+        <li> <a href="#template-engines-pebble">pebble</a></li> 
+        <li> <a href="#template-engines-rocker">rocker</a></li> 
+        <li> <a href="#template-engines-thymeleaf">thymeleaf</a></li> 
+       </ul></li> 
+      <li class=""> <a href="#json">json</a> 
+       <ul> 
+        <li> <a href="#json-jackson">jackson</a></li> 
+        <li> <a href="#json-gson">gson</a></li> 
+        <li> <a href="#json-yasson">yasson</a></li> 
+       </ul></li> 
+     </ul> 
+    </div> 
+    <div class="section-content"> 
+     <div class="datalist" id="parser-and-renderer"> 
+      <div class="datalist-title active"> 
+       <h2>parser and renderer</h2> 
+      </div> 
+      <div class="datalist-content"> 
+       <p>Choose your favorite template engine and/or serialization library.</p> 
+      </div> 
+     </div> 
+     <div class="datalist" id="template-engines"> 
+      <div class="datalist-title "> 
+       <h2>template engines</h2> 
+      </div> 
+      <div class="datalist-content"> 
+       <h3 id="template-engines-freemarker">freemarker</h3> 
+       <p><a href="/v1/doc/ftl">Freemarker</a> templates.</p> 
+       <h3 id="template-engines-jade">jade</h3> 
+       <p><a href="/v1/doc/jade">Jade</a> templates via <a href="https://github.com/neuland/jade4j" target="_blank">jade4j</a>.</p> 
+       <h3 id="template-engines-handlebars">handlebars</h3> 
+       <p><a href="/v1/doc/hbs">Handlebars</a> logic-less and semantic templates via <a href="https://github.com/jknack/handlebars.java" target="_blank">Handlebars.java</a>.</p> 
+       <h3 id="template-engines-pebble">pebble</h3> 
+       <p><a href="/v1/doc/pebble">Pebble</a> templates.</p> 
+       <h3 id="template-engines-rocker">rocker</h3> 
+       <p><a href="/v1/doc/rocker">Rocker</a> templates.</p> 
+       <h3 id="template-engines-thymeleaf">thymeleaf</h3> 
+       <p><a href="/v1/doc/thymeleaf">Thymeleaf</a> templates.</p> 
+      </div> 
+     </div> 
+     <div class="datalist" id="json"> 
+      <div class="datalist-title "> 
+       <h2>json</h2> 
+      </div> 
+      <div class="datalist-content"> 
+       <h3 id="json-jackson">jackson</h3> 
+       <p>JSON support via <a href="/v1/doc/jackson">jackson</a>.</p> 
+       <h3 id="json-gson">gson</h3> 
+       <p>JSON support via <a href="/v1/doc/gson">gson</a>.</p> 
+       <h3 id="json-yasson">yasson</h3> 
+       <p>JSON support via <a href="/v1/doc/yasson">yasson</a>.</p> 
+      </div> 
+     </div> 
+    </div> 
+   </div> 
+  </main> 
+  <footer class="site-footer"> 
+   <div class="row"> 
+    <p class="pull-left">©2014-2019 <a href="https://twitter.com/joobyproject" target="_blank">The Jooby Project</a>, all rights reserved.</p> 
+    <div class="follow-us pull-right"> 
+     <p>Follow us</p> 
+     <a href="https://github.com/jooby-project/jooby" title="Follow us on Github" target="_blank" rel="nofollow"><span class="icon-github-medium-circle"></span></a> 
+     <a href="https://twitter.com/joobyproject" title="Follow us on Twitter" target="_blank" rel="nofollow"><span class="icon-twitter-medium-circle"></span></a> 
+    </div> 
+   </div> 
+  </footer> 
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script> 
+  <script>window.jQuery || document.write('<script src="/v1/resources/scripts/libs/jquery-2.1.4.min.js"><\/script>')</script> 
+  <script src="/v1/resources/scripts/libs/swiper.min.js"></script> 
+  <script src="/v1/resources/scripts/application.js"></script> 
+  <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-57151281-1', 'auto');
+      ga('send', 'pageview');
+    </script>   
+ </body>
+</html>

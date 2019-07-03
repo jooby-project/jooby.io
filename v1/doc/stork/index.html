@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="en">
+ <head> 
+  <meta charset="UTF-8"> 
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"> 
+  <title>jooby: stork module</title> 
+  <meta name="description" content="Scalable, fast and modular micro web framework for Java. Build small/large apps easily and quickly with Netty, Undertow or Jetty."> 
+  <meta name="keywords" content="Java, Micro Web Framework, Async, Easy to use, Micro, Sinatra, Express, Scalable, Modern, Best, Web, Framework, Lightweight, Microservices, stork"> 
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+  <link rel="canonical" href="#"> 
+  <link rel="publisher" href="#"> 
+  <meta name="robots" content="robots.txt"> 
+  <meta name="og:title" content="jooby: stork module"> 
+  <meta name="og:description" content="Build, package and distribute your application using Stork"> 
+  <!--
+    og:type
+    SI EL TEMPLATE ES UN ARTICULO (NOTA, VIDEO, ETC) CAMBIAR
+    "website" por "article"
+    --> 
+  <meta name="og:type" content="website"> 
+  <meta name="og:url" content="https://jooby.org"> 
+  <!--
+    og:image
+    SI ES UNA NOTA Y LA NOTA TIENE UNA IMAGEN DE PREVIEW SE DEBE
+    CAMBIAR POR UNA IMAGEN CON LAS SIGUIENTES ESPECIFICACIONES
+    ANCHO: 200
+    ALTO: 200
+    FORMATO: JPG
+    --> 
+  <meta name="og:image" content="https://jooby.org/resources/images/apps/facebook.jpg"> 
+  <meta name="og:site_name" content="jooby: stork module"> 
+  <meta name="twitter:card" content="summary"> 
+  <meta name="twitter:title" content="jooby: stork module"> 
+  <!--
+    twitter:image
+    SI ES UNA NOTA Y LA NOTA TIENE UNA IMAGEN DE PREVIEW SE DEBE
+    CAMBIAR POR UNA IMAGEN CON LAS SIGUIENTES ESPECIFICACIONES
+    ANCHO: 280
+    ALTO: 150
+    FORMATO: JPG
+    TAMAÑO MAXIMO: 1MB
+    --> 
+  <meta name="twitter:image" content="https://jooby.org/resources/images/apps/twitter.jpg"> 
+  <meta name="twitter:site" content="@joobyproject"> 
+  <meta name="twitter:creator" content="https://twitter.com/edgarespina"> 
+  <meta name="twitter:domain" content="https://jooby.org"> 
+  <meta name="twitter:url" content="https://twitter.com/joobyproject"> 
+  <meta name="twitter:description" content="Build, package and distribute your application using Stork"> 
+  <link rel="apple-touch-icon-precomposed" href="/v1/resources/images/apps/precomposed57.png" sizes="57x57"> 
+  <link rel="apple-touch-icon-precomposed" href="/v1/resources/images/apps/precomposed60.png" sizes="60x60"> 
+  <link rel="apple-touch-icon-precomposed" href="/v1/resources/images/apps/precomposed72.png" sizes="72x72"> 
+  <link rel="apple-touch-icon-precomposed" href="/v1/resources/images/apps/precomposed76.png" sizes="76x76"> 
+  <link rel="apple-touch-icon-precomposed" href="/v1/resources/images/apps/precomposed114.png" sizes="114x114"> 
+  <link rel="apple-touch-icon-precomposed" href="/v1/resources/images/apps/precomposed120.png" sizes="120x120"> 
+  <link rel="apple-touch-icon-precomposed" href="/v1/resources/images/apps/precomposed144.png" sizes="144x144"> 
+  <link rel="apple-touch-icon-precomposed" href="/v1/resources/images/apps/precomposed152.png" sizes="152x152"> 
+  <link rel="apple-touch-icon-precomposed" href="/v1/resources/images/apps/precomposed180.png" sizes="180x180"> 
+  <link href="/v1/resources/images/apps/favicon.ico" rel="shortcut icon"> 
+  <link href="/v1/resources/images/apps/favicon.png" rel="icon" sizes="16x16" type="image/png"> 
+  <link href="/v1/resources/images/apps/favicon32.png" rel="icon" sizes="32x32" type="image/png"> 
+  <link href="/v1/resources/images/apps/favicon96.png" rel="icon" sizes="96x96" type="image/png"> 
+  <link href="/v1/resources/images/apps/android-chrome.png" rel="icon" sizes="192x192" type="image/png"> 
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway:400,300,500,700"> 
+  <link rel="stylesheet" href="/v1/resources/styles/application.css"> 
+  <link rel="stylesheet" href="/v1/resources/styles/github.css"> 
+  <link rel="stylesheet" href="/v1/resources/styles/devices.css"> 
+  <link rel="stylesheet" href="/v1/resources/styles/sprites.css"> 
+ </head> 
+ <body class="page-section page-sidebar"> 
+  <header class="site-header"> 
+   <div class="row"> 
+    <a href="/v1/" title="Home" class="site-logo"><img src="/v1/resources/images/logo_jooby-2x.png" alt="Logo Jooby" width="76" height="31"></a> 
+    <a class="show-mobile open-menu" href="/v1"><span></span></a> 
+    <nav class="site-nav"> 
+     <ul> 
+      <li class=""><a href="/v1/quickstart" title="Quick start">QUICK START</a></li> 
+      <li class=""><a href="/v1/doc" title="Doc">DOCS</a></li> 
+      <li class="active"><a href="/v1/modules" title="Modules">MODULES</a></li> 
+      <li class=""><a href="/v1/community" title="Community">COMMUNITY</a></li> 
+      <li class=""><a href="/v1/faq" title="FAQ">FAQ</a></li> 
+      <li><a href="https://javadoc.io/doc/org.jooby/jooby/1.6.2" target="_blank" title="API docs">API DOCS</a></li> 
+     </ul> 
+    </nav> 
+   </div> 
+  </header> 
+  <main role="main" class="site-content"> 
+   <div class="section-title"> 
+    <div class="row"> 
+     <a href="/v1/modules" class="jsback" title="Go back"><span class="icon-arrowback-big-circle"></span></a> 
+     <h1>stork</h1> 
+    </div> 
+   </div> 
+   <div class="row"> 
+    <div class="section-sidebar" style="position: fixed; left: 120px; top: 160px; bottom: 20px;"> 
+     <div class="show-mobile menu-open">
+       stork 
+     </div> 
+     <ul> 
+      <li class="active"> <a href="#stork">stork</a> 
+       <ul> 
+        <li> <a href="#stork-usage">usage</a></li> 
+        <li> <a href="#stork-profile-activation">profile activation</a></li> 
+        <li> <a href="#stork-launcher-configuration">launcher configuration</a></li> 
+        <li> <a href="#stork-example">example</a></li> 
+       </ul></li> 
+     </ul> 
+    </div> 
+    <div class="section-content"> 
+     <div class="datalist" id="stork"> 
+      <div class="datalist-title active"> 
+       <h2>stork</h2> 
+      </div> 
+      <div class="datalist-content"> 
+       <p>Build, package and distribute your application using <a href="https://github.com/fizzed/stork" target="_blank">Stork</a>.</p> 
+       <p><a href="https://github.com/fizzed/stork" target="_blank">Stork</a> is a collection of utilities for optimizing your <strong>after-build</strong> workflow by filling in the gap between your Java build system and eventual end-user app execution.</p> 
+       <h3 id="stork-usage">usage</h3> 
+       <p><a href="https://github.com/fizzed/stork" target="_blank">Stork</a> integration is provided via <a href="http://maven.apache.org/guides/introduction/introduction-to-profiles.html" target="_blank">Maven Profiles</a>.</p> 
+       <ul> 
+        <li> <p>Write your <a href="https://github.com/fizzed/stork#launcher-configuration" target="_blank">stork.yml launcher</a> and save it in the <code class="highlighter-rouge codehilite">src/etc</code> directory</p> </li> 
+        <li> <p>Open a console and type: <code class="highlighter-rouge codehilite">mvn clean package</code></p> </li> 
+        <li> <p>It builds a <code class="highlighter-rouge codehilite">[app-name].zip</code> file inside the <code class="highlighter-rouge codehilite">target</code> directory</p> </li> 
+       </ul> 
+       <h3 id="stork-profile-activation">profile activation</h3> 
+       <p>The <code class="highlighter-rouge codehilite">stork</code> Maven profile is activated by the presence of the <code class="highlighter-rouge codehilite">src/etc/stork.yml</code> file.</p> 
+       <h3 id="stork-launcher-configuration">launcher configuration</h3> 
+       <p>You must name your <a href="https://github.com/fizzed/stork#launcher-configuration" target="_blank">launcher</a> as <code class="highlighter-rouge codehilite">stork.yml</code> and save it inside the <code class="highlighter-rouge codehilite">src/etc</code> directory.</p> 
+       <p>Maven properties defined here will be resolved and merged into the final output. Examples of these properties are: <code class="highlighter-rouge codehilite">${application.class}</code>, <code class="highlighter-rouge codehilite">${project.groupId}</code>, etc…</p> 
+       <h3 id="stork-example">example</h3> 
+       <p>Here’s a simple example of the <code class="highlighter-rouge codehilite">stork.yml</code> launcher:</p> 
+       <div class="highlighter-rouge codehilite"> 
+        <div class="copy-bar"> 
+         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        </div> 
+        <pre class="highlight"><code><span class="c1"># Name of application (make sure it has no spaces)</span>
+<span class="s">name</span><span class="pi">:</span> <span class="s2">"</span><span class="s">${project.artifactId}"</span>
+
+<span class="c1"># Display name of application (can have spaces)</span>
+<span class="s">display_name</span><span class="pi">:</span> <span class="s2">"</span><span class="s">${project.name}"</span>
+
+<span class="c1"># Type of launcher (CONSOLE or DAEMON)</span>
+<span class="s">type</span><span class="pi">:</span> <span class="s">DAEMON</span>
+
+<span class="c1"># Java class to run</span>
+<span class="s">main_class</span><span class="pi">:</span> <span class="s2">"</span><span class="s">${application.class}"</span>
+
+<span class="s">domain</span><span class="pi">:</span> <span class="s2">"</span><span class="s">${project.groupId}"</span>
+
+<span class="s">short_description</span><span class="pi">:</span> <span class="s2">"</span><span class="s">${project.artifactId}"</span>
+
+<span class="c1"># Platform launchers to generate (WINDOWS, LINUX, MAC_OSX)</span>
+<span class="c1"># Linux launcher is suitable for Bourne shells (e.g. Linux/BSD)</span>
+<span class="s">platforms</span><span class="pi">:</span> <span class="pi">[</span> <span class="nv">LINUX</span> <span class="pi">]</span>
+
+<span class="c1"># Working directory for app</span>
+<span class="c1"># RETAIN will not change the working directory</span>
+<span class="c1"># APP_HOME will change the working directory to the home of the app</span>
+<span class="c1"># (where it was intalled) before running the main class</span>
+<span class="s">working_dir_mode</span><span class="pi">:</span> <span class="s">RETAIN</span>
+
+<span class="c1"># Minimum version of java required (system will be searched for acceptable jvm)</span>
+<span class="s">min_java_version</span><span class="pi">:</span> <span class="s2">"</span><span class="s">1.8"</span>
+
+<span class="c1"># Min/max fixed memory (measured in MB)</span>
+<span class="s">min_java_memory</span><span class="pi">:</span> <span class="s">512</span>
+<span class="s">max_java_memory</span><span class="pi">:</span> <span class="s">512</span>
+
+<span class="c1"># Min/max memory by percentage of system</span>
+<span class="c1">#min_java_memory_pct: 10</span>
+<span class="c1">#max_java_memory_pct: 20</span>
+
+<span class="c1"># Try to create a symbolic link to java executable in &lt;app_home&gt;/run with</span>
+<span class="c1"># the name of "&lt;app_name&gt;-java" so that commands like "ps" will make it</span>
+<span class="c1"># easier to find your app</span>
+<span class="s">symlink_java</span><span class="pi">:</span> <span class="s">true</span>
+</code></pre> 
+       </div> 
+      </div> 
+     </div> 
+    </div> 
+   </div> 
+  </main> 
+  <footer class="site-footer"> 
+   <div class="row"> 
+    <p class="pull-left">©2014-2019 <a href="https://twitter.com/joobyproject" target="_blank">The Jooby Project</a>, all rights reserved.</p> 
+    <div class="follow-us pull-right"> 
+     <p>Follow us</p> 
+     <a href="https://github.com/jooby-project/jooby" title="Follow us on Github" target="_blank" rel="nofollow"><span class="icon-github-medium-circle"></span></a> 
+     <a href="https://twitter.com/joobyproject" title="Follow us on Twitter" target="_blank" rel="nofollow"><span class="icon-twitter-medium-circle"></span></a> 
+    </div> 
+   </div> 
+  </footer> 
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script> 
+  <script>window.jQuery || document.write('<script src="/v1/resources/scripts/libs/jquery-2.1.4.min.js"><\/script>')</script> 
+  <script src="/v1/resources/scripts/libs/swiper.min.js"></script> 
+  <script src="/v1/resources/scripts/application.js"></script> 
+  <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-57151281-1', 'auto');
+      ga('send', 'pageview');
+    </script>   
+ </body>
+</html>
