@@ -536,10 +536,10 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <pre class="highlightjs highlight"><code class="language-xml hljs">&lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
   &lt;artifactId&gt;jooby-handlebars&lt;/artifactId&gt;
-  &lt;version&gt;2.0.0.RC3&lt;/version&gt;
+  &lt;version&gt;2.0.0&lt;/version&gt;
 &lt;/dependency&gt;</code><button class="clipboard">Copy</button></pre>
 </div><div class="content hidden">
-<pre class="highlightjs highlight"><code class="language-javascript hljs">compile 'io.jooby:jooby-handlebars:2.0.0.RC3'</code><button class="clipboard">Copy</button></pre>
+<pre class="highlightjs highlight"><code class="language-javascript hljs">compile 'io.jooby:jooby-handlebars:2.0.0'</code><button class="clipboard">Copy</button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -558,10 +558,10 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 
 
 <div class="switch"><div class="switch--item selected">Java</div><div class="switch--item">Kotlin</div></div><div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs">import io.jooby.handlebars.Hbs;
+<pre class="highlightjs highlight"><code class="language-java hljs">import io.jooby.handlebars.HandlebarsModule;
 
 {
-  install(new Hbs());
+  install(new HandlebarsModule());
 
   get("/", ctx -&gt; {
     return new ModelAndView("index.hbs")
@@ -569,10 +569,10 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
   });
 }</code><button class="clipboard">Copy</button></pre>
 </div><div class="content hidden">
-<pre class="highlightjs highlight"><code class="language-kt hljs">import io.jooby.handlebars.Hbs
+<pre class="highlightjs highlight"><code class="language-kt hljs">import io.jooby.handlebars.HandlebarsModule
 
 {
-  install(Hbs())
+  install(HandlebarsModule())
 
   get("/") {
     ModelAndView("index.hbs")
@@ -609,24 +609,24 @@ environment it use <a href="https://github.com/jknack/handlebars.java#the-cache-
 
 
 <div class="switch"><div class="switch--item selected">Java</div><div class="switch--item">Kotlin</div></div><div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs">import io.jooby.handlebars.Hbs;
+<pre class="highlightjs highlight"><code class="language-java hljs">import io.jooby.handlebars.HandlebarsModule;
 
 {
   Handlebars handlebars = new Handlebars();
 
   // Apply custom configuration
 
-  install(new Hbs(handlebars));
+  install(new HandlebarsModule(handlebars));
 }</code><button class="clipboard">Copy</button></pre>
 </div><div class="content hidden">
-<pre class="highlightjs highlight"><code class="language-kt hljs">import io.jooby.handlebars.Hbs
+<pre class="highlightjs highlight"><code class="language-kt hljs">import io.jooby.handlebars.HandlebarsModule
 
 {
   val handlebars = Handlebars()
 
   // Apply custom configuration
 
-  install(Hbs(handlebars))
+  install(HandlebarsModule(handlebars))
 }</code><button class="clipboard">Copy</button></pre>
 </div></div>
 

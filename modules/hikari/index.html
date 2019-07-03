@@ -537,10 +537,10 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <pre class="highlightjs highlight"><code class="language-xml hljs">&lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
   &lt;artifactId&gt;jooby-hikari&lt;/artifactId&gt;
-  &lt;version&gt;2.0.0.RC3&lt;/version&gt;
+  &lt;version&gt;2.0.0&lt;/version&gt;
 &lt;/dependency&gt;</code><button class="clipboard">Copy</button></pre>
 </div><div class="content hidden">
-<pre class="highlightjs highlight"><code class="language-javascript hljs">compile 'io.jooby:jooby-hikari:2.0.0.RC3'</code><button class="clipboard">Copy</button></pre>
+<pre class="highlightjs highlight"><code class="language-javascript hljs">compile 'io.jooby:jooby-hikari:2.0.0'</code><button class="clipboard">Copy</button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -553,10 +553,10 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <pre class="highlightjs highlight"><code class="language-xml hljs">&lt;dependency&gt;
   &lt;groupId&gt;mysql&lt;/groupId&gt;
   &lt;artifactId&gt;mysql-connector-java&lt;/artifactId&gt;
-  &lt;version&gt;8.0.15&lt;/version&gt;
+  &lt;version&gt;8.0.16&lt;/version&gt;
 &lt;/dependency&gt;</code><button class="clipboard">Copy</button></pre>
 </div><div class="content hidden">
-<pre class="highlightjs highlight"><code class="language-javascript hljs">compile 'mysql:mysql-connector-java:8.0.15'</code><button class="clipboard">Copy</button></pre>
+<pre class="highlightjs highlight"><code class="language-javascript hljs">compile 'mysql:mysql-connector-java:8.0.16'</code><button class="clipboard">Copy</button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -577,7 +577,7 @@ db.password = mypass</code><button class="clipboard">Copy</button></pre>
 
 
 <div class="switch"><div class="switch--item selected">Java</div><div class="switch--item">Kotlin</div></div><div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs">import io.jooby.hikari.Hikari;
+<pre class="highlightjs highlight"><code class="language-java hljs">import io.jooby.hikari.HikariModule;
 
 {
   install(new Hikari());
@@ -588,7 +588,7 @@ db.password = mypass</code><button class="clipboard">Copy</button></pre>
   });
 }</code><button class="clipboard">Copy</button></pre>
 </div><div class="content hidden">
-<pre class="highlightjs highlight"><code class="language-kt hljs">import io.jooby.hikari.Hikari
+<pre class="highlightjs highlight"><code class="language-kt hljs">import io.jooby.hikari.HikariModule
 
 {
   install(Hikari())
@@ -604,7 +604,7 @@ db.password = mypass</code><button class="clipboard">Copy</button></pre>
 <div class="sect2">
 <h3 id="hikari-database-configuration"><a class="anchor" href="#hikari-database-configuration"></a><a class="link" href="#hikari-database-configuration">1.2. Database configuration</a></h3>
 <div class="paragraph">
-<p>By default the <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0.RC3/io/jooby/hikari/Hikari.html" target="_blank">Hikari</a> module expects to find database properties as application
+<p>By default the <a href="https://static.javadoc.io/io.jooby/jooby/2.0.0/io/jooby/hikari/Hikari.html" target="_blank">Hikari</a> module expects to find database properties as application
 configuration properties under the <code>db</code> key prefix. The next example shows how to overrides the
 database prefix:</p>
 </div>
@@ -612,13 +612,13 @@ database prefix:</p>
 <div class="title">Custom database prefix</div>
 
 <div class="switch"><div class="switch--item selected">Java</div><div class="switch--item">Kotlin</div></div><div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs">import io.jooby.hikari.Hikari;
+<pre class="highlightjs highlight"><code class="language-java hljs">import io.jooby.hikari.HikariModule;
 
 {
   install(new Hikari("mydb"));
 }</code><button class="clipboard">Copy</button></pre>
 </div><div class="content hidden">
-<pre class="highlightjs highlight"><code class="language-kt hljs">import io.jooby.hikari.Hikari
+<pre class="highlightjs highlight"><code class="language-kt hljs">import io.jooby.hikari.HikariModule
 
 {
   install(Hikari("mydb"))
@@ -632,13 +632,13 @@ database prefix:</p>
 <div class="title">No properties</div>
 
 <div class="switch"><div class="switch--item selected">Java</div><div class="switch--item">Kotlin</div></div><div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs">import io.jooby.hikari.Hikari;
+<pre class="highlightjs highlight"><code class="language-java hljs">import io.jooby.hikari.HikariModule;
 
 {
   install(new Hikari("jdbc:mysql://localhost/mydb"));
 }</code><button class="clipboard">Copy</button></pre>
 </div><div class="content hidden">
-<pre class="highlightjs highlight"><code class="language-kt hljs">import io.jooby.hikari.Hikari
+<pre class="highlightjs highlight"><code class="language-kt hljs">import io.jooby.hikari.HikariModule
 
 {
   install(Hikari("jdbc:mysql://localhost/mydb"))
@@ -654,13 +654,13 @@ database prefix:</p>
 <div class="ulist">
 <ul>
 <li>
-<p><code>mem</code>: setup an in-memory database</p>
+<p><code>mem</code>  : setup an in-memory database</p>
 </li>
 <li>
-<p><code>fs</code> : a file system database at <code>System.getProperty("user.dir")</code></p>
+<p><code>local</code>: a file system database at <code>System.getProperty("user.dir")</code></p>
 </li>
 <li>
-<p><code>tmp</code>: a tmp file system database at <code>System.getProperty("user.dir") + "/tmp"</code> directory</p>
+<p><code>tmp</code>  : a tmp file system database at <code>System.getProperty("user.dir") + "/tmp"</code> directory</p>
 </li>
 </ul>
 </div>
@@ -686,7 +686,7 @@ auditdb.password = mypass</code><button class="clipboard">Copy</button></pre>
 <div class="title">Multiple data sources</div>
 
 <div class="switch"><div class="switch--item selected">Java</div><div class="switch--item">Kotlin</div></div><div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs">import io.jooby.hikari.Hikari;
+<pre class="highlightjs highlight"><code class="language-java hljs">import io.jooby.hikari.HikariModule;
 
 {
   install(new Hikari("maindb"));
@@ -701,7 +701,7 @@ auditdb.password = mypass</code><button class="clipboard">Copy</button></pre>
   });
 }</code><button class="clipboard">Copy</button></pre>
 </div><div class="content hidden">
-<pre class="highlightjs highlight"><code class="language-kt hljs">import io.jooby.hikari.Hikari
+<pre class="highlightjs highlight"><code class="language-kt hljs">import io.jooby.hikari.HikariModule
 
 {
   install(Hikari("maindb"))
@@ -741,13 +741,13 @@ hikari.maximumPoolSize = 10</code><button class="clipboard">Copy</button></pre>
 maindb.user = myuser
 maindb.password = mypass
 
-hikari.maindb.maximumPoolSize = 10
+maindb.hikari.maximumPoolSize = 10
 
 auditdb.url = "jdbc:mysql://localhost/audit"
 auditdb.user = myuser
 auditdb.password = mypass
 
-hikari.auditdb.maximumPoolSize = 15</code><button class="clipboard">Copy</button></pre>
+auditdb.hikari.maximumPoolSize = 15</code><button class="clipboard">Copy</button></pre>
 </div>
 </div>
 </div>

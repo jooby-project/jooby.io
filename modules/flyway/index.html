@@ -6,7 +6,7 @@
 <meta name="description" content="The modular micro web framework for Java">
 <meta name="keywords" content="Java, Modern, Micro, Web, Framework, Reactive, Lightweight, Microservices">
 <link rel="icon" type="image/png" href="../../images/favicon96.png">
-<title>jooby: rocker module</title>
+<title>jooby: flyway module</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /* Asciidoctor default stylesheet | MIT License | http://asciidoctor.org */
@@ -506,9 +506,10 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#rocker">1. Rocker</a>
+<li><a href="#flyway">1. Flyway</a>
 <ul class="sectlevel2">
-<li><a href="#rocker-usage">1.1. Usage</a></li>
+<li><a href="#flyway-usage">1.1. Usage</a></li>
+<li><a href="#flyway-multiple-databases">1.2. Multiple databases</a></li>
 </ul>
 </li>
 </ul>
@@ -516,116 +517,92 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div id="content">
 <div class="sect1">
-<h2 id="rocker"><a class="anchor" href="#rocker"></a><a class="link" href="#rocker">1. Rocker</a></h2>
+<h2 id="flyway"><a class="anchor" href="#flyway"></a><a class="link" href="#flyway">1. Flyway</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><a href="https://github.com/fizzed/rocker" target="_blank">Rocker</a> is a Java 8 optimized, memory efficient, speedy template
-engine producing statically typed, plain java objects.</p>
+<p><a href="https://flywaydb.org" target="_blank">Flyway</a> database migrations module.</p>
 </div>
 <div class="sect2">
-<h3 id="rocker-usage"><a class="anchor" href="#rocker-usage"></a><a class="link" href="#rocker-usage">1.1. Usage</a></h3>
+<h3 id="flyway-usage"><a class="anchor" href="#flyway-usage"></a><a class="link" href="#flyway-usage">1.1. Usage</a></h3>
 <div class="paragraph">
-<p>1) Add the dependency:</p>
+<p>1) Add the dependencies (hikari + flyway):</p>
+</div>
+<div class="listingblock primary">
+
+
+<div class="switch"><div class="switch--item selected">Maven</div><div class="switch--item">Gradle</div></div><div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs">&lt;!-- DataSource via HikariCP--&gt;
+&lt;dependency&gt;
+  &lt;groupId&gt;io.jooby&lt;/groupId&gt;
+  &lt;artifactId&gt;jooby-hikari&lt;/artifactId&gt;
+  &lt;version&gt;2.0.0&lt;/version&gt;
+&lt;/dependency&gt;
+
+&lt;!-- Flyway Module--&gt;
+&lt;dependency&gt;
+  &lt;groupId&gt;io.jooby&lt;/groupId&gt;
+  &lt;artifactId&gt;jooby-flyway&lt;/artifactId&gt;
+  &lt;version&gt;2.0.0&lt;/version&gt;
+&lt;/dependency&gt;</code><button class="clipboard">Copy</button></pre>
+</div><div class="content hidden">
+<pre class="highlightjs highlight"><code class="language-javascript hljs">// DataSource via HikariCP
+compile 'io.jooby:jooby-hikari:2.0.0'
+
+// Flyway Module
+compile 'io.jooby:jooby-flyway:2.0.0'</code><button class="clipboard">Copy</button></pre>
+</div></div>
+
+<div class="paragraph">
+<p>2) Add database driver (mySQL here):</p>
 </div>
 <div class="listingblock primary">
 
 
 <div class="switch"><div class="switch--item selected">Maven</div><div class="switch--item">Gradle</div></div><div class="content">
 <pre class="highlightjs highlight"><code class="language-xml hljs">&lt;dependency&gt;
-  &lt;groupId&gt;io.jooby&lt;/groupId&gt;
-  &lt;artifactId&gt;jooby-rocker&lt;/artifactId&gt;
-  &lt;version&gt;2.0.0&lt;/version&gt;
+  &lt;groupId&gt;mysql&lt;/groupId&gt;
+  &lt;artifactId&gt;mysql-connector-java&lt;/artifactId&gt;
+  &lt;version&gt;8.0.16&lt;/version&gt;
 &lt;/dependency&gt;</code><button class="clipboard">Copy</button></pre>
 </div><div class="content hidden">
-<pre class="highlightjs highlight"><code class="language-javascript hljs">compile 'io.jooby:jooby-rocker:2.0.0'</code><button class="clipboard">Copy</button></pre>
+<pre class="highlightjs highlight"><code class="language-javascript hljs">compile 'mysql:mysql-connector-java:8.0.16'</code><button class="clipboard">Copy</button></pre>
 </div></div>
 
 <div class="paragraph">
-<p>2) Configure code generator</p>
-</div>
-<div class="listingblock primary">
-
-
-<div class="switch"><div class="switch--item selected">Maven</div><div class="switch--item">Gradle</div></div><div class="content">
-<pre class="highlightjs highlight"><code class="language-xml hljs">&lt;plugin&gt;
-    &lt;groupId&gt;com.fizzed&lt;/groupId&gt;
-    &lt;artifactId&gt;rocker-maven-plugin&lt;/artifactId&gt;
-    &lt;version&gt;1.2.1&lt;/version&gt;
-    &lt;configuration&gt;
-        &lt;templateDirectory&gt;src/rocker&lt;/templateDirectory&gt;
-    &lt;/configuration&gt;
-    &lt;executions&gt;
-        &lt;execution&gt;
-            &lt;id&gt;generate-rocker-templates&lt;/id&gt;
-            &lt;phase&gt;generate-sources&lt;/phase&gt;
-            &lt;goals&gt;
-                &lt;goal&gt;generate&lt;/goal&gt;
-            &lt;/goals&gt;
-        &lt;/execution&gt;
-    &lt;/executions&gt;
-&lt;/plugin&gt;</code><button class="clipboard">Copy</button></pre>
-</div><div class="content hidden">
-<pre class="highlightjs highlight"><code class="language-groovy hljs">plugins {
-  id "com.fizzed.rocker" version "1.2.1"
-}
-
-sourceSets {
-    main {
-        rocker {
-            srcDir('src/rocker')
-        }
-    }
-}</code><button class="clipboard">Copy</button></pre>
-</div></div>
-
-<div class="admonitionblock note">
-<table>
-<tbody><tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-Complete code generator options are <a href="https://github.com/fizzed/rocker#integrate-parsergenerator-in-build-tool" target="_blank">available here</a>
-</td>
-</tr>
-</tbody></table>
-</div>
-<div class="paragraph">
-<p>3) Write your templates inside the <code>src/rocker/views</code> folder</p>
+<p>3) Set database properties</p>
 </div>
 <div class="listingblock">
-<div class="title">src/rocker/views/index.rocker.html</div>
+<div class="title">application.conf</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-html hljs">@args (String message)
-
-&lt;p&gt;Hello @message!&lt;/p&gt;</code><button class="clipboard">Copy</button></pre>
+<pre class="highlightjs highlight"><code class="language-properties hljs">db.url = "jdbc:mysql://localhost/mydb"
+db.user = myuser
+db.password = mypass</code><button class="clipboard">Copy</button></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>4) Install and use rocker templates</p>
+<p>4) Install and use Flyway</p>
 </div>
 <div class="listingblock primary">
 
 
 <div class="switch"><div class="switch--item selected">Java</div><div class="switch--item">Kotlin</div></div><div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs">import io.jooby.rocker.Rockerby;
+<pre class="highlightjs highlight"><code class="language-java hljs">import io.jooby.hikari.HikariModule;
+import io.jooby.flyway.FlywayModule;
 
 {
-  install(new Rockerby());                  <i class="conum" data-value="1"></i><b>(1)</b>
+  install(new HikariModule());                     <i class="conum" data-value="1"></i><b>(1)</b>
 
-  get("/", ctx -&gt; {
-    return views.index.template("Rocker");  <i class="conum" data-value="2"></i><b>(2)</b>
-  });
+  install(new FlywayModule());                     <i class="conum" data-value="2"></i><b>(2)</b>
+
 }</code><button class="clipboard">Copy</button></pre>
 </div><div class="content hidden">
-<pre class="highlightjs highlight"><code class="language-kt hljs">import io.jooby.rocker.Rockerby
+<pre class="highlightjs highlight"><code class="language-kt hljs">import io.jooby.hikari.HikariModule
+import io.jooby.jdbi.JdbiModule
 
 {
-  install(Rockerby())                       <i class="conum" data-value="1"></i><b>(1)</b>
+  install(HikariModule())                          <i class="conum" data-value="1"></i><b>(1)</b>
 
-  get("/") {
-    views.index.template("Rocker")          <i class="conum" data-value="2"></i><b>(2)</b>
-  }
+  install(FlywayModule())                          <i class="conum" data-value="2"></i><b>(2)</b>
 }</code><button class="clipboard">Copy</button></pre>
 </div></div>
 
@@ -633,13 +610,78 @@ Complete code generator options are <a href="https://github.com/fizzed/rocker#in
 <table>
 <tbody><tr>
 <td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>Install Rocker</td>
+<td>Install and creates a <code>DataSource</code></td>
 </tr>
 <tr>
 <td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>Returns a rocker view</td>
+<td>Install and run Flyway</td>
 </tr>
 </tbody></table>
+</div>
+<div class="paragraph">
+<p>The flyway module runs a <code>migrate</code> command, you can override the default command by setting the <code>flyway.run</code>
+application configuration property:</p>
+</div>
+<div class="listingblock">
+<div class="title">application.conf</div>
+<div class="content">
+<pre>flyway.run = migrate</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Multiple commands example:</p>
+</div>
+<div class="listingblock">
+<div class="title">application.conf</div>
+<div class="content">
+<pre>flyway.run = [clean, migrate]</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Available commands: <code>migrate</code>, <code>clean</code>, <code>info</code>, <code>validate</code>, <code>undo</code>, <code>baseline</code> and <code>repair</code>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="flyway-multiple-databases"><a class="anchor" href="#flyway-multiple-databases"></a><a class="link" href="#flyway-multiple-databases">1.2. Multiple databases</a></h3>
+<div class="paragraph">
+<p>Multiple databases are supported too:</p>
+</div>
+<div class="listingblock primary">
+
+
+<div class="switch"><div class="switch--item selected">Java</div><div class="switch--item">Kotlin</div></div><div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs">import io.jooby.hikari.HikariModule;
+import io.jooby.flyway.FlywayModule;
+
+{
+  install(new HikariModule("main"));
+  install(new FlywayModule("main"));
+
+  install(new HikariModule("audit"));
+  install(new FlywayModule("audit"));
+}</code><button class="clipboard">Copy</button></pre>
+</div><div class="content hidden">
+<pre class="highlightjs highlight"><code class="language-kt hljs">import io.jooby.hikari.HikariModule
+import io.jooby.jdbi.JdbiModule
+
+{
+  install(HikariModule("main"))
+  install(FlywayModule("main"))
+
+  install(HikariModule("audit"))
+  install(FlywayModule("audit"))
+}</code><button class="clipboard">Copy</button></pre>
+</div></div>
+
+<div class="paragraph">
+<p>When using multiple database you need to specify the location of the migration scripts:</p>
+</div>
+<div class="listingblock">
+<div class="title">application.conf</div>
+<div class="content">
+<pre>main.flyway.locations = "classpath:db/main"
+audit.flyway.locations = "classpath:db/audit"</pre>
+</div>
 </div>
 </div>
 </div>
