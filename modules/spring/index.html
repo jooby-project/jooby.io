@@ -6,7 +6,7 @@
 <meta name="description" content="The modular micro web framework for Java">
 <meta name="keywords" content="Java, Modern, Micro, Web, Framework, Reactive, Lightweight, Microservices">
 <link rel="icon" type="image/png" href="../../images/favicon96.png">
-<title>jooby: handlebars module</title>
+<title>jooby: spring module</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /* Asciidoctor default stylesheet | MIT License | http://asciidoctor.org */
@@ -505,29 +505,21 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="header">
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
-<ul class="sectlevel1">
-<li><a href="#handlebars">1. Handlebars</a>
 <ul class="sectlevel2">
-<li><a href="#usage">1.1. Usage</a></li>
-<li><a href="#templates-location">1.2. Templates Location</a></li>
-<li><a href="#template-cache">1.3. Template Cache</a></li>
-<li><a href="#custom-configuration">1.4. Custom configuration</a></li>
+<li><a href="#spring">1. Spring</a>
+<ul class="sectlevel3">
+<li><a href="#property-injection">1.1. Property Injection</a></li>
+<li><a href="#mvc-routes">1.2. MVC routes</a></li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
 <div id="content">
-<div class="sect1">
-<h2 id="handlebars"><a class="anchor" href="#handlebars"></a><a class="link" href="#handlebars">1. Handlebars</a></h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p><a href="https://github.com/jknack/handlebars.java" target="_blank">Handlebars templates</a> for Jooby.</p>
-</div>
 <div class="sect2">
-<h3 id="handlebars-usage"><a class="anchor" href="#handlebars-usage"></a><a class="link" href="#handlebars-usage">1.1. Usage</a></h3>
+<h3 id="spring"><a class="anchor" href="#spring"></a><a class="link" href="#spring">1. Spring</a></h3>
 <div class="paragraph">
-<p>1) Add the dependency:</p>
+<p>1) Add Spring dependency to your project:</p>
 </div>
 <div class="listingblock primary">
 
@@ -535,102 +527,162 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="switch"><div class="switch--item selected">Maven</div><div class="switch--item">Gradle</div></div><div class="content">
 <pre class="highlightjs highlight"><code class="language-xml hljs">&lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
-  &lt;artifactId&gt;jooby-handlebars&lt;/artifactId&gt;
+  &lt;artifactId&gt;jooby-spring&lt;/artifactId&gt;
   &lt;version&gt;2.0.1&lt;/version&gt;
 &lt;/dependency&gt;</code><button class="clipboard">Copy</button></pre>
 </div><div class="content hidden">
-<pre class="highlightjs highlight"><code class="language-javascript hljs">compile 'io.jooby:jooby-handlebars:2.0.1'</code><button class="clipboard">Copy</button></pre>
+<pre class="highlightjs highlight"><code class="language-javascript hljs">compile 'io.jooby:jooby-spring:2.0.1'</code><button class="clipboard">Copy</button></pre>
 </div></div>
 
 <div class="paragraph">
-<p>2) Write your templates inside the <code>views</code> folder</p>
-</div>
-<div class="listingblock">
-<div class="title">views/index.hbs</div>
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-html hljs">&lt;p&gt; Hello {{name}}! &lt;/p&gt;</code><button class="clipboard">Copy</button></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>3) Install and use freemarker templates</p>
+<p>2) Install Spring:</p>
 </div>
 <div class="listingblock primary">
-
+<div class="title">Installing Spring</div>
 
 <div class="switch"><div class="switch--item selected">Java</div><div class="switch--item">Kotlin</div></div><div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs">import io.jooby.handlebars.HandlebarsModule;
+<pre class="highlightjs highlight"><code class="language-java hljs">package myapp;                                       <i class="conum" data-value="1"></i><b>(1)</b>
 
-{
-  install(new HandlebarsModule());
+import static io.jooby.Jooby.runApp;
+import io.jooby.di.SpringModule;
 
-  get("/", ctx -&gt; {
-    return new ModelAndView("index.hbs")
-        .put("name", "Jooby");
-  });
+public class App extends Jooby {
+
+  {
+    install(new SpringModule());                           <i class="conum" data-value="2"></i><b>(2)</b>
+
+    get("/", ctx -&gt; {
+      MyService service = require(MyService.class);  <i class="conum" data-value="3"></i><b>(3)</b>
+      return service.doSomething();
+    });
+  }
+
+  public static void main(String[] args) {
+    runApp(args, App::new);
+  }
 }</code><button class="clipboard">Copy</button></pre>
 </div><div class="content hidden">
-<pre class="highlightjs highlight"><code class="language-kt hljs">import io.jooby.handlebars.HandlebarsModule
+<pre class="highlightjs highlight"><code class="language-kotlin hljs">package myapp                                        <i class="conum" data-value="1"></i><b>(1)</b>
 
-{
-  install(HandlebarsModule())
+import io.jooby.runApp
+import io.jooby.di.SpringModule
 
-  get("/") {
-    ModelAndView("index.hbs")
-        .put("name", "Jooby")
+fun main(args: Array&lt;String&gt;) {
+  runApp(args) {
+
+    install(SpringModule())                                <i class="conum" data-value="2"></i><b>(2)</b>
+
+    get ("/") {
+      val service = require(MyService::class)        <i class="conum" data-value="3"></i><b>(3)</b>
+      service.doSomething()
+    }
   }
 }</code><button class="clipboard">Copy</button></pre>
 </div></div>
 
+<div class="colist arabic">
+<table>
+<tbody><tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Spring scan the package <code>myapp</code> and subpackages</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Install Spring module</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>The <a href="https://static.javadoc.io/io.jooby/jooby/2.0.1/io/jooby/Jooby.html#require-java.lang.Class-" target="_blank">require(Class)</a> call is now resolved by Spring</td>
+</tr>
+</tbody></table>
 </div>
-<div class="sect2">
-<h3 id="handlebars-templates-location"><a class="anchor" href="#handlebars-templates-location"></a><a class="link" href="#handlebars-templates-location">1.2. Templates Location</a></h3>
 <div class="paragraph">
-<p>Template location is set to <code>views</code>. The <code>views</code> folder/location is expected to be at the current
-user directory or at root of classpath.</p>
+<p>Spring uses the application package and sub-packages to scan. If you need extra packages, provide them at creation time:</p>
 </div>
+<div class="listingblock">
+<div class="content">
+<pre>install(new Spring("foo", "bar"));</pre>
+</div>
+</div>
+<div class="sect3">
+<h4 id="spring-property-injection"><a class="anchor" href="#spring-property-injection"></a><a class="link" href="#spring-property-injection">1.1. Property Injection</a></h4>
 <div class="paragraph">
-<p>You can override the default location by setting the <code>templates.path</code> property in the application
-configuration file or programmatically at creation time.</p>
+<p>Configuration properties can be injected using the <code>@Value</code> annotation:</p>
 </div>
+<div class="listingblock">
+<div class="title">application.conf</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs">currency = USD</code><button class="clipboard">Copy</button></pre>
 </div>
-<div class="sect2">
-<h3 id="handlebars-template-cache"><a class="anchor" href="#handlebars-template-cache"></a><a class="link" href="#handlebars-template-cache">1.3. Template Cache</a></h3>
-<div class="paragraph">
-<p>The handlebars module turn off cache while running in <code>dev</code> or <code>test</code> environment. For any other
-environment it use <a href="https://github.com/jknack/handlebars.java#the-cache-system" target="_blank">HighConcurrencyTemplateCache</a></p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="handlebars-custom-configuration"><a class="anchor" href="#handlebars-custom-configuration"></a><a class="link" href="#handlebars-custom-configuration">1.4. Custom configuration</a></h3>
-<div class="paragraph">
-<p>Custom Handlebars object can be provided it programmatically:</p>
 </div>
 <div class="listingblock primary">
 
 
 <div class="switch"><div class="switch--item selected">Java</div><div class="switch--item">Kotlin</div></div><div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs">import io.jooby.handlebars.HandlebarsModule;
+<pre class="highlightjs highlight"><code class="language-java hljs">import javax.injext.Inject;
+import org.springframework.beans.factory.annotation.Value;
 
-{
-  Handlebars handlebars = new Handlebars();
+public class BillingService {
 
-  // Apply custom configuration
+  @Inject
+  public BillingService(@Value("currency") String currency) {
+    ...
+  }
 
-  install(new HandlebarsModule(handlebars));
 }</code><button class="clipboard">Copy</button></pre>
 </div><div class="content hidden">
-<pre class="highlightjs highlight"><code class="language-kt hljs">import io.jooby.handlebars.HandlebarsModule
+<pre class="highlightjs highlight"><code class="language-kotlin hljs">import javax.injext.Inject
+import org.springframework.beans.factory.annotation.Value
 
-{
-  val handlebars = Handlebars()
-
-  // Apply custom configuration
-
-  install(HandlebarsModule(handlebars))
+class BillingService @Inject constructor(@Value("${currency}") currency: String) {
+  ...
 }</code><button class="clipboard">Copy</button></pre>
 </div></div>
 
 </div>
+<div class="sect3">
+<h4 id="spring-mvc-routes"><a class="anchor" href="#spring-mvc-routes"></a><a class="link" href="#spring-mvc-routes">1.2. MVC routes</a></h4>
+<div class="paragraph">
+<p>The Spring extension does a bit more in relation to MVC routes:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>A MVC route annotated with the <code>org.springframework.stereotype.Controller</code> annotation is
+automatically registered. No need to register it manually</p>
+</li>
+<li>
+<p>A MVC route provided by Spring is a singleton object by default. Singleton is the default scope in Spring</p>
+</li>
+</ul>
+</div>
+<div class="listingblock primary">
+<div class="title">MVC route</div>
+
+<div class="switch"><div class="switch--item selected">Java</div><div class="switch--item">Kotlin</div></div><div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs">import org.springframework.stereotype.Controller;
+
+@Controller
+public class Hello {
+
+   @GET
+   public String sayHi() {
+     return "Hi Spring!";
+   }
+}</code><button class="clipboard">Copy</button></pre>
+</div><div class="content hidden">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs">import org.springframework.stereotype.Controller
+
+@Controller
+class Hello {
+
+   @GET
+   fun sayHi(): String {
+     return "Hi Spring!"
+   }
+}</code><button class="clipboard">Copy</button></pre>
+</div></div>
+
 </div>
 </div>
 </div>

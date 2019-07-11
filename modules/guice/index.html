@@ -6,7 +6,7 @@
 <meta name="description" content="The modular micro web framework for Java">
 <meta name="keywords" content="Java, Modern, Micro, Web, Framework, Reactive, Lightweight, Microservices">
 <link rel="icon" type="image/png" href="../../images/favicon96.png">
-<title>jooby: handlebars module</title>
+<title>jooby: guice module</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /* Asciidoctor default stylesheet | MIT License | http://asciidoctor.org */
@@ -505,29 +505,21 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="header">
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
-<ul class="sectlevel1">
-<li><a href="#handlebars">1. Handlebars</a>
 <ul class="sectlevel2">
-<li><a href="#usage">1.1. Usage</a></li>
-<li><a href="#templates-location">1.2. Templates Location</a></li>
-<li><a href="#template-cache">1.3. Template Cache</a></li>
-<li><a href="#custom-configuration">1.4. Custom configuration</a></li>
+<li><a href="#guice">1. Guice</a>
+<ul class="sectlevel3">
+<li><a href="#property-injection">1.1. Property Injection</a></li>
+<li><a href="#mvc-routes">1.2. MVC routes</a></li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
 <div id="content">
-<div class="sect1">
-<h2 id="handlebars"><a class="anchor" href="#handlebars"></a><a class="link" href="#handlebars">1. Handlebars</a></h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p><a href="https://github.com/jknack/handlebars.java" target="_blank">Handlebars templates</a> for Jooby.</p>
-</div>
 <div class="sect2">
-<h3 id="handlebars-usage"><a class="anchor" href="#handlebars-usage"></a><a class="link" href="#handlebars-usage">1.1. Usage</a></h3>
+<h3 id="guice"><a class="anchor" href="#guice"></a><a class="link" href="#guice">1. Guice</a></h3>
 <div class="paragraph">
-<p>1) Add the dependency:</p>
+<p>1) Add Guice dependency to your project:</p>
 </div>
 <div class="listingblock primary">
 
@@ -535,101 +527,160 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="switch"><div class="switch--item selected">Maven</div><div class="switch--item">Gradle</div></div><div class="content">
 <pre class="highlightjs highlight"><code class="language-xml hljs">&lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
-  &lt;artifactId&gt;jooby-handlebars&lt;/artifactId&gt;
+  &lt;artifactId&gt;jooby-guice&lt;/artifactId&gt;
   &lt;version&gt;2.0.1&lt;/version&gt;
 &lt;/dependency&gt;</code><button class="clipboard">Copy</button></pre>
 </div><div class="content hidden">
-<pre class="highlightjs highlight"><code class="language-javascript hljs">compile 'io.jooby:jooby-handlebars:2.0.1'</code><button class="clipboard">Copy</button></pre>
+<pre class="highlightjs highlight"><code class="language-javascript hljs">compile 'io.jooby:jooby-guice:2.0.1'</code><button class="clipboard">Copy</button></pre>
 </div></div>
 
 <div class="paragraph">
-<p>2) Write your templates inside the <code>views</code> folder</p>
-</div>
-<div class="listingblock">
-<div class="title">views/index.hbs</div>
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-html hljs">&lt;p&gt; Hello {{name}}! &lt;/p&gt;</code><button class="clipboard">Copy</button></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>3) Install and use freemarker templates</p>
+<p>2) Install Guice:</p>
 </div>
 <div class="listingblock primary">
-
+<div class="title">Installing Guice</div>
 
 <div class="switch"><div class="switch--item selected">Java</div><div class="switch--item">Kotlin</div></div><div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs">import io.jooby.handlebars.HandlebarsModule;
+<pre class="highlightjs highlight"><code class="language-java hljs">import io.jooby.di.GuiceModule;
+import io.jooby.runApp;
 
-{
-  install(new HandlebarsModule());
+public class App extends Jooby {
 
-  get("/", ctx -&gt; {
-    return new ModelAndView("index.hbs")
-        .put("name", "Jooby");
-  });
+  {
+    install(new GuiceModule());                     <i class="conum" data-value="1"></i><b>(1)</b>
+
+    get("/", ctx -&gt; {
+      MyService service = require(MyService.class); <i class="conum" data-value="2"></i><b>(2)</b>
+      return service.doSomething();
+    });
+}
+
+  public static void main(String[] args) {
+    runApp(args, App::new);
+  }
 }</code><button class="clipboard">Copy</button></pre>
 </div><div class="content hidden">
-<pre class="highlightjs highlight"><code class="language-kt hljs">import io.jooby.handlebars.HandlebarsModule
+<pre class="highlightjs highlight"><code class="language-kotlin hljs">import io.jooby.di.GuiceModule
+import io.jooby.runApp
 
-{
-  install(HandlebarsModule())
+fun main(args: Array&lt;String&gt;) {
+  runApp(args) {
+    install(GuiceModule())                    <i class="conum" data-value="1"></i><b>(1)</b>
 
-  get("/") {
-    ModelAndView("index.hbs")
-        .put("name", "Jooby")
+    get ("/") {
+      val service = require(MyService::class) <i class="conum" data-value="2"></i><b>(2)</b>
+      service.doSomething()
+    }
   }
 }</code><button class="clipboard">Copy</button></pre>
 </div></div>
 
+<div class="colist arabic">
+<table>
+<tbody><tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Install Guice module</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>The <a href="https://static.javadoc.io/io.jooby/jooby/2.0.1/io/jooby/Jooby.html#require-java.lang.Class-" target="_blank">require(Class)</a> call is now resolved by Guice</td>
+</tr>
+</tbody></table>
 </div>
-<div class="sect2">
-<h3 id="handlebars-templates-location"><a class="anchor" href="#handlebars-templates-location"></a><a class="link" href="#handlebars-templates-location">1.2. Templates Location</a></h3>
+<div class="sect3">
+<h4 id="guice-property-injection"><a class="anchor" href="#guice-property-injection"></a><a class="link" href="#guice-property-injection">1.1. Property Injection</a></h4>
 <div class="paragraph">
-<p>Template location is set to <code>views</code>. The <code>views</code> folder/location is expected to be at the current
-user directory or at root of classpath.</p>
+<p>Configuration properties can be injected using the <code>@Named</code> annotation:</p>
 </div>
-<div class="paragraph">
-<p>You can override the default location by setting the <code>templates.path</code> property in the application
-configuration file or programmatically at creation time.</p>
+<div class="listingblock">
+<div class="title">application.conf</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs">currency = USD</code><button class="clipboard">Copy</button></pre>
 </div>
-</div>
-<div class="sect2">
-<h3 id="handlebars-template-cache"><a class="anchor" href="#handlebars-template-cache"></a><a class="link" href="#handlebars-template-cache">1.3. Template Cache</a></h3>
-<div class="paragraph">
-<p>The handlebars module turn off cache while running in <code>dev</code> or <code>test</code> environment. For any other
-environment it use <a href="https://github.com/jknack/handlebars.java#the-cache-system" target="_blank">HighConcurrencyTemplateCache</a></p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="handlebars-custom-configuration"><a class="anchor" href="#handlebars-custom-configuration"></a><a class="link" href="#handlebars-custom-configuration">1.4. Custom configuration</a></h3>
-<div class="paragraph">
-<p>Custom Handlebars object can be provided it programmatically:</p>
 </div>
 <div class="listingblock primary">
 
 
 <div class="switch"><div class="switch--item selected">Java</div><div class="switch--item">Kotlin</div></div><div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs">import io.jooby.handlebars.HandlebarsModule;
+<pre class="highlightjs highlight"><code class="language-java hljs">import javax.injext.Named;
+import javax.injext.Inject;
 
-{
-  Handlebars handlebars = new Handlebars();
+public class BillingService {
 
-  // Apply custom configuration
+  @Inject
+  public BillingService(@Named("currency") String currency) {
+    ...
+  }
 
-  install(new HandlebarsModule(handlebars));
 }</code><button class="clipboard">Copy</button></pre>
 </div><div class="content hidden">
-<pre class="highlightjs highlight"><code class="language-kt hljs">import io.jooby.handlebars.HandlebarsModule
-
-{
-  val handlebars = Handlebars()
-
-  // Apply custom configuration
-
-  install(HandlebarsModule(handlebars))
+<pre class="highlightjs highlight"><code class="language-kotlin hljs">class BillingService @Inject constructor(@Named("currency") currency: String) {
+  ...
 }</code><button class="clipboard">Copy</button></pre>
 </div></div>
 
+</div>
+<div class="sect3">
+<h4 id="guice-mvc-routes"><a class="anchor" href="#guice-mvc-routes"></a><a class="link" href="#guice-mvc-routes">1.2. MVC routes</a></h4>
+<div class="paragraph">
+<p>Guice will also provisioning MVC routes</p>
+</div>
+<div class="listingblock primary">
+<div class="title">MVC and Guice</div>
+
+<div class="switch"><div class="switch--item selected">Java</div><div class="switch--item">Kotlin</div></div><div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs">import io.jooby.di.GuiceModule;
+import io.jooby.runApp
+
+public class App extends Jooby {
+
+  {
+    install(new GuiceModule());  <i class="conum" data-value="1"></i><b>(1)</b>
+
+    mvc(MyController.class);     <i class="conum" data-value="2"></i><b>(2)</b>
+  }
+
+  public static void main(String[] args) {
+    runApp(args, App::new);
+  }
+}</code><button class="clipboard">Copy</button></pre>
+</div><div class="content hidden">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs">import io.jooby.di.GuiceModule
+import io.jooby.runApp
+
+fun main(args: Array&lt;String&gt;) {
+  runApp(args) {
+    install(GuiceModule())       <i class="conum" data-value="1"></i><b>(1)</b>
+
+    mvc(MyController::class)     <i class="conum" data-value="2"></i><b>(2)</b>
+  }
+}</code><button class="clipboard">Copy</button></pre>
+</div></div>
+
+<div class="colist arabic">
+<table>
+<tbody><tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Install Guice module</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Register a MVC route</td>
+</tr>
+</tbody></table>
+</div>
+<div class="paragraph">
+<p>The lifecycle of <code>MyController</code> is now managed by Guice. Also:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>In Guice, the default scope is <code>prototype</code> (creates a new instance per request)</p>
+</li>
+<li>
+<p>If you prefer a single instance add the <code>javax.inject.Singleton</code> annotation</p>
+</li>
+</ul>
 </div>
 </div>
 </div>
