@@ -534,10 +534,10 @@ engine producing statically typed, plain java objects.</p>
 <pre class="highlightjs highlight"><code class="language-xml hljs">&lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
   &lt;artifactId&gt;jooby-rocker&lt;/artifactId&gt;
-  &lt;version&gt;2.0.1&lt;/version&gt;
+  &lt;version&gt;2.0.2&lt;/version&gt;
 &lt;/dependency&gt;</code><button class="clipboard">Copy</button></pre>
 </div><div class="content hidden">
-<pre class="highlightjs highlight"><code class="language-javascript hljs">compile 'io.jooby:jooby-rocker:2.0.1'</code><button class="clipboard">Copy</button></pre>
+<pre class="highlightjs highlight"><code class="language-javascript hljs">compile 'io.jooby:jooby-rocker:2.0.2'</code><button class="clipboard">Copy</button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -608,20 +608,20 @@ Complete code generator options are <a href="https://github.com/fizzed/rocker#in
 
 
 <div class="switch"><div class="switch--item selected">Java</div><div class="switch--item">Kotlin</div></div><div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs">import io.jooby.rocker.Rockerby;
+<pre class="highlightjs highlight"><code class="language-java hljs">import io.jooby.rocker.RockerModule;
 
 {
-  install(new Rockerby());                  <i class="conum" data-value="1"></i><b>(1)</b>
+  install(new RockerModule());              <i class="conum" data-value="1"></i><b>(1)</b>
 
   get("/", ctx -&gt; {
     return views.index.template("Rocker");  <i class="conum" data-value="2"></i><b>(2)</b>
   });
 }</code><button class="clipboard">Copy</button></pre>
 </div><div class="content hidden">
-<pre class="highlightjs highlight"><code class="language-kt hljs">import io.jooby.rocker.Rockerby
+<pre class="highlightjs highlight"><code class="language-kt hljs">import io.jooby.rocker.RockerModule
 
 {
-  install(Rockerby())                       <i class="conum" data-value="1"></i><b>(1)</b>
+  install(RockerModule())                   <i class="conum" data-value="1"></i><b>(1)</b>
 
   get("/") {
     views.index.template("Rocker")          <i class="conum" data-value="2"></i><b>(2)</b>
