@@ -661,6 +661,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <ul class="sectlevel2">
 <li><a href="#corshandler">11.1. CorsHandler</a></li>
 <li><a href="#headhandler">11.2. HeadHandler</a></li>
+<li><a href="#tracehandler">11.3. TraceHandler</a></li>
 </ul>
 </li>
 <li><a href="#configuration">12. Configuration</a>
@@ -7005,8 +7006,64 @@ header produce it by the <code>GET</code> handler.</p>
 <div class="paragraph">
 <p>The <code>GET</code> handler is executed but produces an empty response.</p>
 </div>
+</div>
+<div class="sect2">
+<h3 id="handlers-tracehandler"><a class="anchor" href="#handlers-tracehandler"></a><a class="link" href="#handlers-tracehandler">11.3. TraceHandler</a></h3>
 <div class="paragraph">
-<p>Unresolved directive in handlers.adoc - include::handlers/trace.adoc[]</p>
+<p>Jooby doesn’t support <code>HTTP Trace</code> requests by default. To support them you have two options:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Use the built-in <code>TraceHandler</code></p>
+</li>
+<li>
+<p>Write your own trace handler</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The <a href="https://static.javadoc.io/io.jooby/jooby/2.0.5/io/jooby/TraceHandler.html" target="_blank">TraceHandler</a> supports <code>TRACE</code> requests over existing handlers.</p>
+</div>
+<div class="listingblock primary">
+<div class="title">Head Example</div>
+
+<div class="switch"><div class="switch--item selected">Java</div><div class="switch--item">Kotlin</div></div><div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs">import io.jooby.Jooby;
+import io.jooby.TraceHandler;
+...
+{
+
+  decorator(new TraceHandler()); <i class="conum" data-value="1"></i><b>(1)</b>
+
+  get("/", ctx -&gt; {
+    ...
+  });
+}</code><button class="clipboard">Copy</button></pre>
+</div><div class="content hidden">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs">import io.jooby.Jooby
+import io.jooby.TraceHandler
+...
+{
+  decorator(TraceHandler())      <i class="conum" data-value="1"></i><b>(1)</b>
+
+  get("/") {
+    ...
+  }
+}</code><button class="clipboard">Copy</button></pre>
+</div></div>
+
+<div class="colist arabic">
+<table>
+<tbody><tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Install TraceHandler</td>
+</tr>
+</tbody></table>
+</div>
+<div class="paragraph">
+<p><code>TRACE /</code> performs a message loop-back test along the path to the target resource, providing a
+useful debugging mechanism.</p>
 </div>
 </div>
 </div>
