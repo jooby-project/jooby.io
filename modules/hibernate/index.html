@@ -538,21 +538,21 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 &lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
   &lt;artifactId&gt;jooby-hikari&lt;/artifactId&gt;
-  &lt;version&gt;2.0.6&lt;/version&gt;
+  &lt;version&gt;2.1.0&lt;/version&gt;
 &lt;/dependency&gt;
 
 &lt;!-- Hibernate Module--&gt;
 &lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
   &lt;artifactId&gt;jooby-hibernate&lt;/artifactId&gt;
-  &lt;version&gt;2.0.6&lt;/version&gt;
+  &lt;version&gt;2.1.0&lt;/version&gt;
 &lt;/dependency&gt;</code><button class="clipboard">Copy</button></pre>
 </div><div class="content hidden">
 <pre class="highlightjs highlight"><code class="language-javascript hljs">// DataSource via HikariCP
-compile 'io.jooby:jooby-hikari:2.0.6'
+compile 'io.jooby:jooby-hikari:2.1.0'
 
 // Hibernate Module
-compile 'io.jooby:jooby-hibernate:2.0.6'</code><button class="clipboard">Copy</button></pre>
+compile 'io.jooby:jooby-hibernate:2.1.0'</code><button class="clipboard">Copy</button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -689,7 +689,7 @@ import io.jooby.hibernate.HibernateModule
 <div class="sect2">
 <h3 id="hibernate-entity-discovering"><a class="anchor" href="#hibernate-entity-discovering"></a><a class="link" href="#hibernate-entity-discovering">1.2. Entity Discovering</a></h3>
 <div class="paragraph">
-<p>By default the <a href="https://static.javadoc.io/io.jooby/jooby/2.0.6/io/jooby/hibernate/HibernateModule.html" target="_blank">HibernateModule</a> module detects all the persistent entities under <a href="https://static.javadoc.io/io.jooby/jooby/2.0.6/io/jooby/Jooby.html#getBasePackage--" target="_blank">base/root package</a>. The module provides two
+<p>By default the <a href="https://static.javadoc.io/io.jooby/jooby/2.1.0/io/jooby/hibernate/HibernateModule.html" target="_blank">HibernateModule</a> module detects all the persistent entities under <a href="https://static.javadoc.io/io.jooby/jooby/2.1.0/io/jooby/Jooby.html#getBasePackage--" target="_blank">base/root package</a>. The module provides two
 options for more explicit control:</p>
 </div>
 <div class="ulist">
@@ -720,7 +720,7 @@ options for more explicit control:</p>
 <div class="sect2">
 <h3 id="hibernate-transactional-request"><a class="anchor" href="#hibernate-transactional-request"></a><a class="link" href="#hibernate-transactional-request">1.3. Transactional Request</a></h3>
 <div class="paragraph">
-<p>The <a href="https://static.javadoc.io/io.jooby/jooby/2.0.6/io/jooby/hibernate/TransactionalRequest.html" target="_blank">TransactionalRequest</a> decorator takes care of a lifecycle of an <code>EntityManager</code> per HTTP request.
+<p>The <a href="https://static.javadoc.io/io.jooby/jooby/2.1.0/io/jooby/hibernate/TransactionalRequest.html" target="_blank">TransactionalRequest</a> decorator takes care of a lifecycle of an <code>EntityManager</code> per HTTP request.
 The decorator creates, bind, begin/commit/rollback transaction and finally close it, so route handler
 doesn’t have to deal with that boring lines of code.</p>
 </div>
@@ -785,7 +785,7 @@ the same <code>EntityManager</code>. It is a simple way of managed simple read/w
 </td>
 <td class="content">
 <div class="paragraph">
-<p>The <a href="https://static.javadoc.io/io.jooby/jooby/2.0.6/io/jooby/hiernate/TransactionalRequest.html" target="_blank">TransactionalRequest</a> doesn’t extend session to the rendering phase (json, html, etc.).
+<p>The <a href="https://static.javadoc.io/io.jooby/jooby/2.1.0/io/jooby/hiernate/TransactionalRequest.html" target="_blank">TransactionalRequest</a> doesn’t extend session to the rendering phase (json, html, etc.).
 The route handler needs to make sure all the information required by the rendering phase is available.
 Otherwise, you are going to see <code>LazyInitializationException</code>.</p>
 </div>
@@ -802,7 +802,7 @@ Otherwise, you are going to see <code>LazyInitializationException</code>.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>When the <a href="https://static.javadoc.io/io.jooby/jooby/2.0.6/io/jooby/flyway/Flywayby.html" target="_blank">Flywayby</a> module is present the value of <code>hibernate.hbm2ddl.auto</code> is set to <code>none</code></p>
+<p>When the <a href="https://static.javadoc.io/io.jooby/jooby/2.1.0/io/jooby/flyway/Flywayby.html" target="_blank">Flywayby</a> module is present the value of <code>hibernate.hbm2ddl.auto</code> is set to <code>none</code></p>
 </li>
 <li>
 <p>When running on <code>dev</code> or <code>test</code> mode the value of <code>hibernate.hbm2ddl.auto</code> is set to <code>update</code></p>
