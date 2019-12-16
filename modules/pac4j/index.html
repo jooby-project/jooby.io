@@ -6,7 +6,7 @@
 <meta name="description" content="The modular micro web framework for Java">
 <meta name="keywords" content="Java, Modern, Micro, Web, Framework, Reactive, Lightweight, Microservices">
 <link rel="icon" type="image/png" href="../../images/favicon96.png">
-<title>jooby: weld module</title>
+<title>jooby: pac4j module</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /* Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -511,21 +511,36 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="header">
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#pac4j">1. Pac4j</a>
 <ul class="sectlevel2">
-<li><a href="#weld">1. Weld</a>
+<li><a href="#usage">1.1. Usage</a></li>
+<li><a href="#clients">1.2. Clients</a>
 <ul class="sectlevel3">
-<li><a href="#property-injection">1.1. Property Injection</a></li>
-<li><a href="#mvc-routes">1.2. MVC routes</a></li>
+<li><a href="#google">1.2.1. Google</a></li>
+<li><a href="#twitter">1.2.2. Twitter</a></li>
+<li><a href="#jwt">1.2.3. JWT</a></li>
+</ul>
+</li>
+<li><a href="#protecting-urls">1.3. Protecting URLs</a></li>
+<li><a href="#advanced-usage">1.4. Advanced Usage</a></li>
+<li><a href="#starter">1.5. Starter</a></li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
 <div id="content">
-<div class="sect2">
-<h3 id="weld"><a class="anchor" href="#weld"></a><a class="link" href="#weld">1. Weld</a></h3>
+<div class="sect1">
+<h2 id="pac4j"><a class="anchor" href="#pac4j"></a><a class="link" href="#pac4j">1. Pac4j</a></h2>
+<div class="sectionbody">
 <div class="paragraph">
-<p>1) Add Weld dependency to your project:</p>
+<p><a href="https://www.pac4j.org" target="_blank">Pac4j</a> security engine for Jooby.</p>
+</div>
+<div class="sect2">
+<h3 id="pac4j-usage"><a class="anchor" href="#pac4j-usage"></a><a class="link" href="#pac4j-usage">1.1. Usage</a></h3>
+<div class="paragraph">
+<p>1) Add the dependency:</p>
 </div>
 <div class="listingblock primary">
 
@@ -533,50 +548,38 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="switch"><div class="switch--item selected">Maven</div><div class="switch--item">Gradle</div></div><div class="content">
 <pre class="highlightjs highlight"><code class="language-xml hljs">&lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
-  &lt;artifactId&gt;jooby-weld&lt;/artifactId&gt;
+  &lt;artifactId&gt;jooby-pac4j&lt;/artifactId&gt;
   &lt;version&gt;2.4.0&lt;/version&gt;
 &lt;/dependency&gt;</code><button class="clipboard">Copy</button></pre>
 </div><div class="content hidden">
-<pre class="highlightjs highlight"><code class="language-javascript hljs">compile 'io.jooby:jooby-weld:2.4.0'</code><button class="clipboard">Copy</button></pre>
+<pre class="highlightjs highlight"><code class="language-javascript hljs">compile 'io.jooby:jooby-pac4j:2.4.0'</code><button class="clipboard">Copy</button></pre>
 </div></div>
 
 <div class="paragraph">
-<p>2) Install Weld:</p>
+<p>2) Install Pac4j</p>
 </div>
 <div class="listingblock primary">
-<div class="title">Installing Weld</div>
+<div class="title">Simple login form</div>
 
 <div class="switch"><div class="switch--item selected">Java</div><div class="switch--item">Kotlin</div></div><div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs">import io.jooby.di.WeldModule;
-import static io.jooby.Jooby.runApp;
+<pre class="highlightjs highlight"><code class="language-java hljs">import io.jooby.pac4j.Pac4jModule;
 
-public class App extends Jooby {
+{
+  install(new Pac4jModule());           <i class="conum" data-value="1"></i><b>(1)</b>
 
-  {
-    install(new WeldModule());                      <i class="conum" data-value="1"></i><b>(1)</b>
-
-    get ("/", ctx -&gt; {
-      MyService service = require(MyService.class); <i class="conum" data-value="2"></i><b>(2)</b>
-      service.doSomething();
-    });
-  }
-
-  public static void main(String[] args) {
-    runApp(args, App::new);
-  }
+  get("/", ctx -&gt; {
+    UserProfile user = ctx.getUser();   <i class="conum" data-value="2"></i><b>(2)</b>
+    return "Hello " + user.getId();
+  });
 }</code><button class="clipboard">Copy</button></pre>
 </div><div class="content hidden">
-<pre class="highlightjs highlight"><code class="language-kotlin hljs">import io.jooby.di.WeldModule
-import io.jooby.runApp
+<pre class="highlightjs highlight"><code class="language-kt hljs">import io.jooby.pac4j.Pac4jModule
 
-fun main(args: Array&lt;String&gt;) {
-  runApp(args) {
-    install(WeldModule())                           <i class="conum" data-value="1"></i><b>(1)</b>
+{
+  install(Pac4jModule())                <i class="conum" data-value="1"></i><b>(1)</b>
 
-    get ("/") {
-      val service = require(MyService::class)       <i class="conum" data-value="2"></i><b>(2)</b>
-      service.doSomething()
-    }
+  get("/") {
+    "Hello $ctx.user.id"                <i class="conum" data-value="2"></i><b>(2)</b>
   }
 }</code><button class="clipboard">Copy</button></pre>
 </div></div>
@@ -585,94 +588,322 @@ fun main(args: Array&lt;String&gt;) {
 <table>
 <tbody><tr>
 <td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>Install Weld</td>
+<td>Install Pac4j with a simple login form</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>The <a href="https://static.javadoc.io/io.jooby/jooby/2.4.0/io/jooby/Jooby.html#require-java.lang.Class-" target="_blank">require(Class)</a> call is now resolved by Weld</td>
+<td>Access to authenticated user</td>
 </tr>
 </tbody></table>
 </div>
-<div class="sect3">
-<h4 id="weld-property-injection"><a class="anchor" href="#weld-property-injection"></a><a class="link" href="#weld-property-injection">1.1. Property Injection</a></h4>
 <div class="paragraph">
-<p>Configuration properties can be injected using the <code>@Named</code> annotation:</p>
+<p>Once installed all routes defined below requires authentication.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="pac4j-clients"><a class="anchor" href="#pac4j-clients"></a><a class="link" href="#pac4j-clients">1.2. Clients</a></h3>
+<div class="paragraph">
+<p>A Client represents an authentication mechanism. It performs the login process and returns (if successful) a user profile.
+Clients are configured at bootstrap time using the Pac4j DSL:</p>
+</div>
+<div class="sect3">
+<h4 id="pac4j-clients-google"><a class="anchor" href="#pac4j-clients-google"></a><a class="link" href="#pac4j-clients-google">1.2.1. Google</a></h4>
+<div class="paragraph">
+<p>This example shows how to use Google.</p>
+</div>
+<div class="paragraph">
+<p>1) Add the dependency:</p>
+</div>
+<div class="listingblock primary">
+
+
+<div class="switch"><div class="switch--item selected">Maven</div><div class="switch--item">Gradle</div></div><div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs">&lt;dependency&gt;
+  &lt;groupId&gt;org.pac4j&lt;/groupId&gt;
+  &lt;artifactId&gt;pac4j-oidc&lt;/artifactId&gt;
+  &lt;version&gt;4.0.0-RC2&lt;/version&gt;
+&lt;/dependency&gt;</code><button class="clipboard">Copy</button></pre>
+</div><div class="content hidden">
+<pre class="highlightjs highlight"><code class="language-javascript hljs">compile 'org.pac4j:pac4j-oidc:4.0.0-RC2'</code><button class="clipboard">Copy</button></pre>
+</div></div>
+
+<div class="paragraph">
+<p>2) Generates clientId and secret keys or use the one provided by pac4j (<strong>development only</strong>):</p>
 </div>
 <div class="listingblock">
 <div class="title">application.conf</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs">currency = USD</code><button class="clipboard">Copy</button></pre>
+<pre class="highlightjs highlight"><code class="language-properties hljs">oidc.clientId = 167480702619-8e1lo80dnu8bpk3k0lvvj27noin97vu9.apps.googleusercontent.com
+oidc.secret = MhMme_Ik6IH2JMnAT6MFIfee</code><button class="clipboard">Copy</button></pre>
 </div>
+</div>
+<div class="paragraph">
+<p>2) Configure client</p>
 </div>
 <div class="listingblock primary">
-
+<div class="title">Google</div>
 
 <div class="switch"><div class="switch--item selected">Java</div><div class="switch--item">Kotlin</div></div><div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs">import javax.injext.Inject;
-import javax.injext.Named;
+<pre class="highlightjs highlight"><code class="language-java hljs">import io.jooby.pac4j.Pac4jModule;
 
-public class BillingService {
+{
+  install(new Pac4jModule()
+    .client(conf -&gt; {
+      OidcConfiguration oidc = new OidcConfiguration();
+      oidc.setClientId(conf.getString("oidc.clientId"));
+      oidc.setSecret(conf.getString("oidc.secret"));
+      oidc.addCustomParam("prompt", "consent");
+      oidc.setUseNonce(true);
+      return new GoogleOidcClient(oidc);
+    })
+  );
 
-  @Inject
-  public BillingService(@Named("currency") String currency) {
-    ...
-  }
-
+  get("/", ctx -&gt; {
+    UserProfile user = ctx.getUser();
+    return "Hello " + user.getId();
+  });
 }</code><button class="clipboard">Copy</button></pre>
 </div><div class="content hidden">
-<pre class="highlightjs highlight"><code class="language-kotlin hljs">import javax.injext.Inject
-import javax.injext.Named
+<pre class="highlightjs highlight"><code class="language-kt hljs">import io.jooby.pac4j.Pac4jModule
 
-class BillingService @Inject constructor(@Named("currency") currency: String) {
-  ...
+{
+  install(Pac4jModule()
+    .client { conf -&gt; {
+      val oidc = OidcConfiguration()
+      oidc.clientId = conf.getString("oidc.clientId")
+      oidc.secret = conf.getString("oidc.secret")
+      oidc.addCustomParam("prompt", "consent")
+      oidc.useNonce = true
+      GoogleOidcClient(oidc)
+    }
+  )
+
+  get("/") {
+    "Hello $ctx.user.id"
+  }
 }</code><button class="clipboard">Copy</button></pre>
 </div></div>
 
 </div>
 <div class="sect3">
-<h4 id="weld-mvc-routes"><a class="anchor" href="#weld-mvc-routes"></a><a class="link" href="#weld-mvc-routes">1.2. MVC routes</a></h4>
+<h4 id="pac4j-clients-twitter"><a class="anchor" href="#pac4j-clients-twitter"></a><a class="link" href="#pac4j-clients-twitter">1.2.2. Twitter</a></h4>
 <div class="paragraph">
-<p>The Weld extension does a bit more in relation to MVC routes:</p>
+<p>This example shows how to use Twitter.</p>
 </div>
-<div class="ulist">
-<ul>
-<li>
-<p>A MVC route annotated with the <a href="https://static.javadoc.io/io.jooby/jooby/2.4.0/io/jooby/annotations/Path.html" target="_blank">Path</a> annotation is
-automatically registered. No need to register it manually</p>
-</li>
-<li>
-<p>The default scope is <code>prototype</code> (creates a new instance per request). If you prefer a single
-instance add the <code>javax.inject.Singleton</code> annotation</p>
-</li>
-</ul>
+<div class="paragraph">
+<p>1) Add the dependency:</p>
 </div>
 <div class="listingblock primary">
-<div class="title">MVC route</div>
+
+
+<div class="switch"><div class="switch--item selected">Maven</div><div class="switch--item">Gradle</div></div><div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs">&lt;dependency&gt;
+  &lt;groupId&gt;org.pac4j&lt;/groupId&gt;
+  &lt;artifactId&gt;pac4j-oauth&lt;/artifactId&gt;
+  &lt;version&gt;4.0.0-RC2&lt;/version&gt;
+&lt;/dependency&gt;</code><button class="clipboard">Copy</button></pre>
+</div><div class="content hidden">
+<pre class="highlightjs highlight"><code class="language-javascript hljs">compile 'org.pac4j:pac4j-oauth:4.0.0-RC2'</code><button class="clipboard">Copy</button></pre>
+</div></div>
+
+<div class="paragraph">
+<p>2) Generates key and secret tokens or use the one provided by pac4j (<strong>development only</strong>):</p>
+</div>
+<div class="listingblock">
+<div class="title">application.conf</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-properties hljs">twitter.key = CoxUiYwQOSFDReZYdjigBA
+twitter.secret = 2kAzunH5Btc4gRSaMr7D7MkyoJ5u1VzbOOzE8rBofs</code><button class="clipboard">Copy</button></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>2) Configure client</p>
+</div>
+<div class="listingblock primary">
+<div class="title">Twitter</div>
 
 <div class="switch"><div class="switch--item selected">Java</div><div class="switch--item">Kotlin</div></div><div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs">import io.jooby.annotations.*;
+<pre class="highlightjs highlight"><code class="language-java hljs">import io.jooby.pac4j.Pac4jModule;
 
-@Path("/")
-public class Hello {
+{
+  install(new Pac4jModule()
+    .client(conf -&gt; {
+      return new TwitterClient(conf.getString("twitter.key"), conf.getString("twitter.secret"));
+    })
+  );
 
-   @GET
-   public String sayHi() {
-     return "Hi Weld!";
-   }
+  get("/", ctx -&gt; {
+    UserProfile user = ctx.getUser();
+    return "Hello " + user.getId();
+  });
 }</code><button class="clipboard">Copy</button></pre>
 </div><div class="content hidden">
-<pre class="highlightjs highlight"><code class="language-kotlin hljs">import io.jooby.annotations.*;
+<pre class="highlightjs highlight"><code class="language-kt hljs">import io.jooby.pac4j.Pac4jModule
 
-@Path("/")
-class Hello {
+{
+  install(Pac4jModule()
+    .client { conf -&gt;
+      TwitterClient(conf.getString("twitter.key"), conf.getString("twitter.secret")
+    }
+  )
 
-   @GET
-   fun sayHi(): String {
-     return "Hi Weld!"
-   }
+  get("/") {
+    "Hello $ctx.user.id"
+  }
 }</code><button class="clipboard">Copy</button></pre>
 </div></div>
 
+</div>
+<div class="sect3">
+<h4 id="pac4j-clients-jwt"><a class="anchor" href="#pac4j-clients-jwt"></a><a class="link" href="#pac4j-clients-jwt">1.2.3. JWT</a></h4>
+<div class="paragraph">
+<p>This example shows how to use JSON WEB TOKEN.</p>
+</div>
+<div class="paragraph">
+<p>1) Add the dependency:</p>
+</div>
+<div class="listingblock primary">
+
+
+<div class="switch"><div class="switch--item selected">Maven</div><div class="switch--item">Gradle</div></div><div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs">&lt;dependency&gt;
+  &lt;groupId&gt;org.pac4j&lt;/groupId&gt;
+  &lt;artifactId&gt;pac4j-jwt&lt;/artifactId&gt;
+  &lt;version&gt;4.0.0-RC2&lt;/version&gt;
+&lt;/dependency&gt;</code><button class="clipboard">Copy</button></pre>
+</div><div class="content hidden">
+<pre class="highlightjs highlight"><code class="language-javascript hljs">compile 'org.pac4j:pac4j-jwt:4.0.0-RC2'</code><button class="clipboard">Copy</button></pre>
+</div></div>
+
+<div class="paragraph">
+<p>2) Generates key and secret tokens or use the one provided by pac4j (<strong>development only</strong>):</p>
+</div>
+<div class="listingblock">
+<div class="title">application.conf</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-properties hljs">jwt.salt = CoxUiYwQOSFDReZYdjigBA</code><button class="clipboard">Copy</button></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>2) Configure client</p>
+</div>
+<div class="listingblock primary">
+<div class="title">JWT</div>
+
+<div class="switch"><div class="switch--item selected">Java</div><div class="switch--item">Kotlin</div></div><div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs">import io.jooby.pac4j.Pac4jModule;
+
+{
+  install(new Pac4jModule()
+    .client(conf -&gt; {
+      ParameterClient client = new ParameterClient("token",
+          new JwtAuthenticator(new SecretSignatureConfiguration(conf.getString("jwt.salt"))));
+      client.setSupportGetRequest(true);
+      client.setSupportPostRequest(true);
+      return client;
+    })
+  );
+
+  get("/", ctx -&gt; {
+    UserProfile user = ctx.getUser();
+    return "Hello " + user.getId();
+  });
+}</code><button class="clipboard">Copy</button></pre>
+</div><div class="content hidden">
+<pre class="highlightjs highlight"><code class="language-kt hljs">import io.jooby.pac4j.Pac4jModule
+
+{
+  install(Pac4jModule()
+    .client { conf -&gt;
+      val client = new ParameterClient("token",
+          JwtAuthenticator(SecretSignatureConfiguration(conf.getString("jwt.salt"))))
+      client.supportGetRequest = true
+      client.supportPostRequest = true
+      client
+    }
+  )
+
+  get("/") {
+    "Hello $ctx.user.id"
+  }
+}</code><button class="clipboard">Copy</button></pre>
+</div></div>
+
+</div>
+</div>
+<div class="sect2">
+<h3 id="pac4j-protecting-urls"><a class="anchor" href="#pac4j-protecting-urls"></a><a class="link" href="#pac4j-protecting-urls">1.3. Protecting URLs</a></h3>
+<div class="paragraph">
+<p>By default Pac4j restrict access to all the routes defined after the Pac4j module. You can specify
+what url must be protected using a path pattern:</p>
+</div>
+<div class="listingblock primary">
+
+
+<div class="switch"><div class="switch--item selected">Java</div><div class="switch--item">Kotlin</div></div><div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs">import io.jooby.pac4j.Pac4jModule;
+
+{
+  install(new Pac4jModule()
+    .client("/admin/*", conf -&gt; {
+      return ...;
+    })
+  );
+}</code><button class="clipboard">Copy</button></pre>
+</div><div class="content hidden">
+<pre class="highlightjs highlight"><code class="language-kt hljs">import io.jooby.pac4j.Pac4jModule
+
+{
+  install(Pac4jModule()
+    .client("/admin/*") { conf -&gt;
+      ...
+    }
+  )
+}</code><button class="clipboard">Copy</button></pre>
+</div></div>
+
+<div class="paragraph">
+<p>All routes under <code>/admin</code> will be protected by Pac4j.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="pac4j-advanced-usage"><a class="anchor" href="#pac4j-advanced-usage"></a><a class="link" href="#pac4j-advanced-usage">1.4. Advanced Usage</a></h3>
+<div class="paragraph">
+<p>You can customize default options by using the <a href="https://static.javadoc.io/io.jooby/jooby/2.4.0/io/jooby/pac4j/Pac4jOptions.html" target="_blank">Pac4jOptions</a> and/or providing your
+own Pac4j configuration.</p>
+</div>
+<div class="listingblock primary">
+
+
+<div class="switch"><div class="switch--item selected">Java</div><div class="switch--item">Kotlin</div></div><div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs">import io.jooby.pac4j.Pac4jModule;
+import org.pac4j.core.config.Config;
+
+{
+  Config pac4j = new Config();
+  pac4j.setSecurityLogic(...);
+
+  install(new Pac4jModule(pac4j));
+}</code><button class="clipboard">Copy</button></pre>
+</div><div class="content hidden">
+<pre class="highlightjs highlight"><code class="language-kt hljs">import io.jooby.pac4j.Pac4jModule
+import org.pac4j.core.config.Config
+
+{
+  val pac4j = Config()
+  pac4j.securityLogic = ...
+
+  install(Pac4jModule(pa4j))
+}</code><button class="clipboard">Copy</button></pre>
+</div></div>
+
+</div>
+<div class="sect2">
+<h3 id="pac4j-starter"><a class="anchor" href="#pac4j-starter"></a><a class="link" href="#pac4j-starter">1.5. Starter</a></h3>
+<div class="paragraph">
+<p>Checkout the starter/demo project for Pac4j that let you choose between multiple login clients: <a href="https://github.com/jooby-project/jooby/tree/2.x/starters/pac4j-starter" target="_blank">Pac4j Starter</a>.</p>
+</div>
+</div>
 </div>
 </div>
 </div>
