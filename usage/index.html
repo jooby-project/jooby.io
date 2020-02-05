@@ -518,6 +518,11 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#router-not-found">1.1. Router Not Found</a></li>
 </ul>
 </li>
+<li><a href="#bean-converter">2. Bean Converter</a>
+<ul class="sectlevel2">
+<li><a href="#parameter-name-missing">2.1. Parameter Name Missing</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
@@ -563,13 +568,13 @@ tool is not configured properly.</p>
     &lt;plugins&gt;
       &lt;plugin&gt;
         &lt;artifactId&gt;maven-compiler-plugin&lt;/artifactId&gt;
-        &lt;version&gt;${maven-compiler-plugin.version}&lt;/version&gt;
+        &lt;version&gt;3.8.1&lt;/version&gt;
         &lt;configuration&gt;
           &lt;annotationProcessorPaths&gt;
             &lt;path&gt;
               &lt;groupId&gt;io.jooby&lt;/groupId&gt;
               &lt;artifactId&gt;jooby-apt&lt;/artifactId&gt;
-              &lt;version&gt;2.6.0&lt;/version&gt;
+              &lt;version&gt;2.6.1&lt;/version&gt;
             &lt;/path&gt;
           &lt;/annotationProcessorPaths&gt;
         &lt;/configuration&gt;
@@ -582,7 +587,7 @@ tool is not configured properly.</p>
       &lt;plugin&gt;
         &lt;artifactId&gt;kotlin-maven-plugin&lt;/artifactId&gt;
         &lt;groupId&gt;org.jetbrains.kotlin&lt;/groupId&gt;
-        &lt;version&gt;${kotlin.version}&lt;/version&gt;
+        &lt;version&gt;1.3.61&lt;/version&gt;
         &lt;configuration&gt;
           &lt;args&gt;
             &lt;arg&gt;-java-parameters&lt;/arg&gt;
@@ -603,7 +608,7 @@ tool is not configured properly.</p>
                 &lt;annotationProcessorPath&gt;
                   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
                   &lt;artifactId&gt;jooby-apt&lt;/artifactId&gt;
-                  &lt;version&gt;2.6.0&lt;/version&gt;
+                  &lt;version&gt;2.6.1&lt;/version&gt;
                 &lt;/annotationProcessorPath&gt;
               &lt;/annotationProcessorPaths&gt;
             &lt;/configuration&gt;
@@ -632,7 +637,7 @@ tool is not configured properly.</p>
                 &lt;annotationProcessorPath&gt;
                   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
                   &lt;artifactId&gt;jooby-apt&lt;/artifactId&gt;
-                  &lt;version&gt;${jooby.version}&lt;/version&gt;
+                  &lt;version&gt;2.6.1&lt;/version&gt;
                 &lt;/annotationProcessorPath&gt;
               &lt;/annotationProcessorPaths&gt;
             &lt;/configuration&gt;
@@ -668,13 +673,13 @@ tool is not configured properly.</p>
 
 <div class="switch"><div class="switch--item selected">Java</div><div class="switch--item">Kotlin</div></div><div class="content">
 <pre class="highlightjs highlight"><code class="language-groovy hljs">dependencies {
-  annotationProcessor "io.jooby:jooby-apt:{joobyVersion}"
+  annotationProcessor "io.jooby:jooby-apt:2.6.1"
 }</code><button class="clipboard">Copy</button></pre>
 </div><div class="content hidden">
 <pre class="highlightjs highlight"><code class="language-groovy hljs">buildscript {
   ...
   dependencies {
-    classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
+    classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.3.61"
   }
 }
 
@@ -685,7 +690,7 @@ apply plugin: "org.jetbrains.kotlin.kapt"
 ...
 
 dependencies {
-  kapt "io.jooby:jooby-apt:{joobyVersion}"
+  kapt "io.jooby:jooby-apt:2.6.1"
 }
 ...</code><button class="clipboard">Copy</button></pre>
 </div></div>
@@ -745,6 +750,84 @@ or application class:</p>
 <div class="paragraph">
 <p>You need <a href="https://www.eclipse.org/m2e/" target="_blank">M2Eclipse</a> for Maven or <a href="https://projects.eclipse.org/projects/tools.buildship" target="_blank">Gradle Buildship</a></p>
 </div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="bean-converter"><a class="anchor" href="#bean-converter"></a><a class="link" href="#bean-converter">2. Bean Converter</a></h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="bean-converter-parameter-name-missing"><a class="anchor" href="#bean-converter-parameter-name-missing"></a><a class="link" href="#bean-converter-parameter-name-missing">2.1. Parameter Name Missing</a></h3>
+<div class="paragraph">
+<p><strong>Exception</strong>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>Unable to provision parameter at position: '...', require by: ... Parameter's name is missing</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Thrown when the bean converter has no access to a parameter name at runtime. Compilation must be
+done using <code>parameters</code> compiler option.</p>
+</div>
+<div class="paragraph">
+<p><strong>Maven Solution</strong></p>
+</div>
+<div class="listingblock primary">
+
+
+<div class="switch"><div class="switch--item selected">Java</div><div class="switch--item">Kotlin</div></div><div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs">  &lt;build&gt;
+    &lt;plugins&gt;
+      &lt;plugin&gt;
+        &lt;artifactId&gt;maven-compiler-plugin&lt;/artifactId&gt;
+        &lt;version&gt;3.8.1&lt;/version&gt;
+        &lt;configuration&gt;
+        ...
+          &lt;compilerArgs&gt;
+            &lt;arg&gt;-parameters&lt;/arg&gt;
+          &lt;/compilerArgs&gt;
+        &lt;/configuration&gt;
+      &lt;/plugin&gt;
+    &lt;/plugins&gt;
+  &lt;/build&gt;</code><button class="clipboard">Copy</button></pre>
+</div><div class="content hidden">
+<pre class="highlightjs highlight"><code class="language-xml hljs">  &lt;build&gt;
+    &lt;plugins&gt;
+      &lt;plugin&gt;
+          &lt;artifactId&gt;kotlin-maven-plugin&lt;/artifactId&gt;
+          &lt;groupId&gt;org.jetbrains.kotlin&lt;/groupId&gt;
+          &lt;version&gt;1.3.61&lt;/version&gt;
+          &lt;configuration&gt;
+            ...
+            &lt;args&gt;
+              &lt;arg&gt;-java-parameters&lt;/arg&gt;
+            &lt;/args&gt;
+            &lt;jvmTarget&gt;1.8&lt;/jvmTarget&gt;
+            ...
+          &lt;/configuration&gt;
+        &lt;/plugin&gt;
+    &lt;/plugins&gt;
+  &lt;/build&gt;</code><button class="clipboard">Copy</button></pre>
+</div></div>
+
+<div class="paragraph">
+<p><strong>Gradle Solution</strong></p>
+</div>
+<div class="listingblock primary">
+
+
+<div class="switch"><div class="switch--item selected">Java</div><div class="switch--item">Kotlin</div></div><div class="content">
+<pre class="highlightjs highlight"><code class="language-groovy hljs">tasks.withType(JavaCompile) {
+  options.compilerArgs &lt;&lt; '-parameters'
+  options.debug = true
+}</code><button class="clipboard">Copy</button></pre>
+</div><div class="content hidden">
+<pre class="highlightjs highlight"><code class="language-groovy hljs">tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
+  kotlinOptions.javaParameters = true
+}</code><button class="clipboard">Copy</button></pre>
+</div></div>
+
 </div>
 </div>
 </div>
