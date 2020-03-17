@@ -68,9 +68,7 @@
  </head> 
  <body class="page-section page-sidebar"> 
   <header class="site-header"> 
-   <div class="row"> 
-    <a href="/v1/" title="Home" class="site-logo"><img src="resources/images/logo_jooby-2x.png" alt="Logo Jooby" width="76" height="31"></a> 
-    <a class="show-mobile open-menu" href="/v1"><span></span></a> 
+   <div class="row"> <a href="/v1/" title="Home" class="site-logo"><img src="resources/images/logo_jooby-2x.png" alt="Logo Jooby" width="76" height="31"></a> <a class="show-mobile open-menu" href="/v1"><span></span></a> 
     <nav class="site-nav"> 
      <ul> 
       <li class=""><a href="/v1/quickstart" title="Quick start">QUICK START</a></li> 
@@ -85,8 +83,7 @@
   </header> 
   <main role="main" class="site-content"> 
    <div class="section-title"> 
-    <div class="row"> 
-     <a href="/v1/modules" class="jsback" title="Go back"><span class="icon-arrowback-big-circle"></span></a> 
+    <div class="row"> <a href="/v1/modules" class="jsback" title="Go back"><span class="icon-arrowback-big-circle"></span></a> 
      <h1>deployment</h1> 
     </div> 
    </div> 
@@ -157,8 +154,7 @@
        <p>Application resources (a.k.a conf files) are packaged within your app. Not only that, the <a href="/v1/doc/servers">server</a> you pick is <strong>also</strong> packaged within your application.</p> 
        <p>Jooby lack of the concept of server/servlet container it just a raw/plain/normal Java application that can be launched via:</p> 
        <div class="highlighter-rouge codehilite"> 
-        <div class="copy-bar"> 
-         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        <div class="copy-bar"> <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
         </div> 
         <pre class="highlight"><code>java -jar myapp.jar
 </code></pre> 
@@ -169,8 +165,7 @@
        <p>The way we deploy to a different environment is by creating a conf file (.conf or logback.xml) and adding the environment as suffix.</p> 
        <p>If you need to deploy to <code class="highlighter-rouge codehilite">stage</code> and <code class="highlighter-rouge codehilite">prod</code> then you probably need:</p> 
        <div class="highlighter-rouge codehilite"> 
-        <div class="copy-bar"> 
-         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        <div class="copy-bar"> <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
         </div> 
         <pre class="highlight"><code># dev environment
 conf/application.conf
@@ -188,8 +183,7 @@ conf/logback.prod.xml
        <p>The <code class="highlighter-rouge codehilite">application.env</code> property controls the <code class="highlighter-rouge codehilite">environment</code>, by default this property is set to <code class="highlighter-rouge codehilite">dev</code> (the unique and well known environment).</p> 
        <p>Suppose you need to deploy your awesome app into <code class="highlighter-rouge codehilite">prod</code> and you need to set/update a few properties. The <code class="highlighter-rouge codehilite">application.conf</code> file looks like:</p> 
        <div class="highlighter-rouge codehilite"> 
-        <div class="copy-bar"> 
-         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        <div class="copy-bar"> <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
         </div> 
         <pre class="highlight"><code>...
 aws.accessKey = AKIAIOSFODNN7EXAMPLE
@@ -199,8 +193,7 @@ aws.secretKey =  wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
        </div> 
        <p>For <code class="highlighter-rouge codehilite">prod</code> you have a new key pair… then all you have to do is to create a new file <code class="highlighter-rouge codehilite">application.prod.conf</code> and just add those new keys:</p> 
        <div class="highlighter-rouge codehilite"> 
-        <div class="copy-bar"> 
-         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        <div class="copy-bar"> <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
         </div> 
         <pre class="highlight"><code>aws.accessKey = AKIAIOSFODNN7PROD
 aws.secretKey =  wJalrXUtnFEMI/K7MDENG/bPxRfiCYPROD
@@ -212,24 +205,21 @@ aws.secretKey =  wJalrXUtnFEMI/K7MDENG/bPxRfiCYPROD
        <h3 id="deployment-run-your-app">run your app</h3> 
        <p>In order to start your application in one specific environment, you need to set the <code class="highlighter-rouge codehilite">application.env</code> argument:</p> 
        <div class="highlighter-rouge codehilite"> 
-        <div class="copy-bar"> 
-         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        <div class="copy-bar"> <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
         </div> 
         <pre class="highlight"><code>java myapp.jar application.env=prod
 </code></pre> 
        </div> 
        <p>or using a shortcut, like:</p> 
        <div class="highlighter-rouge codehilite"> 
-        <div class="copy-bar"> 
-         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        <div class="copy-bar"> <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
         </div> 
         <pre class="highlight"><code>java myapp.jar env=prod
 </code></pre> 
        </div> 
        <p>or just:</p> 
        <div class="highlighter-rouge codehilite"> 
-        <div class="copy-bar"> 
-         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        <div class="copy-bar"> <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
         </div> 
         <pre class="highlight"><code>java myapp.jar prod
 </code></pre> 
@@ -246,8 +236,7 @@ aws.secretKey =  wJalrXUtnFEMI/K7MDENG/bPxRfiCYPROD
        <p>This is the default deployment option and you (usually) don’t need to do anything if you created your application via <a href="/v1/quickstart">maven archetype</a>.</p> 
        <p>In order to create a <strong>fat jar</strong>, go to your project home, open a terminal and run:</p> 
        <div class="highlighter-rouge codehilite"> 
-        <div class="copy-bar"> 
-         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        <div class="copy-bar"> <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
         </div> 
         <pre class="highlight"><code>mvn clean package
 </code></pre> 
@@ -256,8 +245,7 @@ aws.secretKey =  wJalrXUtnFEMI/K7MDENG/bPxRfiCYPROD
        <h3 id="fat-jar-configuration">configuration</h3> 
        <p>We use the <a href="https://maven.apache.org/plugins/maven-shade-plugin/" target="_blank">maven-shade-plugin</a> for creating the fat jar:</p> 
        <div class="highlighter-rouge codehilite"> 
-        <div class="copy-bar"> 
-         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        <div class="copy-bar"> <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
         </div> 
         <pre class="highlight"><code>...
 <span class="nt">&lt;build&gt;</span>
@@ -275,8 +263,7 @@ aws.secretKey =  wJalrXUtnFEMI/K7MDENG/bPxRfiCYPROD
        </div> 
        <p>Or the <a href="https://plugins.gradle.org/plugin/com.github.johnrengelman.shadow" target="_blank">gradle-shadow-plugin</a>:</p> 
        <div class="highlighter-rouge codehilite"> 
-        <div class="copy-bar"> 
-         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        <div class="copy-bar"> <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
         </div> 
         <pre class="highlight"><code><span class="nx">buildscript</span> <span class="p">{</span>
   <span class="nx">repositories</span> <span class="p">{</span>
@@ -296,8 +283,7 @@ aws.secretKey =  wJalrXUtnFEMI/K7MDENG/bPxRfiCYPROD
        <h3 id="fat-jar-run-start">run / start</h3> 
        <p>Since everything was bundled into a single <code class="highlighter-rouge codehilite">jar</code>, all you have to do is:</p> 
        <div class="highlighter-rouge codehilite"> 
-        <div class="copy-bar"> 
-         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        <div class="copy-bar"> <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
         </div> 
         <pre class="highlight"><code>java -jar myapp.jar <span class="o">[</span>env]
 </code></pre> 
@@ -328,8 +314,7 @@ aws.secretKey =  wJalrXUtnFEMI/K7MDENG/bPxRfiCYPROD
        <h3 id="stork-example">example</h3> 
        <p>Here’s a simple example of the <code class="highlighter-rouge codehilite">stork.yml</code> launcher:</p> 
        <div class="highlighter-rouge codehilite"> 
-        <div class="copy-bar"> 
-         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        <div class="copy-bar"> <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
         </div> 
         <pre class="highlight"><code><span class="c1"># Name of application (make sure it has no spaces)</span>
 <span class="s">name</span><span class="pi">:</span> <span class="s2">"</span><span class="s">${project.artifactId}"</span>
@@ -397,8 +382,7 @@ aws.secretKey =  wJalrXUtnFEMI/K7MDENG/bPxRfiCYPROD
        <h3 id="capsule-options">options</h3> 
        <p>The integration provides the following defaults:</p> 
        <div class="highlighter-rouge codehilite"> 
-        <div class="copy-bar"> 
-         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        <div class="copy-bar"> <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
         </div> 
         <pre class="highlight"><code><span class="nt">&lt;properties&gt;</span>
   <span class="nt">&lt;capsule.resolve&gt;</span>false<span class="nt">&lt;/capsule.resolve&gt;</span>
@@ -416,8 +400,7 @@ aws.secretKey =  wJalrXUtnFEMI/K7MDENG/bPxRfiCYPROD
         <li>Go to the <code class="highlighter-rouge codehilite">&lt;properties&gt;</code> section and add/set:</li> 
        </ul> 
        <div class="highlighter-rouge codehilite"> 
-        <div class="copy-bar"> 
-         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        <div class="copy-bar"> <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
         </div> 
         <pre class="highlight"><code><span class="nt">&lt;properties&gt;</span>
   <span class="nt">&lt;capsule.resolve&gt;</span>true<span class="nt">&lt;/capsule.resolve&gt;</span>
@@ -447,8 +430,7 @@ aws.secretKey =  wJalrXUtnFEMI/K7MDENG/bPxRfiCYPROD
         <li> <p>Open a terminal and run:</p> </li> 
        </ul> 
        <div class="highlighter-rouge codehilite"> 
-        <div class="copy-bar"> 
-         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        <div class="copy-bar"> <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
         </div> 
         <pre class="highlight"><code>mvn clean package docker:build
 </code></pre> 
@@ -458,8 +440,7 @@ aws.secretKey =  wJalrXUtnFEMI/K7MDENG/bPxRfiCYPROD
         <li> <p>You can now run the image with:</p> </li> 
        </ul> 
        <div class="highlighter-rouge codehilite"> 
-        <div class="copy-bar"> 
-         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        <div class="copy-bar"> <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
         </div> 
         <pre class="highlight"><code>docker run -p 80:8080 <span class="k">${</span><span class="nv">project</span><span class="p">.artifactId</span><span class="k">}</span>
 </code></pre> 
@@ -471,8 +452,7 @@ aws.secretKey =  wJalrXUtnFEMI/K7MDENG/bPxRfiCYPROD
         <li> <p>Open a terminal and run:</p> </li> 
        </ul> 
        <div class="highlighter-rouge codehilite"> 
-        <div class="copy-bar"> 
-         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        <div class="copy-bar"> <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
         </div> 
         <pre class="highlight"><code>mvn clean package docker:build
 </code></pre> 
@@ -482,8 +462,7 @@ aws.secretKey =  wJalrXUtnFEMI/K7MDENG/bPxRfiCYPROD
         <li> <p>You can now run the image with:</p> </li> 
        </ul> 
        <div class="highlighter-rouge codehilite"> 
-        <div class="copy-bar"> 
-         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        <div class="copy-bar"> <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
         </div> 
         <pre class="highlight"><code>docker run -it -p 80:8080 <span class="k">${</span><span class="nv">project</span><span class="p">.artifactId</span><span class="k">}</span>
 </code></pre> 
@@ -535,8 +514,7 @@ aws.secretKey =  wJalrXUtnFEMI/K7MDENG/bPxRfiCYPROD
        <p>To avoid potential headaches, make sure to use the <code class="highlighter-rouge codehilite">contextPath</code> variable while loading static/dynamic resources (.css, .js, etc..).</p> 
        <p>For example:</p> 
        <div class="highlighter-rouge codehilite"> 
-        <div class="copy-bar"> 
-         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        <div class="copy-bar"> <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
         </div> 
         <pre class="highlight"><code><span class="nt">&lt;html&gt;</span>
 <span class="nt">&lt;head&gt;</span>
@@ -553,8 +531,7 @@ aws.secretKey =  wJalrXUtnFEMI/K7MDENG/bPxRfiCYPROD
        <h4 id="war--web-xml">web.xml</h4> 
        <p>A default <code class="highlighter-rouge codehilite">web.xml</code> file is generated by the assembly plugin. This file looks like:</p> 
        <div class="highlighter-rouge codehilite"> 
-        <div class="copy-bar"> 
-         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        <div class="copy-bar"> <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
         </div> 
         <pre class="highlight"><code><span class="cp">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span>
 <span class="nt">&lt;web-app</span> <span class="na">xmlns=</span><span class="s">"http://xmlns.jcp.org/xml/ns/javaee"</span> <span class="na">xmlns:xsi=</span><span class="s">"http://www.w3.org/2001/XMLSchema-instance"</span>
@@ -591,8 +568,7 @@ aws.secretKey =  wJalrXUtnFEMI/K7MDENG/bPxRfiCYPROD
        <h5>max upload size</h5> 
        <p>The default max upload size is set to <code class="highlighter-rouge codehilite">204800b</code> (200kb). If you need to increase this, add the <code class="highlighter-rouge codehilite">war.maxRequestSize</code> property to <code class="highlighter-rouge codehilite">pom.xml</code>:</p> 
        <div class="highlighter-rouge codehilite"> 
-        <div class="copy-bar"> 
-         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        <div class="copy-bar"> <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
         </div> 
         <pre class="highlight"><code><span class="nt">&lt;properties&gt;</span>
   <span class="nt">&lt;war.maxRequestSize&gt;</span>1048576<span class="nt">&lt;/war.maxRequestSize&gt;</span> <span class="c">&lt;!-- 1mb --&gt;</span>
@@ -616,8 +592,7 @@ aws.secretKey =  wJalrXUtnFEMI/K7MDENG/bPxRfiCYPROD
        <p><a href="http://www.crashub.org" target="_blank">CRaSH</a> remote shell: connect and monitor JVM resources via HTTP, SSH or telnet.&lt;/a&gt;</p> 
        <h3 id="crash-dependency">dependency</h3> 
        <div class="highlighter-rouge codehilite"> 
-        <div class="copy-bar"> 
-         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        <div class="copy-bar"> <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
         </div> 
         <pre class="highlight"><code><span class="nt">&lt;dependency&gt;</span>
  <span class="nt">&lt;groupId&gt;</span>org.jooby<span class="nt">&lt;/groupId&gt;</span>
@@ -628,8 +603,7 @@ aws.secretKey =  wJalrXUtnFEMI/K7MDENG/bPxRfiCYPROD
        </div> 
        <h3 id="crash-usage">usage</h3> 
        <div class="highlighter-rouge codehilite"> 
-        <div class="copy-bar"> 
-         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        <div class="copy-bar"> <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
         </div> 
         <pre class="highlight"><code>
 <span class="kn">import</span> <span class="nn">org.jooby.crash</span><span class="o">;</span>
@@ -645,8 +619,7 @@ aws.secretKey =  wJalrXUtnFEMI/K7MDENG/bPxRfiCYPROD
        <h4 id="crash-HTTP-connector">HTTP connector</h4> 
        <p>The HTTP connector is a simple yet powerful collection of HTTP endpoints where you can run a <a href="http://www.crashub.org/1.3/reference.html#developping_commands" target="_blank">CRaSH command</a>:</p> 
        <div class="highlighter-rouge codehilite"> 
-        <div class="copy-bar"> 
-         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        <div class="copy-bar"> <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
         </div> 
         <pre class="highlight"><code><span class="o">{</span>
   <span class="n">use</span><span class="o">(</span><span class="k">new</span> <span class="n">Crash</span><span class="o">()</span>
@@ -657,16 +630,14 @@ aws.secretKey =  wJalrXUtnFEMI/K7MDENG/bPxRfiCYPROD
        </div> 
        <p>Try it:</p> 
        <div class="highlighter-rouge codehilite"> 
-        <div class="copy-bar"> 
-         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        <div class="copy-bar"> <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
         </div> 
         <pre class="highlight"><code>GET /api/shell/thread/ls
 </code></pre> 
        </div> 
        <p>OR:</p> 
        <div class="highlighter-rouge codehilite"> 
-        <div class="copy-bar"> 
-         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        <div class="copy-bar"> <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
         </div> 
         <pre class="highlight"><code>GET /api/shell/thread ls
 </code></pre> 
@@ -676,8 +647,7 @@ aws.secretKey =  wJalrXUtnFEMI/K7MDENG/bPxRfiCYPROD
        <p>Just add the <a href="https://mvnrepository.com/artifact/org.crashub/crash.connectors.ssh/latest" target="_blank">crash.connectors.ssh</a> dependency to your project.</p> 
        <p>Try it:</p> 
        <div class="highlighter-rouge codehilite"> 
-        <div class="copy-bar"> 
-         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        <div class="copy-bar"> <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
         </div> 
         <pre class="highlight"><code>ssh -p 2000 admin@localhost
 </code></pre> 
@@ -687,8 +657,7 @@ aws.secretKey =  wJalrXUtnFEMI/K7MDENG/bPxRfiCYPROD
        <p>Just add the <a href="https://mvnrepository.com/artifact/org.crashub/crash.connectors.telnet/latest" target="_blank">crash.connectors.telnet</a> dependency to your project.</p> 
        <p>Try it:</p> 
        <div class="highlighter-rouge codehilite"> 
-        <div class="copy-bar"> 
-         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        <div class="copy-bar"> <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
         </div> 
         <pre class="highlight"><code>telnet localhost 5000
 </code></pre> 
@@ -698,8 +667,7 @@ aws.secretKey =  wJalrXUtnFEMI/K7MDENG/bPxRfiCYPROD
        <p>Just add the <a href="https://mvnrepository.com/artifact/org.crashub/crash.connectors.web/latest" target="_blank">crash.connectors.web</a> dependency to your project.</p> 
        <p>Try it:</p> 
        <div class="highlighter-rouge codehilite"> 
-        <div class="copy-bar"> 
-         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        <div class="copy-bar"> <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
         </div> 
         <pre class="highlight"><code>GET /shell
 </code></pre> 
@@ -709,8 +677,7 @@ aws.secretKey =  wJalrXUtnFEMI/K7MDENG/bPxRfiCYPROD
        <p>You can write additional shell commands using Groovy or Java, see the <a href="http://www.crashub.org/1.3/reference.html#developping_commands" target="_blank">CRaSH documentation for details</a>. CRaSH search for commands in the <code class="highlighter-rouge codehilite">cmd</code> folder.</p> 
        <p>Here is a simple ‘hello’ command that could be loaded from <code class="highlighter-rouge codehilite">cmd/hello.groovy</code> folder:</p> 
        <div class="highlighter-rouge codehilite"> 
-        <div class="copy-bar"> 
-         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        <div class="copy-bar"> <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
         </div> 
         <pre class="highlight"><code><span class="kn">package</span> <span class="n">commands</span>
 
@@ -735,8 +702,7 @@ aws.secretKey =  wJalrXUtnFEMI/K7MDENG/bPxRfiCYPROD
        </ul> 
        <p>Example:</p> 
        <div class="highlighter-rouge codehilite"> 
-        <div class="copy-bar"> 
-         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        <div class="copy-bar"> <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
         </div> 
         <pre class="highlight"><code><span class="kn">package</span> <span class="n">commands</span>
 
@@ -759,8 +725,7 @@ aws.secretKey =  wJalrXUtnFEMI/K7MDENG/bPxRfiCYPROD
        <h4 id="crash-routes-command">routes command</h4> 
        <p>The <code class="highlighter-rouge codehilite">routes</code> print all the application routes.</p> 
        <div class="highlighter-rouge codehilite"> 
-        <div class="copy-bar"> 
-         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        <div class="copy-bar"> <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
         </div> 
         <pre class="highlight"><code>dev&gt; routes
 order method pattern             consumes produces name       source
@@ -783,8 +748,7 @@ WS     /shell  application/json application/json
        <h4 id="crash-conf-command">conf command</h4> 
        <p>The <code class="highlighter-rouge codehilite">conf tree</code> print the application configuration tree (configuration precedence):</p> 
        <div class="highlighter-rouge codehilite"> 
-        <div class="copy-bar"> 
-         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        <div class="copy-bar"> <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
         </div> 
         <pre class="highlight"><code>dev&gt; conf tree
  merge of system properties
@@ -796,8 +760,7 @@ WS     /shell  application/json application/json
        </div> 
        <p>The <code class="highlighter-rouge codehilite">conf props [path]</code> print all the application properties, sub-tree or a single property if <code class="highlighter-rouge codehilite">path</code> argument is present.</p> 
        <div class="highlighter-rouge codehilite"> 
-        <div class="copy-bar"> 
-         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        <div class="copy-bar"> <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
         </div> 
         <pre class="highlight"><code>dev&gt; conf props
 name                                   value
@@ -814,8 +777,7 @@ runtime.concurrencyLevel               8
 </code></pre> 
        </div> 
        <div class="highlighter-rouge codehilite"> 
-        <div class="copy-bar"> 
-         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        <div class="copy-bar"> <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
         </div> 
         <pre class="highlight"><code>dev&gt; conf props application
 name                       value
@@ -838,8 +800,7 @@ application.lang           en-US
 </code></pre> 
        </div> 
        <div class="highlighter-rouge codehilite"> 
-        <div class="copy-bar"> 
-         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        <div class="copy-bar"> <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
         </div> 
         <pre class="highlight"><code>dev&gt; conf props application.port
 name             value
@@ -850,8 +811,7 @@ application.port 8080
        <h3 id="crash-fancy-banner">fancy banner</h3> 
        <p>Just add the <a href="/v1/doc/banner">jooby-banner</a> to your project and all the <code class="highlighter-rouge codehilite">CRaSH</code> shell will use it.</p> 
        <div class="highlighter-rouge codehilite"> 
-        <div class="copy-bar"> 
-         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        <div class="copy-bar"> <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
         </div> 
         <pre class="highlight"><code><span class="o">{</span>
   <span class="n">use</span><span class="o">(</span><span class="k">new</span> <span class="n">Banner</span><span class="o">(</span><span class="s">"crash me!"</span><span class="o">));</span>
@@ -861,15 +821,13 @@ application.port 8080
 </code></pre> 
        </div> 
        <div class="highlighter-rouge codehilite"> 
-        <div class="copy-bar"> 
-         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        <div class="copy-bar"> <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
         </div> 
         <pre class="highlight"><code>telnet localhost 5000
 </code></pre> 
        </div> 
        <div class="highlighter-rouge codehilite"> 
-        <div class="copy-bar"> 
-         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        <div class="copy-bar"> <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
         </div> 
         <pre class="highlight"><code>Trying 127.0.0.1...
 Connected to localhost.
@@ -904,9 +862,7 @@ dev&gt;
    <div class="row"> 
     <p class="pull-left">©2014-2019 <a href="https://twitter.com/joobyproject" target="_blank">The Jooby Project</a>, all rights reserved.</p> 
     <div class="follow-us pull-right"> 
-     <p>Follow us</p> 
-     <a href="https://github.com/jooby-project/jooby" title="Follow us on Github" target="_blank" rel="nofollow"><span class="icon-github-medium-circle"></span></a> 
-     <a href="https://twitter.com/joobyproject" title="Follow us on Twitter" target="_blank" rel="nofollow"><span class="icon-twitter-medium-circle"></span></a> 
+     <p>Follow us</p> <a href="https://github.com/jooby-project/jooby" title="Follow us on Github" target="_blank" rel="nofollow"><span class="icon-github-medium-circle"></span></a> <a href="https://twitter.com/joobyproject" title="Follow us on Twitter" target="_blank" rel="nofollow"><span class="icon-twitter-medium-circle"></span></a> 
     </div> 
    </div> 
   </footer> 

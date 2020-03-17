@@ -68,9 +68,7 @@
  </head> 
  <body class="page-section page-sidebar"> 
   <header class="site-header"> 
-   <div class="row"> 
-    <a href="/v1/" title="Home" class="site-logo"><img src="resources/images/logo_jooby-2x.png" alt="Logo Jooby" width="76" height="31"></a> 
-    <a class="show-mobile open-menu" href="/v1"><span></span></a> 
+   <div class="row"> <a href="/v1/" title="Home" class="site-logo"><img src="resources/images/logo_jooby-2x.png" alt="Logo Jooby" width="76" height="31"></a> <a class="show-mobile open-menu" href="/v1"><span></span></a> 
     <nav class="site-nav"> 
      <ul> 
       <li class=""><a href="/v1/quickstart" title="Quick start">QUICK START</a></li> 
@@ -85,8 +83,7 @@
   </header> 
   <main role="main" class="site-content"> 
    <div class="section-title"> 
-    <div class="row"> 
-     <a href="/v1/modules" class="jsback" title="Go back"><span class="icon-arrowback-big-circle"></span></a> 
+    <div class="row"> <a href="/v1/modules" class="jsback" title="Go back"><span class="icon-arrowback-big-circle"></span></a> 
      <h1>thymeleaf</h1> 
     </div> 
    </div> 
@@ -117,8 +114,7 @@
        <p><a href="http://www.thymeleaf.org" target="_blank">Thymeleaf</a> is a modern server-side Java template engine for both web and standalone environments.</p> 
        <h3 id="thymeleaf-dependency">dependency</h3> 
        <div class="highlighter-rouge codehilite"> 
-        <div class="copy-bar"> 
-         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        <div class="copy-bar"> <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
         </div> 
         <pre class="highlight"><code><span class="nt">&lt;dependency&gt;</span>
  <span class="nt">&lt;groupId&gt;</span>org.jooby<span class="nt">&lt;/groupId&gt;</span>
@@ -133,8 +129,7 @@
        </ul> 
        <h3 id="thymeleaf-usage">usage</h3> 
        <div class="highlighter-rouge codehilite"> 
-        <div class="copy-bar"> 
-         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        <div class="copy-bar"> <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
         </div> 
         <pre class="highlight"><code><span class="o">{</span>
   <span class="n">use</span><span class="o">(</span><span class="k">new</span> <span class="n">Thl</span><span class="o">());</span>
@@ -154,8 +149,7 @@
        <p>Templates are loaded from root of classpath: <code class="highlighter-rouge codehilite">/</code> and must end with: <code class="highlighter-rouge codehilite">.html</code> file extension. Example:</p> 
        <p>public/index.html:</p> 
        <div class="highlighter-rouge codehilite"> 
-        <div class="copy-bar"> 
-         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        <div class="copy-bar"> <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
         </div> 
         <pre class="highlight"><code><span class="cp">&lt;!DOCTYPE html&gt;</span>
 <span class="nt">&lt;html</span> <span class="na">xmlns:th=</span><span class="s">"http://www.thymeleaf.org"</span><span class="nt">&gt;</span>
@@ -170,8 +164,7 @@ Hello <span class="nt">&lt;span</span> <span class="na">th:text=</span><span cla
        <h3 id="thymeleaf-template-loader">template loader</h3> 
        <p>Templates are loaded from the <code class="highlighter-rouge codehilite">root</code> of classpath and must end with <code class="highlighter-rouge codehilite">.html</code>. You can change the default template location and/or extensions:</p> 
        <div class="highlighter-rouge codehilite"> 
-        <div class="copy-bar"> 
-         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        <div class="copy-bar"> <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
         </div> 
         <pre class="highlight"><code><span class="o">{</span>
   <span class="n">use</span><span class="o">(</span><span class="k">new</span> <span class="n">Thl</span><span class="o">(</span><span class="s">"templates"</span><span class="o">,</span> <span class="s">".thl"</span><span class="o">));</span>
@@ -181,8 +174,7 @@ Hello <span class="nt">&lt;span</span> <span class="na">th:text=</span><span cla
        <h3 id="thymeleaf-request-locals">request locals</h3> 
        <p>A template engine has access to request locals (a.k.a attributes). Here is an example:</p> 
        <div class="highlighter-rouge codehilite"> 
-        <div class="copy-bar"> 
-         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        <div class="copy-bar"> <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
         </div> 
         <pre class="highlight"><code><span class="o">{</span>
   <span class="n">use</span><span class="o">(</span><span class="k">new</span> <span class="n">Thl</span><span class="o">());</span>
@@ -196,8 +188,7 @@ Hello <span class="nt">&lt;span</span> <span class="na">th:text=</span><span cla
        </div> 
        <p>Then from template:</p> 
        <div class="highlighter-rouge codehilite"> 
-        <div class="copy-bar"> 
-         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        <div class="copy-bar"> <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
         </div> 
         <pre class="highlight"><code><span class="nt">&lt;span</span> <span class="na">th:text=</span><span class="s">"${who}"</span><span class="nt">&gt;</span>World<span class="nt">&lt;/span&gt;</span>
 </code></pre> 
@@ -207,8 +198,7 @@ Hello <span class="nt">&lt;span</span> <span class="na">th:text=</span><span cla
        <h3 id="thymeleaf-advanced-configuration">advanced configuration</h3> 
        <p>Advanced configuration if provided by callback:</p> 
        <div class="highlighter-rouge codehilite"> 
-        <div class="copy-bar"> 
-         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        <div class="copy-bar"> <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
         </div> 
         <pre class="highlight"><code><span class="o">{</span>
   <span class="n">use</span><span class="o">(</span><span class="k">new</span> <span class="n">Thl</span><span class="o">().</span><span class="na">doWith</span><span class="o">(</span><span class="n">engine</span> <span class="o">-&gt;</span> <span class="o">{</span>
@@ -227,9 +217,7 @@ Hello <span class="nt">&lt;span</span> <span class="na">th:text=</span><span cla
    <div class="row"> 
     <p class="pull-left">©2014-2019 <a href="https://twitter.com/joobyproject" target="_blank">The Jooby Project</a>, all rights reserved.</p> 
     <div class="follow-us pull-right"> 
-     <p>Follow us</p> 
-     <a href="https://github.com/jooby-project/jooby" title="Follow us on Github" target="_blank" rel="nofollow"><span class="icon-github-medium-circle"></span></a> 
-     <a href="https://twitter.com/joobyproject" title="Follow us on Twitter" target="_blank" rel="nofollow"><span class="icon-twitter-medium-circle"></span></a> 
+     <p>Follow us</p> <a href="https://github.com/jooby-project/jooby" title="Follow us on Github" target="_blank" rel="nofollow"><span class="icon-github-medium-circle"></span></a> <a href="https://twitter.com/joobyproject" title="Follow us on Twitter" target="_blank" rel="nofollow"><span class="icon-twitter-medium-circle"></span></a> 
     </div> 
    </div> 
   </footer> 

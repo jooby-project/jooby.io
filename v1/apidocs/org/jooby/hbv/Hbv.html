@@ -37,8 +37,7 @@ var activeTableTab = "activeTableTab";
     <!--   --> </a> 
    <div class="skipNav">
     <a href="#skip.navbar.top" title="Skip navigation links">Skip navigation links</a>
-   </div> 
-   <a name="navbar.top.firstrow" href="/v1"> 
+   </div> <a name="navbar.top.firstrow" href="/v1"> 
     <!--   --> </a> 
    <ul class="navList" title="Navigation"> 
     <li><a href="/v1../../../overview-summary.html">Overview</a></li> 
@@ -89,8 +88,7 @@ var activeTableTab = "activeTableTab";
      <li><a href="#constructor.detail">Constr</a>&nbsp;|&nbsp;</li> 
      <li><a href="#method.detail">Method</a></li> 
     </ul> 
-   </div> 
-   <a name="skip.navbar.top" href="/v1"> 
+   </div> <a name="skip.navbar.top" href="/v1"> 
     <!--   --> </a>
   </div> 
   <!-- ========= END OF TOP NAVBAR ========= --> 
@@ -146,9 +144,7 @@ implements <a href="/v1../../../org/jooby/Jooby.Module.html" title="interface in
    });
  }
  </pre> 
-       <h2>automatic validations of HTTP params and body</h2> Previous example demonstrate how to manually validate a bean created via: 
-       <a href="/v1../../../org/jooby/Request.html#params--"><code>Request.params()</code></a> or 
-       <a href="/v1../../../org/jooby/Request.html#body--"><code>Request.body()</code></a>. The boilerplate code can be avoided if you explicitly tell the validation module which classes require validation. The previous example can be rewritten as: 
+       <h2>automatic validations of HTTP params and body</h2> Previous example demonstrate how to manually validate a bean created via: <a href="/v1../../../org/jooby/Request.html#params--"><code>Request.params()</code></a> or <a href="/v1../../../org/jooby/Request.html#body--"><code>Request.body()</code></a>. The boilerplate code can be avoided if you explicitly tell the validation module which classes require validation. The previous example can be rewritten as: 
        <pre> {
     use(new Hbv(Car.class));
 
@@ -158,11 +154,8 @@ implements <a href="/v1../../../org/jooby/Jooby.Module.html" title="interface in
       ...
     });
  }
- </pre> Here a 
-       <a href="/v1../../../org/jooby/Parser.html" title="interface in org.jooby"><code>Parser</code></a> will do the boilerplate part and throws a 
-       <code>ConstraintViolationException</code>. 
-       <h3>rendering a ConstraintViolationException</h3> The default err handler will render the 
-       <code>ConstraintViolationException</code> without problem, but suppose we have a JavaScript client and want to display the errors in a friendly way. 
+ </pre> Here a <a href="/v1../../../org/jooby/Parser.html" title="interface in org.jooby"><code>Parser</code></a> will do the boilerplate part and throws a <code>ConstraintViolationException</code>. 
+       <h3>rendering a ConstraintViolationException</h3> The default err handler will render the <code>ConstraintViolationException</code> without problem, but suppose we have a JavaScript client and want to display the errors in a friendly way. 
        <pre> {
    use(new Jackson()); // JSON renderer
 
@@ -189,13 +182,9 @@ implements <a href="/v1../../../org/jooby/Jooby.Module.html" title="interface in
      ...
    });
  }
-</pre> The call to 
-       <code>rsp.send(errors);</code> will be rendered by ```Jackson``` (or any other that applies) and will produces a more friendly response, here it will be a JavaScript object with the errors. 
-       <h2>constraint validator factory</h2> 
-       <code>ConstraintValidatorFactory</code> is the extension point for customizing how constraint validators are instantiated and released. In Jooby, a 
-       <code>ConstraintValidatorFactory</code> is powered by Guice. 
-       <h2>configuration</h2> Any property defined at 
-       <code>hibernate.validator</code> will be add it automatically: application.conf: 
+</pre> The call to <code>rsp.send(errors);</code> will be rendered by ```Jackson``` (or any other that applies) and will produces a more friendly response, here it will be a JavaScript object with the errors. 
+       <h2>constraint validator factory</h2> <code>ConstraintValidatorFactory</code> is the extension point for customizing how constraint validators are instantiated and released. In Jooby, a <code>ConstraintValidatorFactory</code> is powered by Guice. 
+       <h2>configuration</h2> Any property defined at <code>hibernate.validator</code> will be add it automatically: application.conf: 
        <pre> hibernate.validator.fail_fast = true
  </pre> Or programmatically: 
        <pre> {
@@ -230,8 +219,7 @@ implements <a href="/v1../../../org/jooby/Jooby.Module.html" title="interface in
          <!--   --> </a> <h3>Constructor Summary</h3> 
         <table class="memberSummary" border="0" cellpadding="3" cellspacing="0" summary="Constructor Summary table, listing constructors, and an explanation"> 
          <caption>
-          <span>Constructors</span>
-          <span class="tabEnd">&nbsp;</span>
+          <span>Constructors</span><span class="tabEnd">&nbsp;</span>
          </caption> 
          <tbody>
           <tr> 
@@ -240,22 +228,19 @@ implements <a href="/v1../../../org/jooby/Jooby.Module.html" title="interface in
           <tr class="altColor"> 
            <td class="colOne"><code><span class="memberNameLink"><a href="/v1../../../org/jooby/hbv/Hbv.html#Hbv--">Hbv</a></span>()</code> 
             <div class="block">
-             Creates a new 
-             <a href="/v1../../../org/jooby/hbv/Hbv.html" title="class in org.jooby.hbv"><code>Hbv</code></a> module.
+             Creates a new <a href="/v1../../../org/jooby/hbv/Hbv.html" title="class in org.jooby.hbv"><code>Hbv</code></a> module.
             </div> </td> 
           </tr> 
           <tr class="rowColor"> 
            <td class="colOne"><code><span class="memberNameLink"><a href="/v1../../../org/jooby/hbv/Hbv.html#Hbv-java.lang.Class...-">Hbv</a></span>(<a href="http://docs.oracle.com/javase/8/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</a>&lt;?&gt;...&nbsp;classes)</code> 
             <div class="block">
-             Creates a new 
-             <a href="/v1../../../org/jooby/hbv/Hbv.html" title="class in org.jooby.hbv"><code>Hbv</code></a> module.
+             Creates a new <a href="/v1../../../org/jooby/hbv/Hbv.html" title="class in org.jooby.hbv"><code>Hbv</code></a> module.
             </div> </td> 
           </tr> 
           <tr class="altColor"> 
            <td class="colOne"><code><span class="memberNameLink"><a href="/v1../../../org/jooby/hbv/Hbv.html#Hbv-java.util.function.Predicate-">Hbv</a></span>(<a href="http://docs.oracle.com/javase/8/docs/api/java/util/function/Predicate.html?is-external=true" title="class or interface in java.util.function">Predicate</a>&lt;com.google.inject.TypeLiteral&lt;?&gt;&gt;&nbsp;predicate)</code> 
             <div class="block">
-             Creates a new 
-             <a href="/v1../../../org/jooby/hbv/Hbv.html" title="class in org.jooby.hbv"><code>Hbv</code></a> module.
+             Creates a new <a href="/v1../../../org/jooby/hbv/Hbv.html" title="class in org.jooby.hbv"><code>Hbv</code></a> module.
             </div> </td> 
           </tr> 
          </tbody>
@@ -267,9 +252,7 @@ implements <a href="/v1../../../org/jooby/Jooby.Module.html" title="interface in
          <!--   --> </a> <h3>Method Summary</h3> 
         <table class="memberSummary" border="0" cellpadding="3" cellspacing="0" summary="Method Summary table, listing methods, and an explanation"> 
          <caption>
-          <span id="t0" class="activeTableTab"><span>All Methods</span><span class="tabEnd">&nbsp;</span></span>
-          <span id="t2" class="tableTab"><span><a href="/v1javascript:show(2);">Instance Methods</a></span><span class="tabEnd">&nbsp;</span></span>
-          <span id="t4" class="tableTab"><span><a href="/v1javascript:show(8);">Concrete Methods</a></span><span class="tabEnd">&nbsp;</span></span>
+          <span id="t0" class="activeTableTab"><span>All Methods</span><span class="tabEnd">&nbsp;</span></span><span id="t2" class="tableTab"><span><a href="/v1javascript:show(2);">Instance Methods</a></span><span class="tabEnd">&nbsp;</span></span><span id="t4" class="tableTab"><span><a href="/v1javascript:show(8);">Concrete Methods</a></span><span class="tabEnd">&nbsp;</span></span>
          </caption> 
          <tbody>
           <tr> 
@@ -321,8 +304,7 @@ implements <a href="/v1../../../org/jooby/Jooby.Module.html" title="interface in
         <ul class="blockList"> 
          <li class="blockList"> <h4>Hbv</h4> <pre>public&nbsp;Hbv(<a href="http://docs.oracle.com/javase/8/docs/api/java/util/function/Predicate.html?is-external=true" title="class or interface in java.util.function">Predicate</a>&lt;com.google.inject.TypeLiteral&lt;?&gt;&gt;&nbsp;predicate)</pre> 
           <div class="block">
-           Creates a new 
-           <a href="/v1../../../org/jooby/hbv/Hbv.html" title="class in org.jooby.hbv"><code>Hbv</code></a> module.
+           Creates a new <a href="/v1../../../org/jooby/hbv/Hbv.html" title="class in org.jooby.hbv"><code>Hbv</code></a> module.
           </div> 
           <dl> 
            <dt>
@@ -337,8 +319,7 @@ implements <a href="/v1../../../org/jooby/Jooby.Module.html" title="interface in
         <ul class="blockList"> 
          <li class="blockList"> <h4>Hbv</h4> <pre>public&nbsp;Hbv(<a href="http://docs.oracle.com/javase/8/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</a>&lt;?&gt;...&nbsp;classes)</pre> 
           <div class="block">
-           Creates a new 
-           <a href="/v1../../../org/jooby/hbv/Hbv.html" title="class in org.jooby.hbv"><code>Hbv</code></a> module.
+           Creates a new <a href="/v1../../../org/jooby/hbv/Hbv.html" title="class in org.jooby.hbv"><code>Hbv</code></a> module.
           </div> 
           <dl> 
            <dt>
@@ -353,8 +334,7 @@ implements <a href="/v1../../../org/jooby/Jooby.Module.html" title="interface in
         <ul class="blockListLast"> 
          <li class="blockList"> <h4>Hbv</h4> <pre>public&nbsp;Hbv()</pre> 
           <div class="block">
-           Creates a new 
-           <a href="/v1../../../org/jooby/hbv/Hbv.html" title="class in org.jooby.hbv"><code>Hbv</code></a> module. No automatic validation is applied.
+           Creates a new <a href="/v1../../../org/jooby/hbv/Hbv.html" title="class in org.jooby.hbv"><code>Hbv</code></a> module. No automatic validation is applied.
           </div> </li> 
         </ul> </li> 
       </ul> 
@@ -413,17 +393,14 @@ implements <a href="/v1../../../org/jooby/Jooby.Module.html" title="interface in
            <span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="/v1../../../org/jooby/Jooby.Module.html#configure-org.jooby.Env-com.typesafe.config.Config-com.google.inject.Binder-">Jooby.Module</a></code></span>
           </div> 
           <div class="block">
-           Configure and produces bindings for the underlying application. A module can optimize or customize a service by checking current the 
-           <a href="/v1../../../org/jooby/Env.html" title="interface in org.jooby"><code>application env</code></a> and/or the current application properties available from 
-           <code>Config</code>.
+           Configure and produces bindings for the underlying application. A module can optimize or customize a service by checking current the <a href="/v1../../../org/jooby/Env.html" title="interface in org.jooby"><code>application env</code></a> and/or the current application properties available from <code>Config</code>.
           </div> 
           <dl> 
            <dt>
             <span class="overrideSpecifyLabel">Specified by:</span>
            </dt> 
            <dd>
-            <code><a href="/v1../../../org/jooby/Jooby.Module.html#configure-org.jooby.Env-com.typesafe.config.Config-com.google.inject.Binder-">configure</a></code>&nbsp;in interface&nbsp;
-            <code><a href="/v1../../../org/jooby/Jooby.Module.html" title="interface in org.jooby">Jooby.Module</a></code>
+            <code><a href="/v1../../../org/jooby/Jooby.Module.html#configure-org.jooby.Env-com.typesafe.config.Config-com.google.inject.Binder-">configure</a></code>&nbsp;in interface&nbsp;<code><a href="/v1../../../org/jooby/Jooby.Module.html" title="interface in org.jooby">Jooby.Module</a></code>
            </dd> 
            <dt>
             <span class="paramLabel">Parameters:</span>
@@ -447,8 +424,7 @@ implements <a href="/v1../../../org/jooby/Jooby.Module.html" title="interface in
             <span class="overrideSpecifyLabel">Specified by:</span>
            </dt> 
            <dd>
-            <code><a href="/v1../../../org/jooby/Jooby.Module.html#config--">config</a></code>&nbsp;in interface&nbsp;
-            <code><a href="/v1../../../org/jooby/Jooby.Module.html" title="interface in org.jooby">Jooby.Module</a></code>
+            <code><a href="/v1../../../org/jooby/Jooby.Module.html#config--">config</a></code>&nbsp;in interface&nbsp;<code><a href="/v1../../../org/jooby/Jooby.Module.html" title="interface in org.jooby">Jooby.Module</a></code>
            </dd> 
            <dt>
             <span class="returnLabel">Returns:</span>
@@ -469,8 +445,7 @@ implements <a href="/v1../../../org/jooby/Jooby.Module.html" title="interface in
     <!--   --> </a> 
    <div class="skipNav">
     <a href="#skip.navbar.bottom" title="Skip navigation links">Skip navigation links</a>
-   </div> 
-   <a name="navbar.bottom.firstrow" href="/v1"> 
+   </div> <a name="navbar.bottom.firstrow" href="/v1"> 
     <!--   --> </a> 
    <ul class="navList" title="Navigation"> 
     <li><a href="/v1../../../overview-summary.html">Overview</a></li> 
@@ -521,8 +496,7 @@ implements <a href="/v1../../../org/jooby/Jooby.Module.html" title="interface in
      <li><a href="#constructor.detail">Constr</a>&nbsp;|&nbsp;</li> 
      <li><a href="#method.detail">Method</a></li> 
     </ul> 
-   </div> 
-   <a name="skip.navbar.bottom" href="/v1"> 
+   </div> <a name="skip.navbar.bottom" href="/v1"> 
     <!--   --> </a>
   </div> 
   <!-- ======== END OF BOTTOM NAVBAR ======= --> 

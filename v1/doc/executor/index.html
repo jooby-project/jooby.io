@@ -68,9 +68,7 @@
  </head> 
  <body class="page-section page-sidebar"> 
   <header class="site-header"> 
-   <div class="row"> 
-    <a href="/v1/" title="Home" class="site-logo"><img src="resources/images/logo_jooby-2x.png" alt="Logo Jooby" width="76" height="31"></a> 
-    <a class="show-mobile open-menu" href="/v1"><span></span></a> 
+   <div class="row"> <a href="/v1/" title="Home" class="site-logo"><img src="resources/images/logo_jooby-2x.png" alt="Logo Jooby" width="76" height="31"></a> <a class="show-mobile open-menu" href="/v1"><span></span></a> 
     <nav class="site-nav"> 
      <ul> 
       <li class=""><a href="/v1/quickstart" title="Quick start">QUICK START</a></li> 
@@ -85,8 +83,7 @@
   </header> 
   <main role="main" class="site-content"> 
    <div class="section-title"> 
-    <div class="row"> 
-     <a href="/v1/modules" class="jsback" title="Go back"><span class="icon-arrowback-big-circle"></span></a> 
+    <div class="row"> <a href="/v1/modules" class="jsback" title="Go back"><span class="icon-arrowback-big-circle"></span></a> 
      <h1>executor</h1> 
     </div> 
    </div> 
@@ -121,8 +118,7 @@
        </ul> 
        <h3 id="executor-dependency">dependency</h3> 
        <div class="highlighter-rouge codehilite"> 
-        <div class="copy-bar"> 
-         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        <div class="copy-bar"> <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
         </div> 
         <pre class="highlight"><code><span class="nt">&lt;dependency&gt;</span>
  <span class="nt">&lt;groupId&gt;</span>org.jooby<span class="nt">&lt;/groupId&gt;</span>
@@ -133,8 +129,7 @@
        </div> 
        <h3 id="executor-usage">usage</h3> 
        <div class="highlighter-rouge codehilite"> 
-        <div class="copy-bar"> 
-         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        <div class="copy-bar"> <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
         </div> 
         <pre class="highlight"><code><span class="o">...</span>
 <span class="kn">import</span> <span class="nn">org.jooby.exec.Exec</span><span class="o">;</span>
@@ -155,56 +150,49 @@
        <p>The default <code class="highlighter-rouge codehilite">ExecutorService</code> is nice and give you something that just works out of the box. But, what if you need to control the number of threads?</p> 
        <p>Explicit control is provided via <code class="highlighter-rouge codehilite">executors</code> which allow the following syntax:</p> 
        <div class="highlighter-rouge codehilite"> 
-        <div class="copy-bar"> 
-         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        <div class="copy-bar"> <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
         </div> 
         <pre class="highlight"><code><span class="n">type</span> <span class="o">(=</span> <span class="kt">int</span><span class="o">)?</span> <span class="o">(,</span> <span class="n">daemon</span> <span class="o">(=</span> <span class="kt">boolean</span><span class="o">)?</span> <span class="o">)?</span> <span class="o">(,</span> <span class="n">priority</span> <span class="o">(=</span> <span class="kt">int</span><span class="o">)?</span> <span class="o">)?</span>
 </code></pre> 
        </div> 
        <p>Let’s see some examples:</p> 
        <div class="highlighter-rouge codehilite"> 
-        <div class="copy-bar"> 
-         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        <div class="copy-bar"> <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
         </div> 
         <pre class="highlight"><code># fixed thread pool with a max number of threads equals to the available runtime processors
 executors = "fixed"
 </code></pre> 
        </div> 
        <div class="highlighter-rouge codehilite"> 
-        <div class="copy-bar"> 
-         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        <div class="copy-bar"> <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
         </div> 
         <pre class="highlight"><code># fixed thread pool with a max number of 10 threads
 executors = "fixed = 10"
 </code></pre> 
        </div> 
        <div class="highlighter-rouge codehilite"> 
-        <div class="copy-bar"> 
-         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        <div class="copy-bar"> <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
         </div> 
         <pre class="highlight"><code># fixed thread pool with a max number of 10 threads
 executors = "fixed = 10"
 </code></pre> 
        </div> 
        <div class="highlighter-rouge codehilite"> 
-        <div class="copy-bar"> 
-         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        <div class="copy-bar"> <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
         </div> 
         <pre class="highlight"><code># scheduled thread pool with a max number of 10 threads
 executors = "scheduled = 10"
 </code></pre> 
        </div> 
        <div class="highlighter-rouge codehilite"> 
-        <div class="copy-bar"> 
-         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        <div class="copy-bar"> <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
         </div> 
         <pre class="highlight"><code># cached thread pool with daemon threads and max priority
 executors = "cached, daemon = true, priority = 10"
 </code></pre> 
        </div> 
        <div class="highlighter-rouge codehilite"> 
-        <div class="copy-bar"> 
-         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        <div class="copy-bar"> <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
         </div> 
         <pre class="highlight"><code># forkjoin thread pool with asyncMode
 executors = "forkjoin, asyncMode = true"
@@ -213,8 +201,7 @@ executors = "forkjoin, asyncMode = true"
        <h3 id="executor-multiple-executors">multiple executors</h3> 
        <p>Multiple executors are provided by expanding the <code class="highlighter-rouge codehilite">executors</code> properties, like:</p> 
        <div class="highlighter-rouge codehilite"> 
-        <div class="copy-bar"> 
-         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        <div class="copy-bar"> <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
         </div> 
         <pre class="highlight"><code>executors {
    pool1: fixed
@@ -224,8 +211,7 @@ executors = "forkjoin, asyncMode = true"
        </div> 
        <p>Later, you can request your executor like:</p> 
        <div class="highlighter-rouge codehilite"> 
-        <div class="copy-bar"> 
-         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        <div class="copy-bar"> <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
         </div> 
         <pre class="highlight"><code><span class="o">{</span>
   <span class="n">use</span><span class="o">(</span><span class="k">new</span> <span class="n">Exec</span><span class="o">());</span>
@@ -240,8 +226,7 @@ executors = "forkjoin, asyncMode = true"
        <h3 id="executor-deferred">deferred</h3> 
        <p>Executors created by this module can be referenced by <a href="/v1/apidocs/org/jooby/Deferred.html" target="_blank">deferred results</a>:</p> 
        <div class="highlighter-rouge codehilite"> 
-        <div class="copy-bar"> 
-         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        <div class="copy-bar"> <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
         </div> 
         <pre class="highlight"><code><span class="o">{</span>
   <span class="n">use</span><span class="o">(</span><span class="k">new</span> <span class="n">Exec</span><span class="o">());</span>
@@ -267,9 +252,7 @@ executors = "forkjoin, asyncMode = true"
    <div class="row"> 
     <p class="pull-left">©2014-2019 <a href="https://twitter.com/joobyproject" target="_blank">The Jooby Project</a>, all rights reserved.</p> 
     <div class="follow-us pull-right"> 
-     <p>Follow us</p> 
-     <a href="https://github.com/jooby-project/jooby" title="Follow us on Github" target="_blank" rel="nofollow"><span class="icon-github-medium-circle"></span></a> 
-     <a href="https://twitter.com/joobyproject" title="Follow us on Twitter" target="_blank" rel="nofollow"><span class="icon-twitter-medium-circle"></span></a> 
+     <p>Follow us</p> <a href="https://github.com/jooby-project/jooby" title="Follow us on Github" target="_blank" rel="nofollow"><span class="icon-github-medium-circle"></span></a> <a href="https://twitter.com/joobyproject" title="Follow us on Twitter" target="_blank" rel="nofollow"><span class="icon-twitter-medium-circle"></span></a> 
     </div> 
    </div> 
   </footer> 

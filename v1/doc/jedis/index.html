@@ -68,9 +68,7 @@
  </head> 
  <body class="page-section page-sidebar"> 
   <header class="site-header"> 
-   <div class="row"> 
-    <a href="/v1/" title="Home" class="site-logo"><img src="resources/images/logo_jooby-2x.png" alt="Logo Jooby" width="76" height="31"></a> 
-    <a class="show-mobile open-menu" href="/v1"><span></span></a> 
+   <div class="row"> <a href="/v1/" title="Home" class="site-logo"><img src="resources/images/logo_jooby-2x.png" alt="Logo Jooby" width="76" height="31"></a> <a class="show-mobile open-menu" href="/v1"><span></span></a> 
     <nav class="site-nav"> 
      <ul> 
       <li class=""><a href="/v1/quickstart" title="Quick start">QUICK START</a></li> 
@@ -85,8 +83,7 @@
   </header> 
   <main role="main" class="site-content"> 
    <div class="section-title"> 
-    <div class="row"> 
-     <a href="/v1/modules" class="jsback" title="Go back"><span class="icon-arrowback-big-circle"></span></a> 
+    <div class="row"> <a href="/v1/modules" class="jsback" title="Go back"><span class="icon-arrowback-big-circle"></span></a> 
      <h1>jedis</h1> 
     </div> 
    </div> 
@@ -120,8 +117,7 @@
        <p><a href="http://redis.io/" target="_blank">Redis</a> cache and key/value data store for Jooby. exports a <a href="https://github.com/xetorthio/jedis" target="_blank">Jedis</a> service.</p> 
        <h3 id="jedis-dependency">dependency</h3> 
        <div class="highlighter-rouge codehilite"> 
-        <div class="copy-bar"> 
-         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        <div class="copy-bar"> <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
         </div> 
         <pre class="highlight"><code><span class="nt">&lt;dependency&gt;</span>
   <span class="nt">&lt;groupId&gt;</span>org.jooby<span class="nt">&lt;/groupId&gt;</span>
@@ -133,16 +129,14 @@
        <h3 id="jedis-usage">usage</h3> 
        <p>It is pretty straightforward:</p> 
        <div class="highlighter-rouge codehilite"> 
-        <div class="copy-bar"> 
-         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        <div class="copy-bar"> <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
         </div> 
         <pre class="highlight"><code><span class="c"># define a database URI </span>
 <span class="py">db</span> <span class="p">=</span> <span class="s">"redis://localhost:6379"</span>
 </code></pre> 
        </div> 
        <div class="highlighter-rouge codehilite"> 
-        <div class="copy-bar"> 
-         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        <div class="copy-bar"> <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
         </div> 
         <pre class="highlight"><code><span class="o">{</span>
   <span class="n">use</span><span class="o">(</span><span class="k">new</span> <span class="n">Redis</span><span class="o">());</span>
@@ -160,8 +154,7 @@
        <p>This module creates a [JedisPool]. A default pool is created with a max of <code class="highlighter-rouge codehilite">128</code> instances.</p> 
        <p>The pool can be customized from your <code class="highlighter-rouge codehilite">application.conf</code>:</p> 
        <div class="highlighter-rouge codehilite"> 
-        <div class="copy-bar"> 
-         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        <div class="copy-bar"> <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
         </div> 
         <pre class="highlight"><code><span class="py">db</span> <span class="p">=</span> <span class="s">"redis://localhost:6379"</span>
 
@@ -172,8 +165,7 @@
        <h4 id="jedis-two-or-more-redis-connections">two or more redis connections</h4> 
        <p>In case you need two or more Redis connection, just do:</p> 
        <div class="highlighter-rouge codehilite"> 
-        <div class="copy-bar"> 
-         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        <div class="copy-bar"> <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
         </div> 
         <pre class="highlight"><code><span class="o">{</span>
   <span class="n">use</span><span class="o">(</span><span class="k">new</span> <span class="n">Redis</span><span class="o">());</span> <span class="c1">// default is "db"</span>
@@ -190,8 +182,7 @@
        </div> 
        <p>application.conf:</p> 
        <div class="highlighter-rouge codehilite"> 
-        <div class="copy-bar"> 
-         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        <div class="copy-bar"> <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
         </div> 
         <pre class="highlight"><code><span class="py">db</span> <span class="p">=</span> <span class="s">"redis://localhost:6379/0"</span>
 
@@ -200,8 +191,7 @@
        </div> 
        <p>Pool configuration for <code class="highlighter-rouge codehilite">db1</code> is inherited from <code class="highlighter-rouge codehilite">jedis.pool</code>. If you need to tweak the pool configuration for <code class="highlighter-rouge codehilite">db1</code> just do:</p> 
        <div class="highlighter-rouge codehilite"> 
-        <div class="copy-bar"> 
-         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        <div class="copy-bar"> <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
         </div> 
         <pre class="highlight"><code><span class="py">db1</span> <span class="p">=</span> <span class="s">"redis://localhost:6379/1"</span>
 
@@ -219,8 +209,7 @@
       <div class="datalist-content"> 
        <h3 id="redis-session-store-dependency">dependency</h3> 
        <div class="highlighter-rouge codehilite"> 
-        <div class="copy-bar"> 
-         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        <div class="copy-bar"> <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
         </div> 
         <pre class="highlight"><code><span class="nt">&lt;dependency&gt;</span>
   <span class="nt">&lt;groupId&gt;</span>org.jooby<span class="nt">&lt;/groupId&gt;</span>
@@ -231,8 +220,7 @@
        </div> 
        <h3 id="redis-session-store-usage">usage</h3> 
        <div class="highlighter-rouge codehilite"> 
-        <div class="copy-bar"> 
-         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        <div class="copy-bar"> <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
         </div> 
         <pre class="highlight"><code><span class="o">{</span>
   <span class="n">use</span><span class="o">(</span><span class="k">new</span> <span class="n">Redis</span><span class="o">());</span>
@@ -250,8 +238,7 @@
        <h4 id="redis-session-store-timeout">timeout</h4> 
        <p>By default, a <a href="http://redis.io" target="_blank">Redis</a> session will expire after <code class="highlighter-rouge codehilite">30 minutes</code>. Changing the default timeout is as simple as:</p> 
        <div class="highlighter-rouge codehilite"> 
-        <div class="copy-bar"> 
-         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        <div class="copy-bar"> <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
         </div> 
         <pre class="highlight"><code>
 <span class="c"># 8 hours </span><span class="py">session.timeout</span> <span class="p">=</span> <span class="s">8h</span>
@@ -274,8 +261,7 @@
        <h3 id="redis-session-store-jedis-conf">jedis.conf</h3> 
        <p>These are the default properties for jedis:</p> 
        <div class="highlighter-rouge codehilite"> 
-        <div class="copy-bar"> 
-         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        <div class="copy-bar"> <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
         </div> 
         <pre class="highlight"><code><span class="c"># jedis default config </span>
 <span class="c"># jedis </span>
@@ -335,9 +321,7 @@
    <div class="row"> 
     <p class="pull-left">©2014-2019 <a href="https://twitter.com/joobyproject" target="_blank">The Jooby Project</a>, all rights reserved.</p> 
     <div class="follow-us pull-right"> 
-     <p>Follow us</p> 
-     <a href="https://github.com/jooby-project/jooby" title="Follow us on Github" target="_blank" rel="nofollow"><span class="icon-github-medium-circle"></span></a> 
-     <a href="https://twitter.com/joobyproject" title="Follow us on Twitter" target="_blank" rel="nofollow"><span class="icon-twitter-medium-circle"></span></a> 
+     <p>Follow us</p> <a href="https://github.com/jooby-project/jooby" title="Follow us on Github" target="_blank" rel="nofollow"><span class="icon-github-medium-circle"></span></a> <a href="https://twitter.com/joobyproject" title="Follow us on Twitter" target="_blank" rel="nofollow"><span class="icon-twitter-medium-circle"></span></a> 
     </div> 
    </div> 
   </footer> 

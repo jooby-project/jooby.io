@@ -68,9 +68,7 @@
  </head> 
  <body class="page-section page-sidebar"> 
   <header class="site-header"> 
-   <div class="row"> 
-    <a href="/v1/" title="Home" class="site-logo"><img src="resources/images/logo_jooby-2x.png" alt="Logo Jooby" width="76" height="31"></a> 
-    <a class="show-mobile open-menu" href="/v1"><span></span></a> 
+   <div class="row"> <a href="/v1/" title="Home" class="site-logo"><img src="resources/images/logo_jooby-2x.png" alt="Logo Jooby" width="76" height="31"></a> <a class="show-mobile open-menu" href="/v1"><span></span></a> 
     <nav class="site-nav"> 
      <ul> 
       <li class=""><a href="/v1/quickstart" title="Quick start">QUICK START</a></li> 
@@ -85,8 +83,7 @@
   </header> 
   <main role="main" class="site-content"> 
    <div class="section-title"> 
-    <div class="row"> 
-     <a href="/v1/modules" class="jsback" title="Go back"><span class="icon-arrowback-big-circle"></span></a> 
+    <div class="row"> <a href="/v1/modules" class="jsback" title="Go back"><span class="icon-arrowback-big-circle"></span></a> 
      <h1>guava-cache</h1> 
     </div> 
    </div> 
@@ -123,8 +120,7 @@
        </ul> 
        <h3 id="guava-cache-dependency">dependency</h3> 
        <div class="highlighter-rouge codehilite"> 
-        <div class="copy-bar"> 
-         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        <div class="copy-bar"> <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
         </div> 
         <pre class="highlight"><code><span class="nt">&lt;dependency&gt;</span>
  <span class="nt">&lt;groupId&gt;</span>org.jooby<span class="nt">&lt;/groupId&gt;</span>
@@ -136,8 +132,7 @@
        <h3 id="guava-cache-usage">usage</h3> 
        <p>App.java:</p> 
        <div class="highlighter-rouge codehilite"> 
-        <div class="copy-bar"> 
-         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        <div class="copy-bar"> <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
         </div> 
         <pre class="highlight"><code><span class="kn">import</span> <span class="nn">org.jooby.guava.GuavaCache</span><span class="o">;</span>
 
@@ -157,8 +152,7 @@
        <h4 id="guava-cache-cache-configuration">cache configuration</h4> 
        <p>A default cache will be created, if you need to control the number of entries, expire policy, etc… set the <code class="highlighter-rouge codehilite">guava.cache</code> property in <code class="highlighter-rouge codehilite">application.conf</code>, like:</p> 
        <div class="highlighter-rouge codehilite"> 
-        <div class="copy-bar"> 
-         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        <div class="copy-bar"> <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
         </div> 
         <pre class="highlight"><code>guava.cache {
   maximumSize = 10
@@ -169,8 +163,7 @@
        </div> 
        <p>or via <code class="highlighter-rouge codehilite">com.google.common.cache.CacheBuilderSpec</code> syntax:</p> 
        <div class="highlighter-rouge codehilite"> 
-        <div class="copy-bar"> 
-         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        <div class="copy-bar"> <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
         </div> 
         <pre class="highlight"><code>guava.cache = "maximumSize=10,concurrencyLevel=2"
 </code></pre> 
@@ -178,8 +171,7 @@
        <h4 id="guava-cache-multiple-caches">multiple caches</h4> 
        <p>Just add entries to: <code class="highlighter-rouge codehilite">guava.</code>, like:</p> 
        <div class="highlighter-rouge codehilite"> 
-        <div class="copy-bar"> 
-         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        <div class="copy-bar"> <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
         </div> 
         <pre class="highlight"><code># default cache (don't need a name on require calls)
 guava.cache = "maximumSize=10"
@@ -188,8 +180,7 @@ guava.cacheX = "maximumSize=100"
 </code></pre> 
        </div> 
        <div class="highlighter-rouge codehilite"> 
-        <div class="copy-bar"> 
-         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        <div class="copy-bar"> <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
         </div> 
         <pre class="highlight"><code><span class="o">{</span>
   <span class="n">get</span><span class="o">(</span><span class="s">"/"</span><span class="o">,</span> <span class="n">req</span> <span class="o">-&gt;</span> <span class="o">{</span>
@@ -203,8 +194,7 @@ guava.cacheX = "maximumSize=100"
        <h4 id="guava-cache-type-safe-caches">type-safe caches</h4> 
        <p>Type safe caches are provided by calling and creating a new <code class="highlighter-rouge codehilite">GuavaCache</code> subclass:</p> 
        <div class="highlighter-rouge codehilite"> 
-        <div class="copy-bar"> 
-         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        <div class="copy-bar"> <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
         </div> 
         <pre class="highlight"><code><span class="o">{</span>
   <span class="c1">// please notes the {} at the line of the next line</span>
@@ -214,8 +204,7 @@ guava.cacheX = "maximumSize=100"
        </div> 
        <p>Later, you can inject this cache in a type-safe manner:</p> 
        <div class="highlighter-rouge codehilite"> 
-        <div class="copy-bar"> 
-         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        <div class="copy-bar"> <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
         </div> 
         <pre class="highlight"><code><span class="nd">@Inject</span>
 <span class="kd">public</span> <span class="nf">MyService</span><span class="p">(</span><span class="n">Cache</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">,</span> <span class="n">String</span><span class="o">&gt;</span> <span class="n">cache</span><span class="o">)</span> <span class="o">{</span>
@@ -232,8 +221,7 @@ guava.cacheX = "maximumSize=100"
       <div class="datalist-content"> 
        <h3 id="guava-session-store-dependency">dependency</h3> 
        <div class="highlighter-rouge codehilite"> 
-        <div class="copy-bar"> 
-         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        <div class="copy-bar"> <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
         </div> 
         <pre class="highlight"><code><span class="nt">&lt;dependency&gt;</span>
  <span class="nt">&lt;groupId&gt;</span>org.jooby<span class="nt">&lt;/groupId&gt;</span>
@@ -245,16 +233,14 @@ guava.cacheX = "maximumSize=100"
        <h3 id="guava-session-store-usage">usage</h3> 
        <p>This module comes with a <code class="highlighter-rouge codehilite">Session.Store</code> implementation. In order to use it you need to define a cache named <code class="highlighter-rouge codehilite">session</code> in your <code class="highlighter-rouge codehilite">application.conf</code> file:</p> 
        <div class="highlighter-rouge codehilite"> 
-        <div class="copy-bar"> 
-         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        <div class="copy-bar"> <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
         </div> 
         <pre class="highlight"><code>guava.session = "maximumSize=10"
 </code></pre> 
        </div> 
        <p>And set the <code class="highlighter-rouge codehilite">GuavaSessionStore</code>:</p> 
        <div class="highlighter-rouge codehilite"> 
-        <div class="copy-bar"> 
-         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        <div class="copy-bar"> <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
         </div> 
         <pre class="highlight"><code><span class="kn">import</span> <span class="nn">org.jooby.guava.GuavaCache</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">org.jooby.guava.GuavaSessionStore</span><span class="o">;</span>
@@ -268,8 +254,7 @@ guava.cacheX = "maximumSize=100"
        </div> 
        <p>You can access to the <code class="highlighter-rouge codehilite">session</code> via name:</p> 
        <div class="highlighter-rouge codehilite"> 
-        <div class="copy-bar"> 
-         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        <div class="copy-bar"> <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
         </div> 
         <pre class="highlight"><code><span class="o">{</span>
   <span class="n">get</span><span class="o">(</span><span class="s">"/"</span><span class="o">,</span> <span class="n">req</span> <span class="o">-&gt;</span> <span class="o">{</span>
@@ -287,9 +272,7 @@ guava.cacheX = "maximumSize=100"
    <div class="row"> 
     <p class="pull-left">©2014-2019 <a href="https://twitter.com/joobyproject" target="_blank">The Jooby Project</a>, all rights reserved.</p> 
     <div class="follow-us pull-right"> 
-     <p>Follow us</p> 
-     <a href="https://github.com/jooby-project/jooby" title="Follow us on Github" target="_blank" rel="nofollow"><span class="icon-github-medium-circle"></span></a> 
-     <a href="https://twitter.com/joobyproject" title="Follow us on Twitter" target="_blank" rel="nofollow"><span class="icon-twitter-medium-circle"></span></a> 
+     <p>Follow us</p> <a href="https://github.com/jooby-project/jooby" title="Follow us on Github" target="_blank" rel="nofollow"><span class="icon-github-medium-circle"></span></a> <a href="https://twitter.com/joobyproject" title="Follow us on Twitter" target="_blank" rel="nofollow"><span class="icon-twitter-medium-circle"></span></a> 
     </div> 
    </div> 
   </footer> 

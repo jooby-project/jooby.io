@@ -37,8 +37,7 @@ var activeTableTab = "activeTableTab";
     <!--   --> </a> 
    <div class="skipNav">
     <a href="#skip.navbar.top" title="Skip navigation links">Skip navigation links</a>
-   </div> 
-   <a name="navbar.top.firstrow" href="/v1"> 
+   </div> <a name="navbar.top.firstrow" href="/v1"> 
     <!--   --> </a> 
    <ul class="navList" title="Navigation"> 
     <li><a href="/v1../../overview-summary.html">Overview</a></li> 
@@ -89,8 +88,7 @@ var activeTableTab = "activeTableTab";
      <li><a href="#constructor.detail">Constr</a>&nbsp;|&nbsp;</li> 
      <li><a href="#method.detail">Method</a></li> 
     </ul> 
-   </div> 
-   <a name="skip.navbar.top" href="/v1"> 
+   </div> <a name="skip.navbar.top" href="/v1"> 
     <!--   --> </a>
   </div> 
   <!-- ========= END OF TOP NAVBAR ========= --> 
@@ -138,16 +136,12 @@ extends <a href="/v1../../org/jooby/Result.html" title="class in org.jooby">Resu
       return Deferred.deferred(() -&gt; "Success");
     }
   }
- </code></pre> If you add the 
-       <a href="/v1../../org/jooby/AsyncMapper.html" title="class in org.jooby"><code>AsyncMapper</code></a> then your controller method can return a 
-       <a href="http://docs.oracle.com/javase/8/docs/api/java/util/concurrent/Callable.html?is-external=true" title="class or interface in java.util.concurrent"><code>Callable</code></a>. Previous example runs in the default executor, which always run deferred results in the same/caller thread. To effectively run a deferred result in new/different thread you need to provide an 
-       <a href="http://docs.oracle.com/javase/8/docs/api/java/util/concurrent/Executor.html?is-external=true" title="class or interface in java.util.concurrent"><code>Executor</code></a>: 
+ </code></pre> If you add the <a href="/v1../../org/jooby/AsyncMapper.html" title="class in org.jooby"><code>AsyncMapper</code></a> then your controller method can return a <a href="http://docs.oracle.com/javase/8/docs/api/java/util/concurrent/Callable.html?is-external=true" title="class or interface in java.util.concurrent"><code>Callable</code></a>. Previous example runs in the default executor, which always run deferred results in the same/caller thread. To effectively run a deferred result in new/different thread you need to provide an <a href="http://docs.oracle.com/javase/8/docs/api/java/util/concurrent/Executor.html?is-external=true" title="class or interface in java.util.concurrent"><code>Executor</code></a>: 
        <pre><code>
  {
    executor(new ForkJoinPool());
  }
- </code></pre> This line override the default executor with a 
-       <a href="http://docs.oracle.com/javase/8/docs/api/java/util/concurrent/ForkJoinPool.html?is-external=true" title="class or interface in java.util.concurrent"><code>ForkJoinPool</code></a>. You can add two or more named executor: 
+ </code></pre> This line override the default executor with a <a href="http://docs.oracle.com/javase/8/docs/api/java/util/concurrent/ForkJoinPool.html?is-external=true" title="class or interface in java.util.concurrent"><code>ForkJoinPool</code></a>. You can add two or more named executor: 
        <pre><code>
  {
    executor(new ForkJoinPool());
@@ -156,10 +150,7 @@ extends <a href="/v1../../org/jooby/Result.html" title="class in org.jooby">Resu
 
    get("/async", deferred("cached", () -&gt; "Success"));
  }
- </code></pre> A 
-       <a href="/v1../../org/jooby/Deferred.html" title="class in org.jooby"><code>Deferred</code></a> object works as a promise too, given you 
-       <a href="/v1../../org/jooby/Deferred.html#resolve-java.lang.Object-"><code>resolve(Object)</code></a> and 
-       <a href="/v1../../org/jooby/Deferred.html#reject-java.lang.Throwable-"><code>reject(Throwable)</code></a> methods. Examples: As promise using the default executor (execute promise in same/caller thread): 
+ </code></pre> A <a href="/v1../../org/jooby/Deferred.html" title="class in org.jooby"><code>Deferred</code></a> object works as a promise too, given you <a href="/v1../../org/jooby/Deferred.html#resolve-java.lang.Object-"><code>resolve(Object)</code></a> and <a href="/v1../../org/jooby/Deferred.html#reject-java.lang.Throwable-"><code>reject(Throwable)</code></a> methods. Examples: As promise using the default executor (execute promise in same/caller thread): 
        <pre> {
     get("/async", promise(deferred  -&gt; {
       try {
@@ -222,8 +213,7 @@ extends <a href="/v1../../org/jooby/Result.html" title="class in org.jooby">Resu
          <!--   --> </a> <h3>Nested Class Summary</h3> 
         <table class="memberSummary" border="0" cellpadding="3" cellspacing="0" summary="Nested Class Summary table, listing nested classes, and an explanation"> 
          <caption>
-          <span>Nested Classes</span>
-          <span class="tabEnd">&nbsp;</span>
+          <span>Nested Classes</span><span class="tabEnd">&nbsp;</span>
          </caption> 
          <tbody>
           <tr> 
@@ -241,8 +231,7 @@ extends <a href="/v1../../org/jooby/Result.html" title="class in org.jooby">Resu
            <td class="colFirst"><code>static interface&nbsp;</code></td> 
            <td class="colLast"><code><span class="memberNameLink"><a href="/v1../../org/jooby/Deferred.Initializer.html" title="interface in org.jooby">Deferred.Initializer</a></span></code> 
             <div class="block">
-             Deferred initializer with 
-             <a href="/v1../../org/jooby/Request.html" title="interface in org.jooby"><code>Request</code></a> access, useful to provide a more functional API.
+             Deferred initializer with <a href="/v1../../org/jooby/Request.html" title="interface in org.jooby"><code>Request</code></a> access, useful to provide a more functional API.
             </div> </td> 
           </tr> 
           <tr class="altColor"> 
@@ -261,8 +250,7 @@ extends <a href="/v1../../org/jooby/Result.html" title="class in org.jooby">Resu
          <!--   --> </a> <h3>Constructor Summary</h3> 
         <table class="memberSummary" border="0" cellpadding="3" cellspacing="0" summary="Constructor Summary table, listing constructors, and an explanation"> 
          <caption>
-          <span>Constructors</span>
-          <span class="tabEnd">&nbsp;</span>
+          <span>Constructors</span><span class="tabEnd">&nbsp;</span>
          </caption> 
          <tbody>
           <tr> 
@@ -271,36 +259,31 @@ extends <a href="/v1../../org/jooby/Result.html" title="class in org.jooby">Resu
           <tr class="altColor"> 
            <td class="colOne"><code><span class="memberNameLink"><a href="/v1../../org/jooby/Deferred.html#Deferred--">Deferred</a></span>()</code> 
             <div class="block">
-             Creates a new 
-             <a href="/v1../../org/jooby/Deferred.html" title="class in org.jooby"><code>Deferred</code></a>.
+             Creates a new <a href="/v1../../org/jooby/Deferred.html" title="class in org.jooby"><code>Deferred</code></a>.
             </div> </td> 
           </tr> 
           <tr class="rowColor"> 
            <td class="colOne"><code><span class="memberNameLink"><a href="/v1../../org/jooby/Deferred.html#Deferred-org.jooby.Deferred.Initializer-">Deferred</a></span>(<a href="/v1../../org/jooby/Deferred.Initializer.html" title="interface in org.jooby">Deferred.Initializer</a>&nbsp;initializer)</code> 
             <div class="block">
-             Creates a new 
-             <a href="/v1../../org/jooby/Deferred.html" title="class in org.jooby"><code>Deferred</code></a> with an initializer.
+             Creates a new <a href="/v1../../org/jooby/Deferred.html" title="class in org.jooby"><code>Deferred</code></a> with an initializer.
             </div> </td> 
           </tr> 
           <tr class="altColor"> 
            <td class="colOne"><code><span class="memberNameLink"><a href="/v1../../org/jooby/Deferred.html#Deferred-org.jooby.Deferred.Initializer0-">Deferred</a></span>(<a href="/v1../../org/jooby/Deferred.Initializer0.html" title="interface in org.jooby">Deferred.Initializer0</a>&nbsp;initializer)</code> 
             <div class="block">
-             Creates a new 
-             <a href="/v1../../org/jooby/Deferred.html" title="class in org.jooby"><code>Deferred</code></a> with an initializer.
+             Creates a new <a href="/v1../../org/jooby/Deferred.html" title="class in org.jooby"><code>Deferred</code></a> with an initializer.
             </div> </td> 
           </tr> 
           <tr class="rowColor"> 
            <td class="colOne"><code><span class="memberNameLink"><a href="/v1../../org/jooby/Deferred.html#Deferred-java.lang.String-org.jooby.Deferred.Initializer-">Deferred</a></span>(<a href="http://docs.oracle.com/javase/8/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;executor, <a href="/v1../../org/jooby/Deferred.Initializer.html" title="interface in org.jooby">Deferred.Initializer</a>&nbsp;initializer)</code> 
             <div class="block">
-             Creates a new 
-             <a href="/v1../../org/jooby/Deferred.html" title="class in org.jooby"><code>Deferred</code></a> with an initializer.
+             Creates a new <a href="/v1../../org/jooby/Deferred.html" title="class in org.jooby"><code>Deferred</code></a> with an initializer.
             </div> </td> 
           </tr> 
           <tr class="altColor"> 
            <td class="colOne"><code><span class="memberNameLink"><a href="/v1../../org/jooby/Deferred.html#Deferred-java.lang.String-org.jooby.Deferred.Initializer0-">Deferred</a></span>(<a href="http://docs.oracle.com/javase/8/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;executor, <a href="/v1../../org/jooby/Deferred.Initializer0.html" title="interface in org.jooby">Deferred.Initializer0</a>&nbsp;initializer)</code> 
             <div class="block">
-             Creates a new 
-             <a href="/v1../../org/jooby/Deferred.html" title="class in org.jooby"><code>Deferred</code></a> with an initializer.
+             Creates a new <a href="/v1../../org/jooby/Deferred.html" title="class in org.jooby"><code>Deferred</code></a> with an initializer.
             </div> </td> 
           </tr> 
          </tbody>
@@ -312,10 +295,7 @@ extends <a href="/v1../../org/jooby/Result.html" title="class in org.jooby">Resu
          <!--   --> </a> <h3>Method Summary</h3> 
         <table class="memberSummary" border="0" cellpadding="3" cellspacing="0" summary="Method Summary table, listing methods, and an explanation"> 
          <caption>
-          <span id="t0" class="activeTableTab"><span>All Methods</span><span class="tabEnd">&nbsp;</span></span>
-          <span id="t1" class="tableTab"><span><a href="/v1javascript:show(1);">Static Methods</a></span><span class="tabEnd">&nbsp;</span></span>
-          <span id="t2" class="tableTab"><span><a href="/v1javascript:show(2);">Instance Methods</a></span><span class="tabEnd">&nbsp;</span></span>
-          <span id="t4" class="tableTab"><span><a href="/v1javascript:show(8);">Concrete Methods</a></span><span class="tabEnd">&nbsp;</span></span>
+          <span id="t0" class="activeTableTab"><span>All Methods</span><span class="tabEnd">&nbsp;</span></span><span id="t1" class="tableTab"><span><a href="/v1javascript:show(1);">Static Methods</a></span><span class="tabEnd">&nbsp;</span></span><span id="t2" class="tableTab"><span><a href="/v1javascript:show(2);">Instance Methods</a></span><span class="tabEnd">&nbsp;</span></span><span id="t4" class="tableTab"><span><a href="/v1javascript:show(8);">Concrete Methods</a></span><span class="tabEnd">&nbsp;</span></span>
          </caption> 
          <tbody>
           <tr> 
@@ -333,32 +313,28 @@ extends <a href="/v1../../org/jooby/Result.html" title="class in org.jooby">Resu
            <td class="colFirst"><code>static <a href="/v1../../org/jooby/Deferred.html" title="class in org.jooby">Deferred</a></code></td> 
            <td class="colLast"><code><span class="memberNameLink"><a href="/v1../../org/jooby/Deferred.html#deferred-org.jooby.Route.OneArgHandler-">deferred</a></span>(<a href="/v1../../org/jooby/Route.OneArgHandler.html" title="interface in org.jooby">Route.OneArgHandler</a>&nbsp;handler)</code> 
             <div class="block">
-             Functional version of 
-             <a href="/v1../../org/jooby/Deferred.html#Deferred-org.jooby.Deferred.Initializer-"><code>Deferred(Initializer)</code></a>.
+             Functional version of <a href="/v1../../org/jooby/Deferred.html#Deferred-org.jooby.Deferred.Initializer-"><code>Deferred(Initializer)</code></a>.
             </div> </td> 
           </tr> 
           <tr id="i2" class="altColor"> 
            <td class="colFirst"><code>static <a href="/v1../../org/jooby/Deferred.html" title="class in org.jooby">Deferred</a></code></td> 
            <td class="colLast"><code><span class="memberNameLink"><a href="/v1../../org/jooby/Deferred.html#deferred-org.jooby.Route.ZeroArgHandler-">deferred</a></span>(<a href="/v1../../org/jooby/Route.ZeroArgHandler.html" title="interface in org.jooby">Route.ZeroArgHandler</a>&nbsp;handler)</code> 
             <div class="block">
-             Functional version of 
-             <a href="/v1../../org/jooby/Deferred.html#Deferred-org.jooby.Deferred.Initializer-"><code>Deferred(Initializer)</code></a>.
+             Functional version of <a href="/v1../../org/jooby/Deferred.html#Deferred-org.jooby.Deferred.Initializer-"><code>Deferred(Initializer)</code></a>.
             </div> </td> 
           </tr> 
           <tr id="i3" class="rowColor"> 
            <td class="colFirst"><code>static <a href="/v1../../org/jooby/Deferred.html" title="class in org.jooby">Deferred</a></code></td> 
            <td class="colLast"><code><span class="memberNameLink"><a href="/v1../../org/jooby/Deferred.html#deferred-java.lang.String-org.jooby.Route.OneArgHandler-">deferred</a></span>(<a href="http://docs.oracle.com/javase/8/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;executor, <a href="/v1../../org/jooby/Route.OneArgHandler.html" title="interface in org.jooby">Route.OneArgHandler</a>&nbsp;handler)</code> 
             <div class="block">
-             Functional version of 
-             <a href="/v1../../org/jooby/Deferred.html#Deferred-org.jooby.Deferred.Initializer-"><code>Deferred(Initializer)</code></a>.
+             Functional version of <a href="/v1../../org/jooby/Deferred.html#Deferred-org.jooby.Deferred.Initializer-"><code>Deferred(Initializer)</code></a>.
             </div> </td> 
           </tr> 
           <tr id="i4" class="altColor"> 
            <td class="colFirst"><code>static <a href="/v1../../org/jooby/Deferred.html" title="class in org.jooby">Deferred</a></code></td> 
            <td class="colLast"><code><span class="memberNameLink"><a href="/v1../../org/jooby/Deferred.html#deferred-java.lang.String-org.jooby.Route.ZeroArgHandler-">deferred</a></span>(<a href="http://docs.oracle.com/javase/8/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;executor, <a href="/v1../../org/jooby/Route.ZeroArgHandler.html" title="interface in org.jooby">Route.ZeroArgHandler</a>&nbsp;handler)</code> 
             <div class="block">
-             Functional version of 
-             <a href="/v1../../org/jooby/Deferred.html#Deferred-org.jooby.Deferred.Initializer-"><code>Deferred(Initializer)</code></a>.
+             Functional version of <a href="/v1../../org/jooby/Deferred.html#Deferred-org.jooby.Deferred.Initializer-"><code>Deferred(Initializer)</code></a>.
             </div> </td> 
           </tr> 
           <tr id="i5" class="rowColor"> 
@@ -393,8 +369,7 @@ extends <a href="/v1../../org/jooby/Result.html" title="class in org.jooby">Resu
            <td class="colFirst"><code><a href="/v1../../org/jooby/Result.html" title="class in org.jooby">Result</a></code></td> 
            <td class="colLast"><code><span class="memberNameLink"><a href="/v1../../org/jooby/Deferred.html#set-java.lang.Object-">set</a></span>(<a href="http://docs.oracle.com/javase/8/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>&nbsp;value)</code> 
             <div class="block">
-             <a href="/v1../../org/jooby/Deferred.html#resolve-java.lang.Object-"><code>resolve(Object)</code></a> or 
-             <a href="/v1../../org/jooby/Deferred.html#reject-java.lang.Throwable-"><code>reject(Throwable)</code></a> the given value.
+             <a href="/v1../../org/jooby/Deferred.html#resolve-java.lang.Object-"><code>resolve(Object)</code></a> or <a href="/v1../../org/jooby/Deferred.html#reject-java.lang.Throwable-"><code>reject(Throwable)</code></a> the given value.
             </div> </td> 
           </tr> 
          </tbody>
@@ -422,8 +397,7 @@ extends <a href="/v1../../org/jooby/Result.html" title="class in org.jooby">Resu
          <li class="blockList"> <h4>Deferred</h4> <pre>public&nbsp;Deferred(<a href="http://docs.oracle.com/javase/8/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;executor,
                 <a href="/v1../../org/jooby/Deferred.Initializer0.html" title="interface in org.jooby">Deferred.Initializer0</a>&nbsp;initializer)</pre> 
           <div class="block">
-           Creates a new 
-           <a href="/v1../../org/jooby/Deferred.html" title="class in org.jooby"><code>Deferred</code></a> with an initializer.
+           Creates a new <a href="/v1../../org/jooby/Deferred.html" title="class in org.jooby"><code>Deferred</code></a> with an initializer.
           </div> 
           <dl> 
            <dt>
@@ -441,8 +415,7 @@ extends <a href="/v1../../org/jooby/Result.html" title="class in org.jooby">Resu
         <ul class="blockList"> 
          <li class="blockList"> <h4>Deferred</h4> <pre>public&nbsp;Deferred(<a href="/v1../../org/jooby/Deferred.Initializer0.html" title="interface in org.jooby">Deferred.Initializer0</a>&nbsp;initializer)</pre> 
           <div class="block">
-           Creates a new 
-           <a href="/v1../../org/jooby/Deferred.html" title="class in org.jooby"><code>Deferred</code></a> with an initializer.
+           Creates a new <a href="/v1../../org/jooby/Deferred.html" title="class in org.jooby"><code>Deferred</code></a> with an initializer.
           </div> 
           <dl> 
            <dt>
@@ -457,8 +430,7 @@ extends <a href="/v1../../org/jooby/Result.html" title="class in org.jooby">Resu
         <ul class="blockList"> 
          <li class="blockList"> <h4>Deferred</h4> <pre>public&nbsp;Deferred(<a href="/v1../../org/jooby/Deferred.Initializer.html" title="interface in org.jooby">Deferred.Initializer</a>&nbsp;initializer)</pre> 
           <div class="block">
-           Creates a new 
-           <a href="/v1../../org/jooby/Deferred.html" title="class in org.jooby"><code>Deferred</code></a> with an initializer.
+           Creates a new <a href="/v1../../org/jooby/Deferred.html" title="class in org.jooby"><code>Deferred</code></a> with an initializer.
           </div> 
           <dl> 
            <dt>
@@ -475,8 +447,7 @@ extends <a href="/v1../../org/jooby/Result.html" title="class in org.jooby">Resu
                 <a href="http://docs.oracle.com/javase/8/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;executor,
                 <a href="/v1../../org/jooby/Deferred.Initializer.html" title="interface in org.jooby">Deferred.Initializer</a>&nbsp;initializer)</pre> 
           <div class="block">
-           Creates a new 
-           <a href="/v1../../org/jooby/Deferred.html" title="class in org.jooby"><code>Deferred</code></a> with an initializer.
+           Creates a new <a href="/v1../../org/jooby/Deferred.html" title="class in org.jooby"><code>Deferred</code></a> with an initializer.
           </div> 
           <dl> 
            <dt>
@@ -494,8 +465,7 @@ extends <a href="/v1../../org/jooby/Result.html" title="class in org.jooby">Resu
         <ul class="blockListLast"> 
          <li class="blockList"> <h4>Deferred</h4> <pre>public&nbsp;Deferred()</pre> 
           <div class="block">
-           Creates a new 
-           <a href="/v1../../org/jooby/Deferred.html" title="class in org.jooby"><code>Deferred</code></a>.
+           Creates a new <a href="/v1../../org/jooby/Deferred.html" title="class in org.jooby"><code>Deferred</code></a>.
           </div> </li> 
         </ul> </li> 
       </ul> 
@@ -508,16 +478,14 @@ extends <a href="/v1../../org/jooby/Result.html" title="class in org.jooby">Resu
          <li class="blockList"> <h4>set</h4> <pre><a href="http://docs.oracle.com/javase/8/docs/api/javax/annotation/Nonnull.html?is-external=true" title="class or interface in javax.annotation">@Nonnull</a>
 public&nbsp;<a href="/v1../../org/jooby/Result.html" title="class in org.jooby">Result</a>&nbsp;set(<a href="http://docs.oracle.com/javase/8/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>&nbsp;value)</pre> 
           <div class="block">
-           <a href="/v1../../org/jooby/Deferred.html#resolve-java.lang.Object-"><code>resolve(Object)</code></a> or 
-           <a href="/v1../../org/jooby/Deferred.html#reject-java.lang.Throwable-"><code>reject(Throwable)</code></a> the given value.
+           <a href="/v1../../org/jooby/Deferred.html#resolve-java.lang.Object-"><code>resolve(Object)</code></a> or <a href="/v1../../org/jooby/Deferred.html#reject-java.lang.Throwable-"><code>reject(Throwable)</code></a> the given value.
           </div> 
           <dl> 
            <dt>
             <span class="overrideSpecifyLabel">Overrides:</span>
            </dt> 
            <dd>
-            <code><a href="/v1../../org/jooby/Result.html#set-java.lang.Object-">set</a></code>&nbsp;in class&nbsp;
-            <code><a href="/v1../../org/jooby/Result.html" title="class in org.jooby">Result</a></code>
+            <code><a href="/v1../../org/jooby/Result.html#set-java.lang.Object-">set</a></code>&nbsp;in class&nbsp;<code><a href="/v1../../org/jooby/Result.html" title="class in org.jooby">Result</a></code>
            </dd> 
            <dt>
             <span class="paramLabel">Parameters:</span>
@@ -627,8 +595,7 @@ public&nbsp;<a href="http://docs.oracle.com/javase/8/docs/api/java/lang/String.h
          <li class="blockList"> <h4>deferred</h4> <pre><a href="http://docs.oracle.com/javase/8/docs/api/javax/annotation/Nonnull.html?is-external=true" title="class or interface in javax.annotation">@Nonnull</a>
 public static&nbsp;<a href="/v1../../org/jooby/Deferred.html" title="class in org.jooby">Deferred</a>&nbsp;deferred(<a href="/v1../../org/jooby/Route.OneArgHandler.html" title="interface in org.jooby">Route.OneArgHandler</a>&nbsp;handler)</pre> 
           <div class="block">
-           Functional version of 
-           <a href="/v1../../org/jooby/Deferred.html#Deferred-org.jooby.Deferred.Initializer-"><code>Deferred(Initializer)</code></a>. Using the default executor (current thread): 
+           Functional version of <a href="/v1../../org/jooby/Deferred.html#Deferred-org.jooby.Deferred.Initializer-"><code>Deferred(Initializer)</code></a>. Using the default executor (current thread): 
            <pre><code>
  {
    get("/fork", deferred(req -&gt; {
@@ -644,9 +611,7 @@ public static&nbsp;<a href="/v1../../org/jooby/Deferred.html" title="class in or
      return req.param("value").value();
    }));
  }
- </code></pre> This handler automatically 
-           <a href="/v1../../org/jooby/Deferred.html#resolve-java.lang.Object-"><code>resolve(Object)</code></a> or 
-           <a href="/v1../../org/jooby/Deferred.html#reject-java.lang.Throwable-"><code>reject(Throwable)</code></a> a route handler response.
+ </code></pre> This handler automatically <a href="/v1../../org/jooby/Deferred.html#resolve-java.lang.Object-"><code>resolve(Object)</code></a> or <a href="/v1../../org/jooby/Deferred.html#reject-java.lang.Throwable-"><code>reject(Throwable)</code></a> a route handler response.
           </div> 
           <dl> 
            <dt>
@@ -668,8 +633,7 @@ public static&nbsp;<a href="/v1../../org/jooby/Deferred.html" title="class in or
          <li class="blockList"> <h4>deferred</h4> <pre><a href="http://docs.oracle.com/javase/8/docs/api/javax/annotation/Nonnull.html?is-external=true" title="class or interface in javax.annotation">@Nonnull</a>
 public static&nbsp;<a href="/v1../../org/jooby/Deferred.html" title="class in org.jooby">Deferred</a>&nbsp;deferred(<a href="/v1../../org/jooby/Route.ZeroArgHandler.html" title="interface in org.jooby">Route.ZeroArgHandler</a>&nbsp;handler)</pre> 
           <div class="block">
-           Functional version of 
-           <a href="/v1../../org/jooby/Deferred.html#Deferred-org.jooby.Deferred.Initializer-"><code>Deferred(Initializer)</code></a>. Using the default executor (current thread): 
+           Functional version of <a href="/v1../../org/jooby/Deferred.html#Deferred-org.jooby.Deferred.Initializer-"><code>Deferred(Initializer)</code></a>. Using the default executor (current thread): 
            <pre><code>
  {
    get("/fork", deferred(() -&gt; {
@@ -685,9 +649,7 @@ public static&nbsp;<a href="/v1../../org/jooby/Deferred.html" title="class in or
      return req.param("value").value();
    }));
  }
- </code></pre> This handler automatically 
-           <a href="/v1../../org/jooby/Deferred.html#resolve-java.lang.Object-"><code>resolve(Object)</code></a> or 
-           <a href="/v1../../org/jooby/Deferred.html#reject-java.lang.Throwable-"><code>reject(Throwable)</code></a> a route handler response.
+ </code></pre> This handler automatically <a href="/v1../../org/jooby/Deferred.html#resolve-java.lang.Object-"><code>resolve(Object)</code></a> or <a href="/v1../../org/jooby/Deferred.html#reject-java.lang.Throwable-"><code>reject(Throwable)</code></a> a route handler response.
           </div> 
           <dl> 
            <dt>
@@ -710,9 +672,7 @@ public static&nbsp;<a href="/v1../../org/jooby/Deferred.html" title="class in or
 public static&nbsp;<a href="/v1../../org/jooby/Deferred.html" title="class in org.jooby">Deferred</a>&nbsp;deferred(<a href="http://docs.oracle.com/javase/8/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;executor,
                                          <a href="/v1../../org/jooby/Route.ZeroArgHandler.html" title="interface in org.jooby">Route.ZeroArgHandler</a>&nbsp;handler)</pre> 
           <div class="block">
-           Functional version of 
-           <a href="/v1../../org/jooby/Deferred.html#Deferred-org.jooby.Deferred.Initializer-"><code>Deferred(Initializer)</code></a>. To use ideally with one or more 
-           <a href="http://docs.oracle.com/javase/8/docs/api/java/util/concurrent/Executor.html?is-external=true" title="class or interface in java.util.concurrent"><code>Executor</code></a>: 
+           Functional version of <a href="/v1../../org/jooby/Deferred.html#Deferred-org.jooby.Deferred.Initializer-"><code>Deferred(Initializer)</code></a>. To use ideally with one or more <a href="http://docs.oracle.com/javase/8/docs/api/java/util/concurrent/Executor.html?is-external=true" title="class or interface in java.util.concurrent"><code>Executor</code></a>: 
            <pre><code>
  {
    executor("cached", Executors.newCachedExecutor());
@@ -721,9 +681,7 @@ public static&nbsp;<a href="/v1../../org/jooby/Deferred.html" title="class in or
      return "OK";
    }));
  }
- </code></pre> This handler automatically 
-           <a href="/v1../../org/jooby/Deferred.html#resolve-java.lang.Object-"><code>resolve(Object)</code></a> or 
-           <a href="/v1../../org/jooby/Deferred.html#reject-java.lang.Throwable-"><code>reject(Throwable)</code></a> a route handler response.
+ </code></pre> This handler automatically <a href="/v1../../org/jooby/Deferred.html#resolve-java.lang.Object-"><code>resolve(Object)</code></a> or <a href="/v1../../org/jooby/Deferred.html#reject-java.lang.Throwable-"><code>reject(Throwable)</code></a> a route handler response.
           </div> 
           <dl> 
            <dt>
@@ -749,9 +707,7 @@ public static&nbsp;<a href="/v1../../org/jooby/Deferred.html" title="class in or
 public static&nbsp;<a href="/v1../../org/jooby/Deferred.html" title="class in org.jooby">Deferred</a>&nbsp;deferred(<a href="http://docs.oracle.com/javase/8/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;executor,
                                          <a href="/v1../../org/jooby/Route.OneArgHandler.html" title="interface in org.jooby">Route.OneArgHandler</a>&nbsp;handler)</pre> 
           <div class="block">
-           Functional version of 
-           <a href="/v1../../org/jooby/Deferred.html#Deferred-org.jooby.Deferred.Initializer-"><code>Deferred(Initializer)</code></a>. To use ideally with one or more 
-           <a href="http://docs.oracle.com/javase/8/docs/api/java/util/concurrent/Executor.html?is-external=true" title="class or interface in java.util.concurrent"><code>Executor</code></a>: 
+           Functional version of <a href="/v1../../org/jooby/Deferred.html#Deferred-org.jooby.Deferred.Initializer-"><code>Deferred(Initializer)</code></a>. To use ideally with one or more <a href="http://docs.oracle.com/javase/8/docs/api/java/util/concurrent/Executor.html?is-external=true" title="class or interface in java.util.concurrent"><code>Executor</code></a>: 
            <pre><code>
  {
    executor("cached", Executors.newCachedExecutor());
@@ -760,9 +716,7 @@ public static&nbsp;<a href="/v1../../org/jooby/Deferred.html" title="class in or
      return req.param("value").value();
    }));
  }
- </code></pre> This handler automatically 
-           <a href="/v1../../org/jooby/Deferred.html#resolve-java.lang.Object-"><code>resolve(Object)</code></a> or 
-           <a href="/v1../../org/jooby/Deferred.html#reject-java.lang.Throwable-"><code>reject(Throwable)</code></a> a route handler response.
+ </code></pre> This handler automatically <a href="/v1../../org/jooby/Deferred.html#resolve-java.lang.Object-"><code>resolve(Object)</code></a> or <a href="/v1../../org/jooby/Deferred.html#reject-java.lang.Throwable-"><code>reject(Throwable)</code></a> a route handler response.
           </div> 
           <dl> 
            <dt>
@@ -793,8 +747,7 @@ public static&nbsp;<a href="/v1../../org/jooby/Deferred.html" title="class in or
     <!--   --> </a> 
    <div class="skipNav">
     <a href="#skip.navbar.bottom" title="Skip navigation links">Skip navigation links</a>
-   </div> 
-   <a name="navbar.bottom.firstrow" href="/v1"> 
+   </div> <a name="navbar.bottom.firstrow" href="/v1"> 
     <!--   --> </a> 
    <ul class="navList" title="Navigation"> 
     <li><a href="/v1../../overview-summary.html">Overview</a></li> 
@@ -845,8 +798,7 @@ public static&nbsp;<a href="/v1../../org/jooby/Deferred.html" title="class in or
      <li><a href="#constructor.detail">Constr</a>&nbsp;|&nbsp;</li> 
      <li><a href="#method.detail">Method</a></li> 
     </ul> 
-   </div> 
-   <a name="skip.navbar.bottom" href="/v1"> 
+   </div> <a name="skip.navbar.bottom" href="/v1"> 
     <!--   --> </a>
   </div> 
   <!-- ======== END OF BOTTOM NAVBAR ======= --> 

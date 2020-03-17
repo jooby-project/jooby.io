@@ -68,9 +68,7 @@
  </head> 
  <body class="page-section page-sidebar"> 
   <header class="site-header"> 
-   <div class="row"> 
-    <a href="/v1/" title="Home" class="site-logo"><img src="/v1/resources/images/logo_jooby-2x.png" alt="Logo Jooby" width="76" height="31"></a> 
-    <a class="show-mobile open-menu" href="/v1"><span></span></a> 
+   <div class="row"> <a href="/v1/" title="Home" class="site-logo"><img src="/v1/resources/images/logo_jooby-2x.png" alt="Logo Jooby" width="76" height="31"></a> <a class="show-mobile open-menu" href="/v1"><span></span></a> 
     <nav class="site-nav"> 
      <ul> 
       <li class=""><a href="/v1/quickstart" title="Quick start">QUICK START</a></li> 
@@ -85,8 +83,7 @@
   </header> 
   <main role="main" class="site-content"> 
    <div class="section-title"> 
-    <div class="row"> 
-     <a href="/v1/modules" class="jsback" title="Go back"><span class="icon-arrowback-big-circle"></span></a> 
+    <div class="row"> <a href="/v1/modules" class="jsback" title="Go back"><span class="icon-arrowback-big-circle"></span></a> 
      <h1>hibernate</h1> 
     </div> 
    </div> 
@@ -126,8 +123,7 @@
        </ul> 
        <h3 id="hibernate-dependency">dependency</h3> 
        <div class="highlighter-rouge codehilite"> 
-        <div class="copy-bar"> 
-         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        <div class="copy-bar"> <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
         </div> 
         <pre class="highlight"><code><span class="nt">&lt;dependency&gt;</span>
   <span class="nt">&lt;groupId&gt;</span>org.jooby<span class="nt">&lt;/groupId&gt;</span>
@@ -138,8 +134,7 @@
        </div> 
        <h3 id="hibernate-usage">usage</h3> 
        <div class="highlighter-rouge codehilite"> 
-        <div class="copy-bar"> 
-         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        <div class="copy-bar"> <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
         </div> 
         <pre class="highlight"><code><span class="o">{</span>
   <span class="n">use</span><span class="o">(</span><span class="k">new</span> <span class="n">Hbm</span><span class="o">(</span><span class="n">EntityA</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">EntityB</span><span class="o">.</span><span class="na">class</span><span class="o">));</span>
@@ -153,8 +148,7 @@
        </div> 
        <p>At bootstrap time you will see something similar to this:</p> 
        <div class="highlighter-rouge codehilite"> 
-        <div class="copy-bar"> 
-         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        <div class="copy-bar"> <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
         </div> 
         <pre class="highlight"><code>  <span class="k">*</span>    /<span class="k">**</span>      <span class="o">[</span><span class="k">*</span>/<span class="k">*</span><span class="o">]</span>    <span class="o">[</span><span class="k">*</span>/<span class="k">*</span><span class="o">]</span>  <span class="o">(</span>hbm<span class="o">)</span>
 </code></pre> 
@@ -165,8 +159,7 @@
        <p>For the time being, this doesn’t work for an <code class="highlighter-rouge codehilite">EntityManager</code>. An <code class="highlighter-rouge codehilite">EntityManager</code> is bound to the current request, which means you can’t freely access from every single thread (like manually started thread, started by an executor service, quartz, etc…).</p> 
        <p>Another restriction, is the access from <code class="highlighter-rouge codehilite">Singleton</code> services. If you need access from a singleton services, you need to inject a <code class="highlighter-rouge codehilite">Provider</code>.</p> 
        <div class="highlighter-rouge codehilite"> 
-        <div class="copy-bar"> 
-         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        <div class="copy-bar"> <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
         </div> 
         <pre class="highlight"><code><span class="nd">@Singleton</span>
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">MySingleton</span> <span class="o">{</span>
@@ -185,8 +178,7 @@
        <p>Classpath scanning is OFF by default, so you need to explicitly tell <a href="http://hibernate.org/" target="_blank">Hibernate</a> which classes are persistent. This intentional and helps to reduce bootstrap time and have explicit control over persistent classes.</p> 
        <p>If you don’t care about bootstrap time and/or just like the auto-discover feature, just do:</p> 
        <div class="highlighter-rouge codehilite"> 
-        <div class="copy-bar"> 
-         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        <div class="copy-bar"> <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
         </div> 
         <pre class="highlight"><code><span class="o">{</span>
   <span class="n">use</span><span class="o">(</span><span class="k">new</span> <span class="n">Hbm</span><span class="o">().</span><span class="na">scan</span><span class="o">());</span>
@@ -197,8 +189,7 @@
        <h3 id="hibernate-options">options</h3> 
        <p><a href="http://hibernate.org/" target="_blank">Hibernate</a> options can be set from your <code class="highlighter-rouge codehilite">application.conf</code> file, just make sure to prefix them with <code class="highlighter-rouge codehilite">hibernate.*</code></p> 
        <div class="highlighter-rouge codehilite"> 
-        <div class="copy-bar"> 
-         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        <div class="copy-bar"> <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
         </div> 
         <pre class="highlight"><code><span class="py">hibernate.hbm2ddl.auto</span> <span class="p">=</span> <span class="s">update</span>
 </code></pre> 
@@ -212,13 +203,10 @@
    <div class="row"> 
     <p class="pull-left">©2014-2017 <a href="https://twitter.com/joobyproject" target="_blank">The Jooby Project</a>, all rights reserved.</p> 
     <div class="altquimia">
-      DG 
-     <a href="http://www.altquimia.com/" title="Altquimia | Creative Studio" rel="nofollow" target="_blank">Altquimia</a> | Creative Studio 
+      DG <a href="http://www.altquimia.com/" title="Altquimia | Creative Studio" rel="nofollow" target="_blank">Altquimia</a> | Creative Studio 
     </div> 
     <div class="follow-us pull-right"> 
-     <p>Follow us</p> 
-     <a href="https://github.com/jooby-project/jooby" title="Follow us on Github" target="_blank" rel="nofollow"><span class="icon-github-medium-circle"></span></a> 
-     <a href="https://twitter.com/joobyproject" title="Follow us on Twitter" target="_blank" rel="nofollow"><span class="icon-twitter-medium-circle"></span></a> 
+     <p>Follow us</p> <a href="https://github.com/jooby-project/jooby" title="Follow us on Github" target="_blank" rel="nofollow"><span class="icon-github-medium-circle"></span></a> <a href="https://twitter.com/joobyproject" title="Follow us on Twitter" target="_blank" rel="nofollow"><span class="icon-twitter-medium-circle"></span></a> 
     </div> 
    </div> 
   </footer> 

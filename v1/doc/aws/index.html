@@ -68,9 +68,7 @@
  </head> 
  <body class="page-section page-sidebar"> 
   <header class="site-header"> 
-   <div class="row"> 
-    <a href="/v1/" title="Home" class="site-logo"><img src="resources/images/logo_jooby-2x.png" alt="Logo Jooby" width="76" height="31"></a> 
-    <a class="show-mobile open-menu" href="/v1"><span></span></a> 
+   <div class="row"> <a href="/v1/" title="Home" class="site-logo"><img src="resources/images/logo_jooby-2x.png" alt="Logo Jooby" width="76" height="31"></a> <a class="show-mobile open-menu" href="/v1"><span></span></a> 
     <nav class="site-nav"> 
      <ul> 
       <li class=""><a href="/v1/quickstart" title="Quick start">QUICK START</a></li> 
@@ -85,8 +83,7 @@
   </header> 
   <main role="main" class="site-content"> 
    <div class="section-title"> 
-    <div class="row"> 
-     <a href="/v1/modules" class="jsback" title="Go back"><span class="icon-arrowback-big-circle"></span></a> 
+    <div class="row"> <a href="/v1/modules" class="jsback" title="Go back"><span class="icon-arrowback-big-circle"></span></a> 
      <h1>aws</h1> 
     </div> 
    </div> 
@@ -118,8 +115,7 @@
        </ul> 
        <h3 id="aws-dependency">dependency</h3> 
        <div class="highlighter-rouge codehilite"> 
-        <div class="copy-bar"> 
-         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        <div class="copy-bar"> <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
         </div> 
         <pre class="highlight"><code><span class="nt">&lt;dependency&gt;</span>
   <span class="nt">&lt;groupId&gt;</span>org.jooby<span class="nt">&lt;/groupId&gt;</span>
@@ -131,16 +127,14 @@
        <h3 id="aws-usage">usage</h3> 
        <p>application.conf:</p> 
        <div class="highlighter-rouge codehilite"> 
-        <div class="copy-bar"> 
-         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        <div class="copy-bar"> <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
         </div> 
         <pre class="highlight"><code><span class="py">aws.accessKey</span> <span class="p">=</span> <span class="s">AKIAIOSFODNN7EXAMPLE</span>
 <span class="py">aws.secretKey</span> <span class="p">=</span>  <span class="s">wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY</span>
 </code></pre> 
        </div> 
        <div class="highlighter-rouge codehilite"> 
-        <div class="copy-bar"> 
-         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        <div class="copy-bar"> <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
         </div> 
         <pre class="highlight"><code><span class="o">{</span>
   <span class="n">use</span><span class="o">(</span><span class="k">new</span> <span class="n">Aws</span><span class="o">()</span>
@@ -158,8 +152,7 @@
        <p>Keep in mind, you will need the <code class="highlighter-rouge codehilite">s3 (ses, sqs,sns, etc..)</code> jar in your classpath.</p> 
        <p>This module is small and simple. All it does is bind <code class="highlighter-rouge codehilite">AmazonWebServiceClient</code> instances in <a href="https://github.com/google/guice" target="_blank">Guice</a>. It also helps to bind utility classes like <code class="highlighter-rouge codehilite">TransferManager</code></p> 
        <div class="highlighter-rouge codehilite"> 
-        <div class="copy-bar"> 
-         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        <div class="copy-bar"> <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
         </div> 
         <pre class="highlight"><code><span class="o">{</span>
   <span class="n">use</span><span class="o">(</span><span class="k">new</span> <span class="n">Aws</span><span class="o">()</span>
@@ -176,8 +169,7 @@
        <h3 id="aws-handling-access-and-secret-keys">handling access and secret keys</h3> 
        <p>Keys are defined in <code class="highlighter-rouge codehilite">.conf</code> file. It is possible to use global or per service keys.</p> 
        <div class="highlighter-rouge codehilite"> 
-        <div class="copy-bar"> 
-         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        <div class="copy-bar"> <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
         </div> 
         <pre class="highlight"><code> <span class="py">aws.accessKey</span> <span class="p">=</span> <span class="s">AKIAIOSFODNN7EXAMPLE</span>
  <span class="py">aws.secretKey</span> <span class="p">=</span>  <span class="s">wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY</span>
@@ -187,8 +179,7 @@
 </code></pre> 
        </div> 
        <div class="highlighter-rouge codehilite"> 
-        <div class="copy-bar"> 
-         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        <div class="copy-bar"> <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
         </div> 
         <pre class="highlight"><code><span class="p">{</span><span class="w"> </span><span class="err">use(new</span><span class="w"> </span><span class="err">Aws()</span><span class="w"> </span><span class="err">//</span><span class="w"> </span><span class="err">use</span><span class="w"> </span><span class="err">aws.s3</span><span class="w"> </span><span class="err">keys</span><span class="w"> </span><span class="err">.with(creds</span><span class="w"> </span><span class="err">-&gt;</span><span class="w"> </span><span class="err">AmazonS3Client.builder().withCredentials(creds).build())</span><span class="w"> </span><span class="err">//</span><span class="w"> </span><span class="err">use</span><span class="w"> </span><span class="err">global</span><span class="w"> </span><span class="err">keys</span><span class="w"> </span><span class="err">.with(creds</span><span class="w"> </span><span class="err">-&gt;</span><span class="w"> </span><span class="err">AmazonSimpleEmailServiceClient.builder.withCredentials(creds).build())</span><span class="w"> </span><span class="err">);</span><span class="w"> </span></code></pre> 
        </div> 
@@ -209,9 +200,7 @@
    <div class="row"> 
     <p class="pull-left">©2014-2019 <a href="https://twitter.com/joobyproject" target="_blank">The Jooby Project</a>, all rights reserved.</p> 
     <div class="follow-us pull-right"> 
-     <p>Follow us</p> 
-     <a href="https://github.com/jooby-project/jooby" title="Follow us on Github" target="_blank" rel="nofollow"><span class="icon-github-medium-circle"></span></a> 
-     <a href="https://twitter.com/joobyproject" title="Follow us on Twitter" target="_blank" rel="nofollow"><span class="icon-twitter-medium-circle"></span></a> 
+     <p>Follow us</p> <a href="https://github.com/jooby-project/jooby" title="Follow us on Github" target="_blank" rel="nofollow"><span class="icon-github-medium-circle"></span></a> <a href="https://twitter.com/joobyproject" title="Follow us on Twitter" target="_blank" rel="nofollow"><span class="icon-twitter-medium-circle"></span></a> 
     </div> 
    </div> 
   </footer> 

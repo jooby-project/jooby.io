@@ -68,9 +68,7 @@
  </head> 
  <body class="page-section page-sidebar"> 
   <header class="site-header"> 
-   <div class="row"> 
-    <a href="/v1/" title="Home" class="site-logo"><img src="resources/images/logo_jooby-2x.png" alt="Logo Jooby" width="76" height="31"></a> 
-    <a class="show-mobile open-menu" href="/v1"><span></span></a> 
+   <div class="row"> <a href="/v1/" title="Home" class="site-logo"><img src="resources/images/logo_jooby-2x.png" alt="Logo Jooby" width="76" height="31"></a> <a class="show-mobile open-menu" href="/v1"><span></span></a> 
     <nav class="site-nav"> 
      <ul> 
       <li class=""><a href="/v1/quickstart" title="Quick start">QUICK START</a></li> 
@@ -85,8 +83,7 @@
   </header> 
   <main role="main" class="site-content"> 
    <div class="section-title"> 
-    <div class="row"> 
-     <a href="/v1/modules" class="jsback" title="Go back"><span class="icon-arrowback-big-circle"></span></a> 
+    <div class="row"> <a href="/v1/modules" class="jsback" title="Go back"><span class="icon-arrowback-big-circle"></span></a> 
      <h1>hibernate</h1> 
     </div> 
    </div> 
@@ -130,8 +127,7 @@
        </ul> 
        <h3 id="hibernate-dependency">dependency</h3> 
        <div class="highlighter-rouge codehilite"> 
-        <div class="copy-bar"> 
-         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        <div class="copy-bar"> <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
         </div> 
         <pre class="highlight"><code><span class="nt">&lt;dependency&gt;</span>
  <span class="nt">&lt;groupId&gt;</span>org.jooby<span class="nt">&lt;/groupId&gt;</span>
@@ -142,8 +138,7 @@
        </div> 
        <h3 id="hibernate-usage">usage</h3> 
        <div class="highlighter-rouge codehilite"> 
-        <div class="copy-bar"> 
-         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        <div class="copy-bar"> <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
         </div> 
         <pre class="highlight"><code><span class="o">{</span>
   <span class="n">use</span><span class="o">(</span><span class="k">new</span> <span class="n">Jdbc</span><span class="o">());</span>
@@ -162,8 +157,7 @@
        <p>We provide an <a href="/v1/apidocs/org/jooby/hbm/UnitOfWork.html" target="_blank">UnitOfWork</a> to simplify the amount of code required to interact within the database.</p> 
        <p>For example the next line:</p> 
        <div class="highlighter-rouge codehilite"> 
-        <div class="copy-bar"> 
-         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        <div class="copy-bar"> <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
         </div> 
         <pre class="highlight"><code><span class="o">{</span>
   <span class="n">require</span><span class="o">(</span><span class="n">UnitOfWork</span><span class="o">.</span><span class="na">class</span><span class="o">).</span><span class="na">apply</span><span class="o">(</span><span class="n">em</span> <span class="o">-&gt;</span> <span class="o">{</span>
@@ -174,8 +168,7 @@
        </div> 
        <p>Is the same as:</p> 
        <div class="highlighter-rouge codehilite"> 
-        <div class="copy-bar"> 
-         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        <div class="copy-bar"> <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
         </div> 
         <pre class="highlight"><code><span class="o">{</span>
    <span class="n">Session</span> <span class="n">session</span> <span class="o">=</span> <span class="n">require</span><span class="o">(</span><span class="n">SessionFactory</span><span class="o">.</span><span class="na">class</span><span class="o">).</span><span class="na">openSession</span><span class="o">();</span>
@@ -201,8 +194,7 @@
        </ul> 
        <p>Here is an example on how to setup the open session in view filter:</p> 
        <div class="highlighter-rouge codehilite"> 
-        <div class="copy-bar"> 
-         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        <div class="copy-bar"> <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
         </div> 
         <pre class="highlight"><code><span class="o">{</span>
    <span class="n">use</span><span class="o">(</span><span class="k">new</span> <span class="n">Jdbc</span><span class="o">());</span>
@@ -214,8 +206,7 @@
        <h3 id="hibernate-event-listeners">event listeners</h3> 
        <p>JPA event listeners are provided by Guice, which means you can inject dependencies into your event listeners:</p> 
        <div class="highlighter-rouge codehilite"> 
-        <div class="copy-bar"> 
-         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        <div class="copy-bar"> <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
         </div> 
         <pre class="highlight"><code><span class="nd">@Entity</span>
 <span class="nd">@EntityListeners</span><span class="o">({</span><span class="n">BeerListener</span><span class="o">.</span><span class="na">class</span><span class="o">})</span>
@@ -238,8 +229,7 @@
        </div> 
        <p>Hibernate event listeners are supported too via <a href="/v1/apidocs/org/jooby/hbm/Hbm.html#onEvent-org.hibernate.event.spi.EventType-java.lang.Class-" target="_blank">onEvent(EventType, Class)</a>:</p> 
        <div class="highlighter-rouge codehilite"> 
-        <div class="copy-bar"> 
-         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        <div class="copy-bar"> <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
         </div> 
         <pre class="highlight"><code><span class="o">{</span>
    <span class="n">use</span><span class="o">(</span><span class="k">new</span> <span class="n">Hbm</span><span class="o">()</span>
@@ -251,8 +241,7 @@
        <h3 id="hibernate-persistent-classes">persistent classes</h3> 
        <p>Persistent classes must be provided at application startup time via <a href="/v1/apidocs/org/jooby/hbm/Hbm.html#classes-java.lang.Class...-" target="_blank">classes(Class…)</a>:</p> 
        <div class="highlighter-rouge codehilite"> 
-        <div class="copy-bar"> 
-         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        <div class="copy-bar"> <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
         </div> 
         <pre class="highlight"><code><span class="o">{</span>
   <span class="n">use</span><span class="o">(</span><span class="k">new</span> <span class="n">Jdbc</span><span class="o">());</span>
@@ -265,8 +254,7 @@
        </div> 
        <p>Or via <code class="highlighter-rouge codehilite">scan</code>:</p> 
        <div class="highlighter-rouge codehilite"> 
-        <div class="copy-bar"> 
-         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        <div class="copy-bar"> <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
         </div> 
         <pre class="highlight"><code><span class="o">{</span>
   <span class="n">use</span><span class="o">(</span><span class="k">new</span> <span class="n">Jdbc</span><span class="o">());</span>
@@ -279,8 +267,7 @@
        </div> 
        <p>Which <code class="highlighter-rouge codehilite">scan</code> the application package defined by <code class="highlighter-rouge codehilite">hibernate.packagesToScan</code> property, or you can provide where to look:</p> 
        <div class="highlighter-rouge codehilite"> 
-        <div class="copy-bar"> 
-         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        <div class="copy-bar"> <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
         </div> 
         <pre class="highlight"><code><span class="o">{</span>
   <span class="n">use</span><span class="o">(</span><span class="k">new</span> <span class="n">Jdbc</span><span class="o">());</span>
@@ -294,8 +281,7 @@
        <h3 id="hibernate-advanced-configuration">advanced configuration</h3> 
        <p>Advanced configuration is provided via <code class="highlighter-rouge codehilite">doWithXXX</code> callbacks:</p> 
        <div class="highlighter-rouge codehilite"> 
-        <div class="copy-bar"> 
-         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        <div class="copy-bar"> <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
         </div> 
         <pre class="highlight"><code><span class="o">{</span>
   <span class="n">use</span><span class="o">(</span><span class="k">new</span> <span class="n">Hbm</span><span class="o">()</span>
@@ -312,8 +298,7 @@
        </div> 
        <p>Or via <code class="highlighter-rouge codehilite">hibernate.*</code> property from your <code class="highlighter-rouge codehilite">.conf</code> file:</p> 
        <div class="highlighter-rouge codehilite"> 
-        <div class="copy-bar"> 
-         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        <div class="copy-bar"> <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
         </div> 
         <pre class="highlight"><code>hibernate.hbm2ddl.auto = update
 </code></pre> 
@@ -323,8 +308,7 @@
        <p>For the time being, this doesn’t work for a <code class="highlighter-rouge codehilite">Session</code> or <code class="highlighter-rouge codehilite">EntityManager</code>. A <code class="highlighter-rouge codehilite">Session</code> and/or <code class="highlighter-rouge codehilite">EntityManager</code> is bound to the current request, which means you can’t freely access from every single thread (like manually started thread, started by an executor service, quartz, etc…).</p> 
        <p>Another restriction, is the access from <code class="highlighter-rouge codehilite">Singleton</code> services. If you need access from a singleton services, you need to inject a <code class="highlighter-rouge codehilite">Provider</code>.</p> 
        <div class="highlighter-rouge codehilite"> 
-        <div class="copy-bar"> 
-         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        <div class="copy-bar"> <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
         </div> 
         <pre class="highlight"><code><span class="nd">@Singleton</span>
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">MySingleton</span> <span class="o">{</span>
@@ -341,8 +325,7 @@
        <h3 id="hibernate-hbm-conf">hbm.conf</h3> 
        <p>These are the default properties for hbm:</p> 
        <div class="highlighter-rouge codehilite"> 
-        <div class="copy-bar"> 
-         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        <div class="copy-bar"> <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
         </div> 
         <pre class="highlight"><code><span class="py">hibernate.session_factory_name_is_jndi</span> <span class="p">=</span> <span class="s">false</span>
 
@@ -362,9 +345,7 @@
    <div class="row"> 
     <p class="pull-left">©2014-2019 <a href="https://twitter.com/joobyproject" target="_blank">The Jooby Project</a>, all rights reserved.</p> 
     <div class="follow-us pull-right"> 
-     <p>Follow us</p> 
-     <a href="https://github.com/jooby-project/jooby" title="Follow us on Github" target="_blank" rel="nofollow"><span class="icon-github-medium-circle"></span></a> 
-     <a href="https://twitter.com/joobyproject" title="Follow us on Twitter" target="_blank" rel="nofollow"><span class="icon-twitter-medium-circle"></span></a> 
+     <p>Follow us</p> <a href="https://github.com/jooby-project/jooby" title="Follow us on Github" target="_blank" rel="nofollow"><span class="icon-github-medium-circle"></span></a> <a href="https://twitter.com/joobyproject" title="Follow us on Twitter" target="_blank" rel="nofollow"><span class="icon-twitter-medium-circle"></span></a> 
     </div> 
    </div> 
   </footer> 

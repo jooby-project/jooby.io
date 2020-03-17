@@ -68,9 +68,7 @@
  </head> 
  <body class="page-section page-sidebar"> 
   <header class="site-header"> 
-   <div class="row"> 
-    <a href="/v1/" title="Home" class="site-logo"><img src="resources/images/logo_jooby-2x.png" alt="Logo Jooby" width="76" height="31"></a> 
-    <a class="show-mobile open-menu" href="/v1"><span></span></a> 
+   <div class="row"> <a href="/v1/" title="Home" class="site-logo"><img src="resources/images/logo_jooby-2x.png" alt="Logo Jooby" width="76" height="31"></a> <a class="show-mobile open-menu" href="/v1"><span></span></a> 
     <nav class="site-nav"> 
      <ul> 
       <li class=""><a href="/v1/quickstart" title="Quick start">QUICK START</a></li> 
@@ -85,8 +83,7 @@
   </header> 
   <main role="main" class="site-content"> 
    <div class="section-title"> 
-    <div class="row"> 
-     <a href="/v1/modules" class="jsback" title="Go back"><span class="icon-arrowback-big-circle"></span></a> 
+    <div class="row"> <a href="/v1/modules" class="jsback" title="Go back"><span class="icon-arrowback-big-circle"></span></a> 
      <h1>pac4j</h1> 
     </div> 
    </div> 
@@ -128,8 +125,7 @@
        </ul> 
        <h3 id="pac4j-dependency">dependency</h3> 
        <div class="highlighter-rouge codehilite"> 
-        <div class="copy-bar"> 
-         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        <div class="copy-bar"> <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
         </div> 
         <pre class="highlight"><code><span class="nt">&lt;dependency&gt;</span>
   <span class="nt">&lt;groupId&gt;</span>org.jooby<span class="nt">&lt;/groupId&gt;</span>
@@ -140,8 +136,7 @@
        </div> 
        <h3 id="pac4j-usage">usage</h3> 
        <div class="highlighter-rouge codehilite"> 
-        <div class="copy-bar"> 
-         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        <div class="copy-bar"> <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
         </div> 
         <pre class="highlight"><code><span class="o">{</span>
 
@@ -159,8 +154,7 @@
        <h4 id="pac4j-basic-auth">basic auth</h4> 
        <p>If basic auth is all you need, then:</p> 
        <div class="highlighter-rouge codehilite"> 
-        <div class="copy-bar"> 
-         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        <div class="copy-bar"> <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
         </div> 
         <pre class="highlight"><code><span class="o">{</span>
   <span class="n">use</span><span class="o">(</span><span class="k">new</span> <span class="n">Auth</span><span class="o">().</span><span class="na">basic</span><span class="o">());</span>
@@ -169,8 +163,7 @@
        </div> 
        <p>A <code class="highlighter-rouge codehilite">IndirectBasicAuthClient</code> depends on <code class="highlighter-rouge codehilite">UsernamePasswordAuthenticator</code>, default is <code class="highlighter-rouge codehilite">SimpleTestUsernamePasswordAuthenticator</code> which is great for development, but nothing good for other environments. Next example setup a basic auth with a custom: <code class="highlighter-rouge codehilite">UsernamePasswordAuthenticator</code>:</p> 
        <div class="highlighter-rouge codehilite"> 
-        <div class="copy-bar"> 
-         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        <div class="copy-bar"> <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
         </div> 
         <pre class="highlight"><code><span class="o">{</span>
   <span class="n">use</span><span class="o">(</span><span class="k">new</span> <span class="n">Auth</span><span class="o">().</span><span class="na">basic</span><span class="o">(</span><span class="s">"*"</span><span class="o">,</span> <span class="n">MyUsernamePasswordAuthenticator</span><span class="o">.</span><span class="na">class</span><span class="o">));</span>
@@ -180,8 +173,7 @@
        <h4 id="pac4j-form-auth">form auth</h4> 
        <p>Form authentication will be activated by calling <code class="highlighter-rouge codehilite">form</code>:</p> 
        <div class="highlighter-rouge codehilite"> 
-        <div class="copy-bar"> 
-         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        <div class="copy-bar"> <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
         </div> 
         <pre class="highlight"><code><span class="o">{</span>
   <span class="n">use</span><span class="o">(</span><span class="k">new</span> <span class="n">Auth</span><span class="o">().</span><span class="na">form</span><span class="o">());</span>
@@ -190,8 +182,7 @@
        </div> 
        <p>Form is the default authentication method so previous example is the same as:</p> 
        <div class="highlighter-rouge codehilite"> 
-        <div class="copy-bar"> 
-         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        <div class="copy-bar"> <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
         </div> 
         <pre class="highlight"><code><span class="o">{</span>
   <span class="n">use</span><span class="o">(</span><span class="k">new</span> <span class="n">Auth</span><span class="o">());</span>
@@ -201,8 +192,7 @@
        <p>Like basic auth, form auth depends on a <code class="highlighter-rouge codehilite">UsernamePasswordAuthenticator</code>.</p> 
        <p>A login form will be ready under the path: <code class="highlighter-rouge codehilite">/login</code>. Again, it is a very basic login form useful for development. If you need a custom login page, just add a route before the <a href="/v1/apidocs/org/jooby/pac4j/Auth.html" target="_blank">Auth</a> module, like: &lt;/p&gt;</p> 
        <div class="highlighter-rouge codehilite"> 
-        <div class="copy-bar"> 
-         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        <div class="copy-bar"> <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
         </div> 
         <pre class="highlight"><code><span class="o">{</span>
   <span class="n">get</span><span class="o">(</span><span class="s">"/login"</span><span class="o">,</span> <span class="o">()</span> <span class="o">-&gt;</span> <span class="n">Results</span><span class="o">.</span><span class="na">html</span><span class="o">(</span><span class="s">"login"</span><span class="o">));</span>
@@ -215,8 +205,7 @@
        <h4 id="pac4j-oauth-openid-etc-">oauth, openid, etc…</h4> 
        <p>Twitter, example:</p> 
        <div class="highlighter-rouge codehilite"> 
-        <div class="copy-bar"> 
-         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        <div class="copy-bar"> <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
         </div> 
         <pre class="highlight"><code><span class="o">{</span>
   <span class="n">use</span><span class="o">(</span><span class="k">new</span> <span class="n">Auth</span><span class="o">()</span>
@@ -230,8 +219,7 @@
        <p>By default a <code class="highlighter-rouge codehilite">Client</code> will protect all the urls defined below the module, because routes in are executed in the order they where defined.</p> 
        <p>You can customize what urls are protected by specifying a path pattern:</p> 
        <div class="highlighter-rouge codehilite"> 
-        <div class="copy-bar"> 
-         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        <div class="copy-bar"> <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
         </div> 
         <pre class="highlight"><code><span class="o">{</span>
   <span class="n">use</span><span class="o">(</span><span class="k">new</span> <span class="n">Auth</span><span class="o">().</span><span class="na">form</span><span class="o">(</span><span class="s">"/private/**"</span><span class="o">));</span>
@@ -247,8 +235,7 @@
        <p><a href="https://jooby.org">Jooby</a> relies on <a href="/v1/apidocs/org/jooby/pac4j/AuthStore.html" target="_blank">AuthStore</a> for saving and retrieving a <code class="highlighter-rouge codehilite">CommonProfile</code>. By default, the <code class="highlighter-rouge codehilite">CommonProfile</code> is stored in the <a href="/v1{{defcods}}/pac4j/Session.html">Session</a> via <a href="/v1{{defcods}}/pac4j/AuthSessionStore.html">auth session store</a></p> 
        <p>After a successful authentication the <code class="highlighter-rouge codehilite">CommonProfile</code> is accessible as a request scoped attribute:</p> 
        <div class="highlighter-rouge codehilite"> 
-        <div class="copy-bar"> 
-         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        <div class="copy-bar"> <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
         </div> 
         <pre class="highlight"><code><span class="o">{</span>
   <span class="n">use</span><span class="o">(</span><span class="k">new</span> <span class="n">Auth</span><span class="o">().</span><span class="na">form</span><span class="o">());</span>
@@ -259,8 +246,7 @@
        </div> 
        <p>facebook (or any oauth, openid, etc…)</p> 
        <div class="highlighter-rouge codehilite"> 
-        <div class="copy-bar"> 
-         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        <div class="copy-bar"> <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
         </div> 
         <pre class="highlight"><code><span class="o">{</span>
   <span class="n">use</span><span class="o">(</span><span class="k">new</span> <span class="n">Auth</span><span class="o">().</span><span class="na">client</span><span class="o">(</span><span class="k">new</span> <span class="n">FacebookClient</span><span class="o">(</span><span class="n">key</span><span class="o">,</span> <span class="n">secret</span><span class="o">));</span>
@@ -271,8 +257,7 @@
        </div> 
        <p>Custom <a href="/v1/apidocs/org/jooby/pac4j/AuthStore.html" target="_blank">AuthStore</a> is provided via <a href="/v1/apidocs/org/jooby/pac4j/Auth.html" target="_blank">Auth#store</a> method:</p> 
        <div class="highlighter-rouge codehilite"> 
-        <div class="copy-bar"> 
-         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        <div class="copy-bar"> <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
         </div> 
         <pre class="highlight"><code><span class="o">{</span>
   <span class="n">use</span><span class="o">(</span><span class="k">new</span> <span class="n">Auth</span><span class="o">().</span><span class="na">store</span><span class="o">(</span><span class="n">MyDbStore</span><span class="o">.</span><span class="na">class</span><span class="o">));</span>
@@ -285,8 +270,7 @@
        <p>A default <code class="highlighter-rouge codehilite">/logout</code> handler is provided it too. The handler will remove the profile from <a href="/v1/apidocs/org/jooby/pac4j/AuthStore.html" target="_blank">AuthStore</a> by calling the <a href="/v1/apidocs/org/jooby/pac4j/AuthStore.html" target="_blank">AuthStore#unset</a> method. The default login will redirect to <code class="highlighter-rouge codehilite">/</code>.</p> 
        <p>A custom logout and redirect urls can be set via <code class="highlighter-rouge codehilite">.conf</code> file or programmatically:</p> 
        <div class="highlighter-rouge codehilite"> 
-        <div class="copy-bar"> 
-         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        <div class="copy-bar"> <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
         </div> 
         <pre class="highlight"><code><span class="o">{</span>
   <span class="n">use</span><span class="o">(</span><span class="k">new</span> <span class="n">Auth</span><span class="o">().</span><span class="na">logout</span><span class="o">(</span><span class="s">"/mylogout"</span><span class="o">,</span> <span class="s">"/redirectTo"</span><span class="o">));</span>
@@ -297,8 +281,7 @@
        <h3 id="pac4j-auth-conf">auth.conf</h3> 
        <p>These are the default properties for pac4j:</p> 
        <div class="highlighter-rouge codehilite"> 
-        <div class="copy-bar"> 
-         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        <div class="copy-bar"> <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
         </div> 
         <pre class="highlight"><code><span class="err">auth</span> <span class="err">{</span>
 
@@ -337,9 +320,7 @@
    <div class="row"> 
     <p class="pull-left">©2014-2019 <a href="https://twitter.com/joobyproject" target="_blank">The Jooby Project</a>, all rights reserved.</p> 
     <div class="follow-us pull-right"> 
-     <p>Follow us</p> 
-     <a href="https://github.com/jooby-project/jooby" title="Follow us on Github" target="_blank" rel="nofollow"><span class="icon-github-medium-circle"></span></a> 
-     <a href="https://twitter.com/joobyproject" title="Follow us on Twitter" target="_blank" rel="nofollow"><span class="icon-twitter-medium-circle"></span></a> 
+     <p>Follow us</p> <a href="https://github.com/jooby-project/jooby" title="Follow us on Github" target="_blank" rel="nofollow"><span class="icon-github-medium-circle"></span></a> <a href="https://twitter.com/joobyproject" title="Follow us on Twitter" target="_blank" rel="nofollow"><span class="icon-twitter-medium-circle"></span></a> 
     </div> 
    </div> 
   </footer> 

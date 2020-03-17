@@ -68,9 +68,7 @@
  </head> 
  <body class="page-section page-sidebar"> 
   <header class="site-header"> 
-   <div class="row"> 
-    <a href="/v1/" title="Home" class="site-logo"><img src="resources/images/logo_jooby-2x.png" alt="Logo Jooby" width="76" height="31"></a> 
-    <a class="show-mobile open-menu" href="/v1"><span></span></a> 
+   <div class="row"> <a href="/v1/" title="Home" class="site-logo"><img src="resources/images/logo_jooby-2x.png" alt="Logo Jooby" width="76" height="31"></a> <a class="show-mobile open-menu" href="/v1"><span></span></a> 
     <nav class="site-nav"> 
      <ul> 
       <li class=""><a href="/v1/quickstart" title="Quick start">QUICK START</a></li> 
@@ -85,8 +83,7 @@
   </header> 
   <main role="main" class="site-content"> 
    <div class="section-title"> 
-    <div class="row"> 
-     <a href="/v1/modules" class="jsback" title="Go back"><span class="icon-arrowback-big-circle"></span></a> 
+    <div class="row"> <a href="/v1/modules" class="jsback" title="Go back"><span class="icon-arrowback-big-circle"></span></a> 
      <h1>thread model</h1> 
     </div> 
    </div> 
@@ -126,8 +123,7 @@
        <h3 id="thread-model-worker-threads">worker threads</h3> 
        <p>The <strong>worker thread</strong> pool is provided by one of the supported web servers: <a href="/v1/doc/netty">Netty</a>, <a href="/v1/doc/jetty">Jetty</a> or <a href="/v1/doc/undertow">Undertow</a>. To simplify application programming you can <strong>block a worker thread</strong>, for example you can safely run a <strong>jdbc</strong> query in a <strong>worker thread</strong>:</p> 
        <div class="highlighter-rouge codehilite"> 
-        <div class="copy-bar"> 
-         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        <div class="copy-bar"> <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
         </div> 
         <pre class="highlight"><code><span class="o">{</span>
   <span class="n">get</span><span class="o">(</span><span class="s">"/search-db"</span><span class="o">,</span> <span class="o">()</span> <span class="o">-&gt;</span> <span class="o">{</span>
@@ -147,8 +143,7 @@
        <p>Async processing is achieved via: <a href="/v1/apidocs/org/jooby/Deferred.html" target="_blank">deferred</a> result, with a <a href="/v1/apidocs/org/jooby/Deferred.html" target="_blank">deferred</a> result an application can produces a result from a <strong>thread of its choice</strong>:</p> 
        <p>Script API:</p> 
        <div class="highlighter-rouge codehilite"> 
-        <div class="copy-bar"> 
-         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        <div class="copy-bar"> <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
         </div> 
         <pre class="highlight"><code><span class="o">{</span>
   <span class="n">get</span><span class="o">(</span><span class="s">"/async"</span><span class="o">,</span> <span class="n">deferred</span><span class="o">(()</span> <span class="o">-&gt;</span> <span class="o">{</span>
@@ -159,8 +154,7 @@
        </div> 
        <p>MVC API:</p> 
        <div class="highlighter-rouge codehilite"> 
-        <div class="copy-bar"> 
-         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        <div class="copy-bar"> <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
         </div> 
         <pre class="highlight"><code>  <span class="nd">@GET</span>
   <span class="nd">@Path</span><span class="o">(</span><span class="s">"/async"</span><span class="o">)</span>
@@ -173,8 +167,7 @@
        </div> 
        <p>The previous examples are just <code class="highlighter-rouge codehilite">syntactic sugar</code> for:</p> 
        <div class="highlighter-rouge codehilite"> 
-        <div class="copy-bar"> 
-         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        <div class="copy-bar"> <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
         </div> 
         <pre class="highlight"><code>  return new Deferred(deferred -&gt; {
      try {
@@ -188,8 +181,7 @@
        <p>You can get more <code class="highlighter-rouge codehilite">syntactic sugar</code> if you add the <a href="/v1/apidocs/org/jooby/AsyncMapper.html" target="_blank">AsyncMapper</a> to your application:</p> 
        <p>Script API:</p> 
        <div class="highlighter-rouge codehilite"> 
-        <div class="copy-bar"> 
-         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        <div class="copy-bar"> <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
         </div> 
         <pre class="highlight"><code><span class="o">{</span>
   <span class="n">map</span><span class="o">(</span><span class="k">new</span> <span class="n">AsyncMapper</span><span class="o">());</span>
@@ -205,8 +197,7 @@
        </div> 
        <p>MVC API:</p> 
        <div class="highlighter-rouge codehilite"> 
-        <div class="copy-bar"> 
-         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        <div class="copy-bar"> <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
         </div> 
         <pre class="highlight"><code><span class="nd">@GET</span>
   <span class="nd">@Path</span><span class="o">(</span><span class="s">"/async"</span><span class="o">)</span>
@@ -220,8 +211,7 @@
        <p>The <a href="/v1/apidocs/org/jooby/AsyncMapper.html" target="_blank">AsyncMapper</a> converts <code class="highlighter-rouge codehilite">java.util.concurrent.Callable</code> and <code class="highlighter-rouge codehilite">java.util.concurrent.CompletableFuture</code> objects to <a href="/v1/apidocs/org/jooby/Deferred.html" target="_blank">deferred</a> objects.</p> 
        <p>Another important thing to notice is that the deferred will run in the <strong>caller thread</strong> (i.e. worker thread), so by default there is <strong>no context switch</strong> involved in obtaining a <a href="/v1/apidocs/org/jooby/Deferred.html" target="_blank">deferred</a> result:</p> 
        <div class="highlighter-rouge codehilite"> 
-        <div class="copy-bar"> 
-         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        <div class="copy-bar"> <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
         </div> 
         <pre class="highlight"><code><span class="o">{</span>
   <span class="n">get</span><span class="o">(</span><span class="s">"/async"</span><span class="o">,</span> <span class="o">()</span> <span class="o">-&gt;</span> <span class="o">{</span>
@@ -242,8 +232,7 @@
        <h3 id="thread-model-executor">executor</h3> 
        <p>As previously mentioned, the default executor runs in the caller thread (a.k.a direct executor). Let’s see how to override the default executor:</p> 
        <div class="highlighter-rouge codehilite"> 
-        <div class="copy-bar"> 
-         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        <div class="copy-bar"> <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
         </div> 
         <pre class="highlight"><code><span class="o">{</span>
   <span class="n">executor</span><span class="o">(</span><span class="k">new</span> <span class="n">ForkJoinPool</span><span class="o">());</span>
@@ -257,8 +246,7 @@
        <p>Done! Now all our <a href="/v1/apidocs/org/jooby/Deferred.html" target="_blank">deferred</a> results run in a <code class="highlighter-rouge codehilite">ForkJoinPool</code>. It’s also possible to specify an alternative executor:</p> 
        <p>Script API:</p> 
        <div class="highlighter-rouge codehilite"> 
-        <div class="copy-bar"> 
-         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        <div class="copy-bar"> <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
         </div> 
         <pre class="highlight"><code><span class="o">{</span>
   <span class="n">executor</span><span class="o">(</span><span class="k">new</span> <span class="n">ForkJoinPool</span><span class="o">());</span>
@@ -277,8 +265,7 @@
        </div> 
        <p>MVC API:</p> 
        <div class="highlighter-rouge codehilite"> 
-        <div class="copy-bar"> 
-         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        <div class="copy-bar"> <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
         </div> 
         <pre class="highlight"><code>
 <span class="kn">import</span> <span class="nn">static</span> <span class="n">org</span><span class="o">.</span><span class="na">jooby</span><span class="o">.</span><span class="na">Deferred</span><span class="o">.</span><span class="na">deferred</span><span class="o">;</span>
@@ -311,8 +298,7 @@
        <p>These two methods allow you to use a <a href="/v1/apidocs/org/jooby/Deferred.html" target="_blank">deferred</a> object as a <code class="highlighter-rouge codehilite">promise</code>:</p> 
        <p>Script API:</p> 
        <div class="highlighter-rouge codehilite"> 
-        <div class="copy-bar"> 
-         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        <div class="copy-bar"> <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
         </div> 
         <pre class="highlight"><code><span class="o">{</span>
   <span class="n">get</span><span class="o">(</span><span class="s">"/"</span><span class="o">,</span> <span class="n">promise</span><span class="o">(</span><span class="n">deferred</span> <span class="o">-&gt;</span> <span class="o">{</span>
@@ -327,8 +313,7 @@
        </div> 
        <p>MVC API:</p> 
        <div class="highlighter-rouge codehilite"> 
-        <div class="copy-bar"> 
-         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        <div class="copy-bar"> <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
         </div> 
         <pre class="highlight"><code>  <span class="nd">@Path</span><span class="o">(</span><span class="s">"/"</span><span class="o">)</span>
   <span class="nd">@GET</span>
@@ -354,8 +339,7 @@
        <p>These are the 3 points where your application is supposed to block and wait for a result.</p> 
        <p>Let’s start by reducing the <strong>worker thread pool</strong> to the number of <strong>available processors</strong>:</p> 
        <div class="highlighter-rouge codehilite"> 
-        <div class="copy-bar"> 
-         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        <div class="copy-bar"> <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
         </div> 
         <pre class="highlight"><code>server.threads.Min = ${runtime.processors}
 server.threads.Max = ${runtime.processors}
@@ -364,8 +348,7 @@ server.threads.Max = ${runtime.processors}
        <p>With this change, you need to be careful to <strong>avoid any blocking code</strong> on routes, otherwise performance will suffer.</p> 
        <p>Let’s create a custom thread pool for each blocking access:</p> 
        <div class="highlighter-rouge codehilite"> 
-        <div class="copy-bar"> 
-         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        <div class="copy-bar"> <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
         </div> 
         <pre class="highlight"><code><span class="o">{</span>
   <span class="n">executor</span><span class="o">(</span><span class="s">"db"</span><span class="o">,</span> <span class="n">Executors</span><span class="o">.</span><span class="na">newCachedThreadPool</span><span class="o">());</span>
@@ -378,8 +361,7 @@ server.threads.Max = ${runtime.processors}
        <p>For <code class="highlighter-rouge codehilite">remote</code> service, we use a <code class="highlighter-rouge codehilite">fixed</code> executor of <code class="highlighter-rouge codehilite">32</code> threads. The number <code class="highlighter-rouge codehilite">32</code> is just a random number for the purpose of the example.</p> 
        <p>For <code class="highlighter-rouge codehilite">intensive</code> computations, we use a <code class="highlighter-rouge codehilite">single</code> thread executor. Computation is too expensive and we want <strong>one and only one</strong> running at any time.</p> 
        <div class="highlighter-rouge codehilite"> 
-        <div class="copy-bar"> 
-         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        <div class="copy-bar"> <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
         </div> 
         <pre class="highlight"><code><span class="o">{</span>
   <span class="n">executor</span><span class="o">(</span><span class="s">"db"</span><span class="o">,</span> <span class="n">Executors</span><span class="o">.</span><span class="na">newCachedThreadPool</span><span class="o">());</span>
@@ -406,8 +388,7 @@ server.threads.Max = ${runtime.processors}
        </div> 
        <p>Here’s the same example with <a href="https://github.com/ReactiveX/RxJava" target="_blank">rx java</a>:</p> 
        <div class="highlighter-rouge codehilite"> 
-        <div class="copy-bar"> 
-         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        <div class="copy-bar"> <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
         </div> 
         <pre class="highlight"><code><span class="o">{</span>
   <span class="n">get</span><span class="o">(</span><span class="s">"/nonblocking"</span><span class="o">,</span> <span class="o">()</span> <span class="o">-&gt;</span> <span class="s">"I'm nonblocking"</span><span class="o">);</span>
@@ -489,9 +470,7 @@ server.threads.Max = ${runtime.processors}
    <div class="row"> 
     <p class="pull-left">©2014-2019 <a href="https://twitter.com/joobyproject" target="_blank">The Jooby Project</a>, all rights reserved.</p> 
     <div class="follow-us pull-right"> 
-     <p>Follow us</p> 
-     <a href="https://github.com/jooby-project/jooby" title="Follow us on Github" target="_blank" rel="nofollow"><span class="icon-github-medium-circle"></span></a> 
-     <a href="https://twitter.com/joobyproject" title="Follow us on Twitter" target="_blank" rel="nofollow"><span class="icon-twitter-medium-circle"></span></a> 
+     <p>Follow us</p> <a href="https://github.com/jooby-project/jooby" title="Follow us on Github" target="_blank" rel="nofollow"><span class="icon-github-medium-circle"></span></a> <a href="https://twitter.com/joobyproject" title="Follow us on Twitter" target="_blank" rel="nofollow"><span class="icon-twitter-medium-circle"></span></a> 
     </div> 
    </div> 
   </footer> 

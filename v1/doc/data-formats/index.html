@@ -68,8 +68,7 @@
  <body class="page-section page-sidebar"> 
   <header class="site-header"> 
    <div class="row">
-    <a href="/v1/" title="Home" class="site-logo"><img src="/v1/resources/images/logo_jooby-2x.png" alt="Logo Jooby" width="76" height="31"></a>
-    <a class="show-mobile open-menu" href="/v1"><span></span></a> 
+    <a href="/v1/" title="Home" class="site-logo"><img src="/v1/resources/images/logo_jooby-2x.png" alt="Logo Jooby" width="76" height="31"></a><a class="show-mobile open-menu" href="/v1"><span></span></a> 
     <nav class="site-nav"> 
      <ul> 
       <li class=""><a href="/v1/quickstart" title="Quick start">QUICK START</a></li> 
@@ -84,8 +83,7 @@
   </header> 
   <main role="main" class="site-content"> 
    <div class="section-title"> 
-    <div class="row"> 
-     <a href="/v1/modules" title="Back to Modules"><span class="icon-arrowback-big-circle"></span></a> 
+    <div class="row"> <a href="/v1/modules" title="Back to Modules"><span class="icon-arrowback-big-circle"></span></a> 
      <h1>data formats</h1> 
     </div> 
    </div> 
@@ -144,8 +142,7 @@
        <p>Mustache/Handlebars templates for <a href="/v1{{site}}">Jooby</a>. Exposes a <a href="https://github.com/jknack/handlebars.java">Handlebars</a> and <a href="/v1{{defdocs}}/Renderer.html">renderer</a>.</p> 
        <h3 id="handlebars-dependency">dependency</h3> 
        <div class="highlighter-rouge"> 
-        <div class="copy-bar"> 
-         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        <div class="copy-bar"> <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
         </div> 
         <pre class="highlight"><code><span class="nt">&lt;dependency&gt;</span>
   <span class="nt">&lt;groupId&gt;</span>org.jooby<span class="nt">&lt;/groupId&gt;</span>
@@ -157,8 +154,7 @@
        <h3 id="handlebars-usage">usage</h3> 
        <p>It is pretty straightforward:</p> 
        <div class="highlighter-rouge"> 
-        <div class="copy-bar"> 
-         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        <div class="copy-bar"> <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
         </div> 
         <pre class="highlight"><code><span class="o">{</span>
   <span class="n">use</span><span class="o">(</span><span class="k">new</span> <span class="n">Hbs</span><span class="o">());</span>
@@ -169,8 +165,7 @@
        </div> 
        <p>public/index.html:</p> 
        <div class="highlighter-rouge"> 
-        <div class="copy-bar"> 
-         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        <div class="copy-bar"> <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
         </div> 
         <pre class="highlight"><code><span class="p">{</span><span class="err">{</span><span class="w"> </span><span class="nt">"{{ model "</span><span class="w"> </span><span class="err">}}}}</span><span class="w"> </span></code></pre> 
        </div> 
@@ -178,8 +173,7 @@
        <h3 id="handlebars-req-locals">req locals</h3> 
        <p>A template engine has access to <code class="highlighter-rouge">request locals</code> (a.k.a attributes). Here is an example:</p> 
        <div class="highlighter-rouge"> 
-        <div class="copy-bar"> 
-         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        <div class="copy-bar"> <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
         </div> 
         <pre class="highlight"><code><span class="o">{</span>
   <span class="n">use</span><span class="o">(</span><span class="k">new</span> <span class="n">Hbs</span><span class="o">());</span>
@@ -195,8 +189,7 @@
        <h3 id="handlebars-helpers">helpers</h3> 
        <p>Simple/basic helpers are add it at startup time:</p> 
        <div class="highlighter-rouge"> 
-        <div class="copy-bar"> 
-         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        <div class="copy-bar"> <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
         </div> 
         <pre class="highlight"><code><span class="o">{</span>
   <span class="n">use</span><span class="o">(</span><span class="k">new</span> <span class="n">Hbs</span><span class="o">().</span><span class="na">doWith</span><span class="o">((</span><span class="n">hbs</span><span class="o">,</span> <span class="n">config</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="o">{</span>
@@ -210,8 +203,7 @@
        </div> 
        <p>Now, if the helper depends on a service and require injection:</p> 
        <div class="highlighter-rouge"> 
-        <div class="copy-bar"> 
-         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        <div class="copy-bar"> <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
         </div> 
         <pre class="highlight"><code><span class="o">{</span>
   <span class="n">use</span><span class="o">(</span><span class="k">new</span> <span class="n">Hbs</span><span class="o">().</span><span class="na">with</span><span class="o">(</span><span class="n">Helpers</span><span class="o">.</span><span class="na">class</span><span class="o">));</span>
@@ -222,8 +214,7 @@
        <h3 id="handlebars-template-loader">template loader</h3> 
        <p>Templates are loaded from the root of classpath and must end with <code class="highlighter-rouge">.html</code>. You can<br> change the default template location and extensions too:</p> 
        <div class="highlighter-rouge"> 
-        <div class="copy-bar"> 
-         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        <div class="copy-bar"> <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
         </div> 
         <pre class="highlight"><code><span class="o">{</span>
   <span class="n">use</span><span class="o">(</span><span class="k">new</span> <span class="n">Hbs</span><span class="o">(</span><span class="s">"/"</span><span class="o">,</span> <span class="s">".hbs"</span><span class="o">));</span>
@@ -235,8 +226,7 @@
        <p>Cache is backed by <a href="https://github.com/google/guava">Guava</a> and the default cache will expire after <code class="highlighter-rouge">100</code> entries.</p> 
        <p>If <code class="highlighter-rouge">100</code> entries is not enough or you need a more advanced cache setting, just set the<br> <code class="highlighter-rouge">hbs.cache</code> option:</p> 
        <div class="highlighter-rouge"> 
-        <div class="copy-bar"> 
-         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        <div class="copy-bar"> <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
         </div> 
         <pre class="highlight"><code><span class="py">hbs.cache</span> <span class="p">=</span> <span class="s">"expireAfterWrite=1h"</span>
 </code></pre> 
@@ -254,8 +244,7 @@
        <p><a href="http://freemarker.org">Freemarker</a> templates for <a href="/v1{{site}}">Jooby</a>. Exposes a Configuration and <a href="/v1{{defdocs}}/Renderer.html">renderer</a>.</p> 
        <h3 id="freemarker-dependency">dependency</h3> 
        <div class="highlighter-rouge"> 
-        <div class="copy-bar"> 
-         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        <div class="copy-bar"> <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
         </div> 
         <pre class="highlight"><code><span class="nt">&lt;dependency&gt;</span>
   <span class="nt">&lt;groupId&gt;</span>org.jooby<span class="nt">&lt;/groupId&gt;</span>
@@ -267,8 +256,7 @@
        <h3 id="freemarker-usage">usage</h3> 
        <p>It is pretty straightforward:</p> 
        <div class="highlighter-rouge"> 
-        <div class="copy-bar"> 
-         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        <div class="copy-bar"> <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
         </div> 
         <pre class="highlight"><code><span class="o">{</span>
   <span class="n">use</span><span class="o">(</span><span class="k">new</span> <span class="n">Ftl</span><span class="o">());</span>
@@ -279,8 +267,7 @@
        </div> 
        <p>public/index.html:</p> 
        <div class="highlighter-rouge"> 
-        <div class="copy-bar"> 
-         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        <div class="copy-bar"> <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
         </div> 
         <pre class="highlight"><code><span class="err">$</span><span class="o">{</span><span class="n">model</span><span class="o">}</span>
 </code></pre> 
@@ -289,8 +276,7 @@
        <h3 id="freemarker-req-locals">req locals</h3> 
        <p>A template engine has access to <code class="highlighter-rouge">request locals</code> (a.k.a attributes). Here is an example:</p> 
        <div class="highlighter-rouge"> 
-        <div class="copy-bar"> 
-         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        <div class="copy-bar"> <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
         </div> 
         <pre class="highlight"><code><span class="o">{</span>
   <span class="n">use</span><span class="o">(</span><span class="k">new</span> <span class="n">Ftl</span><span class="o">());</span>
@@ -308,16 +294,14 @@
        <h4>application.conf</h4> 
        <p>Just add a <code class="highlighter-rouge">freemarker.*</code> option to your <code class="highlighter-rouge">application.conf</code> file:</p> 
        <div class="highlighter-rouge"> 
-        <div class="copy-bar"> 
-         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        <div class="copy-bar"> <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
         </div> 
         <pre class="highlight"><code><span class="py">freemarker.default_encoding</span> <span class="p">=</span> <span class="s">UTF-8</span>
 </code></pre> 
        </div> 
        <h4>programmatically</h4> 
        <div class="highlighter-rouge"> 
-        <div class="copy-bar"> 
-         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        <div class="copy-bar"> <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
         </div> 
         <pre class="highlight"><code><span class="o">{</span>
   <span class="n">use</span><span class="o">(</span><span class="k">new</span> <span class="n">Ftl</span><span class="o">().</span><span class="na">doWith</span><span class="o">((</span><span class="n">freemarker</span><span class="o">,</span> <span class="n">config</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="o">{</span>
@@ -330,8 +314,7 @@
        <h3 id="freemarker-template-loader">template loader</h3> 
        <p>Templates are loaded from the root of classpath and must end with <code class="highlighter-rouge">.html</code>. You can<br> change the default template location and extensions too:</p> 
        <div class="highlighter-rouge"> 
-        <div class="copy-bar"> 
-         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        <div class="copy-bar"> <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
         </div> 
         <pre class="highlight"><code><span class="o">{</span>
   <span class="n">use</span><span class="o">(</span><span class="k">new</span> <span class="n">Ftl</span><span class="o">(</span><span class="s">"/"</span><span class="o">,</span> <span class="s">".ftl"</span><span class="o">));</span>
@@ -343,8 +326,7 @@
        <p>Cache is backed by <a href="https://github.com/google/guava">Guava</a> and default cache will expire after <code class="highlighter-rouge">100</code> entries.</p> 
        <p>If <code class="highlighter-rouge">100</code> entries is not enough or you need a more advanced cache setting, just set the<br> <code class="highlighter-rouge">freemarker.cache</code> option:</p> 
        <div class="highlighter-rouge"> 
-        <div class="copy-bar"> 
-         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        <div class="copy-bar"> <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
         </div> 
         <pre class="highlight"><code><span class="py">freemarker.cache</span> <span class="p">=</span> <span class="s">"expireAfterWrite=1h"</span>
 </code></pre> 
@@ -363,8 +345,7 @@
        <p>This module provides a JSON body <a href="/v1{{apidocs}}/Parser.html">parser</a> and <a href="/v1{{apidocs}}/Renderer.html">formatter</a><br> but also an <a href="http://fasterxml.github.io/jackson-databind/javadoc/2.5.2/com/fasterxml/jackson/databind/ObjectMapper.html">ObjectMapper</a>.</p> 
        <h3 id="jackson-dependency">dependency</h3> 
        <div class="highlighter-rouge"> 
-        <div class="copy-bar"> 
-         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        <div class="copy-bar"> <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
         </div> 
         <pre class="highlight"><code><span class="nt">&lt;dependency&gt;</span>
   <span class="nt">&lt;groupId&gt;</span>org.jooby<span class="nt">&lt;/groupId&gt;</span>
@@ -375,8 +356,7 @@
        </div> 
        <h3 id="jackson-usage">usage</h3> 
        <div class="highlighter-rouge"> 
-        <div class="copy-bar"> 
-         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        <div class="copy-bar"> <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
         </div> 
         <pre class="highlight"><code><span class="kn">import</span> <span class="nn">org.jooby.json.Jackson</span><span class="o">;</span>
 
@@ -398,8 +378,7 @@
        <h4>advanced configuration</h4> 
        <p>If you need a special setting or configuration for your <a href="http://fasterxml.github.io/jackson-databind/javadoc/2.2.0/com/fasterxml/jackson/databind/ObjectMapper.html">ObjectMapper</a>:</p> 
        <div class="highlighter-rouge"> 
-        <div class="copy-bar"> 
-         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        <div class="copy-bar"> <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
         </div> 
         <pre class="highlight"><code><span class="o">{</span>
   <span class="n">use</span><span class="o">(</span><span class="k">new</span> <span class="n">Jackson</span><span class="o">().</span><span class="na">doWith</span><span class="o">(</span><span class="n">mapper</span> <span class="o">-&gt;</span> <span class="o">{</span>
@@ -410,8 +389,7 @@
        </div> 
        <p>or provide an <a href="http://fasterxml.github.io/jackson-databind/javadoc/2.2.0/com/fasterxml/jackson/databind/ObjectMapper.html">ObjectMapper</a> instance:</p> 
        <div class="highlighter-rouge"> 
-        <div class="copy-bar"> 
-         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        <div class="copy-bar"> <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
         </div> 
         <pre class="highlight"><code><span class="o">{</span>
    <span class="n">ObjectMapper</span> <span class="n">mapper</span> <span class="o">=</span> <span class="o">....;</span>
@@ -421,8 +399,7 @@
        </div> 
        <p>It is possible to wire Jackson modules too:</p> 
        <div class="highlighter-rouge"> 
-        <div class="copy-bar"> 
-         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        <div class="copy-bar"> <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
         </div> 
         <pre class="highlight"><code><span class="o">{</span>
 
@@ -453,8 +430,7 @@
        </ul> 
        <h3 id="gson-dependency">dependency</h3> 
        <div class="highlighter-rouge"> 
-        <div class="copy-bar"> 
-         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        <div class="copy-bar"> <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
         </div> 
         <pre class="highlight"><code><span class="nt">&lt;dependency&gt;</span>
   <span class="nt">&lt;groupId&gt;</span>org.jooby<span class="nt">&lt;/groupId&gt;</span>
@@ -465,8 +441,7 @@
        </div> 
        <h3 id="gson-usage">usage</h3> 
        <div class="highlighter-rouge"> 
-        <div class="copy-bar"> 
-         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        <div class="copy-bar"> <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
         </div> 
         <pre class="highlight"><code><span class="kn">import</span> <span class="nn">org.jooby.json.Gzon</span><span class="o">;</span>
 
@@ -493,8 +468,7 @@
        <h4>configuration</h4> 
        <p>If you need a special setting or configuration for your <a href="https://google-gson.googlecode.com/svn/trunk/gson/docs/javadocs/com/google/gson/Gson.html">Gson</a>:</p> 
        <div class="highlighter-rouge"> 
-        <div class="copy-bar"> 
-         <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
+        <div class="copy-bar"> <span class="icon-clipboard-big copy-button octicon octicon-clippy" title="copy to clipboard"></span> 
         </div> 
         <pre class="highlight"><code><span class="o">{</span>
   <span class="n">use</span><span class="o">(</span><span class="k">new</span> <span class="n">Gzon</span><span class="o">().</span><span class="na">doWith</span><span class="o">(</span><span class="n">builder</span> <span class="o">-&gt;</span> <span class="o">{</span>
@@ -513,13 +487,10 @@
    <div class="row"> 
     <p class="pull-left"> <a href="/v1/" title="Back to home">Jooby</a> was created and maintained by <a href="https://twitter.com/edgarespina">Edgar Espina</a></p> 
     <div class="altquimia">
-     DG 
-     <a href="http://www.altquimia.com/" title="Altquimia | Creative Studio" rel="nofollow" target="_blank">Altquimia</a> | Creative Studio
+     DG <a href="http://www.altquimia.com/" title="Altquimia | Creative Studio" rel="nofollow" target="_blank">Altquimia</a> | Creative Studio
     </div> 
     <div class="follow-us pull-right"> 
-     <p>Follow us</p>
-     <a href="https://github.com/jooby-project/jooby" title="Follow us on Github" target="_blank" rel="nofollow"><span class="icon-github-medium-circle"></span></a>
-     <a href="https://twitter.com/joobyproject" title="Follow us on Twitter" target="_blank" rel="nofollow"><span class="icon-twitter-medium-circle"></span></a> 
+     <p>Follow us</p><a href="https://github.com/jooby-project/jooby" title="Follow us on Github" target="_blank" rel="nofollow"><span class="icon-github-medium-circle"></span></a><a href="https://twitter.com/joobyproject" title="Follow us on Twitter" target="_blank" rel="nofollow"><span class="icon-twitter-medium-circle"></span></a> 
     </div> 
    </div> 
   </footer> 
