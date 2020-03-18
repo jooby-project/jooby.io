@@ -6,7 +6,7 @@
 <meta name="description" content="The modular micro web framework for Java">
 <meta name="keywords" content="Java, Modern, Micro, Web, Framework, Reactive, Lightweight, Microservices">
 <link rel="icon" type="image/png" href="../../images/favicon96.png">
-<title>jooby: usage</title>
+<title>jooby: openapi module</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /* Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -509,325 +509,500 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="book toc2 toc-left">
 <div id="header">
-<h1>Help/Usage section</h1>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#annotation-processing-tool">1. Annotation Processing Tool</a>
+<li><a href="#openapi">1. OpenAPI</a>
 <ul class="sectlevel2">
-<li><a href="#router-not-found">1.1. Router Not Found</a></li>
+<li><a href="#configuration">1.1. Configuration</a></li>
+<li><a href="#usage">1.2. Usage</a></li>
+<li><a href="#annotations">1.3. Annotations</a>
+<ul class="sectlevel3">
+<li><a href="#responses-status">1.3.1. Responses &amp; Status</a></li>
 </ul>
 </li>
-<li><a href="#bean-converter">2. Bean Converter</a>
-<ul class="sectlevel2">
-<li><a href="#parameter-name-missing">2.1. Parameter Name Missing</a></li>
+<li><a href="#documentation-template">1.4. Documentation Template</a></li>
+<li><a href="#ui">1.5. UI</a>
+<ul class="sectlevel3">
+<li><a href="#swagger-ui">1.5.1. Swagger UI</a></li>
+<li><a href="#redoc">1.5.2. Redoc</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
 <div id="content">
-<div id="preamble">
-<div class="sectionbody">
-<div class="paragraph">
-<p>This section describes usage error and how to fix them.</p>
-</div>
-</div>
-</div>
 <div class="sect1">
-<h2 id="annotation-processing-tool"><a class="anchor" href="#annotation-processing-tool"></a><a class="link" href="#annotation-processing-tool">1. Annotation Processing Tool</a></h2>
+<h2 id="openapi"><a class="anchor" href="#openapi"></a><a class="link" href="#openapi">1. OpenAPI</a></h2>
 <div class="sectionbody">
+<div class="paragraph">
+<p>This module helps automating the generation of API documentation using Jooby projects. jooby-openapi works by examining an application at <strong>build</strong> time to infer API semantics based on byte code and optional annotations.</p>
+</div>
+<div class="paragraph">
+<p>Automatically generates documentation in JSON/YAML format APIs. This documentation can be completed by comments using swagger-api annotations.</p>
+</div>
+<div class="paragraph">
+<p>This library supports:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://swagger.io/specification" target="_blank">OpenAPI 3</a> (json and yaml)</p>
+</li>
+<li>
+<p><a href="https://swagger.io/tools/swagger-ui" target="_blank">Swagger UI</a> (Optional)</p>
+</li>
+<li>
+<p><a href="https://github.com/Redocly/redoc" target="_blank">Redoc</a> (Optional)</p>
+</li>
+</ul>
+</div>
 <div class="sect2">
-<h3 id="annotation-processing-tool-router-not-found"><a class="anchor" href="#annotation-processing-tool-router-not-found"></a><a class="link" href="#annotation-processing-tool-router-not-found">1.1. Router Not Found</a></h3>
-<div class="paragraph">
-<p><strong>Exception</strong>:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>Route not found: `...`. Make sure Jooby annotation processor is configured properly.</pre>
-</div>
-</div>
-<div class="paragraph">
-<p>The cause of this error is generated when you try to use a MVC route and the annotation processing
-tool is not configured properly.</p>
-</div>
-<div class="paragraph">
-<p><strong>Maven Solution</strong>:</p>
-</div>
-<div class="paragraph">
-<p>Java build needs the <code>jooby-apt</code> dependency as <a href="https://maven.apache.org/plugins/maven-compiler-plugin/compile-mojo.html#annotationProcessorPaths" target="_blank">annotationProcessorPaths</a>.</p>
-</div>
-<div class="paragraph">
-<p>Kotlin build also requires it via <a href="https://kotlinlang.org/docs/reference/kapt.html#using-in-maven" target="_blank">kapt</a>.</p>
-</div>
+<h3 id="openapi-configuration"><a class="anchor" href="#openapi-configuration"></a><a class="link" href="#openapi-configuration">1.1. Configuration</a></h3>
 <div class="listingblock primary">
 
 
-<div class="switch"><div class="switch--item selected">Java</div><div class="switch--item">Kotlin</div></div><div class="content">
-<pre class="highlightjs highlight"><code class="language-xml hljs">  &lt;build&gt;
-    &lt;plugins&gt;
-      &lt;plugin&gt;
-        &lt;artifactId&gt;maven-compiler-plugin&lt;/artifactId&gt;
-        &lt;version&gt;3.8.1&lt;/version&gt;
-        &lt;configuration&gt;
-          &lt;annotationProcessorPaths&gt;
-            &lt;path&gt;
-              &lt;groupId&gt;io.jooby&lt;/groupId&gt;
-              &lt;artifactId&gt;jooby-apt&lt;/artifactId&gt;
-              &lt;version&gt;2.7.0&lt;/version&gt;
-            &lt;/path&gt;
-          &lt;/annotationProcessorPaths&gt;
-        &lt;/configuration&gt;
-      &lt;/plugin&gt;
-    &lt;/plugins&gt;
-  &lt;/build&gt;</code><button class="clipboard">Copy</button></pre>
-</div><div class="content hidden">
-<pre class="highlightjs highlight"><code class="language-xml hljs">  &lt;build&gt;
-    &lt;plugins&gt;
-      &lt;plugin&gt;
-        &lt;artifactId&gt;kotlin-maven-plugin&lt;/artifactId&gt;
-        &lt;groupId&gt;org.jetbrains.kotlin&lt;/groupId&gt;
-        &lt;version&gt;1.3.61&lt;/version&gt;
-        &lt;configuration&gt;
-          &lt;args&gt;
-            &lt;arg&gt;-java-parameters&lt;/arg&gt;
-          &lt;/args&gt;
-          &lt;jvmTarget&gt;${maven.compiler.target}&lt;/jvmTarget&gt;
-        &lt;/configuration&gt;
-        &lt;executions&gt;
-          &lt;execution&gt;
-            &lt;id&gt;kapt&lt;/id&gt;
-            &lt;goals&gt;
-              &lt;goal&gt;kapt&lt;/goal&gt;
-            &lt;/goals&gt;
-            &lt;configuration&gt;
-              &lt;sourceDirs&gt;
-                &lt;sourceDir&gt;src/main/kotlin&lt;/sourceDir&gt;
-              &lt;/sourceDirs&gt;
-              &lt;annotationProcessorPaths&gt;
-                &lt;annotationProcessorPath&gt;
-                  &lt;groupId&gt;io.jooby&lt;/groupId&gt;
-                  &lt;artifactId&gt;jooby-apt&lt;/artifactId&gt;
-                  &lt;version&gt;2.7.0&lt;/version&gt;
-                &lt;/annotationProcessorPath&gt;
-              &lt;/annotationProcessorPaths&gt;
-            &lt;/configuration&gt;
-          &lt;/execution&gt;
-          &lt;execution&gt;
-            &lt;id&gt;compile&lt;/id&gt;
-            &lt;goals&gt;
-              &lt;goal&gt;compile&lt;/goal&gt;
-            &lt;/goals&gt;
-            &lt;configuration&gt;
-              &lt;sourceDirs&gt;
-                &lt;sourceDir&gt;src/main/kotlin&lt;/sourceDir&gt;
-              &lt;/sourceDirs&gt;
-            &lt;/configuration&gt;
-          &lt;/execution&gt;
-          &lt;execution&gt;
-            &lt;id&gt;test-kapt&lt;/id&gt;
-            &lt;goals&gt;
-              &lt;goal&gt;test-kapt&lt;/goal&gt;
-            &lt;/goals&gt;
-            &lt;configuration&gt;
-              &lt;sourceDirs&gt;
-                &lt;sourceDir&gt;src/test/kotlin&lt;/sourceDir&gt;
-              &lt;/sourceDirs&gt;
-              &lt;annotationProcessorPaths&gt;
-                &lt;annotationProcessorPath&gt;
-                  &lt;groupId&gt;io.jooby&lt;/groupId&gt;
-                  &lt;artifactId&gt;jooby-apt&lt;/artifactId&gt;
-                  &lt;version&gt;2.7.0&lt;/version&gt;
-                &lt;/annotationProcessorPath&gt;
-              &lt;/annotationProcessorPaths&gt;
-            &lt;/configuration&gt;
-          &lt;/execution&gt;
-          &lt;execution&gt;
-            &lt;id&gt;test-compile&lt;/id&gt;
-            &lt;goals&gt;
-              &lt;goal&gt;test-compile&lt;/goal&gt;
-            &lt;/goals&gt;
-            &lt;configuration&gt;
-              &lt;sourceDirs&gt;
-                &lt;sourceDir&gt;src/test/kotlin&lt;/sourceDir&gt;
-              &lt;/sourceDirs&gt;
-            &lt;/configuration&gt;
-          &lt;/execution&gt;
-        &lt;/executions&gt;
-      &lt;/plugin&gt;
-    &lt;/plugins&gt;
-  &lt;/build&gt;</code><button class="clipboard">Copy</button></pre>
-</div></div>
-
-<div class="paragraph">
-<p><strong>Gradle Solution</strong>:</p>
-</div>
-<div class="paragraph">
-<p>Java build needs an annotationProcessor statement using <code>jooby-apt</code>.</p>
-</div>
-<div class="paragraph">
-<p>Kotlin builds needs a <a href="https://kotlinlang.org/docs/reference/kapt.html#using-in-gradle" target="_blank">kapt</a> dependency and statement using <code>jooby-apt</code>.</p>
-</div>
-<div class="listingblock primary">
-
-
-<div class="switch"><div class="switch--item selected">Java</div><div class="switch--item">Kotlin</div></div><div class="content">
-<pre class="highlightjs highlight"><code class="language-groovy hljs">dependencies {
-  annotationProcessor "io.jooby:jooby-apt:2.7.0"
-}</code><button class="clipboard">Copy</button></pre>
+<div class="switch"><div class="switch--item selected">pom.xml</div><div class="switch--item">build.gradle</div></div><div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs">&lt;properties&gt;
+  &lt;application.class&gt;myapp.App&lt;/application.class&gt;
+&lt;/properties&gt;
+...
+&lt;plugins&gt;
+  ...
+  &lt;plugin&gt;
+    &lt;groupId&gt;io.jooby&lt;/groupId&gt;
+    &lt;artifactId&gt;jooby-maven-plugin&lt;/artifactId&gt;
+    &lt;version&gt;2.7.0&lt;/version&gt;
+    &lt;executions&gt;
+      &lt;execution&gt;
+        &lt;goals&gt;
+          &lt;goal&gt;openapi&lt;/goal&gt;
+        &lt;/goals&gt;
+      &lt;/execution&gt;
+    &lt;/executions&gt;
+  &lt;/plugin&gt;
+&lt;/plugins&gt;</code><button class="clipboard">Copy</button></pre>
 </div><div class="content hidden">
 <pre class="highlightjs highlight"><code class="language-groovy hljs">buildscript {
-  ...
+
+  repositories {
+    mavenCentral()
+  }
+
   dependencies {
-    classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.3.61"
+    classpath "io.jooby:jooby-gradle-plugin:2.7.0"
   }
 }
 
+apply plugin: "application"
+apply plugin: "jooby"
+
+...
+mainClassName = "myapp.App"
 ...
 
-apply plugin: "org.jetbrains.kotlin.kapt"
+// Run openAPI task on joobyRun
+joobyRun.dependsOn openAPI
 
-...
+// Run openAPI task on build
+build.dependsOn openAPI</code><button class="clipboard">Copy</button></pre>
+</div></div>
 
-dependencies {
-  kapt "io.jooby:jooby-apt:2.7.0"
+<div class="admonitionblock note">
+<table>
+<tbody><tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Most of this setup is not required if you already have <code>joobyRun</code> on your build.</p>
+</div>
+</td>
+</tr>
+</tbody></table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="openapi-usage"><a class="anchor" href="#openapi-usage"></a><a class="link" href="#openapi-usage">1.2. Usage</a></h3>
+<div class="paragraph">
+<p>To learn how it works, let’s write a simple Pet API:</p>
+</div>
+<div class="listingblock primary">
+
+
+<div class="switch"><div class="switch--item selected">Java</div><div class="switch--item">Kotlin</div></div><div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs">{
+  install(new OpenAPIModule());        <i class="conum" data-value="1"></i><b>(1)</b>
+
+  path("/pets", () {                   <i class="conum" data-value="2"></i><b>(2)</b>
+
+    get("/", ctx -&gt; {
+      PetRepository repo = ...;
+      return repo.list();
+    });
+
+  });
+}</code><button class="clipboard">Copy</button></pre>
+</div><div class="content hidden">
+<pre class="highlightjs highlight"><code class="language-kt hljs">{
+  install(OpenAPIModule())             <i class="conum" data-value="1"></i><b>(1)</b>
+
+  path("/pets") {                      <i class="conum" data-value="2"></i><b>(2)</b>
+
+    get("/") {
+       val repo = ...;
+       repo.list()
+    }
+
+  }
+}</code><button class="clipboard">Copy</button></pre>
+</div></div>
+
+<div class="colist arabic">
+<table>
+<tbody><tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Install <code>OpenAPIModule</code></td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Write your API</td>
+</tr>
+</tbody></table>
+</div>
+<div class="paragraph">
+<p>The <a href="https://www.javadoc.io/doc/io.jooby/jooby/latest/io/jooby/OpenAPIModule.html" target="_blank">OpenAPIModule</a> read from classpath the generated <code>json</code> and <code>yaml</code> files. To generate
+them you need to build your project.</p>
+</div>
+<div class="literalblock">
+<div class="title">Maven</div>
+<div class="content">
+<pre>mvn clean package</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="title">Gradle</div>
+<div class="content">
+<pre>./gradlew build</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You will find the files in the output build directory. If your application is <code>bar.Foo</code>, then:</p>
+</div>
+<div class="literalblock">
+<div class="title">Maven</div>
+<div class="content">
+<pre>target/classes/bar/Foo.json
+target/classes/bar/Foo.yaml</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="title">Gradle</div>
+<div class="content">
+<pre>build/classes/java/main/bar/Foo.json
+build/classes/java/main/bar/Foo.yaml</pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tbody><tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>This is the main difference with previous version. We moved from runtime to build time generation. This way we:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Are able to get our OpenAPI files at build time (of course)</p>
+</li>
+<li>
+<p>At runtime we don’t waste resources (CPU, memory) while analyze and build the OpenAPI model</p>
+</li>
+<li>
+<p>We keep bootstrap as fast as possible</p>
+</li>
+</ul>
+</div>
+</td>
+</tr>
+</tbody></table>
+</div>
+<div class="paragraph">
+<p>The OpenAPI generator works exactly the same for MVC routes (a.k.a Controller):</p>
+</div>
+<div class="listingblock primary">
+
+
+<div class="switch"><div class="switch--item selected">Java</div><div class="switch--item">Kotlin</div></div><div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs">{
+  install(new OpenAPIModule());
+
+  mvc(new Pets());
 }
-...</code><button class="clipboard">Copy</button></pre>
+
+@Path("/pets")
+public class Pets {
+
+  @GET
+  public List&lt;Pet&gt; list() {
+    ...
+  }
+
+}</code><button class="clipboard">Copy</button></pre>
+</div><div class="content hidden">
+<pre class="highlightjs highlight"><code class="language-kt hljs">{
+  install(OpenAPIModule())
+
+  mvc(new MyController())
+}
+
+@Path("/pets")
+class Pets {
+
+  @GET
+  fun list(): List&lt;Pet&gt; {
+    ...
+  }
+
+}</code><button class="clipboard">Copy</button></pre>
 </div></div>
 
 <div class="paragraph">
-<p><strong>IntelliJ Solution</strong></p>
-</div>
-<div class="paragraph">
-<p>You need to enable IntelliJ annotation processing tool. Please checkout the <a href="https://www.jetbrains.com/help/idea/annotation-processors-support.html" target="_blank">IntelliJ documentation</a> to learn how to do it.</p>
-</div>
-<div class="paragraph">
-<p>Please note that Kapt is still not supported for IntelliJ IDEA’s own build system. A simply workaround
-is to configure Intellij to run Maven/Gradle compilation as a build step before running your tests
-or application class:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>Go to <strong>Run &gt; Edit Configurations …​</strong></p>
-</li>
-<li>
-<p>Select the application/test class run configuration</p>
-</li>
-<li>
-<p>Find the <strong>Before build / Build</strong> section</p>
-</li>
-<li>
-<p>Select Add (plus button)</p>
-</li>
-<li>
-<p>Select <strong>Run Maven Goal</strong> or <strong>Run Gradle task</strong></p>
-</li>
-<li>
-<p>For Maven type <code>compile</code> or <code>testCompile</code></p>
-</li>
-<li>
-<p>For Gradle type <code>classes</code> or <code>testClasses</code></p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>Now whenever you run tests or the application Mvc classes will be generated at compilation time.</p>
-</div>
-<div class="paragraph">
-<p>Alternatively, you can delegate IntelliJ build/run actions to Maven or Gradle completely:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><a href="https://www.jetbrains.com/help/idea/delegate-build-and-run-actions-to-maven.html" class="bare" target="_blank">https://www.jetbrains.com/help/idea/delegate-build-and-run-actions-to-maven.html</a></p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p><strong>Eclipse 4.9+</strong></p>
-</div>
-<div class="paragraph">
-<p>You need <a href="https://www.eclipse.org/m2e/" target="_blank">M2Eclipse</a> for Maven or <a href="https://projects.eclipse.org/projects/tools.buildship" target="_blank">Gradle Buildship</a></p>
+<p>The Maven plugin and Gradle task provide two filter properties <code>includes</code> and <code>excludes</code>. These
+properties filter routes by their path pattern. The filter is a regular expression.</p>
 </div>
 </div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="bean-converter"><a class="anchor" href="#bean-converter"></a><a class="link" href="#bean-converter">2. Bean Converter</a></h2>
-<div class="sectionbody">
 <div class="sect2">
-<h3 id="bean-converter-parameter-name-missing"><a class="anchor" href="#bean-converter-parameter-name-missing"></a><a class="link" href="#bean-converter-parameter-name-missing">2.1. Parameter Name Missing</a></h3>
+<h3 id="openapi-annotations"><a class="anchor" href="#openapi-annotations"></a><a class="link" href="#openapi-annotations">1.3. Annotations</a></h3>
 <div class="paragraph">
-<p><strong>Exception</strong>:</p>
+<p>To produces a better documentation this plugin depends on some OpenAPI annotations. To use them, you
+need to add a dependency to your project:</p>
+</div>
+<div class="listingblock primary">
+
+
+<div class="switch"><div class="switch--item selected">Maven</div><div class="switch--item">Gradle</div></div><div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs">&lt;dependency&gt;
+  &lt;groupId&gt;io.swagger.core.v3&lt;/groupId&gt;
+  &lt;artifactId&gt;swagger-annotations&lt;/artifactId&gt;
+  &lt;version&gt;2.1.1&lt;/version&gt;
+&lt;/dependency&gt;</code><button class="clipboard">Copy</button></pre>
+</div><div class="content hidden">
+<pre class="highlightjs highlight"><code class="language-javascript hljs">compile 'io.swagger.core.v3:swagger-annotations:2.1.1'</code><button class="clipboard">Copy</button></pre>
+</div></div>
+
+<div class="paragraph">
+<p>Once you added to your project, you can annotate your routes:</p>
+</div>
+<div class="listingblock primary">
+<div class="title">Script</div>
+
+<div class="switch"><div class="switch--item selected">Java</div><div class="switch--item">Kotlin</div></div><div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs">import io.swagger.v3.oas.annotations.Operation;
+...
+
+public class App extends Jooby {
+  {
+    path("/pets", () -&gt; {
+
+      get("/{id}", this::findPetById)
+
+    });
+  }
+
+  @Operation(
+      summary = "Find a pet by ID",
+      description = "Find a pet by ID or throws a 404"
+  )
+  public Pet findPetById(Context ctx) {
+    PetRepo repo = require(PetRepo.class);
+    long id = ctx.path("id").longValue();
+    return repo.find(id);
+  }
+}</code><button class="clipboard">Copy</button></pre>
+</div><div class="content hidden">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs">import io.swagger.v3.oas.annotations.Operation
+
+class App :Kooby({
+  path("/pets") {
+
+    get("/{id}", ::findPetById)
+
+  }
+})
+
+@Operation(
+  summary = "Find a pet by ID",
+  description = "Find a pet by ID or throws a 404"
+)
+fun findPetById(ctx: Context) : Pet {
+  val repo = ...
+  val id = ctx.path("id").longValue()
+  return repo.find(id)
+}</code><button class="clipboard">Copy</button></pre>
+</div></div>
+
+<div class="paragraph">
+<p>The OpenAPI annotations complement the openAPI byte code parser by adding documentation
+or being more specific about a operation, parameter, response type, response status, etc.</p>
+</div>
+<div class="paragraph">
+<p>Annotations works as documentation but also as a way to override what was generated by the byte
+code parser.</p>
+</div>
+<div class="paragraph">
+<p>Annotations are supported at script routes (using the technique described before) and mvc routes.</p>
+</div>
+<div class="paragraph">
+<p>If you look at the example, there is no documentation for path parameter: <code>id</code>, still this parameter
+is going to be present in the OpenAPI files (present, but without documentation).</p>
+</div>
+<div class="paragraph">
+<p>To add documentation just do:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>Unable to provision parameter at position: '...', require by: ... Parameter's name is missing</pre>
+<pre>@Operation(
+  summary = "Find a pet by ID",
+  description = "Find a pet by ID or throws a 404",
+  parameters = @Parameter(description = "Pet ID")
+)</pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Thrown when the bean converter has no access to a parameter name at runtime. Compilation must be
-done using <code>parameters</code> compiler option.</p>
+<p>If the parameter annotation doesn’t specify a name, parameter binding follows a positional assignment.</p>
+</div>
+<div class="sect3">
+<h4 id="openapi-annotations-responses-status"><a class="anchor" href="#openapi-annotations-responses-status"></a><a class="link" href="#openapi-annotations-responses-status">1.3.1. Responses &amp; Status</a></h4>
+<div class="paragraph">
+<p>The default response code is <code>Success(200)</code> (or <code>NO_CONENT(204)</code> for DELETE mvc routes). Now, if
+you need to:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>document the default response</p>
+</li>
+<li>
+<p>use a custom response code</p>
+</li>
+<li>
+<p>use multiple response codes</p>
+</li>
+</ul>
 </div>
 <div class="paragraph">
-<p><strong>Maven Solution</strong></p>
+<p>You need the <code>ApiResponse</code> annotation:</p>
+</div>
+<div class="listingblock">
+<div class="title">Document default response:</div>
+<div class="content">
+<pre>@ApiResponse(description = "This is the default response")</pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Use a custom response code:</div>
+<div class="content">
+<pre>@ApiResponse(responseCode = "201", description = "This is the default response")</pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Multiple response codes:</div>
+<div class="content">
+<pre>@ApiResponses({
+  @ApiResponse(description = "This is the default response"),
+  @ApiResponse(responseCode = "500"),
+  @ApiResponse(responseCode = "400"),
+  @ApiResponse(responseCode = "404")
+})</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="openapi-documentation-template"><a class="anchor" href="#openapi-documentation-template"></a><a class="link" href="#openapi-documentation-template">1.4. Documentation Template</a></h3>
+<div class="paragraph">
+<p>The OpenAPI output generates some default values for <code>info</code> and <code>server</code> section. It generates
+the necessary to follow the specification and produces a valid output. These sections can be override
+with better information/metadata.</p>
+</div>
+<div class="paragraph">
+<p>To do so just write an <code>openapi.yaml</code> file inside the <code>conf</code> directory the we are going to use it
+as template.</p>
+</div>
+<div class="listingblock">
+<div class="title">conf/openapi.yaml</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs">openapi: 3.0.1
+info:
+  title: My Super API
+  description: |
+    Nunc commodo ipsum vitae dignissim congue. Quisque convallis malesuada tortor, non
+    lacinia quam malesuada id. Curabitur nisi mi, lobortis non tempus vel, vestibulum et neque.
+
+    ...
+  version: "1.0"
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html</code><button class="clipboard">Copy</button></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>All sections from template file (except the paths section) are merged into the final output.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="openapi-ui"><a class="anchor" href="#openapi-ui"></a><a class="link" href="#openapi-ui">1.5. UI</a></h3>
+<div class="sect3">
+<h4 id="openapi-ui-swagger-ui"><a class="anchor" href="#openapi-ui-swagger-ui"></a><a class="link" href="#openapi-ui-swagger-ui">1.5.1. Swagger UI</a></h4>
+<div class="paragraph">
+<p>To use swagger-ui just add the dependency to your project:</p>
 </div>
 <div class="listingblock primary">
 
 
-<div class="switch"><div class="switch--item selected">Java</div><div class="switch--item">Kotlin</div></div><div class="content">
-<pre class="highlightjs highlight"><code class="language-xml hljs">  &lt;build&gt;
-    &lt;plugins&gt;
-      &lt;plugin&gt;
-        &lt;artifactId&gt;maven-compiler-plugin&lt;/artifactId&gt;
-        &lt;version&gt;3.8.1&lt;/version&gt;
-        &lt;configuration&gt;
-        ...
-          &lt;compilerArgs&gt;
-            &lt;arg&gt;-parameters&lt;/arg&gt;
-          &lt;/compilerArgs&gt;
-        &lt;/configuration&gt;
-      &lt;/plugin&gt;
-    &lt;/plugins&gt;
-  &lt;/build&gt;</code><button class="clipboard">Copy</button></pre>
+<div class="switch"><div class="switch--item selected">Maven</div><div class="switch--item">Gradle</div></div><div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs">&lt;dependency&gt;
+  &lt;groupId&gt;io.jooby&lt;/groupId&gt;
+  &lt;artifactId&gt;jooby-swagger-ui&lt;/artifactId&gt;
+  &lt;version&gt;2.7.0&lt;/version&gt;
+&lt;/dependency&gt;</code><button class="clipboard">Copy</button></pre>
 </div><div class="content hidden">
-<pre class="highlightjs highlight"><code class="language-xml hljs">  &lt;build&gt;
-    &lt;plugins&gt;
-      &lt;plugin&gt;
-          &lt;artifactId&gt;kotlin-maven-plugin&lt;/artifactId&gt;
-          &lt;groupId&gt;org.jetbrains.kotlin&lt;/groupId&gt;
-          &lt;version&gt;1.3.61&lt;/version&gt;
-          &lt;configuration&gt;
-            ...
-            &lt;args&gt;
-              &lt;arg&gt;-java-parameters&lt;/arg&gt;
-            &lt;/args&gt;
-            &lt;jvmTarget&gt;1.8&lt;/jvmTarget&gt;
-            ...
-          &lt;/configuration&gt;
-        &lt;/plugin&gt;
-    &lt;/plugins&gt;
-  &lt;/build&gt;</code><button class="clipboard">Copy</button></pre>
+<pre class="highlightjs highlight"><code class="language-javascript hljs">compile 'io.jooby:jooby-swagger-ui:2.7.0'</code><button class="clipboard">Copy</button></pre>
 </div></div>
 
 <div class="paragraph">
-<p><strong>Gradle Solution</strong></p>
+<p>The swagger-ui application will be available at <code>/swagger</code>. To modify the default path, just call <a href="https://www.javadoc.io/doc/io.jooby/jooby/latest/io/jooby/OpenAPIModule.html#swaggerUI-java.lang.String-" target="_blank">swaggerUI(String)</a></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="openapi-ui-redoc"><a class="anchor" href="#openapi-ui-redoc"></a><a class="link" href="#openapi-ui-redoc">1.5.2. Redoc</a></h4>
+<div class="paragraph">
+<p>To use redoc just add the dependency to your project:</p>
 </div>
 <div class="listingblock primary">
 
 
-<div class="switch"><div class="switch--item selected">Java</div><div class="switch--item">Kotlin</div></div><div class="content">
-<pre class="highlightjs highlight"><code class="language-groovy hljs">tasks.withType(JavaCompile) {
-  options.compilerArgs &lt;&lt; '-parameters'
-  options.debug = true
-}</code><button class="clipboard">Copy</button></pre>
+<div class="switch"><div class="switch--item selected">Maven</div><div class="switch--item">Gradle</div></div><div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs">&lt;dependency&gt;
+  &lt;groupId&gt;io.jooby&lt;/groupId&gt;
+  &lt;artifactId&gt;jooby-redoc&lt;/artifactId&gt;
+  &lt;version&gt;2.7.0&lt;/version&gt;
+&lt;/dependency&gt;</code><button class="clipboard">Copy</button></pre>
 </div><div class="content hidden">
-<pre class="highlightjs highlight"><code class="language-groovy hljs">tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
-  kotlinOptions.javaParameters = true
-}</code><button class="clipboard">Copy</button></pre>
+<pre class="highlightjs highlight"><code class="language-javascript hljs">compile 'io.jooby:jooby-redoc:2.7.0'</code><button class="clipboard">Copy</button></pre>
 </div></div>
 
+<div class="paragraph">
+<p>The redoc application will be available at <code>/redoc</code>. To modify the default path, just call <a href="https://www.javadoc.io/doc/io.jooby/jooby/latest/io/jooby/OpenAPIModule.html#redoc-java.lang.String-" target="_blank">redoc(String)</a></p>
+</div>
+</div>
 </div>
 </div>
 </div>
