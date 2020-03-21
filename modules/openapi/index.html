@@ -574,7 +574,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
   &lt;plugin&gt;
     &lt;groupId&gt;io.jooby&lt;/groupId&gt;
     &lt;artifactId&gt;jooby-maven-plugin&lt;/artifactId&gt;
-    &lt;version&gt;2.7.0&lt;/version&gt;
+    &lt;version&gt;2.7.1&lt;/version&gt;
     &lt;executions&gt;
       &lt;execution&gt;
         &lt;goals&gt;
@@ -587,17 +587,17 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div><div class="content hidden">
 <pre class="highlightjs highlight"><code class="language-groovy hljs">buildscript {
 
-  repositories {
-    mavenCentral()
+  ext {
+    joobyVersion = "2.7.1"
   }
 
-  dependencies {
-    classpath "io.jooby:jooby-gradle-plugin:2.7.0"
-  }
 }
 
-apply plugin: "application"
-apply plugin: "jooby"
+plugins {
+    id "application"
+    id "io.jooby.openAPI" version "${joobyVersion}"
+    ...
+}
 
 ...
 mainClassName = "myapp.App"
@@ -607,7 +607,7 @@ mainClassName = "myapp.App"
 joobyRun.dependsOn openAPI
 
 // Run openAPI task on build
-build.dependsOn openAPI</code><button class="clipboard">Copy</button></pre>
+jar.dependsOn openAPI</code><button class="clipboard">Copy</button></pre>
 </div></div>
 
 <div class="admonitionblock note">
@@ -794,7 +794,7 @@ need to add a dependency to your project:</p>
   &lt;version&gt;2.1.1&lt;/version&gt;
 &lt;/dependency&gt;</code><button class="clipboard">Copy</button></pre>
 </div><div class="content hidden">
-<pre class="highlightjs highlight"><code class="language-javascript hljs">compile 'io.swagger.core.v3:swagger-annotations:2.1.1'</code><button class="clipboard">Copy</button></pre>
+<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'io.swagger.core.v3:swagger-annotations:2.1.1'</code><button class="clipboard">Copy</button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -971,10 +971,10 @@ info:
 <pre class="highlightjs highlight"><code class="language-xml hljs">&lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
   &lt;artifactId&gt;jooby-swagger-ui&lt;/artifactId&gt;
-  &lt;version&gt;2.7.0&lt;/version&gt;
+  &lt;version&gt;2.7.1&lt;/version&gt;
 &lt;/dependency&gt;</code><button class="clipboard">Copy</button></pre>
 </div><div class="content hidden">
-<pre class="highlightjs highlight"><code class="language-javascript hljs">compile 'io.jooby:jooby-swagger-ui:2.7.0'</code><button class="clipboard">Copy</button></pre>
+<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'io.jooby:jooby-swagger-ui:2.7.1'</code><button class="clipboard">Copy</button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -993,10 +993,10 @@ info:
 <pre class="highlightjs highlight"><code class="language-xml hljs">&lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
   &lt;artifactId&gt;jooby-redoc&lt;/artifactId&gt;
-  &lt;version&gt;2.7.0&lt;/version&gt;
+  &lt;version&gt;2.7.1&lt;/version&gt;
 &lt;/dependency&gt;</code><button class="clipboard">Copy</button></pre>
 </div><div class="content hidden">
-<pre class="highlightjs highlight"><code class="language-javascript hljs">compile 'io.jooby:jooby-redoc:2.7.0'</code><button class="clipboard">Copy</button></pre>
+<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'io.jooby:jooby-redoc:2.7.1'</code><button class="clipboard">Copy</button></pre>
 </div></div>
 
 <div class="paragraph">

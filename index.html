@@ -5,6 +5,7 @@
 <meta name="generator" content="Asciidoctor 2.0.10">
 <meta name="description" content="The modular micro web framework for Java">
 <meta name="keywords" content="Java, Modern, Micro, Web, Framework, Reactive, Lightweight, Microservices">
+<meta name="author" content="Jooby Project">
 <link rel="icon" type="image/png" href="images/favicon96.png">
 <title>jooby: do more! more easily!!</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
@@ -510,6 +511,11 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <body class="book toc2 toc-left">
 <div id="header">
 <h1>Welcome to Jooby!</h1>
+<div class="details">
+<span id="author" class="author">Jooby Project</span><br>
+<span id="email" class="email"><a href="mailto:support@jooby.io">support@jooby.io</a></span><br>
+<span id="revdate">2.7.1</span>
+</div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
@@ -518,10 +524,13 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#features">1.1. Features</a></li>
 <li><a href="#script-api">1.2. Script API</a></li>
 <li><a href="#mvc-api">1.3. MVC API</a></li>
-<li><a href="#code-snippets">1.4. Code Snippets</a></li>
 </ul>
 </li>
-<li><a href="#getting-started">2. Getting Started</a></li>
+<li><a href="#getting-started">2. Getting Started</a>
+<ul class="sectlevel2">
+<li><a href="#code-snippets">2.1. Code Snippets</a></li>
+</ul>
+</li>
 <li><a href="#router">3. Router</a>
 <ul class="sectlevel2">
 <li><a href="#route">3.1. Route</a>
@@ -593,22 +602,27 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#mvc-api-2">5. MVC API</a>
 <ul class="sectlevel2">
 <li><a href="#getting-started-2">5.1. Getting Started</a></li>
-<li><a href="#parameters-2">5.2. Parameters</a>
+<li><a href="#registration">5.2. Registration</a></li>
+<li><a href="#parameters-2">5.3. Parameters</a>
 <ul class="sectlevel3">
-<li><a href="#header-2">5.2.1. Header</a></li>
-<li><a href="#cookie-2">5.2.2. Cookie</a></li>
-<li><a href="#path-2">5.2.3. Path</a></li>
-<li><a href="#query-2">5.2.4. Query</a></li>
-<li><a href="#formdatamultipart">5.2.5. Formdata/Multipart</a></li>
-<li><a href="#body">5.2.6. Body</a></li>
-<li><a href="#flash-2">5.2.7. Flash</a></li>
-<li><a href="#session-2">5.2.8. Session</a></li>
-<li><a href="#context-2">5.2.9. Context</a></li>
+<li><a href="#header-2">5.3.1. Header</a></li>
+<li><a href="#cookie-2">5.3.2. Cookie</a></li>
+<li><a href="#path-2">5.3.3. Path</a></li>
+<li><a href="#query-2">5.3.4. Query</a></li>
+<li><a href="#formdatamultipart">5.3.5. Formdata/Multipart</a></li>
+<li><a href="#body">5.3.6. Body</a></li>
+<li><a href="#flash-2">5.3.7. Flash</a></li>
+<li><a href="#session-2">5.3.8. Session</a></li>
+<li><a href="#context-2">5.3.9. Context</a></li>
 </ul>
 </li>
-<li><a href="#registration">5.3. Registration</a></li>
-<li><a href="#execution-model">5.4. Execution model</a></li>
-<li><a href="#suspend-functions">5.5. Suspend functions</a></li>
+<li><a href="#responses">5.4. Responses</a>
+<ul class="sectlevel3">
+<li><a href="#status-code">5.4.1. Status Code</a></li>
+<li><a href="#nonblocking">5.4.2. NonBlocking</a></li>
+</ul>
+</li>
+<li><a href="#execution-model">5.5. Execution model</a></li>
 <li><a href="#jax-rs-annotations">5.6. JAX-RS Annotations</a></li>
 </ul>
 </li>
@@ -656,12 +670,12 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#worker-executor">11.2. Worker Executor</a></li>
 </ul>
 </li>
-<li><a href="#responses">12. Responses</a>
+<li><a href="#responses-2">12. Responses</a>
 <ul class="sectlevel2">
 <li><a href="#raw">12.1. Raw</a></li>
 <li><a href="#streaming-chunked">12.2. Streaming / Chunked</a></li>
 <li><a href="#file-download">12.3. File download</a></li>
-<li><a href="#nonblocking">12.4. NonBlocking</a>
+<li><a href="#nonblocking-2">12.4. NonBlocking</a>
 <ul class="sectlevel3">
 <li><a href="#limitations">12.4.1. Limitations</a></li>
 <li><a href="#completablefuture">12.4.2. CompletableFuture</a></li>
@@ -812,7 +826,10 @@ favorite web server.</p>
 </td>
 <td class="content">
 <div class="paragraph">
-<p>Looking for previous version? The <a href="v1">v1 documentation</a> is still available.</p>
+<p>Latest Release: <a href="https://github.com/jooby-project/jooby/releases/tag/2.7.1" target="_blank">2.7.1</a>.</p>
+</div>
+<div class="paragraph">
+<p>Looking for previous version? The <a href="v1">1.x</a> documentation is still available.</p>
 </div>
 </td>
 </tr>
@@ -844,6 +861,9 @@ fun main(args: Array&lt;String&gt;) {
 }</code><button class="clipboard">Copy</button></pre>
 </div></div>
 
+<div class="paragraph">
+<p>Source code is available at <a href="https://github.com/jooby-project/jooby" target="_blank">GitHub</a></p>
+</div>
 <div class="sect2">
 <h3 id="introduction-features"><a class="anchor" href="#introduction-features"></a><a class="link" href="#introduction-features">1.1. Features</a></h3>
 <div class="ulist">
@@ -1011,29 +1031,6 @@ fun main(args: Array&lt;String&gt;) {
 <p>More about MVC and JAX-RS support in the <a href="#mvc-api">MVC API</a> chapter.</p>
 </div>
 </div>
-<div class="sect2">
-<h3 id="introduction-code-snippets"><a class="anchor" href="#introduction-code-snippets"></a><a class="link" href="#introduction-code-snippets">1.4. Code Snippets</a></h3>
-<div class="paragraph">
-<p>For simplicity and brevity we are going to skip the <code>runApp</code> function and extending <code>Jooby</code>.
-A code example will looks like:</p>
-</div>
-<div class="listingblock primary">
-<div class="title">Snippet</div>
-
-<div class="switch"><div class="switch--item selected">Java</div><div class="switch--item">Kotlin</div></div><div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs">{
-  get("/", ctx -&gt; "Snippet");
-}</code><button class="clipboard">Copy</button></pre>
-</div><div class="content hidden">
-<pre class="highlightjs highlight"><code class="language-kotlin hljs">{
-  get("/") { "Snippet" }
-}</code><button class="clipboard">Copy</button></pre>
-</div></div>
-
-<div class="paragraph">
-<p>The use of <code>application class</code> or <code>runApp function</code> will be included when is strictly necessary.</p>
-</div>
-</div>
 </div>
 </div>
 <div class="sect1">
@@ -1074,7 +1071,7 @@ Jooby projects very quickly.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>Download <a href="https://repo1.maven.org/maven2/io/jooby/jooby-cli/2.7.0/jooby-cli-2.7.0.zip" target="_blank">jooby-cli.zip</a></p>
+<p>Download <a href="https://repo1.maven.org/maven2/io/jooby/jooby-cli/2.7.1/jooby-cli-2.7.1.zip" target="_blank">jooby-cli.zip</a></p>
 </li>
 <li>
 <p>Unzip <code>jooby-cli.zip</code> in your user home directory (or any other directory you prefer to)</p>
@@ -1226,6 +1223,29 @@ generation of <a href="https://github.com/fizzed/stork" target="_blank">Stork la
 <div class="title">Interactive mode:</div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs">jooby&gt; create myapp -i</code><button class="clipboard">Copy</button></pre>
+</div>
+</div>
+<div class="sect2">
+<h3 id="getting-started-code-snippets"><a class="anchor" href="#getting-started-code-snippets"></a><a class="link" href="#getting-started-code-snippets">2.1. Code Snippets</a></h3>
+<div class="paragraph">
+<p>For simplicity and brevity we are going to skip the <code>runApp</code> function and extending <code>Jooby</code>.
+A code example will looks like:</p>
+</div>
+<div class="listingblock primary">
+<div class="title">Snippet</div>
+
+<div class="switch"><div class="switch--item selected">Java</div><div class="switch--item">Kotlin</div></div><div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs">{
+  get("/", ctx -&gt; "Snippet");
+}</code><button class="clipboard">Copy</button></pre>
+</div><div class="content hidden">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs">{
+  get("/") { "Snippet" }
+}</code><button class="clipboard">Copy</button></pre>
+</div></div>
+
+<div class="paragraph">
+<p>The use of <code>application class</code> or <code>runApp function</code> will be included when is strictly necessary.</p>
 </div>
 </div>
 </div>
@@ -4235,10 +4255,10 @@ and returns a single result of the given type.</p>
 <pre class="highlightjs highlight"><code class="language-xml hljs">&lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
   &lt;artifactId&gt;jooby-jackson&lt;/artifactId&gt;
-  &lt;version&gt;2.7.0&lt;/version&gt;
+  &lt;version&gt;2.7.1&lt;/version&gt;
 &lt;/dependency&gt;</code><button class="clipboard">Copy</button></pre>
 </div><div class="content hidden">
-<pre class="highlightjs highlight"><code class="language-javascript hljs">compile 'io.jooby:jooby-jackson:2.7.0'</code><button class="clipboard">Copy</button></pre>
+<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'io.jooby:jooby-jackson:2.7.1'</code><button class="clipboard">Copy</button></pre>
 </div></div>
 
 </td>
@@ -4404,10 +4424,10 @@ produces a result.</p>
 <pre class="highlightjs highlight"><code class="language-xml hljs">&lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
   &lt;artifactId&gt;jooby-jackson&lt;/artifactId&gt;
-  &lt;version&gt;2.7.0&lt;/version&gt;
+  &lt;version&gt;2.7.1&lt;/version&gt;
 &lt;/dependency&gt;</code><button class="clipboard">Copy</button></pre>
 </div><div class="content hidden">
-<pre class="highlightjs highlight"><code class="language-javascript hljs">compile 'io.jooby:jooby-jackson:2.7.0'</code><button class="clipboard">Copy</button></pre>
+<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'io.jooby:jooby-jackson:2.7.1'</code><button class="clipboard">Copy</button></pre>
 </div></div>
 
 </td>
@@ -4504,417 +4524,7 @@ annotation processing tool.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="mvc-api-parameters"><a class="anchor" href="#mvc-api-parameters"></a><a class="link" href="#mvc-api-parameters">5.2. Parameters</a></h3>
-<div class="paragraph">
-<p>HTTP parameter provision is available via <code>*Param</code> annotations.</p>
-</div>
-<div class="sect3">
-<h4 id="mvc-api-parameters-header"><a class="anchor" href="#mvc-api-parameters-header"></a><a class="link" href="#mvc-api-parameters-header">5.2.1. Header</a></h4>
-<div class="paragraph">
-<p>Provisioning of headers is available via <a href="https://www.javadoc.io/doc/io.jooby/jooby/latest/io/jooby/annotations/HeaderParam.html" target="_blank">HeaderParam</a> annotation:</p>
-</div>
-<div class="listingblock primary">
-<div class="title">Headers</div>
-
-<div class="switch"><div class="switch--item selected">Java</div><div class="switch--item">Kotlin</div></div><div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs">public class MyController {
-
-  @GET
-  public Object provisioning(@HeaderParam String token) {  <i class="conum" data-value="1"></i><b>(1)</b>
-    ...
-  }
-}</code><button class="clipboard">Copy</button></pre>
-</div><div class="content hidden">
-<pre class="highlightjs highlight"><code class="language-kotlin hljs">class MyController {
-
-  @GET
-  fun provisioning(@HeaderParam token: String) : Any {  <i class="conum" data-value="1"></i><b>(1)</b>
-    ...
-  }
-}</code><button class="clipboard">Copy</button></pre>
-</div></div>
-
-<div class="colist arabic">
-<table>
-<tbody><tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>Access to HTTP header named <code>token</code></td>
-</tr>
-</tbody></table>
-</div>
-<div class="paragraph">
-<p>Compared to JAX-RS the parameter name on <code>@*Param</code> annotation is completely optional, but required for
-non valid Java names:</p>
-</div>
-<div class="listingblock primary">
-<div class="title">Non valid Java name</div>
-
-<div class="switch"><div class="switch--item selected">Java</div><div class="switch--item">Kotlin</div></div><div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs">public class MyController {
-
-  @GET
-  public Object provisioning(@HeaderParam("Last-Modified-Since") long lastModifiedSince) {
-    ...
-  }
-}</code><button class="clipboard">Copy</button></pre>
-</div><div class="content hidden">
-<pre class="highlightjs highlight"><code class="language-kotlin hljs">class MyController {
-
-  @GET
-  fun provisioning(@HeaderParam("Last-Modified-Since") lastModifiedSince: Long) : Any {
-    ...
-  }
-}</code><button class="clipboard">Copy</button></pre>
-</div></div>
-
-</div>
-<div class="sect3">
-<h4 id="mvc-api-parameters-cookie"><a class="anchor" href="#mvc-api-parameters-cookie"></a><a class="link" href="#mvc-api-parameters-cookie">5.2.2. Cookie</a></h4>
-<div class="paragraph">
-<p>Provisioning of cookies is available via <a href="https://www.javadoc.io/doc/io.jooby/jooby/latest/io/jooby/annotations/CookieParam.html" target="_blank">CookieParam</a> annotation:</p>
-</div>
-<div class="listingblock primary">
-<div class="title">Cookies</div>
-
-<div class="switch"><div class="switch--item selected">Java</div><div class="switch--item">Kotlin</div></div><div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs">public class MyController {
-
-  @GET
-  public Object provisioning(@CookieParam String token) {  <i class="conum" data-value="1"></i><b>(1)</b>
-    ...
-  }
-}</code><button class="clipboard">Copy</button></pre>
-</div><div class="content hidden">
-<pre class="highlightjs highlight"><code class="language-kotlin hljs">class MyController {
-
-  @GET
-  fun provisioning(@CookieParam token: String) : Any {  <i class="conum" data-value="1"></i><b>(1)</b>
-    ...
-  }
-}</code><button class="clipboard">Copy</button></pre>
-</div></div>
-
-<div class="colist arabic">
-<table>
-<tbody><tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>Access to cookie named <code>token</code></td>
-</tr>
-</tbody></table>
-</div>
-<div class="paragraph">
-<p>Compared to JAX-RS the parameter name on <code>@*Param</code> annotation is completely optional, but required for
-non valid Java names:</p>
-</div>
-<div class="listingblock primary">
-<div class="title">Non valid Java name</div>
-
-<div class="switch"><div class="switch--item selected">Java</div><div class="switch--item">Kotlin</div></div><div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs">public class MyController {
-
-  @GET
-  public Object provisioning(@CookieParam("token-id") String tokenId) {
-    ...
-  }
-}</code><button class="clipboard">Copy</button></pre>
-</div><div class="content hidden">
-<pre class="highlightjs highlight"><code class="language-kotlin hljs">class MyController {
-
-  @GET
-  fun provisioning(@CookieParam("token-id") tokenId: String) : Any {
-    ...
-  }
-}</code><button class="clipboard">Copy</button></pre>
-</div></div>
-
-</div>
-<div class="sect3">
-<h4 id="mvc-api-parameters-path"><a class="anchor" href="#mvc-api-parameters-path"></a><a class="link" href="#mvc-api-parameters-path">5.2.3. Path</a></h4>
-<div class="paragraph">
-<p>For path parameters the <a href="https://www.javadoc.io/doc/io.jooby/jooby/latest/io/jooby/annotations/PathParam.html" target="_blank">PathParam</a> annotation is required:</p>
-</div>
-<div class="listingblock primary">
-<div class="title">PathParam</div>
-
-<div class="switch"><div class="switch--item selected">Java</div><div class="switch--item">Kotlin</div></div><div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs">public class MyController {
-
-  @Path("/{id}")
-  public Object provisioning(@PathParam String id) {
-    ...
-  }
-}</code><button class="clipboard">Copy</button></pre>
-</div><div class="content hidden">
-<pre class="highlightjs highlight"><code class="language-kotlin hljs">class MyController {
-
-  @Path("/{id}")
-  fun provisioning(@PathParam id: String) : Any {
-    ...
-  }
-}</code><button class="clipboard">Copy</button></pre>
-</div></div>
-
-</div>
-<div class="sect3">
-<h4 id="mvc-api-parameters-query"><a class="anchor" href="#mvc-api-parameters-query"></a><a class="link" href="#mvc-api-parameters-query">5.2.4. Query</a></h4>
-<div class="paragraph">
-<p>For query parameters the <a href="https://www.javadoc.io/doc/io.jooby/jooby/latest/io/jooby/annotations/QueryParam.html" target="_blank">QueryParam</a> annotation is required:</p>
-</div>
-<div class="listingblock primary">
-<div class="title">QueryParam</div>
-
-<div class="switch"><div class="switch--item selected">Java</div><div class="switch--item">Kotlin</div></div><div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs">public class MyController {
-
-  @Path("/")
-  public Object provisioning(@QueryParam String q) {
-    ...
-  }
-}</code><button class="clipboard">Copy</button></pre>
-</div><div class="content hidden">
-<pre class="highlightjs highlight"><code class="language-kotlin hljs">class MyController {
-
-  @Path("/")
-  fun provisioning(@QueryParam q: String) : Any {
-    ...
-  }
-}</code><button class="clipboard">Copy</button></pre>
-</div></div>
-
-</div>
-<div class="sect3">
-<h4 id="mvc-api-parameters-formdatamultipart"><a class="anchor" href="#mvc-api-parameters-formdatamultipart"></a><a class="link" href="#mvc-api-parameters-formdatamultipart">5.2.5. Formdata/Multipart</a></h4>
-<div class="paragraph">
-<p>For formdata/multipart parameters the <a href="https://www.javadoc.io/doc/io.jooby/jooby/latest/io/jooby/annotations/FormParam.html" target="_blank">FormParam</a> annotation is required:</p>
-</div>
-<div class="listingblock primary">
-<div class="title">QueryParam</div>
-
-<div class="switch"><div class="switch--item selected">Java</div><div class="switch--item">Kotlin</div></div><div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs">public class MyController {
-
-  @Path("/")
-  @POST
-  public Object provisioning(@FormParam String username) {
-    ...
-  }
-}</code><button class="clipboard">Copy</button></pre>
-</div><div class="content hidden">
-<pre class="highlightjs highlight"><code class="language-kotlin hljs">class MyController {
-
-  @Path("/")
-  @POST
-  fun provisioning(@FormParam username: String) : Any {
-    ...
-  }
-}</code><button class="clipboard">Copy</button></pre>
-</div></div>
-
-</div>
-<div class="sect3">
-<h4 id="mvc-api-parameters-body"><a class="anchor" href="#mvc-api-parameters-body"></a><a class="link" href="#mvc-api-parameters-body">5.2.6. Body</a></h4>
-<div class="paragraph">
-<p>Body parameter doesn’t require an annotation:</p>
-</div>
-<div class="listingblock primary">
-<div class="title">HTTP Body</div>
-
-<div class="switch"><div class="switch--item selected">Java</div><div class="switch--item">Kotlin</div></div><div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs">public class MyController {
-
-  @Path("/")
-  @POST
-  public Object provisioning(MyObject body) {
-    ...
-  }
-}</code><button class="clipboard">Copy</button></pre>
-</div><div class="content hidden">
-<pre class="highlightjs highlight"><code class="language-kotlin hljs">class MyController {
-
-  @Path("/")
-  @POST
-  fun provisioning(body: MyObject) : Any {
-    ...
-  }
-}</code><button class="clipboard">Copy</button></pre>
-</div></div>
-
-</div>
-<div class="sect3">
-<h4 id="mvc-api-parameters-flash"><a class="anchor" href="#mvc-api-parameters-flash"></a><a class="link" href="#mvc-api-parameters-flash">5.2.7. Flash</a></h4>
-<div class="paragraph">
-<p>Provisioning of flash attribute is available via <a href="https://www.javadoc.io/doc/io.jooby/jooby/latest/io/jooby/annotations/FlashParam.html" target="_blank">FlashParam</a> annotation:</p>
-</div>
-<div class="listingblock primary">
-<div class="title">Flash</div>
-
-<div class="switch"><div class="switch--item selected">Java</div><div class="switch--item">Kotlin</div></div><div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs">public class MyController {
-
-  @GET
-  public Object provisioning(@FlashParam String success) {  <i class="conum" data-value="1"></i><b>(1)</b>
-    ...
-  }
-}</code><button class="clipboard">Copy</button></pre>
-</div><div class="content hidden">
-<pre class="highlightjs highlight"><code class="language-kotlin hljs">class MyController {
-
-  @GET
-  fun provisioning(@FlashParam success: String) : Any {  <i class="conum" data-value="1"></i><b>(1)</b>
-    ...
-  }
-}</code><button class="clipboard">Copy</button></pre>
-</div></div>
-
-<div class="colist arabic">
-<table>
-<tbody><tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>Access to flash named <code>success</code></td>
-</tr>
-</tbody></table>
-</div>
-</div>
-<div class="sect3">
-<h4 id="mvc-api-parameters-session"><a class="anchor" href="#mvc-api-parameters-session"></a><a class="link" href="#mvc-api-parameters-session">5.2.8. Session</a></h4>
-<div class="paragraph">
-<p>Provisioning of session attribute is available via <a href="https://www.javadoc.io/doc/io.jooby/jooby/latest/io/jooby/annotations/SessionParam.html" target="_blank">SessionParam</a> annotation:</p>
-</div>
-<div class="listingblock primary">
-<div class="title">Session Attribute</div>
-
-<div class="switch"><div class="switch--item selected">Java</div><div class="switch--item">Kotlin</div></div><div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs">public class MyController {
-
-  @GET
-  public Object provisioning(@SessionParam String userId) {  <i class="conum" data-value="1"></i><b>(1)</b>
-    ...
-  }
-}</code><button class="clipboard">Copy</button></pre>
-</div><div class="content hidden">
-<pre class="highlightjs highlight"><code class="language-kotlin hljs">class MyController {
-
-  @GET
-  fun provisioning(@SessionParam userId: String) : Any {  <i class="conum" data-value="1"></i><b>(1)</b>
-    ...
-  }
-}</code><button class="clipboard">Copy</button></pre>
-</div></div>
-
-<div class="colist arabic">
-<table>
-<tbody><tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>Access to session attribute named <code>userId</code></td>
-</tr>
-</tbody></table>
-</div>
-<div class="paragraph">
-<p>Provisioning of <a href="https://www.javadoc.io/doc/io.jooby/jooby/latest/io/jooby/Session.html" target="_blank">Session</a> is available too:</p>
-</div>
-<div class="listingblock primary">
-<div class="title">Session Attribute</div>
-
-<div class="switch"><div class="switch--item selected">Java</div><div class="switch--item">Kotlin</div></div><div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs">public class MyController {
-
-  @GET
-  public Object provisioning(Session session) {  <i class="conum" data-value="1"></i><b>(1)</b>
-    ...
-  }
-}</code><button class="clipboard">Copy</button></pre>
-</div><div class="content hidden">
-<pre class="highlightjs highlight"><code class="language-kotlin hljs">class MyController {
-
-  @GET
-  fun provisioning(session: Session) : Any {  <i class="conum" data-value="1"></i><b>(1)</b>
-    ...
-  }
-}</code><button class="clipboard">Copy</button></pre>
-</div></div>
-
-<div class="colist arabic">
-<table>
-<tbody><tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>If no session exists yet, new session will be created</td>
-</tr>
-</tbody></table>
-</div>
-<div class="paragraph">
-<p>To avoid this, just use <code>java.util.Optional&lt;Session&gt;</code> as type.</p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="mvc-api-parameters-context"><a class="anchor" href="#mvc-api-parameters-context"></a><a class="link" href="#mvc-api-parameters-context">5.2.9. Context</a></h4>
-<div class="paragraph">
-<p>Provisioning of context attributes is available via <a href="https://www.javadoc.io/doc/io.jooby/jooby/latest/io/jooby/annotations/ContextParam.html" target="_blank">ContextParam</a> annotation:</p>
-</div>
-<div class="listingblock primary">
-<div class="title">Context Attribute</div>
-
-<div class="switch"><div class="switch--item selected">Java</div><div class="switch--item">Kotlin</div></div><div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs">public class MyController {
-
-  @GET
-  public Object provisioning(@ContextParam String userId) {  <i class="conum" data-value="1"></i><b>(1)</b>
-    ...
-  }
-}</code><button class="clipboard">Copy</button></pre>
-</div><div class="content hidden">
-<pre class="highlightjs highlight"><code class="language-kotlin hljs">class MyController {
-
-  @GET
-  fun provisioning(@ContextParam userId: String) : Any {  <i class="conum" data-value="1"></i><b>(1)</b>
-    ...
-  }
-}</code><button class="clipboard">Copy</button></pre>
-</div></div>
-
-<div class="colist arabic">
-<table>
-<tbody><tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>Access to context attribute named <code>userId</code></td>
-</tr>
-</tbody></table>
-</div>
-<div class="paragraph">
-<p>Provisioning of all <a href="https://www.javadoc.io/doc/io.jooby/jooby/latest/io/jooby/Context.html#getAttributes--" target="_blank">attributes</a> is available too:</p>
-</div>
-<div class="listingblock primary">
-<div class="title">Context Attributes</div>
-
-<div class="switch"><div class="switch--item selected">Java</div><div class="switch--item">Kotlin</div></div><div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs">public class MyController {
-
-  @GET
-  public Object provisioning(@ContextParam Map&lt;String, Object&gt; attributes) {  <i class="conum" data-value="1"></i><b>(1)</b>
-    ...
-  }
-}</code><button class="clipboard">Copy</button></pre>
-</div><div class="content hidden">
-<pre class="highlightjs highlight"><code class="language-kotlin hljs">class MyController {
-
-  @GET
-  fun provisioning(@ContextParam attributes: Map&lt;String, Object&gt;) : Any {  <i class="conum" data-value="1"></i><b>(1)</b>
-    ...
-  }
-}</code><button class="clipboard">Copy</button></pre>
-</div></div>
-
-<div class="colist arabic">
-<table>
-<tbody><tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>All context attributes must be set as arguments. They must be declared as <code>Map&lt;String, Object&gt;</code></td>
-</tr>
-</tbody></table>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="mvc-api-registration"><a class="anchor" href="#mvc-api-registration"></a><a class="link" href="#mvc-api-registration">5.3. Registration</a></h3>
+<h3 id="mvc-api-registration"><a class="anchor" href="#mvc-api-registration"></a><a class="link" href="#mvc-api-registration">5.2. Registration</a></h3>
 <div class="paragraph">
 <p>Mvc routes need to be registered (no classpath scanning). Registration is done from your application
 class:</p>
@@ -5023,7 +4633,472 @@ MVC routes (Singleton vs Non-Singleton routes).</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="mvc-api-execution-model"><a class="anchor" href="#mvc-api-execution-model"></a><a class="link" href="#mvc-api-execution-model">5.4. Execution model</a></h3>
+<h3 id="mvc-api-parameters"><a class="anchor" href="#mvc-api-parameters"></a><a class="link" href="#mvc-api-parameters">5.3. Parameters</a></h3>
+<div class="paragraph">
+<p>HTTP parameter provision is available via <code>*Param</code> annotations.</p>
+</div>
+<div class="sect3">
+<h4 id="mvc-api-parameters-header"><a class="anchor" href="#mvc-api-parameters-header"></a><a class="link" href="#mvc-api-parameters-header">5.3.1. Header</a></h4>
+<div class="paragraph">
+<p>Provisioning of headers is available via <a href="https://www.javadoc.io/doc/io.jooby/jooby/latest/io/jooby/annotations/HeaderParam.html" target="_blank">HeaderParam</a> annotation:</p>
+</div>
+<div class="listingblock primary">
+<div class="title">Headers</div>
+
+<div class="switch"><div class="switch--item selected">Java</div><div class="switch--item">Kotlin</div></div><div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs">public class MyController {
+
+  @GET
+  public Object provisioning(@HeaderParam String token) {  <i class="conum" data-value="1"></i><b>(1)</b>
+    ...
+  }
+}</code><button class="clipboard">Copy</button></pre>
+</div><div class="content hidden">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs">class MyController {
+
+  @GET
+  fun provisioning(@HeaderParam token: String) : Any {  <i class="conum" data-value="1"></i><b>(1)</b>
+    ...
+  }
+}</code><button class="clipboard">Copy</button></pre>
+</div></div>
+
+<div class="colist arabic">
+<table>
+<tbody><tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Access to HTTP header named <code>token</code></td>
+</tr>
+</tbody></table>
+</div>
+<div class="paragraph">
+<p>Compared to JAX-RS the parameter name on <code>@*Param</code> annotation is completely optional, but required for
+non valid Java names:</p>
+</div>
+<div class="listingblock primary">
+<div class="title">Non valid Java name</div>
+
+<div class="switch"><div class="switch--item selected">Java</div><div class="switch--item">Kotlin</div></div><div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs">public class MyController {
+
+  @GET
+  public Object provisioning(@HeaderParam("Last-Modified-Since") long lastModifiedSince) {
+    ...
+  }
+}</code><button class="clipboard">Copy</button></pre>
+</div><div class="content hidden">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs">class MyController {
+
+  @GET
+  fun provisioning(@HeaderParam("Last-Modified-Since") lastModifiedSince: Long) : Any {
+    ...
+  }
+}</code><button class="clipboard">Copy</button></pre>
+</div></div>
+
+</div>
+<div class="sect3">
+<h4 id="mvc-api-parameters-cookie"><a class="anchor" href="#mvc-api-parameters-cookie"></a><a class="link" href="#mvc-api-parameters-cookie">5.3.2. Cookie</a></h4>
+<div class="paragraph">
+<p>Provisioning of cookies is available via <a href="https://www.javadoc.io/doc/io.jooby/jooby/latest/io/jooby/annotations/CookieParam.html" target="_blank">CookieParam</a> annotation:</p>
+</div>
+<div class="listingblock primary">
+<div class="title">Cookies</div>
+
+<div class="switch"><div class="switch--item selected">Java</div><div class="switch--item">Kotlin</div></div><div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs">public class MyController {
+
+  @GET
+  public Object provisioning(@CookieParam String token) {  <i class="conum" data-value="1"></i><b>(1)</b>
+    ...
+  }
+}</code><button class="clipboard">Copy</button></pre>
+</div><div class="content hidden">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs">class MyController {
+
+  @GET
+  fun provisioning(@CookieParam token: String) : Any {  <i class="conum" data-value="1"></i><b>(1)</b>
+    ...
+  }
+}</code><button class="clipboard">Copy</button></pre>
+</div></div>
+
+<div class="colist arabic">
+<table>
+<tbody><tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Access to cookie named <code>token</code></td>
+</tr>
+</tbody></table>
+</div>
+<div class="paragraph">
+<p>Compared to JAX-RS the parameter name on <code>@*Param</code> annotation is completely optional, but required for
+non valid Java names:</p>
+</div>
+<div class="listingblock primary">
+<div class="title">Non valid Java name</div>
+
+<div class="switch"><div class="switch--item selected">Java</div><div class="switch--item">Kotlin</div></div><div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs">public class MyController {
+
+  @GET
+  public Object provisioning(@CookieParam("token-id") String tokenId) {
+    ...
+  }
+}</code><button class="clipboard">Copy</button></pre>
+</div><div class="content hidden">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs">class MyController {
+
+  @GET
+  fun provisioning(@CookieParam("token-id") tokenId: String) : Any {
+    ...
+  }
+}</code><button class="clipboard">Copy</button></pre>
+</div></div>
+
+</div>
+<div class="sect3">
+<h4 id="mvc-api-parameters-path"><a class="anchor" href="#mvc-api-parameters-path"></a><a class="link" href="#mvc-api-parameters-path">5.3.3. Path</a></h4>
+<div class="paragraph">
+<p>For path parameters the <a href="https://www.javadoc.io/doc/io.jooby/jooby/latest/io/jooby/annotations/PathParam.html" target="_blank">PathParam</a> annotation is required:</p>
+</div>
+<div class="listingblock primary">
+<div class="title">PathParam</div>
+
+<div class="switch"><div class="switch--item selected">Java</div><div class="switch--item">Kotlin</div></div><div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs">public class MyController {
+
+  @Path("/{id}")
+  public Object provisioning(@PathParam String id) {
+    ...
+  }
+}</code><button class="clipboard">Copy</button></pre>
+</div><div class="content hidden">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs">class MyController {
+
+  @Path("/{id}")
+  fun provisioning(@PathParam id: String) : Any {
+    ...
+  }
+}</code><button class="clipboard">Copy</button></pre>
+</div></div>
+
+</div>
+<div class="sect3">
+<h4 id="mvc-api-parameters-query"><a class="anchor" href="#mvc-api-parameters-query"></a><a class="link" href="#mvc-api-parameters-query">5.3.4. Query</a></h4>
+<div class="paragraph">
+<p>For query parameters the <a href="https://www.javadoc.io/doc/io.jooby/jooby/latest/io/jooby/annotations/QueryParam.html" target="_blank">QueryParam</a> annotation is required:</p>
+</div>
+<div class="listingblock primary">
+<div class="title">QueryParam</div>
+
+<div class="switch"><div class="switch--item selected">Java</div><div class="switch--item">Kotlin</div></div><div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs">public class MyController {
+
+  @Path("/")
+  public Object provisioning(@QueryParam String q) {
+    ...
+  }
+}</code><button class="clipboard">Copy</button></pre>
+</div><div class="content hidden">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs">class MyController {
+
+  @Path("/")
+  fun provisioning(@QueryParam q: String) : Any {
+    ...
+  }
+}</code><button class="clipboard">Copy</button></pre>
+</div></div>
+
+</div>
+<div class="sect3">
+<h4 id="mvc-api-parameters-formdatamultipart"><a class="anchor" href="#mvc-api-parameters-formdatamultipart"></a><a class="link" href="#mvc-api-parameters-formdatamultipart">5.3.5. Formdata/Multipart</a></h4>
+<div class="paragraph">
+<p>For formdata/multipart parameters the <a href="https://www.javadoc.io/doc/io.jooby/jooby/latest/io/jooby/annotations/FormParam.html" target="_blank">FormParam</a> annotation is required:</p>
+</div>
+<div class="listingblock primary">
+<div class="title">QueryParam</div>
+
+<div class="switch"><div class="switch--item selected">Java</div><div class="switch--item">Kotlin</div></div><div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs">public class MyController {
+
+  @Path("/")
+  @POST
+  public Object provisioning(@FormParam String username) {
+    ...
+  }
+}</code><button class="clipboard">Copy</button></pre>
+</div><div class="content hidden">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs">class MyController {
+
+  @Path("/")
+  @POST
+  fun provisioning(@FormParam username: String) : Any {
+    ...
+  }
+}</code><button class="clipboard">Copy</button></pre>
+</div></div>
+
+</div>
+<div class="sect3">
+<h4 id="mvc-api-parameters-body"><a class="anchor" href="#mvc-api-parameters-body"></a><a class="link" href="#mvc-api-parameters-body">5.3.6. Body</a></h4>
+<div class="paragraph">
+<p>Body parameter doesn’t require an annotation:</p>
+</div>
+<div class="listingblock primary">
+<div class="title">HTTP Body</div>
+
+<div class="switch"><div class="switch--item selected">Java</div><div class="switch--item">Kotlin</div></div><div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs">public class MyController {
+
+  @Path("/")
+  @POST
+  public Object provisioning(MyObject body) {
+    ...
+  }
+}</code><button class="clipboard">Copy</button></pre>
+</div><div class="content hidden">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs">class MyController {
+
+  @Path("/")
+  @POST
+  fun provisioning(body: MyObject) : Any {
+    ...
+  }
+}</code><button class="clipboard">Copy</button></pre>
+</div></div>
+
+</div>
+<div class="sect3">
+<h4 id="mvc-api-parameters-flash"><a class="anchor" href="#mvc-api-parameters-flash"></a><a class="link" href="#mvc-api-parameters-flash">5.3.7. Flash</a></h4>
+<div class="paragraph">
+<p>Provisioning of flash attribute is available via <a href="https://www.javadoc.io/doc/io.jooby/jooby/latest/io/jooby/annotations/FlashParam.html" target="_blank">FlashParam</a> annotation:</p>
+</div>
+<div class="listingblock primary">
+<div class="title">Flash</div>
+
+<div class="switch"><div class="switch--item selected">Java</div><div class="switch--item">Kotlin</div></div><div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs">public class MyController {
+
+  @GET
+  public Object provisioning(@FlashParam String success) {  <i class="conum" data-value="1"></i><b>(1)</b>
+    ...
+  }
+}</code><button class="clipboard">Copy</button></pre>
+</div><div class="content hidden">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs">class MyController {
+
+  @GET
+  fun provisioning(@FlashParam success: String) : Any {  <i class="conum" data-value="1"></i><b>(1)</b>
+    ...
+  }
+}</code><button class="clipboard">Copy</button></pre>
+</div></div>
+
+<div class="colist arabic">
+<table>
+<tbody><tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Access to flash named <code>success</code></td>
+</tr>
+</tbody></table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="mvc-api-parameters-session"><a class="anchor" href="#mvc-api-parameters-session"></a><a class="link" href="#mvc-api-parameters-session">5.3.8. Session</a></h4>
+<div class="paragraph">
+<p>Provisioning of session attribute is available via <a href="https://www.javadoc.io/doc/io.jooby/jooby/latest/io/jooby/annotations/SessionParam.html" target="_blank">SessionParam</a> annotation:</p>
+</div>
+<div class="listingblock primary">
+<div class="title">Session Attribute</div>
+
+<div class="switch"><div class="switch--item selected">Java</div><div class="switch--item">Kotlin</div></div><div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs">public class MyController {
+
+  @GET
+  public Object provisioning(@SessionParam String userId) {  <i class="conum" data-value="1"></i><b>(1)</b>
+    ...
+  }
+}</code><button class="clipboard">Copy</button></pre>
+</div><div class="content hidden">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs">class MyController {
+
+  @GET
+  fun provisioning(@SessionParam userId: String) : Any {  <i class="conum" data-value="1"></i><b>(1)</b>
+    ...
+  }
+}</code><button class="clipboard">Copy</button></pre>
+</div></div>
+
+<div class="colist arabic">
+<table>
+<tbody><tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Access to session attribute named <code>userId</code></td>
+</tr>
+</tbody></table>
+</div>
+<div class="paragraph">
+<p>Provisioning of <a href="https://www.javadoc.io/doc/io.jooby/jooby/latest/io/jooby/Session.html" target="_blank">Session</a> is available too:</p>
+</div>
+<div class="listingblock primary">
+<div class="title">Session Attribute</div>
+
+<div class="switch"><div class="switch--item selected">Java</div><div class="switch--item">Kotlin</div></div><div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs">public class MyController {
+
+  @GET
+  public Object provisioning(Session session) {  <i class="conum" data-value="1"></i><b>(1)</b>
+    ...
+  }
+}</code><button class="clipboard">Copy</button></pre>
+</div><div class="content hidden">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs">class MyController {
+
+  @GET
+  fun provisioning(session: Session) : Any {  <i class="conum" data-value="1"></i><b>(1)</b>
+    ...
+  }
+}</code><button class="clipboard">Copy</button></pre>
+</div></div>
+
+<div class="colist arabic">
+<table>
+<tbody><tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>If no session exists yet, new session will be created</td>
+</tr>
+</tbody></table>
+</div>
+<div class="paragraph">
+<p>To avoid this, just use <code>java.util.Optional&lt;Session&gt;</code> as type.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="mvc-api-parameters-context"><a class="anchor" href="#mvc-api-parameters-context"></a><a class="link" href="#mvc-api-parameters-context">5.3.9. Context</a></h4>
+<div class="paragraph">
+<p>Provisioning of context attributes is available via <a href="https://www.javadoc.io/doc/io.jooby/jooby/latest/io/jooby/annotations/ContextParam.html" target="_blank">ContextParam</a> annotation:</p>
+</div>
+<div class="listingblock primary">
+<div class="title">Context Attribute</div>
+
+<div class="switch"><div class="switch--item selected">Java</div><div class="switch--item">Kotlin</div></div><div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs">public class MyController {
+
+  @GET
+  public Object provisioning(@ContextParam String userId) {  <i class="conum" data-value="1"></i><b>(1)</b>
+    ...
+  }
+}</code><button class="clipboard">Copy</button></pre>
+</div><div class="content hidden">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs">class MyController {
+
+  @GET
+  fun provisioning(@ContextParam userId: String) : Any {  <i class="conum" data-value="1"></i><b>(1)</b>
+    ...
+  }
+}</code><button class="clipboard">Copy</button></pre>
+</div></div>
+
+<div class="colist arabic">
+<table>
+<tbody><tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Access to context attribute named <code>userId</code></td>
+</tr>
+</tbody></table>
+</div>
+<div class="paragraph">
+<p>Provisioning of all <a href="https://www.javadoc.io/doc/io.jooby/jooby/latest/io/jooby/Context.html#getAttributes--" target="_blank">attributes</a> is available too:</p>
+</div>
+<div class="listingblock primary">
+<div class="title">Context Attributes</div>
+
+<div class="switch"><div class="switch--item selected">Java</div><div class="switch--item">Kotlin</div></div><div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs">public class MyController {
+
+  @GET
+  public Object provisioning(@ContextParam Map&lt;String, Object&gt; attributes) {  <i class="conum" data-value="1"></i><b>(1)</b>
+    ...
+  }
+}</code><button class="clipboard">Copy</button></pre>
+</div><div class="content hidden">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs">class MyController {
+
+  @GET
+  fun provisioning(@ContextParam attributes: Map&lt;String, Object&gt;) : Any {  <i class="conum" data-value="1"></i><b>(1)</b>
+    ...
+  }
+}</code><button class="clipboard">Copy</button></pre>
+</div></div>
+
+<div class="colist arabic">
+<table>
+<tbody><tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>All context attributes must be set as arguments. They must be declared as <code>Map&lt;String, Object&gt;</code></td>
+</tr>
+</tbody></table>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="mvc-api-responses"><a class="anchor" href="#mvc-api-responses"></a><a class="link" href="#mvc-api-responses">5.4. Responses</a></h3>
+<div class="sect3">
+<h4 id="mvc-api-responses-status-code"><a class="anchor" href="#mvc-api-responses-status-code"></a><a class="link" href="#mvc-api-responses-status-code">5.4.1. Status Code</a></h4>
+<div class="paragraph">
+<p>The default status code is <code>Success(200)</code>, except for <code>void</code> methods with the <code>@DELETE</code> annotation which is set to <code>No Content(204)</code>.</p>
+</div>
+<div class="paragraph">
+<p>There are two options if you need a different status code:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Add a <a href="https://www.javadoc.io/doc/io.jooby/jooby/latest/io/jooby/Context.html" target="_blank">Context</a> parameter and set the <a href="https://www.javadoc.io/doc/io.jooby/jooby/latest/io/jooby/Context.html#setResponseCode-io.jooby.StatusCode-" target="_blank">setResponseCode(StatusCode)</a></p>
+</li>
+<li>
+<p>Returns a <a href="https://www.javadoc.io/doc/io.jooby/jooby/latest/io/jooby/StatusCode.html" target="_blank">StatusCode</a> instance</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="mvc-api-responses-nonblocking"><a class="anchor" href="#mvc-api-responses-nonblocking"></a><a class="link" href="#mvc-api-responses-nonblocking">5.4.2. NonBlocking</a></h4>
+<div class="paragraph">
+<p>Method returning a <code>CompletableFuture</code>, <code>Single</code>, <code>Maybe</code>, <code>Flowable</code>, <code>Mono</code> or <code>Flux</code> is
+considered a non-blocking route.</p>
+</div>
+<div class="paragraph">
+<p>Kotlin suspend functions are supported too:</p>
+</div>
+<div class="listingblock">
+<div class="title">Kotlin Coroutines</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs">class SuspendMvc {
+  @GET
+  @Path("/delay")
+  suspend fun delayed(ctx: Context): String {
+    delay(100)
+    return ctx.getRequestPath()
+  }
+}
+
+fun main(args: Array&lt;String&gt;) {
+  runApp(args) {
+    use(SuspendMvc())
+  }
+}</code><button class="clipboard">Copy</button></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>A non-blocking route run on the event loop (by default) where <strong>blocking is NOT allowed</strong>. For more
+details please checkout the <a href="#responses-nonblocking">non-blocking responses</a> section.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="mvc-api-execution-model"><a class="anchor" href="#mvc-api-execution-model"></a><a class="link" href="#mvc-api-execution-model">5.5. Execution model</a></h3>
 <div class="paragraph">
 <p>The MVC routes follows the execution model described in <a href="#execution-model-2">Execution Model</a>. To run application
 logic in the <a href="https://www.javadoc.io/doc/io.jooby/jooby/latest/io/jooby/ExecutionMode.html#EVENT_LOOP" target="_blank">EVENT_LOOP</a>:</p>
@@ -5204,34 +5279,6 @@ class MyController {
 
 <div class="paragraph">
 <p>The executor must be registered before the MVC route/controller.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="mvc-api-suspend-functions"><a class="anchor" href="#mvc-api-suspend-functions"></a><a class="link" href="#mvc-api-suspend-functions">5.5. Suspend functions</a></h3>
-<div class="paragraph">
-<p>For Kotlin users MVC routes are allowed to use suspend functions</p>
-</div>
-<div class="listingblock">
-<div class="title">Kotlin Coroutines</div>
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-kotlin hljs">class SuspendMvc {
-  @GET
-  @Path("/delay")
-  suspend fun delayed(ctx: Context): String {
-    delay(100)
-    return ctx.getRequestPath()
-  }
-}
-
-fun main(args: Array&lt;String&gt;) {
-  runApp(args) {
-    use(SuspendMvc())
-  }
-}</code><button class="clipboard">Copy</button></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>♡</p>
 </div>
 </div>
 <div class="sect2">
@@ -5963,22 +6010,22 @@ uses <a href="https://jwt.io" target="_blank">JSON Web Token</a> standard to dec
 <pre class="highlightjs highlight"><code class="language-xml hljs">&lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
   &lt;artifactId&gt;jooby-jwt&lt;/artifactId&gt;
-  &lt;version&gt;2.7.0&lt;/version&gt;
+  &lt;version&gt;2.7.1&lt;/version&gt;
 &lt;/dependency&gt;</code><button class="clipboard">Copy</button></pre>
 </div><div class="content hidden">
-<pre class="highlightjs highlight"><code class="language-javascript hljs">compile 'io.jooby:jooby-jwt:2.7.0'</code><button class="clipboard">Copy</button></pre>
+<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'io.jooby:jooby-jwt:2.7.1'</code><button class="clipboard">Copy</button></pre>
 </div></div>
 
 <div class="listingblock primary">
 <div class="title">JWT Session</div>
 
 <div class="switch"><div class="switch--item selected">Java</div><div class="switch--item">Kotlin</div></div><div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs">import io.jooby.session.JWTSession;
+<pre class="highlightjs highlight"><code class="language-java hljs">import io.jooby.session.JwtSessionStore;
 
 {
   String secret = "super secret key";           <i class="conum" data-value="1"></i><b>(1)</b>
 
-  setSessionStore(new JWTSessionStore(secret)); <i class="conum" data-value="2"></i><b>(2)</b>
+  setSessionStore(new JwtSessionStore(secret)); <i class="conum" data-value="2"></i><b>(2)</b>
 
   get("/", ctx -&gt; {
     Session session = ctx.session();
@@ -5989,12 +6036,12 @@ uses <a href="https://jwt.io" target="_blank">JSON Web Token</a> standard to dec
   });
 }</code><button class="clipboard">Copy</button></pre>
 </div><div class="content hidden">
-<pre class="highlightjs highlight"><code class="language-kotlin hljs">import io.jooby.session.JWTSession
+<pre class="highlightjs highlight"><code class="language-kotlin hljs">import io.jooby.session.JwtSessionStore
 
 {
   val secret = "super secret key"               <i class="conum" data-value="1"></i><b>(1)</b>
 
-  sessionStore = JWTSessionStore(secret)        <i class="conum" data-value="2"></i><b>(2)</b>
+  sessionStore = JwtSessionStore(secret)        <i class="conum" data-value="2"></i><b>(2)</b>
 
   get("/") {
     val session = ctx.session()
@@ -6844,7 +6891,7 @@ worker threads:</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="responses"><a class="anchor" href="#responses"></a><a class="link" href="#responses">12. Responses</a></h2>
+<h2 id="responses"><a class="anchor" href="#mvc-api-responses"></a><a class="link" href="#mvc-api-responses">12. Responses</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>This chapter covers some special response types, like <code>raw responses</code>, <code>streaming</code>, <code>file download</code>, <code>non-blocking</code>, etc…​</p>
@@ -7293,7 +7340,7 @@ non-blocking API.</p>
   &lt;version&gt;2.2.17&lt;/version&gt;
 &lt;/dependency&gt;</code><button class="clipboard">Copy</button></pre>
 </div><div class="content hidden">
-<pre class="highlightjs highlight"><code class="language-javascript hljs">compile 'io.reactivex.rxjava2:rxjava:2.2.17'</code><button class="clipboard">Copy</button></pre>
+<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'io.reactivex.rxjava2:rxjava:2.2.17'</code><button class="clipboard">Copy</button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -7374,7 +7421,7 @@ non-blocking API.</p>
   &lt;version&gt;3.3.2.RELEASE&lt;/version&gt;
 &lt;/dependency&gt;</code><button class="clipboard">Copy</button></pre>
 </div><div class="content hidden">
-<pre class="highlightjs highlight"><code class="language-javascript hljs">compile 'io.projectreactor:reactor-core:3.3.2.RELEASE'</code><button class="clipboard">Copy</button></pre>
+<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'io.projectreactor:reactor-core:3.3.2.RELEASE'</code><button class="clipboard">Copy</button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -8404,7 +8451,7 @@ header produce it by the <code>GET</code> handler.</p>
   &lt;version&gt;4.10.0&lt;/version&gt;
 &lt;/dependency&gt;</code><button class="clipboard">Copy</button></pre>
 </div><div class="content hidden">
-<pre class="highlightjs highlight"><code class="language-javascript hljs">compile 'com.github.vladimir-bukhtoyarov:bucket4j-core:4.10.0'</code><button class="clipboard">Copy</button></pre>
+<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'com.github.vladimir-bukhtoyarov:bucket4j-core:4.10.0'</code><button class="clipboard">Copy</button></pre>
 </div></div>
 
 <div class="listingblock primary">
@@ -9112,7 +9159,7 @@ logback in your project:</p>
   &lt;version&gt;1.2.3&lt;/version&gt;
 &lt;/dependency&gt;</code><button class="clipboard">Copy</button></pre>
 </div><div class="content hidden">
-<pre class="highlightjs highlight"><code class="language-javascript hljs">compile 'ch.qos.logback:logback-classic:1.2.3'</code><button class="clipboard">Copy</button></pre>
+<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'ch.qos.logback:logback-classic:1.2.3'</code><button class="clipboard">Copy</button></pre>
 </div></div>
 
 <div class="listingblock">
@@ -9162,9 +9209,9 @@ the next steps to use logback in your project:</p>
   &lt;version&gt;2.13.0&lt;/version&gt;
 &lt;/dependency&gt;</code><button class="clipboard">Copy</button></pre>
 </div><div class="content hidden">
-<pre class="highlightjs highlight"><code class="language-javascript hljs">compile 'org.apache.logging.log4j:log4j-slf4j-impl:2.13.0'
+<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'org.apache.logging.log4j:log4j-slf4j-impl:2.13.0'
 
-compile 'org.apache.logging.log4j:log4j-core:2.13.0'</code><button class="clipboard">Copy</button></pre>
+implementation 'org.apache.logging.log4j:log4j-core:2.13.0'</code><button class="clipboard">Copy</button></pre>
 </div></div>
 
 <div class="listingblock">
@@ -9286,10 +9333,10 @@ the logging framework to configure without taking care the environment setup.</p
 <pre class="highlightjs highlight"><code class="language-xml hljs">&lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
   &lt;artifactId&gt;jooby-test&lt;/artifactId&gt;
-  &lt;version&gt;2.7.0&lt;/version&gt;
+  &lt;version&gt;2.7.1&lt;/version&gt;
 &lt;/dependency&gt;</code><button class="clipboard">Copy</button></pre>
 </div><div class="content hidden">
-<pre class="highlightjs highlight"><code class="language-javascript hljs">compile 'io.jooby:jooby-test:2.7.0'</code><button class="clipboard">Copy</button></pre>
+<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'io.jooby:jooby-test:2.7.1'</code><button class="clipboard">Copy</button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -9547,10 +9594,10 @@ you can set HTTP parameters, body, headers, etc.</p>
 <pre class="highlightjs highlight"><code class="language-xml hljs">&lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
   &lt;artifactId&gt;jooby-test&lt;/artifactId&gt;
-  &lt;version&gt;2.7.0&lt;/version&gt;
+  &lt;version&gt;2.7.1&lt;/version&gt;
 &lt;/dependency&gt;</code><button class="clipboard">Copy</button></pre>
 </div><div class="content hidden">
-<pre class="highlightjs highlight"><code class="language-javascript hljs">compile 'io.jooby:jooby-test:2.7.0'</code><button class="clipboard">Copy</button></pre>
+<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'io.jooby:jooby-test:2.7.1'</code><button class="clipboard">Copy</button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -9745,7 +9792,7 @@ that effectively reload application classes.</p>
   &lt;plugin&gt;
     &lt;groupId&gt;io.jooby&lt;/groupId&gt;
     &lt;artifactId&gt;jooby-maven-plugin&lt;/artifactId&gt;
-    &lt;version&gt;2.7.0&lt;/version&gt;
+    &lt;version&gt;2.7.1&lt;/version&gt;
   &lt;/plugin&gt;
   ...
 &lt;/plugins&gt;</code><button class="clipboard">Copy</button></pre>
@@ -9757,7 +9804,7 @@ that effectively reload application classes.</p>
   }
 
   dependencies {
-    classpath "io.jooby:jooby-gradle-plugin:2.7.0"
+    classpath "io.jooby:jooby-gradle-plugin:2.7.1"
   }
 }
 
@@ -9827,7 +9874,7 @@ project directory, when found plugin compiler is OFF and let Eclipse compiles th
   &lt;plugin&gt;
     &lt;groupId&gt;io.jooby&lt;/groupId&gt;
     &lt;artifactId&gt;jooby-maven-plugin&lt;/artifactId&gt;
-    &lt;version&gt;2.7.0&lt;/version&gt;
+    &lt;version&gt;2.7.1&lt;/version&gt;
     &lt;configuration&gt;
       &lt;mainClass&gt;${application.class}&lt;/mainClass&gt;                  <i class="conum" data-value="1"></i><b>(1)</b>
       &lt;restartExtensions&gt;conf,properties,class&lt;/restartExtensions&gt; <i class="conum" data-value="2"></i><b>(2)</b>
@@ -9845,7 +9892,7 @@ project directory, when found plugin compiler is OFF and let Eclipse compiles th
   }
 
   dependencies {
-    classpath "io.jooby:jooby-gradle-plugin:2.7.0"
+    classpath "io.jooby:jooby-gradle-plugin:2.7.1"
   }
 }
 
@@ -9915,10 +9962,10 @@ joobyRun {
 <pre class="highlightjs highlight"><code class="language-xml hljs">&lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
   &lt;artifactId&gt;jooby-jetty&lt;/artifactId&gt;
-  &lt;version&gt;2.7.0&lt;/version&gt;
+  &lt;version&gt;2.7.1&lt;/version&gt;
 &lt;/dependency&gt;</code><button class="clipboard">Copy</button></pre>
 </div><div class="content hidden">
-<pre class="highlightjs highlight"><code class="language-javascript hljs">compile 'io.jooby:jooby-jetty:2.7.0'</code><button class="clipboard">Copy</button></pre>
+<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'io.jooby:jooby-jetty:2.7.1'</code><button class="clipboard">Copy</button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -9931,10 +9978,10 @@ joobyRun {
 <pre class="highlightjs highlight"><code class="language-xml hljs">&lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
   &lt;artifactId&gt;jooby-netty&lt;/artifactId&gt;
-  &lt;version&gt;2.7.0&lt;/version&gt;
+  &lt;version&gt;2.7.1&lt;/version&gt;
 &lt;/dependency&gt;</code><button class="clipboard">Copy</button></pre>
 </div><div class="content hidden">
-<pre class="highlightjs highlight"><code class="language-javascript hljs">compile 'io.jooby:jooby-netty:2.7.0'</code><button class="clipboard">Copy</button></pre>
+<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'io.jooby:jooby-netty:2.7.1'</code><button class="clipboard">Copy</button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -9947,10 +9994,10 @@ joobyRun {
 <pre class="highlightjs highlight"><code class="language-xml hljs">&lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
   &lt;artifactId&gt;jooby-utow&lt;/artifactId&gt;
-  &lt;version&gt;2.7.0&lt;/version&gt;
+  &lt;version&gt;2.7.1&lt;/version&gt;
 &lt;/dependency&gt;</code><button class="clipboard">Copy</button></pre>
 </div><div class="content hidden">
-<pre class="highlightjs highlight"><code class="language-javascript hljs">compile 'io.jooby:jooby-utow:2.7.0'</code><button class="clipboard">Copy</button></pre>
+<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'io.jooby:jooby-utow:2.7.1'</code><button class="clipboard">Copy</button></pre>
 </div></div>
 
 <div class="admonitionblock important">
@@ -10451,7 +10498,7 @@ dependency injection of your choice.</p>
   &lt;version&gt;2.20&lt;/version&gt;
 &lt;/dependency&gt;</code><button class="clipboard">Copy</button></pre>
 </div><div class="content hidden">
-<pre class="highlightjs highlight"><code class="language-javascript hljs">compile 'com.google.dagger:dagger:2.20'</code><button class="clipboard">Copy</button></pre>
+<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'com.google.dagger:dagger:2.20'</code><button class="clipboard">Copy</button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -10657,10 +10704,10 @@ fun main(args: Array&lt;String&gt;) {
 <pre class="highlightjs highlight"><code class="language-xml hljs">&lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
   &lt;artifactId&gt;jooby-guice&lt;/artifactId&gt;
-  &lt;version&gt;2.7.0&lt;/version&gt;
+  &lt;version&gt;2.7.1&lt;/version&gt;
 &lt;/dependency&gt;</code><button class="clipboard">Copy</button></pre>
 </div><div class="content hidden">
-<pre class="highlightjs highlight"><code class="language-javascript hljs">compile 'io.jooby:jooby-guice:2.7.0'</code><button class="clipboard">Copy</button></pre>
+<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'io.jooby:jooby-guice:2.7.1'</code><button class="clipboard">Copy</button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -10825,10 +10872,10 @@ fun main(args: Array&lt;String&gt;) {
 <pre class="highlightjs highlight"><code class="language-xml hljs">&lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
   &lt;artifactId&gt;jooby-spring&lt;/artifactId&gt;
-  &lt;version&gt;2.7.0&lt;/version&gt;
+  &lt;version&gt;2.7.1&lt;/version&gt;
 &lt;/dependency&gt;</code><button class="clipboard">Copy</button></pre>
 </div><div class="content hidden">
-<pre class="highlightjs highlight"><code class="language-javascript hljs">compile 'io.jooby:jooby-spring:2.7.0'</code><button class="clipboard">Copy</button></pre>
+<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'io.jooby:jooby-spring:2.7.1'</code><button class="clipboard">Copy</button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -10994,10 +11041,10 @@ class Hello {
 <pre class="highlightjs highlight"><code class="language-xml hljs">&lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
   &lt;artifactId&gt;jooby-weld&lt;/artifactId&gt;
-  &lt;version&gt;2.7.0&lt;/version&gt;
+  &lt;version&gt;2.7.1&lt;/version&gt;
 &lt;/dependency&gt;</code><button class="clipboard">Copy</button></pre>
 </div><div class="content hidden">
-<pre class="highlightjs highlight"><code class="language-javascript hljs">compile 'io.jooby:jooby-weld:2.7.0'</code><button class="clipboard">Copy</button></pre>
+<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'io.jooby:jooby-weld:2.7.1'</code><button class="clipboard">Copy</button></pre>
 </div></div>
 
 <div class="paragraph">
