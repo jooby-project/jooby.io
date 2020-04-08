@@ -525,8 +525,9 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </ul>
 </li>
 <li><a href="#protecting-urls">1.3. Protecting URLs</a></li>
-<li><a href="#advanced-usage">1.4. Advanced Usage</a></li>
-<li><a href="#starter">1.5. Starter</a></li>
+<li><a href="#authorizer">1.4. Authorizer</a></li>
+<li><a href="#advanced-usage">1.5. Advanced Usage</a></li>
+<li><a href="#starter">1.6. Starter</a></li>
 </ul>
 </li>
 </ul>
@@ -551,10 +552,10 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <pre class="highlightjs highlight"><code class="language-xml hljs">&lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
   &lt;artifactId&gt;jooby-pac4j&lt;/artifactId&gt;
-  &lt;version&gt;2.7.3&lt;/version&gt;
+  &lt;version&gt;2.8.0&lt;/version&gt;
 &lt;/dependency&gt;</code><button class="clipboard">Copy</button></pre>
 </div><div class="content hidden">
-<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'io.jooby:jooby-pac4j:2.7.3'</code><button class="clipboard">Copy</button></pre>
+<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'io.jooby:jooby-pac4j:2.8.0'</code><button class="clipboard">Copy</button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -623,10 +624,10 @@ Clients are configured at bootstrap time using the Pac4j DSL:</p>
 <pre class="highlightjs highlight"><code class="language-xml hljs">&lt;dependency&gt;
   &lt;groupId&gt;org.pac4j&lt;/groupId&gt;
   &lt;artifactId&gt;pac4j-oidc&lt;/artifactId&gt;
-  &lt;version&gt;4.0.0-RC3&lt;/version&gt;
+  &lt;version&gt;4.0.0&lt;/version&gt;
 &lt;/dependency&gt;</code><button class="clipboard">Copy</button></pre>
 </div><div class="content hidden">
-<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'org.pac4j:pac4j-oidc:4.0.0-RC3'</code><button class="clipboard">Copy</button></pre>
+<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'org.pac4j:pac4j-oidc:4.0.0'</code><button class="clipboard">Copy</button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -702,10 +703,10 @@ oidc.secret = MhMme_Ik6IH2JMnAT6MFIfee</code><button class="clipboard">Copy</but
 <pre class="highlightjs highlight"><code class="language-xml hljs">&lt;dependency&gt;
   &lt;groupId&gt;org.pac4j&lt;/groupId&gt;
   &lt;artifactId&gt;pac4j-oauth&lt;/artifactId&gt;
-  &lt;version&gt;4.0.0-RC3&lt;/version&gt;
+  &lt;version&gt;4.0.0&lt;/version&gt;
 &lt;/dependency&gt;</code><button class="clipboard">Copy</button></pre>
 </div><div class="content hidden">
-<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'org.pac4j:pac4j-oauth:4.0.0-RC3'</code><button class="clipboard">Copy</button></pre>
+<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'org.pac4j:pac4j-oauth:4.0.0'</code><button class="clipboard">Copy</button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -771,10 +772,10 @@ twitter.secret = 2kAzunH5Btc4gRSaMr7D7MkyoJ5u1VzbOOzE8rBofs</code><button class=
 <pre class="highlightjs highlight"><code class="language-xml hljs">&lt;dependency&gt;
   &lt;groupId&gt;org.pac4j&lt;/groupId&gt;
   &lt;artifactId&gt;pac4j-jwt&lt;/artifactId&gt;
-  &lt;version&gt;4.0.0-RC3&lt;/version&gt;
+  &lt;version&gt;4.0.0&lt;/version&gt;
 &lt;/dependency&gt;</code><button class="clipboard">Copy</button></pre>
 </div><div class="content hidden">
-<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'org.pac4j:pac4j-jwt:4.0.0-RC3'</code><button class="clipboard">Copy</button></pre>
+<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'org.pac4j:pac4j-jwt:4.0.0'</code><button class="clipboard">Copy</button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -869,7 +870,61 @@ what url must be protected using a path pattern:</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="pac4j-advanced-usage"><a class="anchor" href="#pac4j-advanced-usage"></a><a class="link" href="#pac4j-advanced-usage">1.4. Advanced Usage</a></h3>
+<h3 id="pac4j-authorizer"><a class="anchor" href="#pac4j-authorizer"></a><a class="link" href="#pac4j-authorizer">1.4. Authorizer</a></h3>
+<div class="paragraph">
+<p>Authorizers are registered and group by path. We do provide couple of ways to specific an authorizer:</p>
+</div>
+<div class="listingblock">
+<div class="title">Manual configuration</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs">import org.pac4j.core.config.Config;
+{
+
+  Config pac4j = new Config();
+
+  pac4j.addAuthorizer("test", new Authorizer&lt;CommonProfile&gt;() {
+	@Override public boolean isAuthorized(WebContext context, List&lt;CommonProfile&gt; profiles) {
+		return false;
+	}
+  });
+
+  install(
+      new Pac4jModule(pac4j)
+          .client("/api/*", "test", conf -&gt; {...});
+  );
+}</code><button class="clipboard">Copy</button></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Automatic configuration</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs">{
+
+  install(
+      new Pac4jModule()
+          .client("/api/*", new MyTestAuthorizer(), conf -&gt; {...});
+  );
+}</code><button class="clipboard">Copy</button></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Registry  (or dependency injection) integration</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs">{
+
+  install(
+      new Pac4jModule()
+          .client("/api/*", MyTestAuthorizer.class, conf -&gt; {...});
+  );
+}</code><button class="clipboard">Copy</button></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This last example ask application registry (dependency injection framework usually) to provisioning the <code>MyTestAuthorizer</code> authorizer.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="pac4j-advanced-usage"><a class="anchor" href="#pac4j-advanced-usage"></a><a class="link" href="#pac4j-advanced-usage">1.5. Advanced Usage</a></h3>
 <div class="paragraph">
 <p>You can customize default options by using the <a href="https://www.javadoc.io/doc/io.jooby/jooby/latest/io/jooby/pac4j/Pac4jOptions.html" target="_blank">Pac4jOptions</a> and/or providing your
 own Pac4j configuration.</p>
@@ -901,7 +956,7 @@ import org.pac4j.core.config.Config
 
 </div>
 <div class="sect2">
-<h3 id="pac4j-starter"><a class="anchor" href="#pac4j-starter"></a><a class="link" href="#pac4j-starter">1.5. Starter</a></h3>
+<h3 id="pac4j-starter"><a class="anchor" href="#pac4j-starter"></a><a class="link" href="#pac4j-starter">1.6. Starter</a></h3>
 <div class="paragraph">
 <p>Checkout the starter/demo project for Pac4j that let you choose between multiple login clients: <a href="https://github.com/jooby-project/jooby/tree/2.x/starters/pac4j-starter" target="_blank">Pac4j Starter</a>.</p>
 </div>

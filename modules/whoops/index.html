@@ -8,7 +8,7 @@
 <meta name="description" content="The modular micro web framework for Java">
 <meta name="keywords" content="Java, Modern, Micro, Web, Framework, Reactive, Lightweight, Microservices">
 <link rel="icon" type="image/png" href="../../images/favicon96.png">
-<title>jooby: ebean module</title>
+<title>jooby: whoops module</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /* Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -514,11 +514,12 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#ebean">1. Ebean</a>
+<li><a href="#whoops">1. Whoops</a>
 <ul class="sectlevel2">
 <li><a href="#usage">1.1. Usage</a></li>
-<li><a href="#transactional-request">1.2. Transactional Request</a></li>
-<li><a href="#configuration">1.3. Configuration</a></li>
+<li><a href="#test">1.2. Test</a></li>
+<li><a href="#how-it-works">1.3. How it works</a></li>
+<li><a href="#production-deploy">1.4. Production deploy</a></li>
 </ul>
 </li>
 </ul>
@@ -526,133 +527,55 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div id="content">
 <div class="sect1">
-<h2 id="ebean"><a class="anchor" href="#ebean"></a><a class="link" href="#ebean">1. Ebean</a></h2>
+<h2 id="whoops"><a class="anchor" href="#whoops"></a><a class="link" href="#whoops">1. Whoops</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Persistence module using Ebean: <a href="https://ebean.io" class="bare" target="_blank">https://ebean.io</a></p>
+<p><a href="https://github.com/filp/whoops" target="_blank">Whoops</a> is an error handler framework for PHP. Out-of-the-box, it provides a pretty error interface
+that helps you debug your web projects, but at heart it’s a simple yet powerful stacked error
+handling system.</p>
 </div>
 <div class="sect2">
-<h3 id="ebean-usage"><a class="anchor" href="#ebean-usage"></a><a class="link" href="#ebean-usage">1.1. Usage</a></h3>
+<h3 id="whoops-usage"><a class="anchor" href="#whoops-usage"></a><a class="link" href="#whoops-usage">1.1. Usage</a></h3>
 <div class="paragraph">
-<p>1) Add the dependencies (hikari + ebean):</p>
-</div>
-<div class="listingblock primary">
-
-
-<div class="switch"><div class="switch--item selected">Maven</div><div class="switch--item">Gradle</div></div><div class="content">
-<pre class="highlightjs highlight"><code class="language-xml hljs">&lt;!-- DataSource via HikariCP--&gt;
-&lt;dependency&gt;
-  &lt;groupId&gt;io.jooby&lt;/groupId&gt;
-  &lt;artifactId&gt;jooby-hikari&lt;/artifactId&gt;
-  &lt;version&gt;2.8.0&lt;/version&gt;
-&lt;/dependency&gt;
-
-&lt;!-- Ebean Module--&gt;
-&lt;dependency&gt;
-  &lt;groupId&gt;io.jooby&lt;/groupId&gt;
-  &lt;artifactId&gt;jooby-ebean&lt;/artifactId&gt;
-  &lt;version&gt;2.8.0&lt;/version&gt;
-&lt;/dependency&gt;</code><button class="clipboard">Copy</button></pre>
-</div><div class="content hidden">
-<pre class="highlightjs highlight"><code class="language-javascript hljs">// DataSource via HikariCP
-implementation 'io.jooby:jooby-hikari:2.8.0'
-
-// Ebean Module
-implementation 'io.jooby:jooby-ebean:2.8.0'</code><button class="clipboard">Copy</button></pre>
-</div></div>
-
-<div class="paragraph">
-<p>2) Add database driver (mySQL here):</p>
+<p>1) Add the dependency:</p>
 </div>
 <div class="listingblock primary">
 
 
 <div class="switch"><div class="switch--item selected">Maven</div><div class="switch--item">Gradle</div></div><div class="content">
 <pre class="highlightjs highlight"><code class="language-xml hljs">&lt;dependency&gt;
-  &lt;groupId&gt;mysql&lt;/groupId&gt;
-  &lt;artifactId&gt;mysql-connector-java&lt;/artifactId&gt;
-  &lt;version&gt;8.0.19&lt;/version&gt;
+  &lt;groupId&gt;io.jooby&lt;/groupId&gt;
+  &lt;artifactId&gt;jooby-whoops&lt;/artifactId&gt;
+  &lt;version&gt;2.8.0&lt;/version&gt;
 &lt;/dependency&gt;</code><button class="clipboard">Copy</button></pre>
 </div><div class="content hidden">
-<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'mysql:mysql-connector-java:8.0.19'</code><button class="clipboard">Copy</button></pre>
+<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'io.jooby:jooby-whoops:2.8.0'</code><button class="clipboard">Copy</button></pre>
 </div></div>
 
 <div class="paragraph">
-<p>3) Set database properties</p>
-</div>
-<div class="listingblock">
-<div class="title">application.conf</div>
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-properties hljs">db.url = "jdbc:mysql://localhost/mydb"
-db.user = myuser
-db.password = mypass</code><button class="clipboard">Copy</button></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>4) Configure build time enhancement of the entity beans</p>
-</div>
-<div class="listingblock primary">
-
-
-<div class="switch"><div class="switch--item selected">Maven</div><div class="switch--item">Gradle</div></div><div class="content">
-<pre class="highlightjs highlight"><code class="language-xml hljs">&lt;plugin&gt;
-  &lt;groupId&gt;io.repaint.maven&lt;/groupId&gt;
-  &lt;artifactId&gt;tiles-maven-plugin&lt;/artifactId&gt;
-  &lt;version&gt;${tiles-maven-plugin.version}&lt;/version&gt;
-  &lt;extensions&gt;true&lt;/extensions&gt;
-  &lt;configuration&gt;
-    &lt;tiles&gt;
-      &lt;!-- other tiles ... --&gt;
-      &lt;tile&gt;io.ebean.tile:enhancement:12.2.2&lt;/tile&gt;
-    &lt;/tiles&gt;
-  &lt;/configuration&gt;
-&lt;/plugin&gt;</code><button class="clipboard">Copy</button></pre>
-</div><div class="content hidden">
-<pre class="highlightjs highlight"><code class="language-javascript hljs">plugins {
-    id('io.ebean') version '12.2.2'
-}
-
-dependencies {
-    compile 'io.ebean:ebean:12.2.2'
-    compile 'io.ebean:ebean-querybean:12.2.2'
-
-    // query bean generation
-    annotationProcessor 'io.ebean:querybean-generator:12.2.2'
-}</code><button class="clipboard">Copy</button></pre>
-</div></div>
-
-<div class="paragraph">
-<p>4) Install and use Ebean</p>
+<p>2) Install Whoops</p>
 </div>
 <div class="listingblock primary">
 
 
 <div class="switch"><div class="switch--item selected">Java</div><div class="switch--item">Kotlin</div></div><div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs">import io.jooby.hikari.HikariModule;
-import io.jooby.ebean.EbeanModule;
+<pre class="highlightjs highlight"><code class="language-java hljs">import io.jooby.whoops.WhoopsModule;
 
 {
-  install(new HikariModule());                     <i class="conum" data-value="1"></i><b>(1)</b>
+  install(new WhoopsModule());                      <i class="conum" data-value="1"></i><b>(1)</b>
 
-  install(new EbeanModule());                      <i class="conum" data-value="2"></i><b>(2)</b>
-
-  get("/", ctx -&gt; {
-    Database db = require(Database.class);         <i class="conum" data-value="3"></i><b>(3)</b>
-    // work with Database
+  get("/{id}", ctx -&gt; {
+    return ctx.path("id").intValue();               <i class="conum" data-value="2"></i><b>(2)</b>
   });
 }</code><button class="clipboard">Copy</button></pre>
 </div><div class="content hidden">
-<pre class="highlightjs highlight"><code class="language-kt hljs">import io.jooby.hikari.HikariModule
-import io.jooby.ebean.EbeanModule
+<pre class="highlightjs highlight"><code class="language-kt hljs">import io.jooby.whoops.WhoopsModule
 
 {
-  install(HikariModule())                          <i class="conum" data-value="1"></i><b>(1)</b>
+  install(WhoopsModule())                           <i class="conum" data-value="1"></i><b>(1)</b>
 
-  install(EbeanModule())                           <i class="conum" data-value="2"></i><b>(2)</b>
-
-  get("/") {
-    val db = require(Database::class)              <i class="conum" data-value="3"></i><b>(3)</b>
-    // work with Database
+  get("/{id}") {
+    ctx.path("id").intValue()                       <i class="conum" data-value="2"></i><b>(2)</b>
   }
 }</code><button class="clipboard">Copy</button></pre>
 </div></div>
@@ -661,123 +584,77 @@ import io.jooby.ebean.EbeanModule
 <table>
 <tbody><tr>
 <td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>Install and creates a <code>DataSource</code></td>
+<td>Install Whoops</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>Install and Ebean</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="3"></i><b>3</b></td>
-<td>Use Ebean Database</td>
+<td>Write some exceptional code (see next section)</td>
 </tr>
 </tbody></table>
 </div>
 </div>
 <div class="sect2">
-<h3 id="ebean-transactional-request"><a class="anchor" href="#ebean-transactional-request"></a><a class="link" href="#ebean-transactional-request">1.2. Transactional Request</a></h3>
+<h3 id="whoops-test"><a class="anchor" href="#whoops-test"></a><a class="link" href="#whoops-test">1.2. Test</a></h3>
 <div class="paragraph">
-<p>The <a href="https://www.javadoc.io/doc/io.jooby/jooby/latest/io/jooby/ebean/TransactionalRequest.html" target="_blank">TransactionalRequest</a> decorator takes care of a start/commit/rollback a
-transaction per HTTP request.</p>
+<p>To test whoops we need to generate an exception. Our route is expecting to get an <code>integer</code> for
+the <code>id</code> variable.</p>
 </div>
-<div class="listingblock primary">
-<div class="title">TransactionalRequest</div>
-
-<div class="switch"><div class="switch--item selected">Java</div><div class="switch--item">Kotlin</div></div><div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs">import io.jooby.hikari.HikariModule;
-import io.jooby.ebean.EbeanModule;
-import io.jooby.ebean.TransactionalRequest;
-
-{
-  install(new HikariModule());
-
-  install(new HibernateModule());
-
-  decorator(new TransactionalRequest());
-
-  post("/create", ctx -&gt; {
-    Database db = require(Database.class);
-
-    MyEntity e = ...;
-
-    db.save(e);
-
-    return e;
-  });
-}</code><button class="clipboard">Copy</button></pre>
-</div><div class="content hidden">
-<pre class="highlightjs highlight"><code class="language-kt hljs">import io.jooby.hikari.HikariModule
-import io.jooby.ebean.EbeanModule
-import io.jooby.ebean.TransactionalRequest
-
-{
-  install(HikariModule())
-
-  install(HibernateModule())
-
-  decorator(TransactionalRequest())
-
-  post("/create") { ctx -&gt;
-    val db = require(Database::class)
-
-    val e = ...
-
-    db.save(e)
-
-    e
-  }
-}</code><button class="clipboard">Copy</button></pre>
-</div></div>
-
+<div class="ulist">
+<ul>
+<li>
+<p>Open a browser and type <code><a href="http://localhost:8080/NaN" class="bare" target="_blank">http://localhost:8080/NaN</a></code></p>
+</li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../../images/whoops.png" alt="Whoops in Action">
+</div>
+<div class="title">Figure 1. Whoops in Action</div>
+</div>
 </div>
 <div class="sect2">
-<h3 id="ebean-configuration"><a class="anchor" href="#ebean-configuration"></a><a class="link" href="#ebean-configuration">1.3. Configuration</a></h3>
+<h3 id="whoops-how-it-works"><a class="anchor" href="#whoops-how-it-works"></a><a class="link" href="#whoops-how-it-works">1.3. How it works</a></h3>
 <div class="paragraph">
-<p>Advanced/Custom configuration is supported programmatically or using property files.</p>
+<p>Whoops only display application frames. That is:</p>
 </div>
-<div class="listingblock primary">
-<div class="title">Programmatically</div>
-
-<div class="switch"><div class="switch--item selected">Java</div><div class="switch--item">Kotlin</div></div><div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs">{
-  DatabaseConfig dbConfig = ...;         <i class="conum" data-value="1"></i><b>(1)</b>
-  install(new EbeanModule(dbConfig));    <i class="conum" data-value="2"></i><b>(2)</b>
-}</code><button class="clipboard">Copy</button></pre>
-</div><div class="content hidden">
-<pre class="highlightjs highlight"><code class="language-kt hljs">{
-  val dbConfig = ...                     <i class="conum" data-value="1"></i><b>(1)</b>
-  install(EbeanModule(dbConfig))         <i class="conum" data-value="2"></i><b>(2)</b>
-}</code><button class="clipboard">Copy</button></pre>
-</div></div>
-
-<div class="colist arabic">
-<table>
-<tbody><tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>Manually creates a database config or use the one provided by Jooby: <a href="https://www.javadoc.io/doc/io.jooby/jooby/latest/io/jooby/ebean/EbeanModule.html#create-io.jooby.Jooby-java.lang.String-" target="_blank">create(Jooby,String)</a>.</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>Install Ebean with custom database config</td>
-</tr>
-</tbody></table>
+<div class="paragraph">
+<p>A stacktrace element where we are able to find the source code. The whole stacktrace is available in the application log/console.</p>
+</div>
+<div class="paragraph">
+<p>Whoops does nothing if there is no source code. An example of this is a <code>404</code> request:</p>
 </div>
 <div class="listingblock">
-<div class="title">Configuration</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-javascript hljs">{
-  ebean {
-    ddl {
-      generate = true
-      run = true
-    }
-  }
-}</code><button class="clipboard">Copy</button></pre>
+<pre>Not Found
+message: Page not found
+status code: 404</pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Example shows how to setup Ebean migration tools. Keep in mind Jooby offers a better solution for
-database migrations <a href="flyway">Flyway Module</a>.</p>
+<p>The <code>404</code> error is generated by Jooby, not by application code. So whoops let the next exception
+handler (which is the default here) to deal with the exception.</p>
+</div>
+<div class="paragraph">
+<p>If there is no source code to shows, whoops does nothing.</p>
+</div>
+<div class="paragraph">
+<p>If you have custom error handler just add them before whoops (or after). Remember whoops works
+like any other <a href="../#error-handler">Error Handler</a>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="whoops-production-deploy"><a class="anchor" href="#whoops-production-deploy"></a><a class="link" href="#whoops-production-deploy">1.4. Production deploy</a></h3>
+<div class="paragraph">
+<p>Because whoops only works with source code, whoops won’t ever run in production deployment
+(unless you deploy with source code).</p>
+</div>
+<div class="paragraph">
+<p>Still whoops is enabled and will try to find source code in the current application directory.</p>
+</div>
+<div class="paragraph">
+<p>A better option is to set <code>whoops.enabled = false</code> in your application properties file. This will
+completely turn off whoops.</p>
 </div>
 </div>
 </div>
