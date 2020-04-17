@@ -516,7 +516,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="details">
 <span id="author" class="author">Jooby Project</span><br>
 <span id="email" class="email"><a href="mailto:support@jooby.io">support@jooby.io</a></span><br>
-<span id="revdate">2.8.0</span>
+<span id="revdate">2.8.1</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
@@ -563,8 +563,9 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </ul>
 </li>
 <li><a href="#grouping-routes">3.5. Grouping routes</a></li>
-<li><a href="#composing-routes">3.6. Composing routes</a></li>
-<li><a href="#dynamic-routing">3.7. Dynamic Routing</a></li>
+<li><a href="#trust-proxy">3.6. Trust Proxy</a></li>
+<li><a href="#composing-routes">3.7. Composing routes</a></li>
+<li><a href="#dynamic-routing">3.8. Dynamic Routing</a></li>
 </ul>
 </li>
 <li><a href="#context">4. Context</a>
@@ -829,7 +830,7 @@ favorite web server.</p>
 </td>
 <td class="content">
 <div class="paragraph">
-<p>Latest Release: <a href="https://github.com/jooby-project/jooby/releases/tag/v2.8.0" target="_blank">2.8.0</a>.</p>
+<p>Latest Release: <a href="https://github.com/jooby-project/jooby/releases/tag/v2.8.1" target="_blank">2.8.1</a>.</p>
 </div>
 <div class="paragraph">
 <p>Looking for previous version? The <a href="v1">1.x</a> documentation is still available.</p>
@@ -1074,7 +1075,7 @@ Jooby projects very quickly.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>Download <a href="https://repo1.maven.org/maven2/io/jooby/jooby-cli/2.8.0/jooby-cli-2.8.0.zip" target="_blank">jooby-cli.zip</a></p>
+<p>Download <a href="https://repo1.maven.org/maven2/io/jooby/jooby-cli/2.8.1/jooby-cli-2.8.1.zip" target="_blank">jooby-cli.zip</a></p>
 </li>
 <li>
 <p>Unzip <code>jooby-cli.zip</code> in your user home directory (or any other directory you prefer to)</p>
@@ -2607,7 +2608,89 @@ one or more routes under a common path pattern.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="router-composing-routes"><a class="anchor" href="#router-composing-routes"></a><a class="link" href="#router-composing-routes">3.6. Composing routes</a></h3>
+<h3 id="router-trust-proxy"><a class="anchor" href="#router-trust-proxy"></a><a class="link" href="#router-trust-proxy">3.6. Trust Proxy</a></h3>
+<div class="paragraph">
+<p>The <a href="https://www.javadoc.io/doc/io.jooby/jooby/latest/io/jooby/Router.html#setTrustProxy-boolean-" target="_blank">setTrustProxy(boolean)</a> option enables parsing of <code>X-Forwarded-*</code> headers.</p>
+</div>
+<div class="listingblock primary">
+<div class="title">Usage</div>
+
+<div class="switch"><div class="switch--item selected">Java</div><div class="switch--item">Kotlin</div></div><div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs">import io.jooby.Jooby;
+import io.jooby.ProxyPeerAddressHandler;
+...
+{
+
+  setTrustProxy(true)                                 <i class="conum" data-value="1"></i><b>(1)</b>
+
+  get("/", ctx -&gt; {
+    String remoteAddress = ctx.getRemoteAddress();    <i class="conum" data-value="2"></i><b>(2)</b>
+    String scheme = ctx.getScheme();                  <i class="conum" data-value="3"></i><b>(3)</b>
+    String host = ctx.getHost();                      <i class="conum" data-value="4"></i><b>(4)</b>
+    int port = ctx.getPort();                         <i class="conum" data-value="5"></i><b>(5)</b>
+    ...
+  });
+}</code><button class="clipboard">Copy</button></pre>
+</div><div class="content hidden">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs">import io.jooby.Jooby
+import io.jooby.ProxyPeerAddressHandler
+...
+{
+  trustProxy = true                                   <i class="conum" data-value="1"></i><b>(1)</b>
+
+  get("/") {
+    val remoteAddress = ctx.remoteAddress             <i class="conum" data-value="2"></i><b>(2)</b>
+    val scheme = ctx.scheme                           <i class="conum" data-value="3"></i><b>(3)</b>
+    val host = ctx.host                               <i class="conum" data-value="4"></i><b>(4)</b>
+    val port = ctx.port                               <i class="conum" data-value="5"></i><b>(5)</b>
+    ...
+  }
+}</code><button class="clipboard">Copy</button></pre>
+</div></div>
+
+<div class="colist arabic">
+<table>
+<tbody><tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Set trust proxy</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Set <code>remote address</code> from <code>X-Forwarded-For</code></td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Set <code>scheme</code> from <code>X-Forwarded-Proto</code></td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>Set <code>host</code> from <code>X-Forwarded-Host</code></td>
+</tr>
+<tr>
+<td><i class="conum" data-value="5"></i><b>5</b></td>
+<td>Set <code>port</code> from <code>X-Forwarded-Host</code> or <code>X-Forwarded-Port</code></td>
+</tr>
+</tbody></table>
+</div>
+<div class="admonitionblock important">
+<table>
+<tbody><tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>This should only be installed behind a reverse proxy that has been configured to send the
+<code>X-Forwarded-*</code> header, otherwise a remote user can spoof their address by sending a header with
+bogus values.</p>
+</div>
+</td>
+</tr>
+</tbody></table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="router-composing-routes"><a class="anchor" href="#router-composing-routes"></a><a class="link" href="#router-composing-routes">3.7. Composing routes</a></h3>
 <div class="paragraph">
 <p>Composition is a technique for building modular applications. You can compose one or more
 router/application into a new one.</p>
@@ -2621,13 +2704,13 @@ router/application into a new one.</p>
 <div class="switch"><div class="switch--item selected">Java</div><div class="switch--item">Kotlin</div></div><div class="content">
 <pre class="highlightjs highlight"><code class="language-java hljs">public class Foo extends Jooby {
   {
-    get("/foo", Context::pathString);
+    get("/foo", Context::getRequestPath);
   }
 }
 
 public class Bar extends Jooby {
   {
-    get("/bar", Context::pathString);
+    get("/bar", Context::getRequestPath);
   }
 }
 
@@ -2637,7 +2720,7 @@ public class App extends Jooby {
 
     use(new Bar());                     <i class="conum" data-value="2"></i><b>(2)</b>
 
-    get("/app", Context::pathString);   <i class="conum" data-value="3"></i><b>(3)</b>
+    get("/app", Context::getRequestPath);   <i class="conum" data-value="3"></i><b>(3)</b>
   }
 }</code><button class="clipboard">Copy</button></pre>
 </div><div class="content hidden">
@@ -2684,7 +2767,7 @@ class App: Kooby({
 <div class="switch"><div class="switch--item selected">Java</div><div class="switch--item">Kotlin</div></div><div class="content">
 <pre class="highlightjs highlight"><code class="language-java hljs">public class Foo extends Jooby {
   {
-    get("/foo", Context::pathString);
+    get("/foo", Context::getRequestPath);
   }
 }
 
@@ -2735,7 +2818,7 @@ application independently and compose them all in another application.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="router-dynamic-routing"><a class="anchor" href="#router-dynamic-routing"></a><a class="link" href="#router-dynamic-routing">3.7. Dynamic Routing</a></h3>
+<h3 id="router-dynamic-routing"><a class="anchor" href="#router-dynamic-routing"></a><a class="link" href="#router-dynamic-routing">3.8. Dynamic Routing</a></h3>
 <div class="paragraph">
 <p>Dynamic routing is looks similar to <a href="#composition">composition</a> but enabled/disabled routes at runtime
 using a <code>predicate</code>.</p>
@@ -2985,7 +3068,7 @@ response.</p>
 <div class="switch"><div class="switch--item selected">Java</div><div class="switch--item">Kotlin</div></div><div class="content">
 <pre class="highlightjs highlight"><code class="language-java hljs">{
   get("/{name}", ctx -&gt; {
-    String pathString = ctx.getRequestPath();         <i class="conum" data-value="1"></i><b>(1)</b>
+    String pathString = ctx.getRequestPath();     <i class="conum" data-value="1"></i><b>(1)</b>
 
     Value path = ctx.path();                      <i class="conum" data-value="2"></i><b>(2)</b>
 
@@ -2999,7 +3082,7 @@ response.</p>
 </div><div class="content hidden">
 <pre class="highlightjs highlight"><code class="language-kotlin hljs">{
   get("/{name}") {
-    val pathString = ctx.getRequestPath()     <i class="conum" data-value="1"></i><b>(1)</b>
+    val pathString = ctx.getRequestPath()  <i class="conum" data-value="1"></i><b>(1)</b>
 
     val path = ctx.path()                 <i class="conum" data-value="2"></i><b>(2)</b>
 
@@ -4317,10 +4400,10 @@ and returns a single result of the given type.</p>
 <pre class="highlightjs highlight"><code class="language-xml hljs">&lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
   &lt;artifactId&gt;jooby-jackson&lt;/artifactId&gt;
-  &lt;version&gt;2.8.0&lt;/version&gt;
+  &lt;version&gt;2.8.1&lt;/version&gt;
 &lt;/dependency&gt;</code><button class="clipboard">Copy</button></pre>
 </div><div class="content hidden">
-<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'io.jooby:jooby-jackson:2.8.0'</code><button class="clipboard">Copy</button></pre>
+<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'io.jooby:jooby-jackson:2.8.1'</code><button class="clipboard">Copy</button></pre>
 </div></div>
 
 </td>
@@ -4486,10 +4569,10 @@ produces a result.</p>
 <pre class="highlightjs highlight"><code class="language-xml hljs">&lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
   &lt;artifactId&gt;jooby-jackson&lt;/artifactId&gt;
-  &lt;version&gt;2.8.0&lt;/version&gt;
+  &lt;version&gt;2.8.1&lt;/version&gt;
 &lt;/dependency&gt;</code><button class="clipboard">Copy</button></pre>
 </div><div class="content hidden">
-<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'io.jooby:jooby-jackson:2.8.0'</code><button class="clipboard">Copy</button></pre>
+<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'io.jooby:jooby-jackson:2.8.1'</code><button class="clipboard">Copy</button></pre>
 </div></div>
 
 </td>
@@ -6072,10 +6155,10 @@ uses <a href="https://jwt.io" target="_blank">JSON Web Token</a> standard to dec
 <pre class="highlightjs highlight"><code class="language-xml hljs">&lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
   &lt;artifactId&gt;jooby-jwt&lt;/artifactId&gt;
-  &lt;version&gt;2.8.0&lt;/version&gt;
+  &lt;version&gt;2.8.1&lt;/version&gt;
 &lt;/dependency&gt;</code><button class="clipboard">Copy</button></pre>
 </div><div class="content hidden">
-<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'io.jooby:jooby-jwt:2.8.0'</code><button class="clipboard">Copy</button></pre>
+<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'io.jooby:jooby-jwt:2.8.1'</code><button class="clipboard">Copy</button></pre>
 </div></div>
 
 <div class="listingblock primary">
@@ -8194,6 +8277,21 @@ import io.jooby.AccessLogHandler
 </li>
 </ul>
 </div>
+<div class="admonitionblock tip">
+<table>
+<tbody><tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>If you run behind a reverse proxy that has been configured to send the X-Forwarded-* header,
+please consider to use <a href="#router-trust-proxy">trust proxy</a> option.</p>
+</div>
+</td>
+</tr>
+</tbody></table>
+</div>
 </div>
 <div class="sect2">
 <h3 id="handlers-corshandler"><a class="anchor" href="#handlers-corshandler"></a><a class="link" href="#handlers-corshandler">14.2. CorsHandler</a></h3>
@@ -8659,7 +8757,7 @@ import io.jooby.SSLHandler;
 
   setServerOptions(new ServerOptions().setSecurePort(8443));
 
-  before(new SSLHandler(false)); <i class="conum" data-value="1"></i><b>(1)</b>
+  before(new SSLHandler()); <i class="conum" data-value="1"></i><b>(1)</b>
 
   get("/", ctx -&gt; {
     return ctx.getScheme();
@@ -8674,7 +8772,7 @@ import io.jooby.SSHandler
     securePort = 8443
   }
 
-  before(SSLHandler(false))      <i class="conum" data-value="1"></i><b>(1)</b>
+  before(SSLHandler())      <i class="conum" data-value="1"></i><b>(1)</b>
 
   get("/") {
     ...
@@ -8692,7 +8790,7 @@ import io.jooby.SSHandler
 </div>
 <div class="paragraph">
 <p>The SSL Handler recreates the HTTPs URL version using the <code>Host</code> header, if you are behind a proxy
-you will need to use the <code>X-Forwarded-Host</code> header. To do that just pass <code>true</code> to the SSLHandler.</p>
+you will need to use the <code>X-Forwarded-Host</code> header. To do that set the <a href="#router-trust-proxy">trust proxy</a> option.</p>
 </div>
 <div class="paragraph">
 <p>Optionally, you can specify the host to use:</p>
@@ -8733,6 +8831,21 @@ import io.jooby.SSHandler
 
 <div class="paragraph">
 <p>For more information about SSL, please check the <a href="#server-ssl">configure SSL</a> section.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tbody><tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>If you run behind a reverse proxy that has been configured to send the X-Forwarded-* header,
+please consider to add the <a href="proxy-peer-address.adoc" class="bare">proxy-peer-address.adoc</a> to your pipeline.</p>
+</div>
+</td>
+</tr>
+</tbody></table>
 </div>
 </div>
 <div class="sect2">
@@ -9395,10 +9508,10 @@ the logging framework to configure without taking care the environment setup.</p
 <pre class="highlightjs highlight"><code class="language-xml hljs">&lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
   &lt;artifactId&gt;jooby-test&lt;/artifactId&gt;
-  &lt;version&gt;2.8.0&lt;/version&gt;
+  &lt;version&gt;2.8.1&lt;/version&gt;
 &lt;/dependency&gt;</code><button class="clipboard">Copy</button></pre>
 </div><div class="content hidden">
-<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'io.jooby:jooby-test:2.8.0'</code><button class="clipboard">Copy</button></pre>
+<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'io.jooby:jooby-test:2.8.1'</code><button class="clipboard">Copy</button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -9656,10 +9769,10 @@ you can set HTTP parameters, body, headers, etc.</p>
 <pre class="highlightjs highlight"><code class="language-xml hljs">&lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
   &lt;artifactId&gt;jooby-test&lt;/artifactId&gt;
-  &lt;version&gt;2.8.0&lt;/version&gt;
+  &lt;version&gt;2.8.1&lt;/version&gt;
 &lt;/dependency&gt;</code><button class="clipboard">Copy</button></pre>
 </div><div class="content hidden">
-<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'io.jooby:jooby-test:2.8.0'</code><button class="clipboard">Copy</button></pre>
+<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'io.jooby:jooby-test:2.8.1'</code><button class="clipboard">Copy</button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -9854,7 +9967,7 @@ that effectively reload application classes.</p>
   &lt;plugin&gt;
     &lt;groupId&gt;io.jooby&lt;/groupId&gt;
     &lt;artifactId&gt;jooby-maven-plugin&lt;/artifactId&gt;
-    &lt;version&gt;2.8.0&lt;/version&gt;
+    &lt;version&gt;2.8.1&lt;/version&gt;
   &lt;/plugin&gt;
   ...
 &lt;/plugins&gt;</code><button class="clipboard">Copy</button></pre>
@@ -9866,7 +9979,7 @@ that effectively reload application classes.</p>
   }
 
   dependencies {
-    classpath "io.jooby:jooby-gradle-plugin:2.8.0"
+    classpath "io.jooby:jooby-gradle-plugin:2.8.1"
   }
 }
 
@@ -9936,7 +10049,7 @@ project directory, when found plugin compiler is OFF and let Eclipse compiles th
   &lt;plugin&gt;
     &lt;groupId&gt;io.jooby&lt;/groupId&gt;
     &lt;artifactId&gt;jooby-maven-plugin&lt;/artifactId&gt;
-    &lt;version&gt;2.8.0&lt;/version&gt;
+    &lt;version&gt;2.8.1&lt;/version&gt;
     &lt;configuration&gt;
       &lt;mainClass&gt;${application.class}&lt;/mainClass&gt;                  <i class="conum" data-value="1"></i><b>(1)</b>
       &lt;restartExtensions&gt;conf,properties,class&lt;/restartExtensions&gt; <i class="conum" data-value="2"></i><b>(2)</b>
@@ -9954,7 +10067,7 @@ project directory, when found plugin compiler is OFF and let Eclipse compiles th
   }
 
   dependencies {
-    classpath "io.jooby:jooby-gradle-plugin:2.8.0"
+    classpath "io.jooby:jooby-gradle-plugin:2.8.1"
   }
 }
 
@@ -10024,10 +10137,10 @@ joobyRun {
 <pre class="highlightjs highlight"><code class="language-xml hljs">&lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
   &lt;artifactId&gt;jooby-jetty&lt;/artifactId&gt;
-  &lt;version&gt;2.8.0&lt;/version&gt;
+  &lt;version&gt;2.8.1&lt;/version&gt;
 &lt;/dependency&gt;</code><button class="clipboard">Copy</button></pre>
 </div><div class="content hidden">
-<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'io.jooby:jooby-jetty:2.8.0'</code><button class="clipboard">Copy</button></pre>
+<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'io.jooby:jooby-jetty:2.8.1'</code><button class="clipboard">Copy</button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -10040,10 +10153,10 @@ joobyRun {
 <pre class="highlightjs highlight"><code class="language-xml hljs">&lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
   &lt;artifactId&gt;jooby-netty&lt;/artifactId&gt;
-  &lt;version&gt;2.8.0&lt;/version&gt;
+  &lt;version&gt;2.8.1&lt;/version&gt;
 &lt;/dependency&gt;</code><button class="clipboard">Copy</button></pre>
 </div><div class="content hidden">
-<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'io.jooby:jooby-netty:2.8.0'</code><button class="clipboard">Copy</button></pre>
+<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'io.jooby:jooby-netty:2.8.1'</code><button class="clipboard">Copy</button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -10056,10 +10169,10 @@ joobyRun {
 <pre class="highlightjs highlight"><code class="language-xml hljs">&lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
   &lt;artifactId&gt;jooby-utow&lt;/artifactId&gt;
-  &lt;version&gt;2.8.0&lt;/version&gt;
+  &lt;version&gt;2.8.1&lt;/version&gt;
 &lt;/dependency&gt;</code><button class="clipboard">Copy</button></pre>
 </div><div class="content hidden">
-<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'io.jooby:jooby-utow:2.8.0'</code><button class="clipboard">Copy</button></pre>
+<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'io.jooby:jooby-utow:2.8.1'</code><button class="clipboard">Copy</button></pre>
 </div></div>
 
 <div class="admonitionblock important">
@@ -10766,10 +10879,10 @@ fun main(args: Array&lt;String&gt;) {
 <pre class="highlightjs highlight"><code class="language-xml hljs">&lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
   &lt;artifactId&gt;jooby-guice&lt;/artifactId&gt;
-  &lt;version&gt;2.8.0&lt;/version&gt;
+  &lt;version&gt;2.8.1&lt;/version&gt;
 &lt;/dependency&gt;</code><button class="clipboard">Copy</button></pre>
 </div><div class="content hidden">
-<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'io.jooby:jooby-guice:2.8.0'</code><button class="clipboard">Copy</button></pre>
+<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'io.jooby:jooby-guice:2.8.1'</code><button class="clipboard">Copy</button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -10934,10 +11047,10 @@ fun main(args: Array&lt;String&gt;) {
 <pre class="highlightjs highlight"><code class="language-xml hljs">&lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
   &lt;artifactId&gt;jooby-spring&lt;/artifactId&gt;
-  &lt;version&gt;2.8.0&lt;/version&gt;
+  &lt;version&gt;2.8.1&lt;/version&gt;
 &lt;/dependency&gt;</code><button class="clipboard">Copy</button></pre>
 </div><div class="content hidden">
-<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'io.jooby:jooby-spring:2.8.0'</code><button class="clipboard">Copy</button></pre>
+<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'io.jooby:jooby-spring:2.8.1'</code><button class="clipboard">Copy</button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -11103,10 +11216,10 @@ class Hello {
 <pre class="highlightjs highlight"><code class="language-xml hljs">&lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
   &lt;artifactId&gt;jooby-weld&lt;/artifactId&gt;
-  &lt;version&gt;2.8.0&lt;/version&gt;
+  &lt;version&gt;2.8.1&lt;/version&gt;
 &lt;/dependency&gt;</code><button class="clipboard">Copy</button></pre>
 </div><div class="content hidden">
-<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'io.jooby:jooby-weld:2.8.0'</code><button class="clipboard">Copy</button></pre>
+<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'io.jooby:jooby-weld:2.8.1'</code><button class="clipboard">Copy</button></pre>
 </div></div>
 
 <div class="paragraph">
