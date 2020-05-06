@@ -8,7 +8,7 @@
 <meta name="description" content="The modular micro web framework for Java">
 <meta name="keywords" content="Java, Modern, Micro, Web, Framework, Reactive, Lightweight, Microservices">
 <link rel="icon" type="image/png" href="../../images/favicon96.png">
-<title>jooby: gson module</title>
+<title>jooby: thymeleaf module</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /* Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -514,10 +514,12 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#gson">1. Gson</a>
+<li><a href="#thymeleaf">1. Thymeleaf</a>
 <ul class="sectlevel2">
 <li><a href="#usage">1.1. Usage</a></li>
-<li><a href="#working-with-gson">1.2. Working with Gson</a></li>
+<li><a href="#templates-location">1.2. Templates Location</a></li>
+<li><a href="#template-cache">1.3. Template Cache</a></li>
+<li><a href="#configuration">1.4. Configuration</a></li>
 </ul>
 </li>
 </ul>
@@ -525,13 +527,13 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div id="content">
 <div class="sect1">
-<h2 id="gson"><a class="anchor" href="#gson"></a><a class="link" href="#gson">1. Gson</a></h2>
+<h2 id="thymeleaf"><a class="anchor" href="#thymeleaf"></a><a class="link" href="#thymeleaf">1. Thymeleaf</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>JSON support using <a href="https://github.com/google/gson" target="_blank">Gson</a> library.</p>
+<p><a href="https://www.thymeleaf.org/index.html" target="_blank">Thymeleaf templates</a> template engine module.</p>
 </div>
 <div class="sect2">
-<h3 id="gson-usage"><a class="anchor" href="#gson-usage"></a><a class="link" href="#gson-usage">1.1. Usage</a></h3>
+<h3 id="thymeleaf-usage"><a class="anchor" href="#thymeleaf-usage"></a><a class="link" href="#thymeleaf-usage">1.1. Usage</a></h3>
 <div class="paragraph">
 <p>1) Add the dependency:</p>
 </div>
@@ -541,122 +543,123 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="switch"><div class="switch--item selected">Maven</div><div class="switch--item">Gradle</div></div><div class="content">
 <pre class="highlightjs highlight"><code class="language-xml hljs">&lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
-  &lt;artifactId&gt;jooby-gson&lt;/artifactId&gt;
+  &lt;artifactId&gt;jooby-thymeleaf&lt;/artifactId&gt;
   &lt;version&gt;2.8.2&lt;/version&gt;
 &lt;/dependency&gt;</code><button class="clipboard">Copy</button></pre>
 </div><div class="content hidden">
-<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'io.jooby:jooby-gson:2.8.2'</code><button class="clipboard">Copy</button></pre>
+<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'io.jooby:jooby-thymeleaf:2.8.2'</code><button class="clipboard">Copy</button></pre>
 </div></div>
 
 <div class="paragraph">
-<p>2) Install and encode/decode JSON</p>
+<p>2) Write your templates inside the <code>views</code> folder</p>
+</div>
+<div class="listingblock">
+<div class="title">views/index.html</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-html hljs">&lt;!DOCTYPE html&gt;
+&lt;html xmlns:th="http://www.thymeleaf.org"&gt;
+&lt;body&gt;
+&lt;p&gt;
+  Hello &lt;span th:text="${name}"&gt;World&lt;/span&gt;
+&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code><button class="clipboard">Copy</button></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>3) Install and use thymeleaf templates</p>
 </div>
 <div class="listingblock primary">
 
 
 <div class="switch"><div class="switch--item selected">Java</div><div class="switch--item">Kotlin</div></div><div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs">import io.jooby.json.GsonModule;
+<pre class="highlightjs highlight"><code class="language-java hljs">import io.jooby.thymeleaf.ThymeleafModule;
 
 {
-  install(new GsonModule());                        <i class="conum" data-value="1"></i><b>(1)</b>
+  install(new ThymeleafModule());
 
   get("/", ctx -&gt; {
-    MyObject myObject = ...;
-    return myObject;                                <i class="conum" data-value="2"></i><b>(2)</b>
-  });
-
-  post("/", ctx -&gt; {
-    MyObject myObject = ctx.body(MyObject.class);   <i class="conum" data-value="3"></i><b>(3)</b>
-    ...
+    return new ModelAndView("index.html")
+        .put("name", "Jooby");
   });
 }</code><button class="clipboard">Copy</button></pre>
 </div><div class="content hidden">
-<pre class="highlightjs highlight"><code class="language-kt hljs">import io.jooby.json.GsonModule
+<pre class="highlightjs highlight"><code class="language-kt hljs">import io.jooby.thymeleaf.ThymeleafModule
 
 {
-  install(GsonModule())                             <i class="conum" data-value="1"></i><b>(1)</b>
+  install(ThymeleafModule())
 
   get("/") {
-    val myObject = ...;
-    myObject                                        <i class="conum" data-value="2"></i><b>(2)</b>
-  }
-
-  post("/") {
-    val myObject = ctx.body&lt;MyObject&gt;()             <i class="conum" data-value="3"></i><b>(3)</b>
-    ...
+    ModelAndView("index.html")
+        .put("name", "Jooby")
   }
 }</code><button class="clipboard">Copy</button></pre>
 </div></div>
 
-<div class="colist arabic">
-<table>
-<tbody><tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>Install Gson</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>Use Jackson to encode arbitrary object as JSON</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="3"></i><b>3</b></td>
-<td>Use Jackson to decode JSON to Java object. Client must specify the <code>Content-Type: application/json</code> header</td>
-</tr>
-</tbody></table>
+<div class="paragraph">
+<p>Template engine supports the following file extensions: <code>.thl</code>, <code>.thl.html</code> and <code>.html</code>.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="gson-working-with-gson"><a class="anchor" href="#gson-working-with-gson"></a><a class="link" href="#gson-working-with-gson">1.2. Working with Gson</a></h3>
+<h3 id="thymeleaf-templates-location"><a class="anchor" href="#thymeleaf-templates-location"></a><a class="link" href="#thymeleaf-templates-location">1.2. Templates Location</a></h3>
 <div class="paragraph">
-<p>Access to default object mapper is available via require call:</p>
+<p>Template location is set to <code>views</code>. The <code>views</code> folder/location is expected to be at the current
+user directory or at root of classpath.</p>
+</div>
+<div class="paragraph">
+<p>You can override the default location by setting the <code>templates.path</code> property in the application
+configuration file or programmatically at creation time.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="thymeleaf-template-cache"><a class="anchor" href="#thymeleaf-template-cache"></a><a class="link" href="#thymeleaf-template-cache">1.3. Template Cache</a></h3>
+<div class="paragraph">
+<p>The thymeleaf module turn off cache while running in <code>dev</code> or <code>test</code> environment. For any other
+environment it use the <a href="https://www.thymeleaf.org/doc/tutorials/3.0/usingthymeleaf.html#template-cache" target="_blank">default cache settings</a>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="thymeleaf-configuration"><a class="anchor" href="#thymeleaf-configuration"></a><a class="link" href="#thymeleaf-configuration">1.4. Configuration</a></h3>
+<div class="paragraph">
+<p>Advanced configuration options are available by providing an instance of <code>TemplateEngine</code></p>
 </div>
 <div class="listingblock primary">
-<div class="title">Default object mapper</div>
+
 
 <div class="switch"><div class="switch--item selected">Java</div><div class="switch--item">Kotlin</div></div><div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs">import io.jooby.json.GsonModule;
+<pre class="highlightjs highlight"><code class="language-java hljs">import io.jooby.thymeleaf.ThymeleafModule;
 
 {
-  install(new GsonModule());
+  TemplateEngine templateEngine = new TemplateEngine();
+  // configure as need it
 
-  Gson gson = require(Gson.class);
-
-  ...
+  install(new ThymeleafModule(templateEngine));
 }</code><button class="clipboard">Copy</button></pre>
 </div><div class="content hidden">
-<pre class="highlightjs highlight"><code class="language-kt hljs">import io.jooby.json.GsonModule
+<pre class="highlightjs highlight"><code class="language-kt hljs">import io.jooby.thymeleaf.ThymeleafModule
 
 {
-  install(GsonModule())
+  val templateEngine = TemplateEngine()
+  // configure as need it
 
-  val mapper = require&lt;Gson&gt;()
+  install(ThymeleafModule(templateEngine))
 }</code><button class="clipboard">Copy</button></pre>
 </div></div>
 
+<div class="admonitionblock tip">
+<table>
+<tbody><tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
 <div class="paragraph">
-<p>You can provide your own <code>Gson</code>:</p>
+<p>There is a builder function to create a <code>TemplateEngine</code>: <a href="https://www.javadoc.io/doc/io.jooby/jooby/latest/io/jooby/thymeleaf/ThymeleafModule.html#create--" target="_blank">create()</a>.</p>
 </div>
-<div class="listingblock primary">
-<div class="title">Custom ObjectMapper</div>
-
-<div class="switch"><div class="switch--item selected">Java</div><div class="switch--item">Kotlin</div></div><div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs">import io.jooby.json.GsonModule;
-
-{
-  Gson gson = new GsonBuilder().create();
-
-  install(new GsonModule(gson));
-}</code><button class="clipboard">Copy</button></pre>
-</div><div class="content hidden">
-<pre class="highlightjs highlight"><code class="language-kt hljs">import io.jooby.json.GsonModule
-
-{
-  val gson = GsonBuilder().create()
-
-  install(GsonModule(gson))
-}</code><button class="clipboard">Copy</button></pre>
-</div></div>
-
+</td>
+</tr>
+</tbody></table>
+</div>
 </div>
 </div>
 </div>
