@@ -8,7 +8,7 @@
 <meta name="description" content="The modular micro web framework for Java">
 <meta name="keywords" content="Java, Modern, Micro, Web, Framework, Reactive, Lightweight, Microservices">
 <link rel="icon" type="image/png" href="../../images/favicon96.png">
-<title>jooby: usage</title>
+<title>jooby: modules</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /* Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -511,325 +511,184 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="book toc2 toc-left">
 <div id="header">
-<h1>Help/Usage section</h1>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#annotation-processing-tool">1. Annotation Processing Tool</a>
+<li><a href="#modules">1. Modules</a>
 <ul class="sectlevel2">
-<li><a href="#router-not-found">1.1. Router Not Found</a></li>
-</ul>
-</li>
-<li><a href="#bean-converter">2. Bean Converter</a>
-<ul class="sectlevel2">
-<li><a href="#parameter-name-missing">2.1. Parameter Name Missing</a></li>
+<li><a href="#cloud">1.1. Cloud</a></li>
+<li><a href="#data">1.2. Data</a></li>
+<li><a href="#development-tools">1.3. Development Tools</a></li>
+<li><a href="#json">1.4. JSON</a></li>
+<li><a href="#openapi">1.5. OpenAPI</a></li>
+<li><a href="#template-engine">1.6. Template Engine</a></li>
+<li><a href="#security">1.7. Security</a></li>
+<li><a href="#session-store">1.8. Session Store</a></li>
+<li><a href="#scheduler">1.9. Scheduler</a></li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
 <div id="content">
-<div id="preamble">
-<div class="sectionbody">
-<div class="paragraph">
-<p>This section describes usage error and how to fix them.</p>
-</div>
-</div>
-</div>
 <div class="sect1">
-<h2 id="annotation-processing-tool"><a class="anchor" href="#annotation-processing-tool"></a><a class="link" href="#annotation-processing-tool">1. Annotation Processing Tool</a></h2>
+<h2 id="modules"><a class="anchor" href="#modules"></a><a class="link" href="#modules">1. Modules</a></h2>
 <div class="sectionbody">
+<div class="paragraph">
+<p>Modules are a key concept for building reusable and configurable pieces of software.</p>
+</div>
+<div class="paragraph">
+<p>Modules (unlike in other frameworks) are thin and do a lot of work to bootstrap and configure an
+external library, but they DO NOT provide a new level of abstraction nor [do] they provide a custom
+API to access functionality in that library. Instead they expose the library components as they are.</p>
+</div>
+<div class="paragraph">
+<p>Modules are distributed as separated jar/dependency and usually implement the <a href="https://www.javadoc.io/doc/io.jooby/jooby/latest/io/jooby/Extension.html" target="_blank">Extension</a> API.</p>
+</div>
+<div class="paragraph">
+<p>In general they provide a <code>builder</code> class to create the and configure the external library from
+configuration properties.</p>
+</div>
+<div class="paragraph">
+<p>Available modules are listed next.</p>
+</div>
 <div class="sect2">
-<h3 id="annotation-processing-tool-router-not-found"><a class="anchor" href="#annotation-processing-tool-router-not-found"></a><a class="link" href="#annotation-processing-tool-router-not-found">1.1. Router Not Found</a></h3>
-<div class="paragraph">
-<p><strong>Exception</strong>:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>Route not found: `...`. Make sure Jooby annotation processor is configured properly.</pre>
-</div>
-</div>
-<div class="paragraph">
-<p>The cause of this error is generated when you try to use a MVC route and the annotation processing
-tool is not configured properly.</p>
-</div>
-<div class="paragraph">
-<p><strong>Maven Solution</strong>:</p>
-</div>
-<div class="paragraph">
-<p>Java build needs the <code>jooby-apt</code> dependency as <a href="https://maven.apache.org/plugins/maven-compiler-plugin/compile-mojo.html#annotationProcessorPaths" target="_blank">annotationProcessorPaths</a>.</p>
-</div>
-<div class="paragraph">
-<p>Kotlin build also requires it via <a href="https://kotlinlang.org/docs/reference/kapt.html#using-in-maven" target="_blank">kapt</a>.</p>
-</div>
-<div class="listingblock primary">
-
-
-<div class="switch"><div class="switch--item selected">Java</div><div class="switch--item">Kotlin</div></div><div class="content">
-<pre class="highlightjs highlight"><code class="language-xml hljs">  &lt;build&gt;
-    &lt;plugins&gt;
-      &lt;plugin&gt;
-        &lt;artifactId&gt;maven-compiler-plugin&lt;/artifactId&gt;
-        &lt;version&gt;3.8.1&lt;/version&gt;
-        &lt;configuration&gt;
-          &lt;annotationProcessorPaths&gt;
-            &lt;path&gt;
-              &lt;groupId&gt;io.jooby&lt;/groupId&gt;
-              &lt;artifactId&gt;jooby-apt&lt;/artifactId&gt;
-              &lt;version&gt;2.8.5&lt;/version&gt;
-            &lt;/path&gt;
-          &lt;/annotationProcessorPaths&gt;
-        &lt;/configuration&gt;
-      &lt;/plugin&gt;
-    &lt;/plugins&gt;
-  &lt;/build&gt;</code><button class="clipboard">Copy</button></pre>
-</div><div class="content hidden">
-<pre class="highlightjs highlight"><code class="language-xml hljs">  &lt;build&gt;
-    &lt;plugins&gt;
-      &lt;plugin&gt;
-        &lt;artifactId&gt;kotlin-maven-plugin&lt;/artifactId&gt;
-        &lt;groupId&gt;org.jetbrains.kotlin&lt;/groupId&gt;
-        &lt;version&gt;1.3.72&lt;/version&gt;
-        &lt;configuration&gt;
-          &lt;args&gt;
-            &lt;arg&gt;-java-parameters&lt;/arg&gt;
-          &lt;/args&gt;
-          &lt;jvmTarget&gt;${maven.compiler.target}&lt;/jvmTarget&gt;
-        &lt;/configuration&gt;
-        &lt;executions&gt;
-          &lt;execution&gt;
-            &lt;id&gt;kapt&lt;/id&gt;
-            &lt;goals&gt;
-              &lt;goal&gt;kapt&lt;/goal&gt;
-            &lt;/goals&gt;
-            &lt;configuration&gt;
-              &lt;sourceDirs&gt;
-                &lt;sourceDir&gt;src/main/kotlin&lt;/sourceDir&gt;
-              &lt;/sourceDirs&gt;
-              &lt;annotationProcessorPaths&gt;
-                &lt;annotationProcessorPath&gt;
-                  &lt;groupId&gt;io.jooby&lt;/groupId&gt;
-                  &lt;artifactId&gt;jooby-apt&lt;/artifactId&gt;
-                  &lt;version&gt;2.8.5&lt;/version&gt;
-                &lt;/annotationProcessorPath&gt;
-              &lt;/annotationProcessorPaths&gt;
-            &lt;/configuration&gt;
-          &lt;/execution&gt;
-          &lt;execution&gt;
-            &lt;id&gt;compile&lt;/id&gt;
-            &lt;goals&gt;
-              &lt;goal&gt;compile&lt;/goal&gt;
-            &lt;/goals&gt;
-            &lt;configuration&gt;
-              &lt;sourceDirs&gt;
-                &lt;sourceDir&gt;src/main/kotlin&lt;/sourceDir&gt;
-              &lt;/sourceDirs&gt;
-            &lt;/configuration&gt;
-          &lt;/execution&gt;
-          &lt;execution&gt;
-            &lt;id&gt;test-kapt&lt;/id&gt;
-            &lt;goals&gt;
-              &lt;goal&gt;test-kapt&lt;/goal&gt;
-            &lt;/goals&gt;
-            &lt;configuration&gt;
-              &lt;sourceDirs&gt;
-                &lt;sourceDir&gt;src/test/kotlin&lt;/sourceDir&gt;
-              &lt;/sourceDirs&gt;
-              &lt;annotationProcessorPaths&gt;
-                &lt;annotationProcessorPath&gt;
-                  &lt;groupId&gt;io.jooby&lt;/groupId&gt;
-                  &lt;artifactId&gt;jooby-apt&lt;/artifactId&gt;
-                  &lt;version&gt;2.8.5&lt;/version&gt;
-                &lt;/annotationProcessorPath&gt;
-              &lt;/annotationProcessorPaths&gt;
-            &lt;/configuration&gt;
-          &lt;/execution&gt;
-          &lt;execution&gt;
-            &lt;id&gt;test-compile&lt;/id&gt;
-            &lt;goals&gt;
-              &lt;goal&gt;test-compile&lt;/goal&gt;
-            &lt;/goals&gt;
-            &lt;configuration&gt;
-              &lt;sourceDirs&gt;
-                &lt;sourceDir&gt;src/test/kotlin&lt;/sourceDir&gt;
-              &lt;/sourceDirs&gt;
-            &lt;/configuration&gt;
-          &lt;/execution&gt;
-        &lt;/executions&gt;
-      &lt;/plugin&gt;
-    &lt;/plugins&gt;
-  &lt;/build&gt;</code><button class="clipboard">Copy</button></pre>
-</div></div>
-
-<div class="paragraph">
-<p><strong>Gradle Solution</strong>:</p>
-</div>
-<div class="paragraph">
-<p>Java build needs an annotationProcessor statement using <code>jooby-apt</code>.</p>
-</div>
-<div class="paragraph">
-<p>Kotlin builds needs a <a href="https://kotlinlang.org/docs/reference/kapt.html#using-in-gradle" target="_blank">kapt</a> dependency and statement using <code>jooby-apt</code>.</p>
-</div>
-<div class="listingblock primary">
-
-
-<div class="switch"><div class="switch--item selected">Java</div><div class="switch--item">Kotlin</div></div><div class="content">
-<pre class="highlightjs highlight"><code class="language-groovy hljs">dependencies {
-  annotationProcessor "io.jooby:jooby-apt:2.8.5"
-}</code><button class="clipboard">Copy</button></pre>
-</div><div class="content hidden">
-<pre class="highlightjs highlight"><code class="language-groovy hljs">buildscript {
-  ...
-  dependencies {
-    classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.3.72"
-  }
-}
-
-...
-
-apply plugin: "org.jetbrains.kotlin.kapt"
-
-...
-
-dependencies {
-  kapt "io.jooby:jooby-apt:2.8.5"
-}
-...</code><button class="clipboard">Copy</button></pre>
-</div></div>
-
-<div class="paragraph">
-<p><strong>IntelliJ Solution</strong></p>
-</div>
-<div class="paragraph">
-<p>You need to enable IntelliJ annotation processing tool. Please checkout the <a href="https://www.jetbrains.com/help/idea/annotation-processors-support.html" target="_blank">IntelliJ documentation</a> to learn how to do it.</p>
-</div>
-<div class="paragraph">
-<p>Please note that Kapt is still not supported for IntelliJ IDEA’s own build system. A simply workaround
-is to configure Intellij to run Maven/Gradle compilation as a build step before running your tests
-or application class:</p>
-</div>
+<h3 id="modules-cloud"><a class="anchor" href="#modules-cloud"></a><a class="link" href="#modules-cloud">1.1. Cloud</a></h3>
 <div class="ulist">
 <ul>
 <li>
-<p>Go to <strong>Run &gt; Edit Configurations …​</strong></p>
+<p><a href="modules/aws">AWS</a>: Amazon Web Service module.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="modules-data"><a class="anchor" href="#modules-data"></a><a class="link" href="#modules-data">1.2. Data</a></h3>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="modules/ebean">Ebean</a>: Ebean ORM module.</p>
 </li>
 <li>
-<p>Select the application/test class run configuration</p>
+<p><a href="modules/flyway">Flyway</a>: Flyway migration module.</p>
 </li>
 <li>
-<p>Find the <strong>Before build / Build</strong> section</p>
+<p><a href="modules/graphql">GraphQL</a>: GraphQL Java module.</p>
 </li>
 <li>
-<p>Select Add (plus button)</p>
+<p><a href="modules/hikari">HikariCP</a>: A high-performance JDBC connection pool.</p>
 </li>
 <li>
-<p>Select <strong>Run Maven Goal</strong> or <strong>Run Gradle task</strong></p>
+<p><a href="modules/hibernate">Hibernate</a>: Hibernate ORM module.</p>
 </li>
 <li>
-<p>For Maven type <code>compile</code> or <code>testCompile</code></p>
+<p><a href="modules/jdbi">Jdbi</a>: Jdbi module.</p>
 </li>
 <li>
-<p>For Gradle type <code>classes</code> or <code>testClasses</code></p>
+<p><a href="modules/redis">Redis</a>: Redis module.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="modules-development-tools"><a class="anchor" href="#modules-development-tools"></a><a class="link" href="#modules-development-tools">1.3. Development Tools</a></h3>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="#hot-reload">Jooby Run</a>: Run and hot reload your application.</p>
+</li>
+<li>
+<p><a href="modules/node">Node</a>: Download, Install and Run node locally.</p>
+</li>
+<li>
+<p><a href="modules/whoops">Whoops</a>: Pretty page stacktrace reporter.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="modules-json"><a class="anchor" href="#modules-json"></a><a class="link" href="#modules-json">1.4. JSON</a></h3>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="modules/gson">Gson</a>: Gson module for Jooby.</p>
+</li>
+<li>
+<p><a href="modules/jackson">Jackson</a>: Jackson module for Jooby.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="modules-openapi"><a class="anchor" href="#modules-openapi"></a><a class="link" href="#modules-openapi">1.5. OpenAPI</a></h3>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="modules/openapi">OpenAPI</a>: OpenAPI supports.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="modules-template-engine"><a class="anchor" href="#modules-template-engine"></a><a class="link" href="#modules-template-engine">1.6. Template Engine</a></h3>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="modules/handlebars">Handlebars</a>: Handlebars template engine.</p>
+</li>
+<li>
+<p><a href="modules/freemarker">Freemarker</a>: Freemarker template engine.</p>
+</li>
+<li>
+<p><a href="modules/pebble">Pebble</a>: Pebble template engine.</p>
+</li>
+<li>
+<p><a href="modules/rocker">Rocker</a>: Rocker template engine.</p>
+</li>
+<li>
+<p><a href="modules/thymeleaf">Thymeleaf</a>: Thymeleaf template engine.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="modules-security"><a class="anchor" href="#modules-security"></a><a class="link" href="#modules-security">1.7. Security</a></h3>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="modules/pac4j">Pac4j</a>: Security engine module.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="modules-session-store"><a class="anchor" href="#modules-session-store"></a><a class="link" href="#modules-session-store">1.8. Session Store</a></h3>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="modules/caffeine">Caffeine</a>: In-memory session store using Caffeine cache.</p>
+</li>
+<li>
+<p><a href="modules/jwt-session-store">JWT</a>: JSON Web Token session store.</p>
+</li>
+<li>
+<p><a href="modules/redis#redis-http-session">Redis</a>: Save session data on redis.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="modules-scheduler"><a class="anchor" href="#modules-scheduler"></a><a class="link" href="#modules-scheduler">1.9. Scheduler</a></h3>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="modules/quartz">Quartz</a>: Quartz scheduler module.</p>
 </li>
 </ul>
 </div>
 <div class="paragraph">
-<p>Now whenever you run tests or the application Mvc classes will be generated at compilation time.</p>
+<p>.</p>
 </div>
-<div class="paragraph">
-<p>Alternatively, you can delegate IntelliJ build/run actions to Maven or Gradle completely:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><a href="https://www.jetbrains.com/help/idea/delegate-build-and-run-actions-to-maven.html" class="bare" target="_blank">https://www.jetbrains.com/help/idea/delegate-build-and-run-actions-to-maven.html</a></p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p><strong>Eclipse 4.9+</strong></p>
-</div>
-<div class="paragraph">
-<p>You need <a href="https://www.eclipse.org/m2e/" target="_blank">M2Eclipse</a> for Maven or <a href="https://projects.eclipse.org/projects/tools.buildship" target="_blank">Gradle Buildship</a></p>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="bean-converter"><a class="anchor" href="#bean-converter"></a><a class="link" href="#bean-converter">2. Bean Converter</a></h2>
-<div class="sectionbody">
-<div class="sect2">
-<h3 id="bean-converter-parameter-name-missing"><a class="anchor" href="#bean-converter-parameter-name-missing"></a><a class="link" href="#bean-converter-parameter-name-missing">2.1. Parameter Name Missing</a></h3>
-<div class="paragraph">
-<p><strong>Exception</strong>:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>Unable to provision parameter at position: '...', require by: ... Parameter's name is missing</pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Thrown when the bean converter has no access to a parameter name at runtime. Compilation must be
-done using <code>parameters</code> compiler option.</p>
-</div>
-<div class="paragraph">
-<p><strong>Maven Solution</strong></p>
-</div>
-<div class="listingblock primary">
-
-
-<div class="switch"><div class="switch--item selected">Java</div><div class="switch--item">Kotlin</div></div><div class="content">
-<pre class="highlightjs highlight"><code class="language-xml hljs">  &lt;build&gt;
-    &lt;plugins&gt;
-      &lt;plugin&gt;
-        &lt;artifactId&gt;maven-compiler-plugin&lt;/artifactId&gt;
-        &lt;version&gt;3.8.1&lt;/version&gt;
-        &lt;configuration&gt;
-        ...
-          &lt;compilerArgs&gt;
-            &lt;arg&gt;-parameters&lt;/arg&gt;
-          &lt;/compilerArgs&gt;
-        &lt;/configuration&gt;
-      &lt;/plugin&gt;
-    &lt;/plugins&gt;
-  &lt;/build&gt;</code><button class="clipboard">Copy</button></pre>
-</div><div class="content hidden">
-<pre class="highlightjs highlight"><code class="language-xml hljs">  &lt;build&gt;
-    &lt;plugins&gt;
-      &lt;plugin&gt;
-          &lt;artifactId&gt;kotlin-maven-plugin&lt;/artifactId&gt;
-          &lt;groupId&gt;org.jetbrains.kotlin&lt;/groupId&gt;
-          &lt;version&gt;1.3.72&lt;/version&gt;
-          &lt;configuration&gt;
-            ...
-            &lt;args&gt;
-              &lt;arg&gt;-java-parameters&lt;/arg&gt;
-            &lt;/args&gt;
-            &lt;jvmTarget&gt;1.8&lt;/jvmTarget&gt;
-            ...
-          &lt;/configuration&gt;
-        &lt;/plugin&gt;
-    &lt;/plugins&gt;
-  &lt;/build&gt;</code><button class="clipboard">Copy</button></pre>
-</div></div>
-
-<div class="paragraph">
-<p><strong>Gradle Solution</strong></p>
-</div>
-<div class="listingblock primary">
-
-
-<div class="switch"><div class="switch--item selected">Java</div><div class="switch--item">Kotlin</div></div><div class="content">
-<pre class="highlightjs highlight"><code class="language-groovy hljs">tasks.withType(JavaCompile) {
-  options.compilerArgs &lt;&lt; '-parameters'
-  options.debug = true
-}</code><button class="clipboard">Copy</button></pre>
-</div><div class="content hidden">
-<pre class="highlightjs highlight"><code class="language-groovy hljs">tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
-  kotlinOptions.javaParameters = true
-}</code><button class="clipboard">Copy</button></pre>
-</div></div>
-
 </div>
 </div>
 </div>

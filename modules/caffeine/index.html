@@ -8,7 +8,7 @@
 <meta name="description" content="The modular micro web framework for Java">
 <meta name="keywords" content="Java, Modern, Micro, Web, Framework, Reactive, Lightweight, Microservices">
 <link rel="icon" type="image/png" href="../../images/favicon96.png">
-<title>jooby: usage</title>
+<title>jooby: caffeine module</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /* Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -511,325 +511,101 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="book toc2 toc-left">
 <div id="header">
-<h1>Help/Usage section</h1>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#annotation-processing-tool">1. Annotation Processing Tool</a>
+<li><a href="#caffeine">1. Caffeine</a>
 <ul class="sectlevel2">
-<li><a href="#router-not-found">1.1. Router Not Found</a></li>
-</ul>
-</li>
-<li><a href="#bean-converter">2. Bean Converter</a>
-<ul class="sectlevel2">
-<li><a href="#parameter-name-missing">2.1. Parameter Name Missing</a></li>
+<li><a href="#usage">1.1. Usage</a></li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
 <div id="content">
-<div id="preamble">
-<div class="sectionbody">
-<div class="paragraph">
-<p>This section describes usage error and how to fix them.</p>
-</div>
-</div>
-</div>
 <div class="sect1">
-<h2 id="annotation-processing-tool"><a class="anchor" href="#annotation-processing-tool"></a><a class="link" href="#annotation-processing-tool">1. Annotation Processing Tool</a></h2>
+<h2 id="caffeine"><a class="anchor" href="#caffeine"></a><a class="link" href="#caffeine">1. Caffeine</a></h2>
 <div class="sectionbody">
+<div class="paragraph">
+<p>SessionStore implementation using <a href="https://github.com/ben-manes/caffeine" target="_blank">Caffeine</a> library.</p>
+</div>
 <div class="sect2">
-<h3 id="annotation-processing-tool-router-not-found"><a class="anchor" href="#annotation-processing-tool-router-not-found"></a><a class="link" href="#annotation-processing-tool-router-not-found">1.1. Router Not Found</a></h3>
+<h3 id="caffeine-usage"><a class="anchor" href="#caffeine-usage"></a><a class="link" href="#caffeine-usage">1.1. Usage</a></h3>
 <div class="paragraph">
-<p><strong>Exception</strong>:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>Route not found: `...`. Make sure Jooby annotation processor is configured properly.</pre>
-</div>
-</div>
-<div class="paragraph">
-<p>The cause of this error is generated when you try to use a MVC route and the annotation processing
-tool is not configured properly.</p>
-</div>
-<div class="paragraph">
-<p><strong>Maven Solution</strong>:</p>
-</div>
-<div class="paragraph">
-<p>Java build needs the <code>jooby-apt</code> dependency as <a href="https://maven.apache.org/plugins/maven-compiler-plugin/compile-mojo.html#annotationProcessorPaths" target="_blank">annotationProcessorPaths</a>.</p>
-</div>
-<div class="paragraph">
-<p>Kotlin build also requires it via <a href="https://kotlinlang.org/docs/reference/kapt.html#using-in-maven" target="_blank">kapt</a>.</p>
+<p>1) Add the dependency:</p>
 </div>
 <div class="listingblock primary">
 
 
-<div class="switch"><div class="switch--item selected">Java</div><div class="switch--item">Kotlin</div></div><div class="content">
-<pre class="highlightjs highlight"><code class="language-xml hljs">  &lt;build&gt;
-    &lt;plugins&gt;
-      &lt;plugin&gt;
-        &lt;artifactId&gt;maven-compiler-plugin&lt;/artifactId&gt;
-        &lt;version&gt;3.8.1&lt;/version&gt;
-        &lt;configuration&gt;
-          &lt;annotationProcessorPaths&gt;
-            &lt;path&gt;
-              &lt;groupId&gt;io.jooby&lt;/groupId&gt;
-              &lt;artifactId&gt;jooby-apt&lt;/artifactId&gt;
-              &lt;version&gt;2.8.5&lt;/version&gt;
-            &lt;/path&gt;
-          &lt;/annotationProcessorPaths&gt;
-        &lt;/configuration&gt;
-      &lt;/plugin&gt;
-    &lt;/plugins&gt;
-  &lt;/build&gt;</code><button class="clipboard">Copy</button></pre>
+<div class="switch"><div class="switch--item selected">Maven</div><div class="switch--item">Gradle</div></div><div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs">&lt;dependency&gt;
+  &lt;groupId&gt;io.jooby&lt;/groupId&gt;
+  &lt;artifactId&gt;jooby-caffeine&lt;/artifactId&gt;
+  &lt;version&gt;2.8.5&lt;/version&gt;
+&lt;/dependency&gt;</code><button class="clipboard">Copy</button></pre>
 </div><div class="content hidden">
-<pre class="highlightjs highlight"><code class="language-xml hljs">  &lt;build&gt;
-    &lt;plugins&gt;
-      &lt;plugin&gt;
-        &lt;artifactId&gt;kotlin-maven-plugin&lt;/artifactId&gt;
-        &lt;groupId&gt;org.jetbrains.kotlin&lt;/groupId&gt;
-        &lt;version&gt;1.3.72&lt;/version&gt;
-        &lt;configuration&gt;
-          &lt;args&gt;
-            &lt;arg&gt;-java-parameters&lt;/arg&gt;
-          &lt;/args&gt;
-          &lt;jvmTarget&gt;${maven.compiler.target}&lt;/jvmTarget&gt;
-        &lt;/configuration&gt;
-        &lt;executions&gt;
-          &lt;execution&gt;
-            &lt;id&gt;kapt&lt;/id&gt;
-            &lt;goals&gt;
-              &lt;goal&gt;kapt&lt;/goal&gt;
-            &lt;/goals&gt;
-            &lt;configuration&gt;
-              &lt;sourceDirs&gt;
-                &lt;sourceDir&gt;src/main/kotlin&lt;/sourceDir&gt;
-              &lt;/sourceDirs&gt;
-              &lt;annotationProcessorPaths&gt;
-                &lt;annotationProcessorPath&gt;
-                  &lt;groupId&gt;io.jooby&lt;/groupId&gt;
-                  &lt;artifactId&gt;jooby-apt&lt;/artifactId&gt;
-                  &lt;version&gt;2.8.5&lt;/version&gt;
-                &lt;/annotationProcessorPath&gt;
-              &lt;/annotationProcessorPaths&gt;
-            &lt;/configuration&gt;
-          &lt;/execution&gt;
-          &lt;execution&gt;
-            &lt;id&gt;compile&lt;/id&gt;
-            &lt;goals&gt;
-              &lt;goal&gt;compile&lt;/goal&gt;
-            &lt;/goals&gt;
-            &lt;configuration&gt;
-              &lt;sourceDirs&gt;
-                &lt;sourceDir&gt;src/main/kotlin&lt;/sourceDir&gt;
-              &lt;/sourceDirs&gt;
-            &lt;/configuration&gt;
-          &lt;/execution&gt;
-          &lt;execution&gt;
-            &lt;id&gt;test-kapt&lt;/id&gt;
-            &lt;goals&gt;
-              &lt;goal&gt;test-kapt&lt;/goal&gt;
-            &lt;/goals&gt;
-            &lt;configuration&gt;
-              &lt;sourceDirs&gt;
-                &lt;sourceDir&gt;src/test/kotlin&lt;/sourceDir&gt;
-              &lt;/sourceDirs&gt;
-              &lt;annotationProcessorPaths&gt;
-                &lt;annotationProcessorPath&gt;
-                  &lt;groupId&gt;io.jooby&lt;/groupId&gt;
-                  &lt;artifactId&gt;jooby-apt&lt;/artifactId&gt;
-                  &lt;version&gt;2.8.5&lt;/version&gt;
-                &lt;/annotationProcessorPath&gt;
-              &lt;/annotationProcessorPaths&gt;
-            &lt;/configuration&gt;
-          &lt;/execution&gt;
-          &lt;execution&gt;
-            &lt;id&gt;test-compile&lt;/id&gt;
-            &lt;goals&gt;
-              &lt;goal&gt;test-compile&lt;/goal&gt;
-            &lt;/goals&gt;
-            &lt;configuration&gt;
-              &lt;sourceDirs&gt;
-                &lt;sourceDir&gt;src/test/kotlin&lt;/sourceDir&gt;
-              &lt;/sourceDirs&gt;
-            &lt;/configuration&gt;
-          &lt;/execution&gt;
-        &lt;/executions&gt;
-      &lt;/plugin&gt;
-    &lt;/plugins&gt;
-  &lt;/build&gt;</code><button class="clipboard">Copy</button></pre>
+<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'io.jooby:jooby-caffeine:2.8.5'</code><button class="clipboard">Copy</button></pre>
 </div></div>
 
 <div class="paragraph">
-<p><strong>Gradle Solution</strong>:</p>
-</div>
-<div class="paragraph">
-<p>Java build needs an annotationProcessor statement using <code>jooby-apt</code>.</p>
-</div>
-<div class="paragraph">
-<p>Kotlin builds needs a <a href="https://kotlinlang.org/docs/reference/kapt.html#using-in-gradle" target="_blank">kapt</a> dependency and statement using <code>jooby-apt</code>.</p>
+<p>2) Configure session store</p>
 </div>
 <div class="listingblock primary">
 
 
 <div class="switch"><div class="switch--item selected">Java</div><div class="switch--item">Kotlin</div></div><div class="content">
-<pre class="highlightjs highlight"><code class="language-groovy hljs">dependencies {
-  annotationProcessor "io.jooby:jooby-apt:2.8.5"
+<pre class="highlightjs highlight"><code class="language-java hljs">import io.jooby.caffeine.CaffeineSessionStore;
+
+{
+  setSessionStore(new CaffeineSessionStore());   <i class="conum" data-value="1"></i><b>(1)</b>
+
+  get("/", ctx -&gt; {
+    Session session = ctx.session();             <i class="conum" data-value="2"></i><b>(2)</b>
+    // work with session
+  });
 }</code><button class="clipboard">Copy</button></pre>
 </div><div class="content hidden">
-<pre class="highlightjs highlight"><code class="language-groovy hljs">buildscript {
-  ...
-  dependencies {
-    classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.3.72"
+<pre class="highlightjs highlight"><code class="language-kt hljs">import io.jooby.caffeine.CaffeineSessionStore
+
+{
+  sessionStore = CaffeineSessionStore()          <i class="conum" data-value="1"></i><b>(1)</b>
+
+  get("/") {
+    val session = ctx.session()                  <i class="conum" data-value="2"></i><b>(2)</b>
+    // work with session
   }
-}
-
-...
-
-apply plugin: "org.jetbrains.kotlin.kapt"
-
-...
-
-dependencies {
-  kapt "io.jooby:jooby-apt:2.8.5"
-}
-...</code><button class="clipboard">Copy</button></pre>
+}</code><button class="clipboard">Copy</button></pre>
 </div></div>
 
-<div class="paragraph">
-<p><strong>IntelliJ Solution</strong></p>
+<div class="colist arabic">
+<table>
+<tbody><tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Configure session store</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Use HTTP Session</td>
+</tr>
+</tbody></table>
 </div>
 <div class="paragraph">
-<p>You need to enable IntelliJ annotation processing tool. Please checkout the <a href="https://www.jetbrains.com/help/idea/annotation-processors-support.html" target="_blank">IntelliJ documentation</a> to learn how to do it.</p>
+<p>Default time out is <code>30</code> minutes, to provide your own timeout:</p>
 </div>
-<div class="paragraph">
-<p>Please note that Kapt is still not supported for IntelliJ IDEA’s own build system. A simply workaround
-is to configure Intellij to run Maven/Gradle compilation as a build step before running your tests
-or application class:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>Go to <strong>Run &gt; Edit Configurations …​</strong></p>
-</li>
-<li>
-<p>Select the application/test class run configuration</p>
-</li>
-<li>
-<p>Find the <strong>Before build / Build</strong> section</p>
-</li>
-<li>
-<p>Select Add (plus button)</p>
-</li>
-<li>
-<p>Select <strong>Run Maven Goal</strong> or <strong>Run Gradle task</strong></p>
-</li>
-<li>
-<p>For Maven type <code>compile</code> or <code>testCompile</code></p>
-</li>
-<li>
-<p>For Gradle type <code>classes</code> or <code>testClasses</code></p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>Now whenever you run tests or the application Mvc classes will be generated at compilation time.</p>
-</div>
-<div class="paragraph">
-<p>Alternatively, you can delegate IntelliJ build/run actions to Maven or Gradle completely:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><a href="https://www.jetbrains.com/help/idea/delegate-build-and-run-actions-to-maven.html" class="bare" target="_blank">https://www.jetbrains.com/help/idea/delegate-build-and-run-actions-to-maven.html</a></p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p><strong>Eclipse 4.9+</strong></p>
-</div>
-<div class="paragraph">
-<p>You need <a href="https://www.eclipse.org/m2e/" target="_blank">M2Eclipse</a> for Maven or <a href="https://projects.eclipse.org/projects/tools.buildship" target="_blank">Gradle Buildship</a></p>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="bean-converter"><a class="anchor" href="#bean-converter"></a><a class="link" href="#bean-converter">2. Bean Converter</a></h2>
-<div class="sectionbody">
-<div class="sect2">
-<h3 id="bean-converter-parameter-name-missing"><a class="anchor" href="#bean-converter-parameter-name-missing"></a><a class="link" href="#bean-converter-parameter-name-missing">2.1. Parameter Name Missing</a></h3>
-<div class="paragraph">
-<p><strong>Exception</strong>:</p>
-</div>
-<div class="listingblock">
+<div class="literalblock">
 <div class="content">
-<pre>Unable to provision parameter at position: '...', require by: ... Parameter's name is missing</pre>
+<pre>new CaffeineSessionStore(Duration.ofHours(1))</pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Thrown when the bean converter has no access to a parameter name at runtime. Compilation must be
-done using <code>parameters</code> compiler option.</p>
+<p>For absolute control you can provide your own cache:</p>
 </div>
-<div class="paragraph">
-<p><strong>Maven Solution</strong></p>
+<div class="literalblock">
+<div class="content">
+<pre>Cache cache = ...;
+new CaffeineSessionStore(Duration.ofHours(1))</pre>
 </div>
-<div class="listingblock primary">
-
-
-<div class="switch"><div class="switch--item selected">Java</div><div class="switch--item">Kotlin</div></div><div class="content">
-<pre class="highlightjs highlight"><code class="language-xml hljs">  &lt;build&gt;
-    &lt;plugins&gt;
-      &lt;plugin&gt;
-        &lt;artifactId&gt;maven-compiler-plugin&lt;/artifactId&gt;
-        &lt;version&gt;3.8.1&lt;/version&gt;
-        &lt;configuration&gt;
-        ...
-          &lt;compilerArgs&gt;
-            &lt;arg&gt;-parameters&lt;/arg&gt;
-          &lt;/compilerArgs&gt;
-        &lt;/configuration&gt;
-      &lt;/plugin&gt;
-    &lt;/plugins&gt;
-  &lt;/build&gt;</code><button class="clipboard">Copy</button></pre>
-</div><div class="content hidden">
-<pre class="highlightjs highlight"><code class="language-xml hljs">  &lt;build&gt;
-    &lt;plugins&gt;
-      &lt;plugin&gt;
-          &lt;artifactId&gt;kotlin-maven-plugin&lt;/artifactId&gt;
-          &lt;groupId&gt;org.jetbrains.kotlin&lt;/groupId&gt;
-          &lt;version&gt;1.3.72&lt;/version&gt;
-          &lt;configuration&gt;
-            ...
-            &lt;args&gt;
-              &lt;arg&gt;-java-parameters&lt;/arg&gt;
-            &lt;/args&gt;
-            &lt;jvmTarget&gt;1.8&lt;/jvmTarget&gt;
-            ...
-          &lt;/configuration&gt;
-        &lt;/plugin&gt;
-    &lt;/plugins&gt;
-  &lt;/build&gt;</code><button class="clipboard">Copy</button></pre>
-</div></div>
-
-<div class="paragraph">
-<p><strong>Gradle Solution</strong></p>
 </div>
-<div class="listingblock primary">
-
-
-<div class="switch"><div class="switch--item selected">Java</div><div class="switch--item">Kotlin</div></div><div class="content">
-<pre class="highlightjs highlight"><code class="language-groovy hljs">tasks.withType(JavaCompile) {
-  options.compilerArgs &lt;&lt; '-parameters'
-  options.debug = true
-}</code><button class="clipboard">Copy</button></pre>
-</div><div class="content hidden">
-<pre class="highlightjs highlight"><code class="language-groovy hljs">tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
-  kotlinOptions.javaParameters = true
-}</code><button class="clipboard">Copy</button></pre>
-</div></div>
-
 </div>
 </div>
 </div>

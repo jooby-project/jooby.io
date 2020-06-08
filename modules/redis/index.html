@@ -8,7 +8,7 @@
 <meta name="description" content="The modular micro web framework for Java">
 <meta name="keywords" content="Java, Modern, Micro, Web, Framework, Reactive, Lightweight, Microservices">
 <link rel="icon" type="image/png" href="../../images/favicon96.png">
-<title>jooby: usage</title>
+<title>jooby: redis module</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /* Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -511,325 +511,253 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="book toc2 toc-left">
 <div id="header">
-<h1>Help/Usage section</h1>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#annotation-processing-tool">1. Annotation Processing Tool</a>
+<li><a href="#redis">1. Redis</a>
 <ul class="sectlevel2">
-<li><a href="#router-not-found">1.1. Router Not Found</a></li>
-</ul>
-</li>
-<li><a href="#bean-converter">2. Bean Converter</a>
-<ul class="sectlevel2">
-<li><a href="#parameter-name-missing">2.1. Parameter Name Missing</a></li>
+<li><a href="#usage">1.1. Usage</a></li>
+<li><a href="#redis-uri">1.2. Redis URI</a></li>
+<li><a href="#multiple-connections">1.3. Multiple Connections</a></li>
+<li><a href="#http-session">1.4. HTTP Session</a></li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
 <div id="content">
-<div id="preamble">
-<div class="sectionbody">
-<div class="paragraph">
-<p>This section describes usage error and how to fix them.</p>
-</div>
-</div>
-</div>
 <div class="sect1">
-<h2 id="annotation-processing-tool"><a class="anchor" href="#annotation-processing-tool"></a><a class="link" href="#annotation-processing-tool">1. Annotation Processing Tool</a></h2>
+<h2 id="redis"><a class="anchor" href="#redis"></a><a class="link" href="#redis">1. Redis</a></h2>
 <div class="sectionbody">
+<div class="paragraph">
+<p>Redis using <a href="https://lettuce.io" target="_blank">Lettuce</a> library.</p>
+</div>
 <div class="sect2">
-<h3 id="annotation-processing-tool-router-not-found"><a class="anchor" href="#annotation-processing-tool-router-not-found"></a><a class="link" href="#annotation-processing-tool-router-not-found">1.1. Router Not Found</a></h3>
+<h3 id="redis-usage"><a class="anchor" href="#redis-usage"></a><a class="link" href="#redis-usage">1.1. Usage</a></h3>
 <div class="paragraph">
-<p><strong>Exception</strong>:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>Route not found: `...`. Make sure Jooby annotation processor is configured properly.</pre>
-</div>
-</div>
-<div class="paragraph">
-<p>The cause of this error is generated when you try to use a MVC route and the annotation processing
-tool is not configured properly.</p>
-</div>
-<div class="paragraph">
-<p><strong>Maven Solution</strong>:</p>
-</div>
-<div class="paragraph">
-<p>Java build needs the <code>jooby-apt</code> dependency as <a href="https://maven.apache.org/plugins/maven-compiler-plugin/compile-mojo.html#annotationProcessorPaths" target="_blank">annotationProcessorPaths</a>.</p>
-</div>
-<div class="paragraph">
-<p>Kotlin build also requires it via <a href="https://kotlinlang.org/docs/reference/kapt.html#using-in-maven" target="_blank">kapt</a>.</p>
+<p>1) Add the dependency:</p>
 </div>
 <div class="listingblock primary">
 
 
-<div class="switch"><div class="switch--item selected">Java</div><div class="switch--item">Kotlin</div></div><div class="content">
-<pre class="highlightjs highlight"><code class="language-xml hljs">  &lt;build&gt;
-    &lt;plugins&gt;
-      &lt;plugin&gt;
-        &lt;artifactId&gt;maven-compiler-plugin&lt;/artifactId&gt;
-        &lt;version&gt;3.8.1&lt;/version&gt;
-        &lt;configuration&gt;
-          &lt;annotationProcessorPaths&gt;
-            &lt;path&gt;
-              &lt;groupId&gt;io.jooby&lt;/groupId&gt;
-              &lt;artifactId&gt;jooby-apt&lt;/artifactId&gt;
-              &lt;version&gt;2.8.5&lt;/version&gt;
-            &lt;/path&gt;
-          &lt;/annotationProcessorPaths&gt;
-        &lt;/configuration&gt;
-      &lt;/plugin&gt;
-    &lt;/plugins&gt;
-  &lt;/build&gt;</code><button class="clipboard">Copy</button></pre>
+<div class="switch"><div class="switch--item selected">Maven</div><div class="switch--item">Gradle</div></div><div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs">&lt;dependency&gt;
+  &lt;groupId&gt;io.jooby&lt;/groupId&gt;
+  &lt;artifactId&gt;jooby-redis&lt;/artifactId&gt;
+  &lt;version&gt;2.8.5&lt;/version&gt;
+&lt;/dependency&gt;</code><button class="clipboard">Copy</button></pre>
 </div><div class="content hidden">
-<pre class="highlightjs highlight"><code class="language-xml hljs">  &lt;build&gt;
-    &lt;plugins&gt;
-      &lt;plugin&gt;
-        &lt;artifactId&gt;kotlin-maven-plugin&lt;/artifactId&gt;
-        &lt;groupId&gt;org.jetbrains.kotlin&lt;/groupId&gt;
-        &lt;version&gt;1.3.72&lt;/version&gt;
-        &lt;configuration&gt;
-          &lt;args&gt;
-            &lt;arg&gt;-java-parameters&lt;/arg&gt;
-          &lt;/args&gt;
-          &lt;jvmTarget&gt;${maven.compiler.target}&lt;/jvmTarget&gt;
-        &lt;/configuration&gt;
-        &lt;executions&gt;
-          &lt;execution&gt;
-            &lt;id&gt;kapt&lt;/id&gt;
-            &lt;goals&gt;
-              &lt;goal&gt;kapt&lt;/goal&gt;
-            &lt;/goals&gt;
-            &lt;configuration&gt;
-              &lt;sourceDirs&gt;
-                &lt;sourceDir&gt;src/main/kotlin&lt;/sourceDir&gt;
-              &lt;/sourceDirs&gt;
-              &lt;annotationProcessorPaths&gt;
-                &lt;annotationProcessorPath&gt;
-                  &lt;groupId&gt;io.jooby&lt;/groupId&gt;
-                  &lt;artifactId&gt;jooby-apt&lt;/artifactId&gt;
-                  &lt;version&gt;2.8.5&lt;/version&gt;
-                &lt;/annotationProcessorPath&gt;
-              &lt;/annotationProcessorPaths&gt;
-            &lt;/configuration&gt;
-          &lt;/execution&gt;
-          &lt;execution&gt;
-            &lt;id&gt;compile&lt;/id&gt;
-            &lt;goals&gt;
-              &lt;goal&gt;compile&lt;/goal&gt;
-            &lt;/goals&gt;
-            &lt;configuration&gt;
-              &lt;sourceDirs&gt;
-                &lt;sourceDir&gt;src/main/kotlin&lt;/sourceDir&gt;
-              &lt;/sourceDirs&gt;
-            &lt;/configuration&gt;
-          &lt;/execution&gt;
-          &lt;execution&gt;
-            &lt;id&gt;test-kapt&lt;/id&gt;
-            &lt;goals&gt;
-              &lt;goal&gt;test-kapt&lt;/goal&gt;
-            &lt;/goals&gt;
-            &lt;configuration&gt;
-              &lt;sourceDirs&gt;
-                &lt;sourceDir&gt;src/test/kotlin&lt;/sourceDir&gt;
-              &lt;/sourceDirs&gt;
-              &lt;annotationProcessorPaths&gt;
-                &lt;annotationProcessorPath&gt;
-                  &lt;groupId&gt;io.jooby&lt;/groupId&gt;
-                  &lt;artifactId&gt;jooby-apt&lt;/artifactId&gt;
-                  &lt;version&gt;2.8.5&lt;/version&gt;
-                &lt;/annotationProcessorPath&gt;
-              &lt;/annotationProcessorPaths&gt;
-            &lt;/configuration&gt;
-          &lt;/execution&gt;
-          &lt;execution&gt;
-            &lt;id&gt;test-compile&lt;/id&gt;
-            &lt;goals&gt;
-              &lt;goal&gt;test-compile&lt;/goal&gt;
-            &lt;/goals&gt;
-            &lt;configuration&gt;
-              &lt;sourceDirs&gt;
-                &lt;sourceDir&gt;src/test/kotlin&lt;/sourceDir&gt;
-              &lt;/sourceDirs&gt;
-            &lt;/configuration&gt;
-          &lt;/execution&gt;
-        &lt;/executions&gt;
-      &lt;/plugin&gt;
-    &lt;/plugins&gt;
-  &lt;/build&gt;</code><button class="clipboard">Copy</button></pre>
+<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'io.jooby:jooby-redis:2.8.5'</code><button class="clipboard">Copy</button></pre>
 </div></div>
 
 <div class="paragraph">
-<p><strong>Gradle Solution</strong>:</p>
+<p>2) Set redis property</p>
+</div>
+<div class="listingblock">
+<div class="title">application.conf</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-properties hljs">redis = "redis://localhost:6379"</code><button class="clipboard">Copy</button></pre>
+</div>
 </div>
 <div class="paragraph">
-<p>Java build needs an annotationProcessor statement using <code>jooby-apt</code>.</p>
-</div>
-<div class="paragraph">
-<p>Kotlin builds needs a <a href="https://kotlinlang.org/docs/reference/kapt.html#using-in-gradle" target="_blank">kapt</a> dependency and statement using <code>jooby-apt</code>.</p>
+<p>3) Install and use Redis</p>
 </div>
 <div class="listingblock primary">
 
 
 <div class="switch"><div class="switch--item selected">Java</div><div class="switch--item">Kotlin</div></div><div class="content">
-<pre class="highlightjs highlight"><code class="language-groovy hljs">dependencies {
-  annotationProcessor "io.jooby:jooby-apt:2.8.5"
+<pre class="highlightjs highlight"><code class="language-java hljs">import io.jooby.redis.RedisModule;
+import io.lettuce.core.api.StatefulRedisConnection;
+
+{
+  install(new RedisModule());                                               <i class="conum" data-value="1"></i><b>(1)</b>
+
+  get("/", ctx -&gt; {
+    StatefulRedisConnection redis = require(StatefulRedisConnection.class); <i class="conum" data-value="2"></i><b>(2)</b>
+    // work with redis
+  });
 }</code><button class="clipboard">Copy</button></pre>
 </div><div class="content hidden">
-<pre class="highlightjs highlight"><code class="language-groovy hljs">buildscript {
-  ...
-  dependencies {
-    classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.3.72"
+<pre class="highlightjs highlight"><code class="language-kt hljs">import io.jooby.redis.RedisModule
+import io.lettuce.core.api.StatefulRedisConnection
+
+{
+  install(RedisModule())                                                    <i class="conum" data-value="1"></i><b>(1)</b>
+
+  get("/") {
+    val redis = require(StatefulRedisConnection::class)                     <i class="conum" data-value="2"></i><b>(2)</b>
+    // work with Database
   }
-}
-
-...
-
-apply plugin: "org.jetbrains.kotlin.kapt"
-
-...
-
-dependencies {
-  kapt "io.jooby:jooby-apt:2.8.5"
-}
-...</code><button class="clipboard">Copy</button></pre>
+}</code><button class="clipboard">Copy</button></pre>
 </div></div>
 
-<div class="paragraph">
-<p><strong>IntelliJ Solution</strong></p>
+<div class="colist arabic">
+<table>
+<tbody><tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Install Redis</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Use Redis</td>
+</tr>
+</tbody></table>
 </div>
 <div class="paragraph">
-<p>You need to enable IntelliJ annotation processing tool. Please checkout the <a href="https://www.jetbrains.com/help/idea/annotation-processors-support.html" target="_blank">IntelliJ documentation</a> to learn how to do it.</p>
-</div>
-<div class="paragraph">
-<p>Please note that Kapt is still not supported for IntelliJ IDEA’s own build system. A simply workaround
-is to configure Intellij to run Maven/Gradle compilation as a build step before running your tests
-or application class:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>Go to <strong>Run &gt; Edit Configurations …​</strong></p>
-</li>
-<li>
-<p>Select the application/test class run configuration</p>
-</li>
-<li>
-<p>Find the <strong>Before build / Build</strong> section</p>
-</li>
-<li>
-<p>Select Add (plus button)</p>
-</li>
-<li>
-<p>Select <strong>Run Maven Goal</strong> or <strong>Run Gradle task</strong></p>
-</li>
-<li>
-<p>For Maven type <code>compile</code> or <code>testCompile</code></p>
-</li>
-<li>
-<p>For Gradle type <code>classes</code> or <code>testClasses</code></p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>Now whenever you run tests or the application Mvc classes will be generated at compilation time.</p>
-</div>
-<div class="paragraph">
-<p>Alternatively, you can delegate IntelliJ build/run actions to Maven or Gradle completely:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><a href="https://www.jetbrains.com/help/idea/delegate-build-and-run-actions-to-maven.html" class="bare" target="_blank">https://www.jetbrains.com/help/idea/delegate-build-and-run-actions-to-maven.html</a></p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p><strong>Eclipse 4.9+</strong></p>
-</div>
-<div class="paragraph">
-<p>You need <a href="https://www.eclipse.org/m2e/" target="_blank">M2Eclipse</a> for Maven or <a href="https://projects.eclipse.org/projects/tools.buildship" target="_blank">Gradle Buildship</a></p>
+<p>The <code>io.lettuce.core.pubsub.StatefulRedisPubSubConnection</code> is also available.</p>
 </div>
 </div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="bean-converter"><a class="anchor" href="#bean-converter"></a><a class="link" href="#bean-converter">2. Bean Converter</a></h2>
-<div class="sectionbody">
 <div class="sect2">
-<h3 id="bean-converter-parameter-name-missing"><a class="anchor" href="#bean-converter-parameter-name-missing"></a><a class="link" href="#bean-converter-parameter-name-missing">2.1. Parameter Name Missing</a></h3>
+<h3 id="redis-redis-uri"><a class="anchor" href="#redis-redis-uri"></a><a class="link" href="#redis-redis-uri">1.2. Redis URI</a></h3>
 <div class="paragraph">
-<p><strong>Exception</strong>:</p>
+<p>Redis URI are allowed to pass it directly or from application configuration file:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>Unable to provision parameter at position: '...', require by: ... Parameter's name is missing</pre>
+<pre>{
+   new RedisModule("redis://localhost:6379");
+}</pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Thrown when the bean converter has no access to a parameter name at runtime. Compilation must be
-done using <code>parameters</code> compiler option.</p>
+<p>Or read it from configuration:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>{
+   new RedisModule("redis");
+}</pre>
+</div>
 </div>
 <div class="paragraph">
-<p><strong>Maven Solution</strong></p>
+<p>Either <code>redis</code> or <code>redis.uri</code> must be present in your application configuration file and must be a
+<a href="https://lettuce.io/core/release/reference/index.html#redisuri.uri-syntax" target="_blank">valid Redis URI</a>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="redis-multiple-connections"><a class="anchor" href="#redis-multiple-connections"></a><a class="link" href="#redis-multiple-connections">1.3. Multiple Connections</a></h3>
+<div class="paragraph">
+<p>Support for multiple connection is done using multiple configuration keys:</p>
 </div>
 <div class="listingblock primary">
 
 
 <div class="switch"><div class="switch--item selected">Java</div><div class="switch--item">Kotlin</div></div><div class="content">
-<pre class="highlightjs highlight"><code class="language-xml hljs">  &lt;build&gt;
-    &lt;plugins&gt;
-      &lt;plugin&gt;
-        &lt;artifactId&gt;maven-compiler-plugin&lt;/artifactId&gt;
-        &lt;version&gt;3.8.1&lt;/version&gt;
-        &lt;configuration&gt;
-        ...
-          &lt;compilerArgs&gt;
-            &lt;arg&gt;-parameters&lt;/arg&gt;
-          &lt;/compilerArgs&gt;
-        &lt;/configuration&gt;
-      &lt;/plugin&gt;
-    &lt;/plugins&gt;
-  &lt;/build&gt;</code><button class="clipboard">Copy</button></pre>
+<pre class="highlightjs highlight"><code class="language-java hljs">import io.jooby.redis.RedisModule;
+import io.lettuce.core.api.StatefulRedisConnection;
+
+{
+  install(new RedisModule("foo"));
+
+  install(new RedisModule("bar"));
+
+  get("/", ctx -&gt; {
+    StatefulRedisConnection foo = require(StatefulRedisConnection.class, "foo");
+    // work with redis
+  });
+}</code><button class="clipboard">Copy</button></pre>
 </div><div class="content hidden">
-<pre class="highlightjs highlight"><code class="language-xml hljs">  &lt;build&gt;
-    &lt;plugins&gt;
-      &lt;plugin&gt;
-          &lt;artifactId&gt;kotlin-maven-plugin&lt;/artifactId&gt;
-          &lt;groupId&gt;org.jetbrains.kotlin&lt;/groupId&gt;
-          &lt;version&gt;1.3.72&lt;/version&gt;
-          &lt;configuration&gt;
-            ...
-            &lt;args&gt;
-              &lt;arg&gt;-java-parameters&lt;/arg&gt;
-            &lt;/args&gt;
-            &lt;jvmTarget&gt;1.8&lt;/jvmTarget&gt;
-            ...
-          &lt;/configuration&gt;
-        &lt;/plugin&gt;
-    &lt;/plugins&gt;
-  &lt;/build&gt;</code><button class="clipboard">Copy</button></pre>
+<pre class="highlightjs highlight"><code class="language-kt hljs">import io.jooby.redis.RedisModule
+import io.lettuce.core.api.StatefulRedisConnection
+
+{
+  install(RedisModule("foo"))
+
+  install(RedisModule("bar"))
+
+  get("/") {
+    val redis = require(StatefulRedisConnection::class, "bar")
+    // work with Database
+  }
+}</code><button class="clipboard">Copy</button></pre>
 </div></div>
 
 <div class="paragraph">
-<p><strong>Gradle Solution</strong></p>
+<p>Where <code>foo</code> and <code>bar</code> are redis URI in your application configuration file:</p>
+</div>
+<div class="listingblock">
+<div class="title">application.conf</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-properties hljs">foo = "redis://server1:6379"
+
+bar = "redis://server2:6379"</code><button class="clipboard">Copy</button></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="redis-http-session"><a class="anchor" href="#redis-http-session"></a><a class="link" href="#redis-http-session">1.4. HTTP Session</a></h3>
+<div class="paragraph">
+<p>The Redis module provides a HTTP Session Store.</p>
 </div>
 <div class="listingblock primary">
-
+<div class="title">Usage</div>
 
 <div class="switch"><div class="switch--item selected">Java</div><div class="switch--item">Kotlin</div></div><div class="content">
-<pre class="highlightjs highlight"><code class="language-groovy hljs">tasks.withType(JavaCompile) {
-  options.compilerArgs &lt;&lt; '-parameters'
-  options.debug = true
+<pre class="highlightjs highlight"><code class="language-java hljs">import io.jooby.redis.RedisModule;
+import io.jooby.redis.RedisSessionStore;
+
+import io.lettuce.core.api.StatefulRedisConnection;
+
+{
+  install(new RedisModule());                                                     <i class="conum" data-value="1"></i><b>(1)</b>
+
+  setSessionStore(new RedisSessionStore(require(StatefulRedisConnection.class))); <i class="conum" data-value="2"></i><b>(2)</b>
+
+  get("/", ctx -&gt; {
+    Session httpSession = ctx.session();                                          <i class="conum" data-value="3"></i><b>(3)</b>
+    // HTTP session is backed by Redis
+  });
 }</code><button class="clipboard">Copy</button></pre>
 </div><div class="content hidden">
-<pre class="highlightjs highlight"><code class="language-groovy hljs">tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
-  kotlinOptions.javaParameters = true
+<pre class="highlightjs highlight"><code class="language-kt hljs">import io.jooby.redis.RedisModule
+import io.jooby.redis.RedisSessionStore
+
+import io.lettuce.core.api.StatefulRedisConnection
+
+{
+  install(RedisModule())                                                           <i class="conum" data-value="1"></i><b>(1)</b>
+
+  sessionStore = RedisSessionStore(require(StatefulRedisConnection::class))        <i class="conum" data-value="2"></i><b>(2)</b>
+
+  get("/") {
+    val httpSession = ctx.session()                                                <i class="conum" data-value="3"></i><b>(3)</b>
+    // HTTP session is backed by Redis
+  }
 }</code><button class="clipboard">Copy</button></pre>
 </div></div>
 
+<div class="colist arabic">
+<table>
+<tbody><tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Install Redis module</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Configure session store to use Redis</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Session data is persisted in Redis</td>
+</tr>
+</tbody></table>
+</div>
+<div class="paragraph">
+<p>More Options:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://www.javadoc.io/doc/io.jooby/jooby/latest/io/jooby/redis/RedisSessionStore.html#setTimeout-java.time.Duraction-" target="_blank">setTimeout(Duraction)</a>: Set session timeout. Default is: <code>30 minutes</code></p>
+</li>
+<li>
+<p><a href="https://www.javadoc.io/doc/io.jooby/jooby/latest/io/jooby/redis/RedisSessionStore.html#setNamespace-java.lang.String-" target="_blank">setNamespace(String)</a>: Set key prefix. Default is: <code>sessions</code></p>
+</li>
+<li>
+<p><a href="https://www.javadoc.io/doc/io.jooby/jooby/latest/io/jooby/redis/RedisSessionStore.html#setToken-io.jooby.SessionToken-" target="_blank">setToken(SessionToken)</a>: Set session token. Default is a cookie token: <code>jooby.sid</code></p>
+</li>
+</ul>
+</div>
 </div>
 </div>
 </div>
