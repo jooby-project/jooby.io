@@ -8,7 +8,7 @@
 <meta name="description" content="The modular micro web framework for Java">
 <meta name="keywords" content="Java, Modern, Micro, Web, Framework, Reactive, Lightweight, Microservices">
 <link rel="icon" type="image/png" href="../../images/favicon96.png">
-<title>jooby: spring module</title>
+<title>jooby: packaging</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /* Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -513,184 +513,208 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="header">
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#packaging">1. Packaging</a>
 <ul class="sectlevel2">
-<li><a href="#spring">1. Spring</a>
-<ul class="sectlevel3">
-<li><a href="#property-injection">1.1. Property Injection</a></li>
-<li><a href="#mvc-routes">1.2. MVC routes</a></li>
+<li><a href="#single-jar">1.1. Single jar</a></li>
+<li><a href="#stork">1.2. Stork</a></li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
 <div id="content">
-<div class="sect2">
-<h3 id="spring"><a class="anchor" href="#spring"></a><a class="link" href="#spring">1. Spring</a></h3>
+<div class="sect1">
+<h2 id="packaging"><a class="anchor" href="#packaging"></a><a class="link" href="#packaging">1. Packaging</a></h2>
+<div class="sectionbody">
 <div class="paragraph">
-<p>1) Add Spring dependency to your project:</p>
+<p>This section describes some packaging and distribution options.</p>
+</div>
+<div class="sect2">
+<h3 id="packaging-single-jar"><a class="anchor" href="#packaging-single-jar"></a><a class="link" href="#packaging-single-jar">1.1. Single jar</a></h3>
+<div class="paragraph">
+<p>This is the default deployment option where you create a single jar (a.k.a fat/uber jar) for your
+application.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tbody><tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The <a href="https://jooby.io/#getting-started" target="_blank">jooby-cli</a> takes care of configures everything for single jar
+distribution. Next example shows how to do it in case you created your application manually.</p>
+</div>
+</td>
+</tr>
+</tbody></table>
 </div>
 <div class="listingblock primary">
 
 
 <div class="switch"><div class="switch--item selected">Maven</div><div class="switch--item">Gradle</div></div><div class="content">
-<pre class="highlightjs highlight"><code class="language-xml hljs">&lt;dependency&gt;
-  &lt;groupId&gt;io.jooby&lt;/groupId&gt;
-  &lt;artifactId&gt;jooby-spring&lt;/artifactId&gt;
-  &lt;version&gt;2.8.6&lt;/version&gt;
-&lt;/dependency&gt;</code><button class="clipboard">Copy</button></pre>
+<pre class="highlightjs highlight"><code class="language-xml hljs">&lt;build&gt;
+  &lt;plugins&gt;
+    ...
+    &lt;plugin&gt;
+        &lt;artifactId&gt;maven-shade-plugin&lt;/artifactId&gt;
+        &lt;version&gt;3.2.4&lt;/version&gt;
+        &lt;executions&gt;
+          &lt;execution&gt;
+            &lt;id&gt;uber-jar&lt;/id&gt;
+            &lt;phase&gt;package&lt;/phase&gt;
+            &lt;goals&gt;
+              &lt;goal&gt;shade&lt;/goal&gt;
+            &lt;/goals&gt;
+            &lt;configuration&gt;
+              &lt;createDependencyReducedPom&gt;false&lt;/createDependencyReducedPom&gt;
+              &lt;transformers&gt;
+                &lt;transformer implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer"/&gt;
+                &lt;transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer"&gt;
+                  &lt;mainClass&gt;${application.class}&lt;/mainClass&gt;
+                &lt;/transformer&gt;
+              &lt;/transformers&gt;
+            &lt;/configuration&gt;
+          &lt;/execution&gt;
+        &lt;/executions&gt;
+      &lt;/plugin&gt;
+    ...
+  &lt;/plugins&gt;
+&lt;/build&gt;</code><button class="clipboard">Copy</button></pre>
 </div><div class="content hidden">
-<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'io.jooby:jooby-spring:2.8.6'</code><button class="clipboard">Copy</button></pre>
+<pre class="highlightjs highlight"><code class="language-groovy hljs">plugins {
+  ...
+  id "com.github.johnrengelman.shadow" version "5.2.0"
+  ...
+}
+
+...
+
+shadowJar {
+  mergeServiceFiles()
+}</code><button class="clipboard">Copy</button></pre>
 </div></div>
 
 <div class="paragraph">
-<p>2) Install Spring:</p>
+<p>Maven users:</p>
 </div>
-<div class="listingblock primary">
-<div class="title">Installing Spring</div>
-
-<div class="switch"><div class="switch--item selected">Java</div><div class="switch--item">Kotlin</div></div><div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs">package myapp;                                       <i class="conum" data-value="1"></i><b>(1)</b>
-
-import static io.jooby.Jooby.runApp;
-import io.jooby.di.SpringModule;
-
-public class App extends Jooby {
-
-  {
-    install(new SpringModule());                           <i class="conum" data-value="2"></i><b>(2)</b>
-
-    get("/", ctx -&gt; {
-      MyService service = require(MyService.class);  <i class="conum" data-value="3"></i><b>(3)</b>
-      return service.doSomething();
-    });
-  }
-
-  public static void main(String[] args) {
-    runApp(args, App::new);
-  }
-}</code><button class="clipboard">Copy</button></pre>
-</div><div class="content hidden">
-<pre class="highlightjs highlight"><code class="language-kotlin hljs">package myapp                                        <i class="conum" data-value="1"></i><b>(1)</b>
-
-import io.jooby.runApp
-import io.jooby.di.SpringModule
-
-fun main(args: Array&lt;String&gt;) {
-  runApp(args) {
-
-    install(SpringModule())                                <i class="conum" data-value="2"></i><b>(2)</b>
-
-    get ("/") {
-      val service = require(MyService::class)        <i class="conum" data-value="3"></i><b>(3)</b>
-      service.doSomething()
-    }
-  }
-}</code><button class="clipboard">Copy</button></pre>
-</div></div>
-
-<div class="colist arabic">
+<div class="literalblock">
+<div class="content">
+<pre>mvn clean package</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Gradle users:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>./gradlew shadowJar</pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="packaging-stork"><a class="anchor" href="#packaging-stork"></a><a class="link" href="#packaging-stork">1.2. Stork</a></h3>
+<div class="paragraph">
+<p><a href="https://github.com/fizzed/stork" target="_blank">Stork</a> is packaging, launch and deploy tool for Java apps.</p>
+</div>
+<div class="admonitionblock note">
 <table>
 <tbody><tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>Spring scan the package <code>myapp</code> and subpackages</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>Install Spring module</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="3"></i><b>3</b></td>
-<td>The <a href="https://www.javadoc.io/doc/io.jooby/jooby/latest/io/jooby/Jooby.html#require-java.lang.Class-" target="_blank">require(Class)</a> call is now resolved by Spring</td>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Stork is only available for Maven projects</p>
+</div>
+</td>
 </tr>
 </tbody></table>
 </div>
 <div class="paragraph">
-<p>Spring uses the application package and sub-packages to scan. If you need extra packages, provide them at creation time:</p>
+<p>To configure stork:</p>
+</div>
+<div class="paragraph">
+<p>1) Creates a <code>src/etc/stork/stork.yml</code> file (file location is important):</p>
 </div>
 <div class="listingblock">
+<div class="title">stork.yml</div>
 <div class="content">
-<pre>install(new Spring("foo", "bar"));</pre>
+<pre class="highlightjs highlight"><code class="language-yaml hljs"># Name of application (make sure it has no spaces)
+name: "${project.artifactId}"
+
+# Display name of application (can have spaces)
+display_name: "${project.name}"
+
+# Type of launcher (CONSOLE or DAEMON)
+type: DAEMON
+
+# Java class to run
+main_class: "${application.class}"
+
+domain: "${project.groupId}"
+
+short_description: "${project.artifactId}"
+
+# Platform launchers to generate (WINDOWS, LINUX, MAC_OSX)
+# Linux launcher is suitable for Bourne shells (e.g. Linux/BSD)
+platforms: [ LINUX ]
+
+# Working directory for app
+# RETAIN will not change the working directory
+# APP_HOME will change the working directory to the home of the app
+# (where it was intalled) before running the main class
+working_dir_mode: RETAIN
+
+# Minimum version of java required (system will be searched for acceptable jvm)
+min_java_version: "1.8"
+
+# Min/max fixed memory (measured in MB)
+min_java_memory: 512
+max_java_memory: 512
+
+# Min/max memory by percentage of system
+#min_java_memory_pct: 10
+#max_java_memory_pct: 20
+
+# Try to create a symbolic link to java executable in &lt;app_home&gt;/run with
+# the name of "&lt;app_name&gt;-java" so that commands like "ps" will make it
+# easier to find your app
+symlink_java: true</code><button class="clipboard">Copy</button></pre>
 </div>
 </div>
-<div class="sect3">
-<h4 id="spring-property-injection"><a class="anchor" href="#spring-property-injection"></a><a class="link" href="#spring-property-injection">1.1. Property Injection</a></h4>
 <div class="paragraph">
-<p>Configuration properties can be injected using the <code>@Value</code> annotation:</p>
+<p>2) Configure <a href="https://github.com/repaint-io/maven-tiles" target="_blank">Maven Tiles</a> plugin:</p>
 </div>
 <div class="listingblock">
-<div class="title">application.conf</div>
+<div class="title">Maven</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs">currency = USD</code><button class="clipboard">Copy</button></pre>
+<pre class="highlightjs highlight"><code class="language-xml hljs">&lt;build&gt;
+  &lt;plugins&gt;
+    &lt;plugin&gt;
+        &lt;groupId&gt;io.repaint.maven&lt;/groupId&gt;
+        &lt;artifactId&gt;tiles-maven-plugin&lt;/artifactId&gt;
+        &lt;version&gt;2.17&lt;/version&gt;
+        &lt;extensions&gt;true&lt;/extensions&gt;
+        &lt;configuration&gt;
+          &lt;tiles&gt;
+            &lt;tile&gt;io.jooby:jooby-stork:2.8.6&lt;/tile&gt;
+          &lt;/tiles&gt;
+        &lt;/configuration&gt;
+    &lt;/plugin&gt;
+  &lt;/plugins&gt;
+&lt;/build&gt;</code><button class="clipboard">Copy</button></pre>
 </div>
 </div>
-<div class="listingblock primary">
-
-
-<div class="switch"><div class="switch--item selected">Java</div><div class="switch--item">Kotlin</div></div><div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs">import javax.injext.Inject;
-import org.springframework.beans.factory.annotation.Value;
-
-public class BillingService {
-
-  @Inject
-  public BillingService(@Value("currency") String currency) {
-    ...
-  }
-
-}</code><button class="clipboard">Copy</button></pre>
-</div><div class="content hidden">
-<pre class="highlightjs highlight"><code class="language-kotlin hljs">import javax.injext.Inject
-import org.springframework.beans.factory.annotation.Value
-
-class BillingService @Inject constructor(@Value("${currency}") currency: String) {
-  ...
-}</code><button class="clipboard">Copy</button></pre>
-</div></div>
-
-</div>
-<div class="sect3">
-<h4 id="spring-mvc-routes"><a class="anchor" href="#spring-mvc-routes"></a><a class="link" href="#spring-mvc-routes">1.2. MVC routes</a></h4>
 <div class="paragraph">
-<p>The Spring extension does a bit more in relation to MVC routes:</p>
+<p>3) Run <code>mvn package</code></p>
 </div>
-<div class="ulist">
-<ul>
-<li>
-<p>A MVC route annotated with the <code>org.springframework.stereotype.Controller</code> annotation is
-automatically registered. No need to register it manually</p>
-</li>
-<li>
-<p>A MVC route provided by Spring is a singleton object by default. Singleton is the default scope in Spring</p>
-</li>
-</ul>
+<div class="paragraph">
+<p>Stork zip file will be available in the <code>target</code> directory.</p>
 </div>
-<div class="listingblock primary">
-<div class="title">MVC route</div>
-
-<div class="switch"><div class="switch--item selected">Java</div><div class="switch--item">Kotlin</div></div><div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs">import org.springframework.stereotype.Controller;
-
-@Controller
-public class Hello {
-
-   @GET
-   public String sayHi() {
-     return "Hi Spring!";
-   }
-}</code><button class="clipboard">Copy</button></pre>
-</div><div class="content hidden">
-<pre class="highlightjs highlight"><code class="language-kotlin hljs">import org.springframework.stereotype.Controller
-
-@Controller
-class Hello {
-
-   @GET
-   fun sayHi(): String {
-     return "Hi Spring!"
-   }
-}</code><button class="clipboard">Copy</button></pre>
-</div></div>
-
+</div>
 </div>
 </div>
 </div>

@@ -516,7 +516,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="details">
 <span id="author" class="author">Jooby Project</span><br>
 <span id="email" class="email"><a href="mailto:support@jooby.io">support@jooby.io</a></span><br>
-<span id="revdate">2.8.5</span>
+<span id="revdate">2.8.6</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
@@ -707,10 +707,11 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#accessloghandler">14.1. AccessLogHandler</a></li>
 <li><a href="#corshandler">14.2. CorsHandler</a></li>
 <li><a href="#csrfhandler">14.3. CsrfHandler</a></li>
-<li><a href="#headhandler">14.4. HeadHandler</a></li>
-<li><a href="#ratelimithandler">14.5. RateLimitHandler</a></li>
-<li><a href="#sslhandler">14.6. SSLHandler</a></li>
-<li><a href="#tracehandler">14.7. TraceHandler</a></li>
+<li><a href="#gracefulshutdown">14.4. GracefulShutdown</a></li>
+<li><a href="#headhandler">14.5. HeadHandler</a></li>
+<li><a href="#ratelimithandler">14.6. RateLimitHandler</a></li>
+<li><a href="#sslhandler">14.7. SSLHandler</a></li>
+<li><a href="#tracehandler">14.8. TraceHandler</a></li>
 </ul>
 </li>
 <li><a href="#configuration">15. Configuration</a>
@@ -742,76 +743,82 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </li>
 </ul>
 </li>
-<li><a href="#hot-reload">17. Hot Reload</a>
+<li><a href="#development">17. Development</a>
 <ul class="sectlevel2">
 <li><a href="#usage">17.1. Usage</a></li>
 <li><a href="#compilation-restart">17.2. Compilation &amp; Restart</a></li>
 <li><a href="#options-4">17.3. Options</a></li>
 </ul>
 </li>
-<li><a href="#server">18. Server</a>
+<li><a href="#packaging">18. Packaging</a>
 <ul class="sectlevel2">
-<li><a href="#options-5">18.1. Options</a></li>
-<li><a href="#ssl">18.2. SSL</a>
-<ul class="sectlevel3">
-<li><a href="#using-x-509">18.2.1. Using X.509</a></li>
-<li><a href="#using-pkcs12">18.2.2. Using PKCS12</a></li>
+<li><a href="#single-jar">18.1. Single jar</a></li>
+<li><a href="#stork">18.2. Stork</a></li>
 </ul>
 </li>
-</ul>
-</li>
-<li><a href="#extensions-and-services">19. Extensions and Services</a>
+<li><a href="#server">19. Server</a>
 <ul class="sectlevel2">
-<li><a href="#writing-custom-extension">19.1. Writing Custom Extension</a></li>
+<li><a href="#options-5">19.1. Options</a></li>
+<li><a href="#ssl">19.2. SSL</a>
+<ul class="sectlevel3">
+<li><a href="#using-x-509">19.2.1. Using X.509</a></li>
+<li><a href="#using-pkcs12">19.2.2. Using PKCS12</a></li>
 </ul>
 </li>
-<li><a href="#dependency-injection">20. Dependency Injection</a>
+</ul>
+</li>
+<li><a href="#extensions-and-services">20. Extensions and Services</a>
 <ul class="sectlevel2">
-<li><a href="#dagger">20.1. Dagger</a>
-<ul class="sectlevel3">
-<li><a href="#mvc-routes">20.1.1. MVC routes</a></li>
+<li><a href="#writing-custom-extension">20.1. Writing Custom Extension</a></li>
 </ul>
 </li>
-<li><a href="#guice">20.2. Guice</a>
-<ul class="sectlevel3">
-<li><a href="#property-injection">20.2.1. Property Injection</a></li>
-<li><a href="#mvc-routes-2">20.2.2. MVC routes</a></li>
-</ul>
-</li>
-<li><a href="#spring">20.3. Spring</a>
-<ul class="sectlevel3">
-<li><a href="#property-injection-2">20.3.1. Property Injection</a></li>
-<li><a href="#mvc-routes-3">20.3.2. MVC routes</a></li>
-</ul>
-</li>
-<li><a href="#weld">20.4. Weld</a>
-<ul class="sectlevel3">
-<li><a href="#property-injection-3">20.4.1. Property Injection</a></li>
-<li><a href="#mvc-routes-4">20.4.2. MVC routes</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a href="#modules">21. Modules</a>
+<li><a href="#dependency-injection">21. Dependency Injection</a>
 <ul class="sectlevel2">
-<li><a href="#cloud">21.1. Cloud</a></li>
-<li><a href="#data">21.2. Data</a></li>
-<li><a href="#development-tools">21.3. Development Tools</a></li>
-<li><a href="#json">21.4. JSON</a></li>
-<li><a href="#openapi">21.5. OpenAPI</a></li>
-<li><a href="#template-engine-2">21.6. Template Engine</a></li>
-<li><a href="#security">21.7. Security</a></li>
-<li><a href="#session-store">21.8. Session Store</a></li>
-<li><a href="#scheduler">21.9. Scheduler</a></li>
+<li><a href="#dagger">21.1. Dagger</a>
+<ul class="sectlevel3">
+<li><a href="#mvc-routes">21.1.1. MVC routes</a></li>
 </ul>
 </li>
-<li><a href="#appendix">22. Appendix</a>
-<ul class="sectlevel2">
-<li><a href="#upgrading-from-1-x">22.1. Upgrading from 1.x</a>
+<li><a href="#guice">21.2. Guice</a>
 <ul class="sectlevel3">
-<li><a href="#api">22.1.1. API</a></li>
-<li><a href="#route-pipeline">22.1.2. Route Pipeline</a></li>
-<li><a href="#route-before-and-after">22.1.3. Route Before and After</a></li>
+<li><a href="#property-injection">21.2.1. Property Injection</a></li>
+<li><a href="#mvc-routes-2">21.2.2. MVC routes</a></li>
+</ul>
+</li>
+<li><a href="#spring">21.3. Spring</a>
+<ul class="sectlevel3">
+<li><a href="#property-injection-2">21.3.1. Property Injection</a></li>
+<li><a href="#mvc-routes-3">21.3.2. MVC routes</a></li>
+</ul>
+</li>
+<li><a href="#weld">21.4. Weld</a>
+<ul class="sectlevel3">
+<li><a href="#property-injection-3">21.4.1. Property Injection</a></li>
+<li><a href="#mvc-routes-4">21.4.2. MVC routes</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#modules">22. Modules</a>
+<ul class="sectlevel2">
+<li><a href="#cloud">22.1. Cloud</a></li>
+<li><a href="#data">22.2. Data</a></li>
+<li><a href="#development-tools">22.3. Development Tools</a></li>
+<li><a href="#json">22.4. JSON</a></li>
+<li><a href="#openapi">22.5. OpenAPI</a></li>
+<li><a href="#template-engine-2">22.6. Template Engine</a></li>
+<li><a href="#security">22.7. Security</a></li>
+<li><a href="#session-store">22.8. Session Store</a></li>
+<li><a href="#scheduler">22.9. Scheduler</a></li>
+</ul>
+</li>
+<li><a href="#appendix">23. Appendix</a>
+<ul class="sectlevel2">
+<li><a href="#upgrading-from-1-x">23.1. Upgrading from 1.x</a>
+<ul class="sectlevel3">
+<li><a href="#api">23.1.1. API</a></li>
+<li><a href="#route-pipeline">23.1.2. Route Pipeline</a></li>
+<li><a href="#route-before-and-after">23.1.3. Route Before and After</a></li>
 </ul>
 </li>
 </ul>
@@ -840,7 +847,7 @@ favorite web server.</p>
 </td>
 <td class="content">
 <div class="paragraph">
-<p>Latest Release: <a href="https://github.com/jooby-project/jooby/releases/tag/v2.8.5" target="_blank">2.8.5</a>.</p>
+<p>Latest Release: <a href="https://github.com/jooby-project/jooby/releases/tag/v2.8.6" target="_blank">2.8.6</a>.</p>
 </div>
 <div class="paragraph">
 <p>Looking for previous version? The <a href="v1">1.x</a> documentation is still available.</p>
@@ -1085,7 +1092,7 @@ Jooby projects very quickly.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>Download <a href="https://repo1.maven.org/maven2/io/jooby/jooby-cli/2.8.5/jooby-cli-2.8.5.zip" target="_blank">jooby-cli.zip</a></p>
+<p>Download <a href="https://repo1.maven.org/maven2/io/jooby/jooby-cli/2.8.6/jooby-cli-2.8.6.zip" target="_blank">jooby-cli.zip</a></p>
 </li>
 <li>
 <p>Unzip <code>jooby-cli.zip</code> in your user home directory (or any other directory you prefer to)</p>
@@ -4494,10 +4501,10 @@ and returns a single result of the given type.</p>
 <pre class="highlightjs highlight"><code class="language-xml hljs">&lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
   &lt;artifactId&gt;jooby-jackson&lt;/artifactId&gt;
-  &lt;version&gt;2.8.5&lt;/version&gt;
+  &lt;version&gt;2.8.6&lt;/version&gt;
 &lt;/dependency&gt;</code><button class="clipboard">Copy</button></pre>
 </div><div class="content hidden">
-<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'io.jooby:jooby-jackson:2.8.5'</code><button class="clipboard">Copy</button></pre>
+<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'io.jooby:jooby-jackson:2.8.6'</code><button class="clipboard">Copy</button></pre>
 </div></div>
 
 </td>
@@ -4663,10 +4670,10 @@ produces a result.</p>
 <pre class="highlightjs highlight"><code class="language-xml hljs">&lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
   &lt;artifactId&gt;jooby-jackson&lt;/artifactId&gt;
-  &lt;version&gt;2.8.5&lt;/version&gt;
+  &lt;version&gt;2.8.6&lt;/version&gt;
 &lt;/dependency&gt;</code><button class="clipboard">Copy</button></pre>
 </div><div class="content hidden">
-<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'io.jooby:jooby-jackson:2.8.5'</code><button class="clipboard">Copy</button></pre>
+<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'io.jooby:jooby-jackson:2.8.6'</code><button class="clipboard">Copy</button></pre>
 </div></div>
 
 </td>
@@ -8585,7 +8592,61 @@ matches the token stored in the session.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="handlers-headhandler"><a class="anchor" href="#handlers-headhandler"></a><a class="link" href="#handlers-headhandler">14.4. HeadHandler</a></h3>
+<h3 id="handlers-gracefulshutdown"><a class="anchor" href="#handlers-gracefulshutdown"></a><a class="link" href="#handlers-gracefulshutdown">14.4. GracefulShutdown</a></h3>
+<div class="paragraph">
+<p>The <a href="https://www.javadoc.io/doc/io.jooby/jooby/latest/io/jooby/GracefulShutdown.html" target="_blank">GracefulShutdown</a> extension waits for existing requests to finish.</p>
+</div>
+<div class="listingblock primary">
+<div class="title">Example</div>
+
+<div class="switch"><div class="switch--item selected">Java</div><div class="switch--item">Kotlin</div></div><div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs">import io.jooby.Jooby;
+import io.jooby.GracefulShutdown;
+...
+{
+
+  install(new GracefulShutdown()); <i class="conum" data-value="1"></i><b>(1)</b>
+
+  // other routes go here
+}</code><button class="clipboard">Copy</button></pre>
+</div><div class="content hidden">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs">import io.jooby.Jooby
+import io.jooby.GracefulShutdown
+...
+{
+  install(GracefulShutdown())      <i class="conum" data-value="1"></i><b>(1)</b>
+
+  // other routes go here
+}</code><button class="clipboard">Copy</button></pre>
+</div></div>
+
+<div class="colist arabic">
+<table>
+<tbody><tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Install GracefulShutdown.</td>
+</tr>
+</tbody></table>
+</div>
+<div class="paragraph">
+<p>Incoming request are resolved as <code>Service Unavailable(503)</code>. Optionally you can specify a max
+amount of time to wait before shutdown:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>install(new GracefulShutdown(Duration.ofMinutes(1)));</pre>
+</div>
+</div>
+<div class="exampleblock">
+<div class="content">
+<div class="paragraph">
+<p>This extension must be installed at very beginning of your route pipeline.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="handlers-headhandler"><a class="anchor" href="#handlers-headhandler"></a><a class="link" href="#handlers-headhandler">14.5. HeadHandler</a></h3>
 <div class="paragraph">
 <p>Jooby doesn’t support <code>HTTP HEAD</code> requests by default. To support them you have two options:</p>
 </div>
@@ -8647,7 +8708,7 @@ header produce it by the <code>GET</code> handler.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="handlers-ratelimithandler"><a class="anchor" href="#handlers-ratelimithandler"></a><a class="link" href="#handlers-ratelimithandler">14.5. RateLimitHandler</a></h3>
+<h3 id="handlers-ratelimithandler"><a class="anchor" href="#handlers-ratelimithandler"></a><a class="link" href="#handlers-ratelimithandler">14.6. RateLimitHandler</a></h3>
 <div class="paragraph">
 <p>Rate limit handler using <a href="https://github.com/vladimir-bukhtoyarov/bucket4j" target="_blank">Bucket4j</a>.</p>
 </div>
@@ -8795,7 +8856,7 @@ header produce it by the <code>GET</code> handler.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="handlers-sslhandler"><a class="anchor" href="#handlers-sslhandler"></a><a class="link" href="#handlers-sslhandler">14.6. SSLHandler</a></h3>
+<h3 id="handlers-sslhandler"><a class="anchor" href="#handlers-sslhandler"></a><a class="link" href="#handlers-sslhandler">14.7. SSLHandler</a></h3>
 <div class="paragraph">
 <p>The <a href="https://www.javadoc.io/doc/io.jooby/jooby/latest/io/jooby/SSLHandler.html" target="_blank">SSLHandler</a> forces client to use HTTPS by redirecting non-HTTPS calls to the HTTPS version.</p>
 </div>
@@ -8902,7 +8963,7 @@ please consider to add the <a href="proxy-peer-address.adoc" class="bare">proxy-
 </div>
 </div>
 <div class="sect2">
-<h3 id="handlers-tracehandler"><a class="anchor" href="#handlers-tracehandler"></a><a class="link" href="#handlers-tracehandler">14.7. TraceHandler</a></h3>
+<h3 id="handlers-tracehandler"><a class="anchor" href="#handlers-tracehandler"></a><a class="link" href="#handlers-tracehandler">14.8. TraceHandler</a></h3>
 <div class="paragraph">
 <p>Jooby doesn’t support <code>HTTP Trace</code> requests by default. To support them you have two options:</p>
 </div>
@@ -9561,10 +9622,10 @@ the logging framework to configure without taking care the environment setup.</p
 <pre class="highlightjs highlight"><code class="language-xml hljs">&lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
   &lt;artifactId&gt;jooby-test&lt;/artifactId&gt;
-  &lt;version&gt;2.8.5&lt;/version&gt;
+  &lt;version&gt;2.8.6&lt;/version&gt;
 &lt;/dependency&gt;</code><button class="clipboard">Copy</button></pre>
 </div><div class="content hidden">
-<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'io.jooby:jooby-test:2.8.5'</code><button class="clipboard">Copy</button></pre>
+<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'io.jooby:jooby-test:2.8.6'</code><button class="clipboard">Copy</button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -9822,10 +9883,10 @@ you can set HTTP parameters, body, headers, etc.</p>
 <pre class="highlightjs highlight"><code class="language-xml hljs">&lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
   &lt;artifactId&gt;jooby-test&lt;/artifactId&gt;
-  &lt;version&gt;2.8.5&lt;/version&gt;
+  &lt;version&gt;2.8.6&lt;/version&gt;
 &lt;/dependency&gt;</code><button class="clipboard">Copy</button></pre>
 </div><div class="content hidden">
-<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'io.jooby:jooby-test:2.8.5'</code><button class="clipboard">Copy</button></pre>
+<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'io.jooby:jooby-test:2.8.6'</code><button class="clipboard">Copy</button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -10089,7 +10150,7 @@ must be static.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="hot-reload"><a class="anchor" href="#hot-reload"></a><a class="link" href="#hot-reload">17. Hot Reload</a></h2>
+<h2 id="development"><a class="anchor" href="#development"></a><a class="link" href="#development">17. Development</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>The <code>jooby run</code> tool allows to restart your application on code changes without exiting the JVM.</p>
@@ -10106,7 +10167,7 @@ that effectively reload application classes.</p>
 <p>For now <code>jooby run</code> is available as Maven and Gradle plugins.</p>
 </div>
 <div class="sect2">
-<h3 id="hot-reload-usage"><a class="anchor" href="#hot-reload-usage"></a><a class="link" href="#hot-reload-usage">17.1. Usage</a></h3>
+<h3 id="development-usage"><a class="anchor" href="#development-usage"></a><a class="link" href="#development-usage">17.1. Usage</a></h3>
 <div class="paragraph">
 <p>1) Add build plugin:</p>
 </div>
@@ -10119,7 +10180,7 @@ that effectively reload application classes.</p>
   &lt;plugin&gt;
     &lt;groupId&gt;io.jooby&lt;/groupId&gt;
     &lt;artifactId&gt;jooby-maven-plugin&lt;/artifactId&gt;
-    &lt;version&gt;2.8.5&lt;/version&gt;
+    &lt;version&gt;2.8.6&lt;/version&gt;
   &lt;/plugin&gt;
   ...
 &lt;/plugins&gt;</code><button class="clipboard">Copy</button></pre>
@@ -10131,7 +10192,7 @@ that effectively reload application classes.</p>
   }
 
   dependencies {
-    classpath "io.jooby:jooby-gradle-plugin:2.8.5"
+    classpath "io.jooby:jooby-gradle-plugin:2.8.6"
   }
 }
 
@@ -10167,7 +10228,7 @@ apply plugin: "jooby"</code><button class="clipboard">Copy</button></pre>
 
 </div>
 <div class="sect2">
-<h3 id="hot-reload-compilation-restart"><a class="anchor" href="#hot-reload-compilation-restart"></a><a class="link" href="#hot-reload-compilation-restart">17.2. Compilation &amp; Restart</a></h3>
+<h3 id="development-compilation-restart"><a class="anchor" href="#development-compilation-restart"></a><a class="link" href="#development-compilation-restart">17.2. Compilation &amp; Restart</a></h3>
 <div class="paragraph">
 <p>Changing a <code>java</code> or <code>kotlin</code> file triggers a compilation request. Compilation is executed by
 Maven/Gradle using an incremental build process.</p>
@@ -10188,7 +10249,7 @@ project directory, when found plugin compiler is OFF and let Eclipse compiles th
 </div>
 </div>
 <div class="sect2">
-<h3 id="hot-reload-options"><a class="anchor" href="#hot-reload-options"></a><a class="link" href="#hot-reload-options">17.3. Options</a></h3>
+<h3 id="development-options"><a class="anchor" href="#development-options"></a><a class="link" href="#development-options">17.3. Options</a></h3>
 <div class="paragraph">
 <p>The next example shows all the available options with their default values:</p>
 </div>
@@ -10201,7 +10262,7 @@ project directory, when found plugin compiler is OFF and let Eclipse compiles th
   &lt;plugin&gt;
     &lt;groupId&gt;io.jooby&lt;/groupId&gt;
     &lt;artifactId&gt;jooby-maven-plugin&lt;/artifactId&gt;
-    &lt;version&gt;2.8.5&lt;/version&gt;
+    &lt;version&gt;2.8.6&lt;/version&gt;
     &lt;configuration&gt;
       &lt;mainClass&gt;${application.class}&lt;/mainClass&gt;                  <i class="conum" data-value="1"></i><b>(1)</b>
       &lt;restartExtensions&gt;conf,properties,class&lt;/restartExtensions&gt; <i class="conum" data-value="2"></i><b>(2)</b>
@@ -10219,7 +10280,7 @@ project directory, when found plugin compiler is OFF and let Eclipse compiles th
   }
 
   dependencies {
-    classpath "io.jooby:jooby-gradle-plugin:2.8.5"
+    classpath "io.jooby:jooby-gradle-plugin:2.8.6"
   }
 }
 
@@ -10258,7 +10319,200 @@ joobyRun {
 </div>
 </div>
 <div class="sect1">
-<h2 id="server"><a class="anchor" href="#server"></a><a class="link" href="#server">18. Server</a></h2>
+<h2 id="packaging"><a class="anchor" href="#packaging"></a><a class="link" href="#packaging">18. Packaging</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This section describes some packaging and distribution options.</p>
+</div>
+<div class="sect2">
+<h3 id="packaging-single-jar"><a class="anchor" href="#packaging-single-jar"></a><a class="link" href="#packaging-single-jar">18.1. Single jar</a></h3>
+<div class="paragraph">
+<p>This is the default deployment option where you create a single jar (a.k.a fat/uber jar) for your
+application.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tbody><tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The <a href="https://jooby.io/#getting-started" target="_blank">jooby-cli</a> takes care of configures everything for single jar
+distribution. Next example shows how to do it in case you created your application manually.</p>
+</div>
+</td>
+</tr>
+</tbody></table>
+</div>
+<div class="listingblock primary">
+
+
+<div class="switch"><div class="switch--item selected">Maven</div><div class="switch--item">Gradle</div></div><div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs">&lt;build&gt;
+  &lt;plugins&gt;
+    ...
+    &lt;plugin&gt;
+        &lt;artifactId&gt;maven-shade-plugin&lt;/artifactId&gt;
+        &lt;version&gt;3.2.4&lt;/version&gt;
+        &lt;executions&gt;
+          &lt;execution&gt;
+            &lt;id&gt;uber-jar&lt;/id&gt;
+            &lt;phase&gt;package&lt;/phase&gt;
+            &lt;goals&gt;
+              &lt;goal&gt;shade&lt;/goal&gt;
+            &lt;/goals&gt;
+            &lt;configuration&gt;
+              &lt;createDependencyReducedPom&gt;false&lt;/createDependencyReducedPom&gt;
+              &lt;transformers&gt;
+                &lt;transformer implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer"/&gt;
+                &lt;transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer"&gt;
+                  &lt;mainClass&gt;${application.class}&lt;/mainClass&gt;
+                &lt;/transformer&gt;
+              &lt;/transformers&gt;
+            &lt;/configuration&gt;
+          &lt;/execution&gt;
+        &lt;/executions&gt;
+      &lt;/plugin&gt;
+    ...
+  &lt;/plugins&gt;
+&lt;/build&gt;</code><button class="clipboard">Copy</button></pre>
+</div><div class="content hidden">
+<pre class="highlightjs highlight"><code class="language-groovy hljs">plugins {
+  ...
+  id "com.github.johnrengelman.shadow" version "5.2.0"
+  ...
+}
+
+...
+
+shadowJar {
+  mergeServiceFiles()
+}</code><button class="clipboard">Copy</button></pre>
+</div></div>
+
+<div class="paragraph">
+<p>Maven users:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>mvn clean package</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Gradle users:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>./gradlew shadowJar</pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="packaging-stork"><a class="anchor" href="#packaging-stork"></a><a class="link" href="#packaging-stork">18.2. Stork</a></h3>
+<div class="paragraph">
+<p><a href="https://github.com/fizzed/stork" target="_blank">Stork</a> is packaging, launch and deploy tool for Java apps.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tbody><tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Stork is only available for Maven projects</p>
+</div>
+</td>
+</tr>
+</tbody></table>
+</div>
+<div class="paragraph">
+<p>To configure stork:</p>
+</div>
+<div class="paragraph">
+<p>1) Creates a <code>src/etc/stork/stork.yml</code> file (file location is important):</p>
+</div>
+<div class="listingblock">
+<div class="title">stork.yml</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs"># Name of application (make sure it has no spaces)
+name: "${project.artifactId}"
+
+# Display name of application (can have spaces)
+display_name: "${project.name}"
+
+# Type of launcher (CONSOLE or DAEMON)
+type: DAEMON
+
+# Java class to run
+main_class: "${application.class}"
+
+domain: "${project.groupId}"
+
+short_description: "${project.artifactId}"
+
+# Platform launchers to generate (WINDOWS, LINUX, MAC_OSX)
+# Linux launcher is suitable for Bourne shells (e.g. Linux/BSD)
+platforms: [ LINUX ]
+
+# Working directory for app
+# RETAIN will not change the working directory
+# APP_HOME will change the working directory to the home of the app
+# (where it was intalled) before running the main class
+working_dir_mode: RETAIN
+
+# Minimum version of java required (system will be searched for acceptable jvm)
+min_java_version: "1.8"
+
+# Min/max fixed memory (measured in MB)
+min_java_memory: 512
+max_java_memory: 512
+
+# Min/max memory by percentage of system
+#min_java_memory_pct: 10
+#max_java_memory_pct: 20
+
+# Try to create a symbolic link to java executable in &lt;app_home&gt;/run with
+# the name of "&lt;app_name&gt;-java" so that commands like "ps" will make it
+# easier to find your app
+symlink_java: true</code><button class="clipboard">Copy</button></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>2) Configure <a href="https://github.com/repaint-io/maven-tiles" target="_blank">Maven Tiles</a> plugin:</p>
+</div>
+<div class="listingblock">
+<div class="title">Maven</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs">&lt;build&gt;
+  &lt;plugins&gt;
+    &lt;plugin&gt;
+        &lt;groupId&gt;io.repaint.maven&lt;/groupId&gt;
+        &lt;artifactId&gt;tiles-maven-plugin&lt;/artifactId&gt;
+        &lt;version&gt;2.17&lt;/version&gt;
+        &lt;extensions&gt;true&lt;/extensions&gt;
+        &lt;configuration&gt;
+          &lt;tiles&gt;
+            &lt;tile&gt;io.jooby:jooby-stork:2.8.6&lt;/tile&gt;
+          &lt;/tiles&gt;
+        &lt;/configuration&gt;
+    &lt;/plugin&gt;
+  &lt;/plugins&gt;
+&lt;/build&gt;</code><button class="clipboard">Copy</button></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>3) Run <code>mvn package</code></p>
+</div>
+<div class="paragraph">
+<p>Stork zip file will be available in the <code>target</code> directory.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="server"><a class="anchor" href="#server"></a><a class="link" href="#server">19. Server</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Jooby comes with three server implementations:</p>
@@ -10289,10 +10543,10 @@ joobyRun {
 <pre class="highlightjs highlight"><code class="language-xml hljs">&lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
   &lt;artifactId&gt;jooby-jetty&lt;/artifactId&gt;
-  &lt;version&gt;2.8.5&lt;/version&gt;
+  &lt;version&gt;2.8.6&lt;/version&gt;
 &lt;/dependency&gt;</code><button class="clipboard">Copy</button></pre>
 </div><div class="content hidden">
-<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'io.jooby:jooby-jetty:2.8.5'</code><button class="clipboard">Copy</button></pre>
+<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'io.jooby:jooby-jetty:2.8.6'</code><button class="clipboard">Copy</button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -10305,10 +10559,10 @@ joobyRun {
 <pre class="highlightjs highlight"><code class="language-xml hljs">&lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
   &lt;artifactId&gt;jooby-netty&lt;/artifactId&gt;
-  &lt;version&gt;2.8.5&lt;/version&gt;
+  &lt;version&gt;2.8.6&lt;/version&gt;
 &lt;/dependency&gt;</code><button class="clipboard">Copy</button></pre>
 </div><div class="content hidden">
-<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'io.jooby:jooby-netty:2.8.5'</code><button class="clipboard">Copy</button></pre>
+<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'io.jooby:jooby-netty:2.8.6'</code><button class="clipboard">Copy</button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -10321,10 +10575,10 @@ joobyRun {
 <pre class="highlightjs highlight"><code class="language-xml hljs">&lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
   &lt;artifactId&gt;jooby-utow&lt;/artifactId&gt;
-  &lt;version&gt;2.8.5&lt;/version&gt;
+  &lt;version&gt;2.8.6&lt;/version&gt;
 &lt;/dependency&gt;</code><button class="clipboard">Copy</button></pre>
 </div><div class="content hidden">
-<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'io.jooby:jooby-utow:2.8.5'</code><button class="clipboard">Copy</button></pre>
+<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'io.jooby:jooby-utow:2.8.6'</code><button class="clipboard">Copy</button></pre>
 </div></div>
 
 <div class="admonitionblock important">
@@ -10342,7 +10596,7 @@ joobyRun {
 </tbody></table>
 </div>
 <div class="sect2">
-<h3 id="server-options"><a class="anchor" href="#server-options"></a><a class="link" href="#server-options">18.1. Options</a></h3>
+<h3 id="server-options"><a class="anchor" href="#server-options"></a><a class="link" href="#server-options">19.1. Options</a></h3>
 <div class="paragraph">
 <p>Server options are available via <a href="https://www.javadoc.io/doc/io.jooby/jooby/latest/io/jooby/ServerOptions.html" target="_blank">ServerOptions</a> class:</p>
 </div>
@@ -10368,6 +10622,7 @@ joobyRun {
 <pre class="highlightjs highlight"><code class="language-kotlin hljs">{
   serverOptions {
     bufferSize = 16384
+    compressionLevel = 6
     port = 8080
     ioThreads = 16
     workerThreads = 64
@@ -10387,6 +10642,9 @@ joobyRun {
 <p>bufferSize: Buffer size used by server for reading/writing data. Default is: <code>16k</code>.</p>
 </li>
 <li>
+<p>compressionLevel: Gzip support. Set compression level. Value between: <code>0..9</code>.</p>
+</li>
+<li>
 <p>port: Server HTTP port or <code>0</code> for random port. Default is: <code>8080</code>.</p>
 </li>
 <li>
@@ -10396,7 +10654,7 @@ joobyRun {
 <p>workerThreads: Number of worker (a.k.a application) threads. Default is: <code>ioThreads * 8</code>.</p>
 </li>
 <li>
-<p>gzip: Gzip support. Default is: <code>false</code>.</p>
+<p>gzip: Gzip support. Default is: <code>false</code>. Deprecated in favor of <strong>compressionLevel</strong>.</p>
 </li>
 <li>
 <p>singleLoop: Indicates if the web server should use a single loop/group for doing IO or not. <strong>Netty only</strong>.</p>
@@ -10435,7 +10693,7 @@ server.ssl.type = self-signed</code><button class="clipboard">Copy</button></pre
 </div>
 </div>
 <div class="sect2">
-<h3 id="server-ssl"><a class="anchor" href="#server-ssl"></a><a class="link" href="#server-ssl">18.2. SSL</a></h3>
+<h3 id="server-ssl"><a class="anchor" href="#server-ssl"></a><a class="link" href="#server-ssl">19.2. SSL</a></h3>
 <div class="paragraph">
 <p>Jooby supports HTTPS out of the box. By default HTTPS is disabled and all requests are served using
 HTTP. Jooby supports two certificate formats:</p>
@@ -10536,7 +10794,7 @@ HTTP. Jooby supports two certificate formats:</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="server-ssl-using-x"><a class="anchor" href="#server-ssl-using-x"></a><a class="link" href="#server-ssl-using-x">18.2.1. Using X.509</a></h4>
+<h4 id="server-ssl-using-x"><a class="anchor" href="#server-ssl-using-x"></a><a class="link" href="#server-ssl-using-x">19.2.1. Using X.509</a></h4>
 <div class="paragraph">
 <p>To use a valid X.509 certificate, for example one created with <a href="https://letsencrypt.org/" target="_blank">Let’s Encrypt</a>. You will need the <code><strong>.crt</strong></code><strong> and <code></code></strong><code>.key</code> files:</p>
 </div>
@@ -10603,7 +10861,7 @@ HTTP. Jooby supports two certificate formats:</p>
 
 </div>
 <div class="sect3">
-<h4 id="server-ssl-using-pkcs12"><a class="anchor" href="#server-ssl-using-pkcs12"></a><a class="link" href="#server-ssl-using-pkcs12">18.2.2. Using PKCS12</a></h4>
+<h4 id="server-ssl-using-pkcs12"><a class="anchor" href="#server-ssl-using-pkcs12"></a><a class="link" href="#server-ssl-using-pkcs12">19.2.2. Using PKCS12</a></h4>
 <div class="paragraph">
 <p>To use a valid PKCS12 certificate:</p>
 </div>
@@ -10673,7 +10931,7 @@ HTTP. Jooby supports two certificate formats:</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="extensions-and-services"><a class="anchor" href="#extensions-and-services"></a><a class="link" href="#extensions-and-services">19. Extensions and Services</a></h2>
+<h2 id="extensions-and-services"><a class="anchor" href="#extensions-and-services"></a><a class="link" href="#extensions-and-services">20. Extensions and Services</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Jooby comes with a simple extension mechanism. The <a href="https://www.javadoc.io/doc/io.jooby/jooby/latest/io/jooby/Extension.html" target="_blank">Extension</a> API allows to configure
@@ -10684,7 +10942,7 @@ dependency injection, database connection pools, cron-job, etc.</p>
 <p>Services are shared/singleton objects, usually with a clear lifecycle for starting and stopping them.</p>
 </div>
 <div class="sect2">
-<h3 id="extensions-and-services-writing-custom-extension"><a class="anchor" href="#extensions-and-services-writing-custom-extension"></a><a class="link" href="#extensions-and-services-writing-custom-extension">19.1. Writing Custom Extension</a></h3>
+<h3 id="extensions-and-services-writing-custom-extension"><a class="anchor" href="#extensions-and-services-writing-custom-extension"></a><a class="link" href="#extensions-and-services-writing-custom-extension">20.1. Writing Custom Extension</a></h3>
 <div class="paragraph">
 <p>We are going to develop a custom extension that configure a <code>DataSource</code> service.</p>
 </div>
@@ -10800,7 +11058,7 @@ business logic.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="dependency-injection"><a class="anchor" href="#dependency-injection"></a><a class="link" href="#dependency-injection">20. Dependency Injection</a></h2>
+<h2 id="dependency-injection"><a class="anchor" href="#dependency-injection"></a><a class="link" href="#dependency-injection">21. Dependency Injection</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>In Jooby 2.x there is no dependency injection framework. This is another major difference with 1.x
@@ -10811,7 +11069,7 @@ which was built with Guice.</p>
 dependency injection of your choice.</p>
 </div>
 <div class="sect2">
-<h3 id="dependency-injection-dagger"><a class="anchor" href="#dependency-injection-dagger"></a><a class="link" href="#dependency-injection-dagger">20.1. Dagger</a></h3>
+<h3 id="dependency-injection-dagger"><a class="anchor" href="#dependency-injection-dagger"></a><a class="link" href="#dependency-injection-dagger">21.1. Dagger</a></h3>
 <div class="paragraph">
 <p>1) Add Dagger to your project</p>
 </div>
@@ -10918,7 +11176,7 @@ fun main(args: Array&lt;String&gt;) {
 </tbody></table>
 </div>
 <div class="sect3">
-<h4 id="dependency-injection-dagger-mvc-routes"><a class="anchor" href="#dependency-injection-dagger-mvc-routes"></a><a class="link" href="#dependency-injection-dagger-mvc-routes">20.1.1. MVC routes</a></h4>
+<h4 id="dependency-injection-dagger-mvc-routes"><a class="anchor" href="#dependency-injection-dagger-mvc-routes"></a><a class="link" href="#dependency-injection-dagger-mvc-routes">21.1.1. MVC routes</a></h4>
 <div class="paragraph">
 <p>Integration of MVC routes with Dagger is as simple as:</p>
 </div>
@@ -11020,7 +11278,7 @@ fun main(args: Array&lt;String&gt;) {
 </div>
 </div>
 <div class="sect2">
-<h3 id="dependency-injection-guice"><a class="anchor" href="#dependency-injection-guice"></a><a class="link" href="#dependency-injection-guice">20.2. Guice</a></h3>
+<h3 id="dependency-injection-guice"><a class="anchor" href="#dependency-injection-guice"></a><a class="link" href="#dependency-injection-guice">21.2. Guice</a></h3>
 <div class="paragraph">
 <p>1) Add Guice dependency to your project:</p>
 </div>
@@ -11031,10 +11289,10 @@ fun main(args: Array&lt;String&gt;) {
 <pre class="highlightjs highlight"><code class="language-xml hljs">&lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
   &lt;artifactId&gt;jooby-guice&lt;/artifactId&gt;
-  &lt;version&gt;2.8.5&lt;/version&gt;
+  &lt;version&gt;2.8.6&lt;/version&gt;
 &lt;/dependency&gt;</code><button class="clipboard">Copy</button></pre>
 </div><div class="content hidden">
-<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'io.jooby:jooby-guice:2.8.5'</code><button class="clipboard">Copy</button></pre>
+<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'io.jooby:jooby-guice:2.8.6'</code><button class="clipboard">Copy</button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -11091,7 +11349,7 @@ fun main(args: Array&lt;String&gt;) {
 </tbody></table>
 </div>
 <div class="sect3">
-<h4 id="dependency-injection-guice-property-injection"><a class="anchor" href="#dependency-injection-guice-property-injection"></a><a class="link" href="#dependency-injection-guice-property-injection">20.2.1. Property Injection</a></h4>
+<h4 id="dependency-injection-guice-property-injection"><a class="anchor" href="#dependency-injection-guice-property-injection"></a><a class="link" href="#dependency-injection-guice-property-injection">21.2.1. Property Injection</a></h4>
 <div class="paragraph">
 <p>Configuration properties can be injected using the <code>@Named</code> annotation:</p>
 </div>
@@ -11124,7 +11382,7 @@ public class BillingService {
 
 </div>
 <div class="sect3">
-<h4 id="dependency-injection-guice-mvc-routes"><a class="anchor" href="#dependency-injection-guice-mvc-routes"></a><a class="link" href="#dependency-injection-guice-mvc-routes">20.2.2. MVC routes</a></h4>
+<h4 id="dependency-injection-guice-mvc-routes"><a class="anchor" href="#dependency-injection-guice-mvc-routes"></a><a class="link" href="#dependency-injection-guice-mvc-routes">21.2.2. MVC routes</a></h4>
 <div class="paragraph">
 <p>Guice will also provisioning MVC routes</p>
 </div>
@@ -11188,7 +11446,7 @@ fun main(args: Array&lt;String&gt;) {
 </div>
 </div>
 <div class="sect2">
-<h3 id="dependency-injection-spring"><a class="anchor" href="#dependency-injection-spring"></a><a class="link" href="#dependency-injection-spring">20.3. Spring</a></h3>
+<h3 id="dependency-injection-spring"><a class="anchor" href="#dependency-injection-spring"></a><a class="link" href="#dependency-injection-spring">21.3. Spring</a></h3>
 <div class="paragraph">
 <p>1) Add Spring dependency to your project:</p>
 </div>
@@ -11199,10 +11457,10 @@ fun main(args: Array&lt;String&gt;) {
 <pre class="highlightjs highlight"><code class="language-xml hljs">&lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
   &lt;artifactId&gt;jooby-spring&lt;/artifactId&gt;
-  &lt;version&gt;2.8.5&lt;/version&gt;
+  &lt;version&gt;2.8.6&lt;/version&gt;
 &lt;/dependency&gt;</code><button class="clipboard">Copy</button></pre>
 </div><div class="content hidden">
-<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'io.jooby:jooby-spring:2.8.5'</code><button class="clipboard">Copy</button></pre>
+<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'io.jooby:jooby-spring:2.8.6'</code><button class="clipboard">Copy</button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -11276,7 +11534,7 @@ fun main(args: Array&lt;String&gt;) {
 </div>
 </div>
 <div class="sect3">
-<h4 id="dependency-injection-spring-property-injection"><a class="anchor" href="#dependency-injection-spring-property-injection"></a><a class="link" href="#dependency-injection-spring-property-injection">20.3.1. Property Injection</a></h4>
+<h4 id="dependency-injection-spring-property-injection"><a class="anchor" href="#dependency-injection-spring-property-injection"></a><a class="link" href="#dependency-injection-spring-property-injection">21.3.1. Property Injection</a></h4>
 <div class="paragraph">
 <p>Configuration properties can be injected using the <code>@Value</code> annotation:</p>
 </div>
@@ -11312,7 +11570,7 @@ class BillingService @Inject constructor(@Value("${currency}") currency: String)
 
 </div>
 <div class="sect3">
-<h4 id="dependency-injection-spring-mvc-routes"><a class="anchor" href="#dependency-injection-spring-mvc-routes"></a><a class="link" href="#dependency-injection-spring-mvc-routes">20.3.2. MVC routes</a></h4>
+<h4 id="dependency-injection-spring-mvc-routes"><a class="anchor" href="#dependency-injection-spring-mvc-routes"></a><a class="link" href="#dependency-injection-spring-mvc-routes">21.3.2. MVC routes</a></h4>
 <div class="paragraph">
 <p>The Spring extension does a bit more in relation to MVC routes:</p>
 </div>
@@ -11357,7 +11615,7 @@ class Hello {
 </div>
 </div>
 <div class="sect2">
-<h3 id="dependency-injection-weld"><a class="anchor" href="#dependency-injection-weld"></a><a class="link" href="#dependency-injection-weld">20.4. Weld</a></h3>
+<h3 id="dependency-injection-weld"><a class="anchor" href="#dependency-injection-weld"></a><a class="link" href="#dependency-injection-weld">21.4. Weld</a></h3>
 <div class="paragraph">
 <p>1) Add Weld dependency to your project:</p>
 </div>
@@ -11368,10 +11626,10 @@ class Hello {
 <pre class="highlightjs highlight"><code class="language-xml hljs">&lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
   &lt;artifactId&gt;jooby-weld&lt;/artifactId&gt;
-  &lt;version&gt;2.8.5&lt;/version&gt;
+  &lt;version&gt;2.8.6&lt;/version&gt;
 &lt;/dependency&gt;</code><button class="clipboard">Copy</button></pre>
 </div><div class="content hidden">
-<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'io.jooby:jooby-weld:2.8.5'</code><button class="clipboard">Copy</button></pre>
+<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'io.jooby:jooby-weld:2.8.6'</code><button class="clipboard">Copy</button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -11428,7 +11686,7 @@ fun main(args: Array&lt;String&gt;) {
 </tbody></table>
 </div>
 <div class="sect3">
-<h4 id="dependency-injection-weld-property-injection"><a class="anchor" href="#dependency-injection-weld-property-injection"></a><a class="link" href="#dependency-injection-weld-property-injection">20.4.1. Property Injection</a></h4>
+<h4 id="dependency-injection-weld-property-injection"><a class="anchor" href="#dependency-injection-weld-property-injection"></a><a class="link" href="#dependency-injection-weld-property-injection">21.4.1. Property Injection</a></h4>
 <div class="paragraph">
 <p>Configuration properties can be injected using the <code>@Named</code> annotation:</p>
 </div>
@@ -11464,7 +11722,7 @@ class BillingService @Inject constructor(@Named("currency") currency: String) {
 
 </div>
 <div class="sect3">
-<h4 id="dependency-injection-weld-mvc-routes"><a class="anchor" href="#dependency-injection-weld-mvc-routes"></a><a class="link" href="#dependency-injection-weld-mvc-routes">20.4.2. MVC routes</a></h4>
+<h4 id="dependency-injection-weld-mvc-routes"><a class="anchor" href="#dependency-injection-weld-mvc-routes"></a><a class="link" href="#dependency-injection-weld-mvc-routes">21.4.2. MVC routes</a></h4>
 <div class="paragraph">
 <p>The Weld extension does a bit more in relation to MVC routes:</p>
 </div>
@@ -11512,7 +11770,7 @@ class Hello {
 </div>
 </div>
 <div class="sect1">
-<h2 id="modules"><a class="anchor" href="#modules"></a><a class="link" href="#modules">21. Modules</a></h2>
+<h2 id="modules"><a class="anchor" href="#modules"></a><a class="link" href="#modules">22. Modules</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Modules are a key concept for building reusable and configurable pieces of software.</p>
@@ -11533,7 +11791,7 @@ configuration properties.</p>
 <p>Available modules are listed next.</p>
 </div>
 <div class="sect2">
-<h3 id="modules-cloud"><a class="anchor" href="#modules-cloud"></a><a class="link" href="#modules-cloud">21.1. Cloud</a></h3>
+<h3 id="modules-cloud"><a class="anchor" href="#modules-cloud"></a><a class="link" href="#modules-cloud">22.1. Cloud</a></h3>
 <div class="ulist">
 <ul>
 <li>
@@ -11543,7 +11801,7 @@ configuration properties.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="modules-data"><a class="anchor" href="#modules-data"></a><a class="link" href="#modules-data">21.2. Data</a></h3>
+<h3 id="modules-data"><a class="anchor" href="#modules-data"></a><a class="link" href="#modules-data">22.2. Data</a></h3>
 <div class="ulist">
 <ul>
 <li>
@@ -11571,7 +11829,7 @@ configuration properties.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="modules-development-tools"><a class="anchor" href="#modules-development-tools"></a><a class="link" href="#modules-development-tools">21.3. Development Tools</a></h3>
+<h3 id="modules-development-tools"><a class="anchor" href="#modules-development-tools"></a><a class="link" href="#modules-development-tools">22.3. Development Tools</a></h3>
 <div class="ulist">
 <ul>
 <li>
@@ -11587,7 +11845,7 @@ configuration properties.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="modules-json"><a class="anchor" href="#modules-json"></a><a class="link" href="#modules-json">21.4. JSON</a></h3>
+<h3 id="modules-json"><a class="anchor" href="#modules-json"></a><a class="link" href="#modules-json">22.4. JSON</a></h3>
 <div class="ulist">
 <ul>
 <li>
@@ -11600,7 +11858,7 @@ configuration properties.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="modules-openapi"><a class="anchor" href="#modules-openapi"></a><a class="link" href="#modules-openapi">21.5. OpenAPI</a></h3>
+<h3 id="modules-openapi"><a class="anchor" href="#modules-openapi"></a><a class="link" href="#modules-openapi">22.5. OpenAPI</a></h3>
 <div class="ulist">
 <ul>
 <li>
@@ -11610,7 +11868,7 @@ configuration properties.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="modules-template-engine"><a class="anchor" href="#modules-template-engine"></a><a class="link" href="#modules-template-engine">21.6. Template Engine</a></h3>
+<h3 id="modules-template-engine"><a class="anchor" href="#modules-template-engine"></a><a class="link" href="#modules-template-engine">22.6. Template Engine</a></h3>
 <div class="ulist">
 <ul>
 <li>
@@ -11632,7 +11890,7 @@ configuration properties.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="modules-security"><a class="anchor" href="#modules-security"></a><a class="link" href="#modules-security">21.7. Security</a></h3>
+<h3 id="modules-security"><a class="anchor" href="#modules-security"></a><a class="link" href="#modules-security">22.7. Security</a></h3>
 <div class="ulist">
 <ul>
 <li>
@@ -11642,7 +11900,7 @@ configuration properties.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="modules-session-store"><a class="anchor" href="#modules-session-store"></a><a class="link" href="#modules-session-store">21.8. Session Store</a></h3>
+<h3 id="modules-session-store"><a class="anchor" href="#modules-session-store"></a><a class="link" href="#modules-session-store">22.8. Session Store</a></h3>
 <div class="ulist">
 <ul>
 <li>
@@ -11658,7 +11916,7 @@ configuration properties.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="modules-scheduler"><a class="anchor" href="#modules-scheduler"></a><a class="link" href="#modules-scheduler">21.9. Scheduler</a></h3>
+<h3 id="modules-scheduler"><a class="anchor" href="#modules-scheduler"></a><a class="link" href="#modules-scheduler">22.9. Scheduler</a></h3>
 <div class="ulist">
 <ul>
 <li>
@@ -11673,10 +11931,10 @@ configuration properties.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="appendix"><a class="anchor" href="#appendix"></a><a class="link" href="#appendix">22. Appendix</a></h2>
+<h2 id="appendix"><a class="anchor" href="#appendix"></a><a class="link" href="#appendix">23. Appendix</a></h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="appendix-upgrading-from-x"><a class="anchor" href="#appendix-upgrading-from-x"></a><a class="link" href="#appendix-upgrading-from-x">22.1. Upgrading from 1.x</a></h3>
+<h3 id="appendix-upgrading-from-x"><a class="anchor" href="#appendix-upgrading-from-x"></a><a class="link" href="#appendix-upgrading-from-x">23.1. Upgrading from 1.x</a></h3>
 <div class="paragraph">
 <p>You will find here notes/tips about how to migrate from 1.x to 2.x.</p>
 </div>
@@ -11695,7 +11953,7 @@ configuration properties.</p>
 </tbody></table>
 </div>
 <div class="sect3">
-<h4 id="appendix-upgrading-from-x-api"><a class="anchor" href="#appendix-upgrading-from-x-api"></a><a class="link" href="#appendix-upgrading-from-x-api">22.1.1. API</a></h4>
+<h4 id="appendix-upgrading-from-x-api"><a class="anchor" href="#appendix-upgrading-from-x-api"></a><a class="link" href="#appendix-upgrading-from-x-api">23.1.1. API</a></h4>
 <div class="paragraph">
 <p>API still similar/equivalent in 2.x. Except for the one listed below:</p>
 </div>
@@ -11746,7 +12004,7 @@ configuration properties.</p>
 </table>
 </div>
 <div class="sect3">
-<h4 id="appendix-upgrading-from-x-route-pipeline"><a class="anchor" href="#appendix-upgrading-from-x-route-pipeline"></a><a class="link" href="#appendix-upgrading-from-x-route-pipeline">22.1.2. Route Pipeline</a></h4>
+<h4 id="appendix-upgrading-from-x-route-pipeline"><a class="anchor" href="#appendix-upgrading-from-x-route-pipeline"></a><a class="link" href="#appendix-upgrading-from-x-route-pipeline">23.1.2. Route Pipeline</a></h4>
 <div class="paragraph">
 <p>The concept of route pipeline still applies for 2.x but works different.</p>
 </div>
@@ -11843,7 +12101,7 @@ Differences with 1.x are:</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="appendix-upgrading-from-x-route-before-and-after"><a class="anchor" href="#appendix-upgrading-from-x-route-before-and-after"></a><a class="link" href="#appendix-upgrading-from-x-route-before-and-after">22.1.3. Route Before and After</a></h4>
+<h4 id="appendix-upgrading-from-x-route-before-and-after"><a class="anchor" href="#appendix-upgrading-from-x-route-before-and-after"></a><a class="link" href="#appendix-upgrading-from-x-route-before-and-after">23.1.3. Route Before and After</a></h4>
 
 </div>
 </div>
