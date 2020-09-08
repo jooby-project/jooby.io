@@ -518,9 +518,14 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <ul class="sectlevel2">
 <li><a href="#usage">1.1. Usage</a></li>
 <li><a href="#entity-discovering">1.2. Entity Discovering</a></li>
-<li><a href="#transactional-request">1.3. Transactional Request</a></li>
-<li><a href="#schema-creation">1.4. Schema Creation</a></li>
-<li><a href="#advanced-options">1.5. Advanced Options</a></li>
+<li><a href="#transactional-request">1.3. Transactional Request</a>
+<ul class="sectlevel3">
+<li><a href="#transactional">1.3.1. @Transactional</a></li>
+</ul>
+</li>
+<li><a href="#unitofwork">1.4. UnitOfWork</a></li>
+<li><a href="#schema-creation">1.5. Schema Creation</a></li>
+<li><a href="#advanced-options">1.6. Advanced Options</a></li>
 </ul>
 </li>
 </ul>
@@ -546,21 +551,21 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 &lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
   &lt;artifactId&gt;jooby-hikari&lt;/artifactId&gt;
-  &lt;version&gt;2.8.10&lt;/version&gt;
+  &lt;version&gt;2.9.0&lt;/version&gt;
 &lt;/dependency&gt;
 
 &lt;!-- Hibernate Module--&gt;
 &lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
   &lt;artifactId&gt;jooby-hibernate&lt;/artifactId&gt;
-  &lt;version&gt;2.8.10&lt;/version&gt;
+  &lt;version&gt;2.9.0&lt;/version&gt;
 &lt;/dependency&gt;</code><button class="clipboard">Copy</button></pre>
 </div><div class="content hidden">
 <pre class="highlightjs highlight"><code class="language-javascript hljs">// DataSource via HikariCP
-implementation 'io.jooby:jooby-hikari:2.8.10'
+implementation 'io.jooby:jooby-hikari:2.9.0'
 
 // Hibernate Module
-implementation 'io.jooby:jooby-hibernate:2.8.10'</code><button class="clipboard">Copy</button></pre>
+implementation 'io.jooby:jooby-hibernate:2.9.0'</code><button class="clipboard">Copy</button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -805,9 +810,221 @@ Otherwise, you are going to see <code>LazyInitializationException</code>.</p>
 <p>There is a <a href="https://www.javadoc.io/doc/io.jooby/jooby/latest/io/jooby/hibernate/SessionRequest.html" target="_blank">SessionRequest</a> decorator that works identically but leaves transaction
 management to you, so no transaction is started/committed or rollback during a HTTP request.</p>
 </div>
+<div class="sect3">
+<h4 id="hibernate-transactional-request-transactional"><a class="anchor" href="#hibernate-transactional-request-transactional"></a><a class="link" href="#hibernate-transactional-request-transactional">1.3.1. @Transactional</a></h4>
+<div class="paragraph">
+<p>If you simply install the decorator it becomes enabled by default, this means that each route in its
+scope become transactional. You can exclude an MVC route by annotating it with the
+<a href="https://www.javadoc.io/doc/io.jooby/jooby/latest/io/jooby/annotations/Transactional.html" target="_blank">Transactional</a> annotation:</p>
+</div>
+<div class="listingblock primary">
+<div class="title">@Transactional</div>
+
+<div class="switch"><div class="switch--item selected">Java</div><div class="switch--item">Kotlin</div></div><div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs">import io.jooby.annotations.Transactional;
+
+@Transactional(false)
+@GET("/")
+public void get(Context ctx) {
+  // no automatic transaction management here
+}</code><button class="clipboard">Copy</button></pre>
+</div><div class="content hidden">
+<pre class="highlightjs highlight"><code class="language-kt hljs">import io.jooby.annotations.Transactional
+
+@Transactional(false)
+@GET("/")
+fun get(ctx: Context) {
+  // no automatic transaction management here
+}</code><button class="clipboard">Copy</button></pre>
+</div></div>
+
+<div class="paragraph">
+<p>You also have the option to invert this logic by disabling the decorator by default:</p>
+</div>
+<div class="listingblock primary">
+<div class="title">TransactionalRequest disabled by default</div>
+
+<div class="switch"><div class="switch--item selected">Java</div><div class="switch--item">Kotlin</div></div><div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs">import io.jooby.ebean.TransactionalRequest;
+
+{
+  ...
+  decorator(new TransactionalRequest().enabledByDefault(false));
+  ...
+}</code><button class="clipboard">Copy</button></pre>
+</div><div class="content hidden">
+<pre class="highlightjs highlight"><code class="language-kt hljs">import io.jooby.ebean.TransactionalRequest
+
+{
+  ...
+  decorator(TransactionalRequest().enabledByDefault(false))
+  ...
+}</code><button class="clipboard">Copy</button></pre>
+</div></div>
+
+<div class="paragraph">
+<p>Then you can enable it for the selected routes using <code>@Transactional(true)</code>:</p>
+</div>
+<div class="listingblock primary">
+<div class="title">@Transactional</div>
+
+<div class="switch"><div class="switch--item selected">Java</div><div class="switch--item">Kotlin</div></div><div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs">import io.jooby.annotations.Transactional;
+
+@Inject
+private EntityManager entityManager;
+
+@Transactional(true)
+@GET("/")
+public void get(Context ctx) {
+  // work with EntityManager
+}</code><button class="clipboard">Copy</button></pre>
+</div><div class="content hidden">
+<pre class="highlightjs highlight"><code class="language-kt hljs">import io.jooby.annotations.Transactional
+
+@Inject
+private lateinit var entityManager: EntityManager
+
+@Transactional(true)
+@GET("/")
+fun get(ctx: Context) {
+  // work with EntityManager
+}</code><button class="clipboard">Copy</button></pre>
+</div></div>
+
+<div class="paragraph">
+<p>This feature is not limited to MVC routes. For script routes use the constant <code>Transactional.ATTRIBUTE</code>:</p>
+</div>
+<div class="listingblock primary">
+<div class="title">Transactional for script routes</div>
+
+<div class="switch"><div class="switch--item selected">Java</div><div class="switch--item">Kotlin</div></div><div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs">import io.jooby.annotations.Transactional;
+
+{
+  get("/", ctx -&gt; {
+    ...
+  }).attribute(Transactional.ATTRIBUTE, false);
+}</code><button class="clipboard">Copy</button></pre>
+</div><div class="content hidden">
+<pre class="highlightjs highlight"><code class="language-kt hljs">import io.jooby.annotations.Transactional
+
+{
+  get("/") {
+    ...
+  }).attribute(Transactional.ATTRIBUTE, false);
+}</code><button class="clipboard">Copy</button></pre>
+</div></div>
+
+<div class="paragraph">
+<p>The behavior of the <code>SessionRequest</code> decorator is not affected by <code>@Transactional</code>.</p>
+</div>
+</div>
 </div>
 <div class="sect2">
-<h3 id="hibernate-schema-creation"><a class="anchor" href="#hibernate-schema-creation"></a><a class="link" href="#hibernate-schema-creation">1.4. Schema Creation</a></h3>
+<h3 id="hibernate-unitofwork"><a class="anchor" href="#hibernate-unitofwork"></a><a class="link" href="#hibernate-unitofwork">1.4. UnitOfWork</a></h3>
+<div class="paragraph">
+<p>Another way of managing the lifecycle of an EntityManager and transactions is working with an instance
+of <code>UnitOfWork</code>. You may acquire one from the service registry or inject it via DI.</p>
+</div>
+<div class="paragraph">
+<p>Usage:</p>
+</div>
+<div class="listingblock primary">
+<div class="title">UnitOfWork</div>
+
+<div class="switch"><div class="switch--item selected">Java</div><div class="switch--item">Kotlin</div></div><div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs">{
+  get("/pets", ctx -&gt; require(UnitOfWork.class)
+      .apply(em -&gt; em.createQuery("from Pet", Pet.class).getResultList()));
+}</code><button class="clipboard">Copy</button></pre>
+</div><div class="content hidden">
+<pre class="highlightjs highlight"><code class="language-kt hljs">{
+  get("/pets") {
+    require(UnitOfWork::class.java)
+        .apply { em -&gt;
+          em.createQuery("from Pet", Pet::class.java).resultList
+        }
+  }
+}</code><button class="clipboard">Copy</button></pre>
+</div></div>
+
+<div class="paragraph">
+<p><code>UnitOfWork</code> automatically begins a transaction. After the code block passed to <code>apply(…​)</code> or <code>accept(…​)</code>
+returns the transaction is being committed and the <code>EntityManager</code> closed.</p>
+</div>
+<div class="paragraph">
+<p>If the code block throws an exception, the transaction is rolled back, and the <code>EntityManager</code> is released as well.
+You may access a <code>UnitOfWork.TransactionHandler</code> instance to be able to work with multiple transactions:</p>
+</div>
+<div class="listingblock primary">
+<div class="title">Multiple transactions</div>
+
+<div class="switch"><div class="switch--item selected">Java</div><div class="switch--item">Kotlin</div></div><div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs">{
+  get("/update", ctx -&gt; require(UnitOfWork.class)
+      .apply((em, txh) -&gt; {
+        em.createQuery("from Pet", Pet.class).getResultList().forEach(pet -&gt; {
+          pet.setName(pet.getName() + " Updated");
+          txh.commit(); // update each entity in a separate transaction
+        });
+        return "ok";
+      }));
+}</code><button class="clipboard">Copy</button></pre>
+</div><div class="content hidden">
+<pre class="highlightjs highlight"><code class="language-kt hljs">{
+  get("/update") {
+    require(UnitOfWork::class.java)
+        .apply { em, txh -&gt;
+          em.createQuery("from Pet", Pet::class.java).resultList.forEach { pet -&gt;
+            pet.name = "${pet.name} Updated"
+            txh.commit() // update each entity in a separate transaction
+          }
+          "ok"
+        }
+  }
+}</code><button class="clipboard">Copy</button></pre>
+</div></div>
+
+<div class="paragraph">
+<p>A call to <code>UnitOfWork.TransactionHandler.commit()</code> commits the current transaction and automatically begins a new one.
+Similarly, you can issue a rollback using <code>UnitOfWork.TransactionHandler.rollback()</code> which also begins a new transaction
+after rolling back the current one.</p>
+</div>
+<div class="paragraph">
+<p><code>UnitOfWork</code> does <strong>not</strong> allow nesting:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs">{
+  get("/nope", ctx -&gt; require(UnitOfWork.class)
+      .apply(em -&gt; {
+
+        // will lead to exception
+        require(UnitOfWork.class).accept(...);
+
+        return "ok";
+      }));
+}</code><button class="clipboard">Copy</button></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Neither can it be used together with <code>SessionRequest</code> or <code>TransactionalRequest</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs">{
+  decorator(new TransactionalRequest());
+
+  // will lead to exception
+  get("/nope", ctx -&gt; require(UnitOfWork.class)
+      .apply(em -&gt; em.createQuery("from Pet", Pet.class).getResultList()));
+}</code><button class="clipboard">Copy</button></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="hibernate-schema-creation"><a class="anchor" href="#hibernate-schema-creation"></a><a class="link" href="#hibernate-schema-creation">1.5. Schema Creation</a></h3>
 <div class="paragraph">
 <p>Schema creation is controlled by the <code>hibernate.hbm2ddl.auto</code> property. The Hibernate module configure this property using the following rules:</p>
 </div>
@@ -826,7 +1043,7 @@ management to you, so no transaction is started/committed or rollback during a H
 </div>
 </div>
 <div class="sect2">
-<h3 id="hibernate-advanced-options"><a class="anchor" href="#hibernate-advanced-options"></a><a class="link" href="#hibernate-advanced-options">1.5. Advanced Options</a></h3>
+<h3 id="hibernate-advanced-options"><a class="anchor" href="#hibernate-advanced-options"></a><a class="link" href="#hibernate-advanced-options">1.6. Advanced Options</a></h3>
 <div class="paragraph">
 <p>Advanced Hibernate configuration is supported from application configuration properties.</p>
 </div>

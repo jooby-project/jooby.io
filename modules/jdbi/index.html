@@ -517,7 +517,11 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#jdbi">1. Jdbi</a>
 <ul class="sectlevel2">
 <li><a href="#usage">1.1. Usage</a></li>
-<li><a href="#transactional-request">1.2. Transactional Request</a></li>
+<li><a href="#transactional-request">1.2. Transactional Request</a>
+<ul class="sectlevel3">
+<li><a href="#transactional">1.2.1. @Transactional</a></li>
+</ul>
+</li>
 <li><a href="#sql-objects">1.3. SQL Objects</a></li>
 <li><a href="#advanced-options">1.4. Advanced Options</a></li>
 </ul>
@@ -545,21 +549,21 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 &lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
   &lt;artifactId&gt;jooby-hikari&lt;/artifactId&gt;
-  &lt;version&gt;2.8.10&lt;/version&gt;
+  &lt;version&gt;2.9.0&lt;/version&gt;
 &lt;/dependency&gt;
 
 &lt;!-- Jdbi Module--&gt;
 &lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
   &lt;artifactId&gt;jooby-jdbi&lt;/artifactId&gt;
-  &lt;version&gt;2.8.10&lt;/version&gt;
+  &lt;version&gt;2.9.0&lt;/version&gt;
 &lt;/dependency&gt;</code><button class="clipboard">Copy</button></pre>
 </div><div class="content hidden">
 <pre class="highlightjs highlight"><code class="language-javascript hljs">// DataSource via HikariCP
-implementation 'io.jooby:jooby-hikari:2.8.10'
+implementation 'io.jooby:jooby-hikari:2.9.0'
 
 // Jdbi Module
-implementation 'io.jooby:jooby-jdbi:2.8.10'</code><button class="clipboard">Copy</button></pre>
+implementation 'io.jooby:jooby-jdbi:2.9.0'</code><button class="clipboard">Copy</button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -719,6 +723,113 @@ the same <code>Handle</code>. It is a simple way of managed simple read/write op
 </div>
 <div class="paragraph">
 <p>The decorator takes care of closing the <code>Handle</code> and releasing the JDBC connection.</p>
+</div>
+<div class="sect3">
+<h4 id="jdbi-transactional-request-transactional"><a class="anchor" href="#jdbi-transactional-request-transactional"></a><a class="link" href="#jdbi-transactional-request-transactional">1.2.1. @Transactional</a></h4>
+<div class="paragraph">
+<p>If you simply install the decorator it becomes enabled by default, this means that each route in its
+scope become transactional. You can exclude an MVC route by annotating it with the
+<a href="https://www.javadoc.io/doc/io.jooby/jooby/latest/io/jooby/annotations/Transactional.html" target="_blank">Transactional</a> annotation:</p>
+</div>
+<div class="listingblock primary">
+<div class="title">@Transactional</div>
+
+<div class="switch"><div class="switch--item selected">Java</div><div class="switch--item">Kotlin</div></div><div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs">import io.jooby.annotations.Transactional;
+
+@Transactional(false)
+@GET("/")
+public void get(Context ctx) {
+  // no automatic transaction management here
+}</code><button class="clipboard">Copy</button></pre>
+</div><div class="content hidden">
+<pre class="highlightjs highlight"><code class="language-kt hljs">import io.jooby.annotations.Transactional
+
+@Transactional(false)
+@GET("/")
+fun get(ctx: Context) {
+  // no automatic transaction management here
+}</code><button class="clipboard">Copy</button></pre>
+</div></div>
+
+<div class="paragraph">
+<p>You also have the option to invert this logic by disabling the decorator by default:</p>
+</div>
+<div class="listingblock primary">
+<div class="title">TransactionalRequest disabled by default</div>
+
+<div class="switch"><div class="switch--item selected">Java</div><div class="switch--item">Kotlin</div></div><div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs">import io.jooby.ebean.TransactionalRequest;
+
+{
+  ...
+  decorator(new TransactionalRequest().enabledByDefault(false));
+  ...
+}</code><button class="clipboard">Copy</button></pre>
+</div><div class="content hidden">
+<pre class="highlightjs highlight"><code class="language-kt hljs">import io.jooby.ebean.TransactionalRequest
+
+{
+  ...
+  decorator(TransactionalRequest().enabledByDefault(false))
+  ...
+}</code><button class="clipboard">Copy</button></pre>
+</div></div>
+
+<div class="paragraph">
+<p>Then you can enable it for the selected routes using <code>@Transactional(true)</code>:</p>
+</div>
+<div class="listingblock primary">
+<div class="title">@Transactional</div>
+
+<div class="switch"><div class="switch--item selected">Java</div><div class="switch--item">Kotlin</div></div><div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs">import io.jooby.annotations.Transactional;
+
+@Inject
+private Handle handle;
+
+@Transactional(true)
+@GET("/")
+public void get(Context ctx) {
+  // work with Handle
+}</code><button class="clipboard">Copy</button></pre>
+</div><div class="content hidden">
+<pre class="highlightjs highlight"><code class="language-kt hljs">import io.jooby.annotations.Transactional
+
+@Inject
+private lateinit var handle: Handle
+
+@Transactional(true)
+@GET("/")
+fun get(ctx: Context) {
+  // work with Handle
+}</code><button class="clipboard">Copy</button></pre>
+</div></div>
+
+<div class="paragraph">
+<p>This feature is not limited to MVC routes. For script routes use the constant <code>Transactional.ATTRIBUTE</code>:</p>
+</div>
+<div class="listingblock primary">
+<div class="title">Transactional for script routes</div>
+
+<div class="switch"><div class="switch--item selected">Java</div><div class="switch--item">Kotlin</div></div><div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs">import io.jooby.annotations.Transactional;
+
+{
+  get("/", ctx -&gt; {
+    ...
+  }).attribute(Transactional.ATTRIBUTE, false);
+}</code><button class="clipboard">Copy</button></pre>
+</div><div class="content hidden">
+<pre class="highlightjs highlight"><code class="language-kt hljs">import io.jooby.annotations.Transactional
+
+{
+  get("/") {
+    ...
+  }).attribute(Transactional.ATTRIBUTE, false);
+}</code><button class="clipboard">Copy</button></pre>
+</div></div>
+
 </div>
 </div>
 <div class="sect2">

@@ -516,7 +516,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="details">
 <span id="author" class="author">Jooby Project</span><br>
 <span id="email" class="email"><a href="mailto:support@jooby.io">support@jooby.io</a></span><br>
-<span id="revdate">2.8.10</span>
+<span id="revdate">2.9.0</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
@@ -585,6 +585,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#multipart">4.1.6. Multipart</a></li>
 <li><a href="#session">4.1.7. Session</a></li>
 <li><a href="#flash">4.1.8. Flash</a></li>
+<li><a href="#parameter-lookup">4.1.9. Parameter Lookup</a></li>
 </ul>
 </li>
 <li><a href="#value-api">4.2. Value API</a>
@@ -622,6 +623,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#flash-2">5.3.7. Flash</a></li>
 <li><a href="#session-2">5.3.8. Session</a></li>
 <li><a href="#context-2">5.3.9. Context</a></li>
+<li><a href="#multiple-sources">5.3.10. Multiple Sources</a></li>
 </ul>
 </li>
 <li><a href="#responses">5.4. Responses</a>
@@ -849,7 +851,7 @@ favorite web server.</p>
 </td>
 <td class="content">
 <div class="paragraph">
-<p>Latest Release: <a href="https://github.com/jooby-project/jooby/releases/tag/v2.8.10" target="_blank">2.8.10</a>.</p>
+<p>Latest Release: <a href="https://github.com/jooby-project/jooby/releases/tag/v2.9.0" target="_blank">2.9.0</a>.</p>
 </div>
 <div class="paragraph">
 <p>Looking for previous version? The <a href="v1">1.x</a> documentation is still available.</p>
@@ -927,7 +929,7 @@ fun main(args: Array&lt;String&gt;) {
 <p>Script API (a.k.a script routes) provides a fluent DSL, reflection and annotation free based on <code>lambda</code> functions.</p>
 </div>
 <div class="paragraph">
-<p>We usually extends <code>Jooby</code> and define routes in the instance initializer:</p>
+<p>We usually extend <code>Jooby</code> and define routes in the instance initializer:</p>
 </div>
 <div class="listingblock primary">
 <div class="title">Script with sub-class:</div>
@@ -961,8 +963,8 @@ fun main(args: Array&lt;String&gt;) {
 </div></div>
 
 <div class="paragraph">
-<p>For Java applications we favor extending <code>Jooby</code> because DSL looks better. For example, no need
-prefix the <code>get</code> method with a variable.</p>
+<p>For Java applications we favor extending <code>Jooby</code> because DSL looks better (no need
+prefix the <code>get</code> method with a variable)</p>
 </div>
 <div class="paragraph">
 <p>This is not strictly necessary (of course), you may prefer to do it without extending <code>Jooby</code>:</p>
@@ -1094,7 +1096,7 @@ Jooby projects very quickly.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>Download <a href="https://repo1.maven.org/maven2/io/jooby/jooby-cli/2.8.10/jooby-cli-2.8.10.zip" target="_blank">jooby-cli.zip</a></p>
+<p>Download <a href="https://repo1.maven.org/maven2/io/jooby/jooby-cli/2.9.0/jooby-cli-2.9.0.zip" target="_blank">jooby-cli.zip</a></p>
 </li>
 <li>
 <p>Unzip <code>jooby-cli.zip</code> in your user home directory (or any other directory you prefer to)</p>
@@ -2999,17 +3001,58 @@ bogus values.</p>
 <h2 id="context"><a class="anchor" href="#context"></a><a class="link" href="#context">4. Context</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>A <a href="https://www.javadoc.io/doc/io.jooby/jooby/latest/io/jooby/Context.html" target="_blank">Context</a> allows you to interact with the HTTP Request and manipulate the HTTP Response</p>
+<p>A <a href="https://www.javadoc.io/doc/io.jooby/jooby/latest/io/jooby/Context.html" target="_blank">Context</a> allows you to interact with the HTTP Request and manipulate the HTTP Response.</p>
+</div>
+<div class="paragraph">
+<p>In most of the cases you can access the context object as a parameter of your route handler:</p>
+</div>
+<div class="listingblock primary">
+
+
+<div class="switch"><div class="switch--item selected">Java</div><div class="switch--item">Kotlin</div></div><div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs">{
+  get("/", ctx -&gt; { /* do important stuff with variable 'ctx'. */ });
+}</code><button class="clipboard">Copy</button></pre>
+</div><div class="content hidden">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs">{
+  get("/") { /* variable 'it' holds the context now. */ }
+}</code><button class="clipboard">Copy</button></pre>
+</div></div>
+
+<div class="paragraph">
+<p>If you need to access the context via the service registry or dependency injection, you need to
+explicitly request the registration of it as a service with the following invocation:</p>
+</div>
+<div class="listingblock primary">
+
+
+<div class="switch"><div class="switch--item selected">Java</div><div class="switch--item">Kotlin</div></div><div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs">{
+  setContextAsService(true);
+}</code><button class="clipboard">Copy</button></pre>
+</div><div class="content hidden">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs">{
+  setContextAsService(true)
+}</code><button class="clipboard">Copy</button></pre>
+</div></div>
+
+<div class="paragraph">
+<p>Important to note that the context is a <strong>request scoped</strong> object, it’s only available through the service
+registry while the request it belongs to is being processed.</p>
 </div>
 <div class="sect2">
 <h3 id="context-parameters"><a class="anchor" href="#context-parameters"></a><a class="link" href="#context-parameters">4.1. Parameters</a></h3>
 <div class="paragraph">
-<p>There are several parameter types: <code>header</code>, <code>cookie</code>, <code>path</code>, <code>query</code>, <code>form</code> and <code>multipart</code>.
-All them share an unified/type-safe API for accessing and manipulating their values.</p>
+<p>There are several parameter types: <code>header</code>, <code>cookie</code>, <code>path</code>, <code>query</code>, <code>form</code>, <code>multipart</code>,
+<code>session</code> and <code>flash</code>. All them share a unified/type-safe API for accessing and manipulating their values.</p>
 </div>
 <div class="paragraph">
 <p>We are going to describe them briefly in the next sections, then go into specific features of the
 <a href="#value-api">Value API</a>.</p>
+</div>
+<div class="paragraph">
+<p>There is also a <a href="#context-parameters-parameter-lookup">parameter lookup</a> feature by which you can access a parameter from any combination
+of the above types with well-defined priority.</p>
 </div>
 <div class="sect3">
 <h4 id="context-parameters-header"><a class="anchor" href="#context-parameters-header"></a><a class="link" href="#context-parameters-header">4.1.1. Header</a></h4>
@@ -3034,14 +3077,14 @@ response.</p>
 }</code><button class="clipboard">Copy</button></pre>
 </div><div class="content hidden">
 <pre class="highlightjs highlight"><code class="language-kotlin hljs">{
-  get("/") {
+  get("/") { ctx -&gt;
     val token = ctx.header("token").value() <i class="conum" data-value="1"></i><b>(1)</b>
 
     val headers = ctx.headers()             <i class="conum" data-value="2"></i><b>(2)</b>
 
-    val = ctx.headerMap();                  <i class="conum" data-value="3"></i><b>(3)</b>
+    val headerMap = ctx.headerMap();        <i class="conum" data-value="3"></i><b>(3)</b>
     ...
-  });
+  }
 
 }</code><button class="clipboard">Copy</button></pre>
 </div></div>
@@ -3084,12 +3127,12 @@ response.</p>
 }</code><button class="clipboard">Copy</button></pre>
 </div><div class="content hidden">
 <pre class="highlightjs highlight"><code class="language-kotlin hljs">{
-  get("/") {
+  get("/") { ctx -&gt;
     val token = ctx.cookie("token").value() <i class="conum" data-value="1"></i><b>(1)</b>
 
-    val = ctx.cookieMap();                  <i class="conum" data-value="2"></i><b>(2)</b>
+    val cookieMap = ctx.cookieMap()         <i class="conum" data-value="2"></i><b>(2)</b>
     ...
-  });
+  }
 
 }</code><button class="clipboard">Copy</button></pre>
 </div></div>
@@ -3129,15 +3172,15 @@ response.</p>
 }</code><button class="clipboard">Copy</button></pre>
 </div><div class="content hidden">
 <pre class="highlightjs highlight"><code class="language-kotlin hljs">{
-  get("/{id}") { ctx.path("id").value() }                                 <i class="conum" data-value="1"></i><b>(1)</b>
+  get("/{id}") { ctx -&gt; ctx.path("id").value() }                                 <i class="conum" data-value="1"></i><b>(1)</b>
 
-  get("/@{id}") { ctx.path("id").value() }                                <i class="conum" data-value="2"></i><b>(2)</b>
+  get("/@{id}") { ctx -&gt; ctx.path("id").value() }                                <i class="conum" data-value="2"></i><b>(2)</b>
 
-  get("/file/{name}.{ext}") { cxt.path("name") + "." + ctx.path("ext") }  <i class="conum" data-value="3"></i><b>(3)</b>
+  get("/file/{name}.{ext}") { ctx -&gt; cxt.path("name") + "." + ctx.path("ext") }  <i class="conum" data-value="3"></i><b>(3)</b>
 
-  get("/file/*") { ctx.path("*") }                                        <i class="conum" data-value="4"></i><b>(4)</b>
+  get("/file/*") { ctx -&gt; ctx.path("*") }                                        <i class="conum" data-value="4"></i><b>(4)</b>
 
-  get("/{id:[0-9]+}") { ctx.path("id) }                                   <i class="conum" data-value="5"></i><b>(5)</b>
+  get("/{id:[0-9]+}") { ctx -&gt; ctx.path("id) }                                   <i class="conum" data-value="5"></i><b>(5)</b>
 }</code><button class="clipboard">Copy</button></pre>
 </div></div>
 
@@ -3184,7 +3227,7 @@ response.</p>
 }</code><button class="clipboard">Copy</button></pre>
 </div><div class="content hidden">
 <pre class="highlightjs highlight"><code class="language-kotlin hljs">{
-  get("/{name}") {
+  get("/{name}") { ctx -&gt;
     val pathString = ctx.getRequestPath()  <i class="conum" data-value="1"></i><b>(1)</b>
 
     val path = ctx.path()                 <i class="conum" data-value="2"></i><b>(2)</b>
@@ -3194,7 +3237,7 @@ response.</p>
     val name = ctx.path("name").value()   <i class="conum" data-value="4"></i><b>(4)</b>
 
     ...
-  });
+  }
 }</code><button class="clipboard">Copy</button></pre>
 </div></div>
 
@@ -3306,7 +3349,7 @@ class SearchQuery {
 }</code><button class="clipboard">Copy</button></pre>
 </div><div class="content hidden">
 <pre class="highlightjs highlight"><code class="language-kotlin hljs">{
-  get("/search") {
+  get("/search") { ctx -&gt;
     val queryString = ctx.queryString()         <i class="conum" data-value="1"></i><b>(1)</b>
 
     val query = ctx.query()                     <i class="conum" data-value="2"></i><b>(2)</b>
@@ -3318,7 +3361,7 @@ class SearchQuery {
     val searchQuery = ctx.query&lt;SearchQuery&gt;()  <i class="conum" data-value="5"></i><b>(5)</b>
 
     ...
-  });
+  }
 }
 
 data class SearchQuery (val q: String)</code><button class="clipboard">Copy</button></pre>
@@ -3455,7 +3498,7 @@ class User {
 }</code><button class="clipboard">Copy</button></pre>
 </div><div class="content hidden">
 <pre class="highlightjs highlight"><code class="language-kotlin hljs">{
-  post("/user") {
+  post("/user") { ctx -&gt;
     val form = ctx.form()               <i class="conum" data-value="1"></i><b>(1)</b>
 
     val formMap = ctx.formMultimap()    <i class="conum" data-value="2"></i><b>(2)</b>
@@ -3467,7 +3510,7 @@ class User {
     val user = ctx.form&lt;User&gt;()         <i class="conum" data-value="5"></i><b>(5)</b>
 
     ...
-  });
+  }
 }
 
 data class User (val id: String, val pass: String)</code><button class="clipboard">Copy</button></pre>
@@ -3546,7 +3589,7 @@ class User {
 }</code><button class="clipboard">Copy</button></pre>
 </div><div class="content hidden">
 <pre class="highlightjs highlight"><code class="language-kotlin hljs">{
-  post("/user") {
+  post("/user") { ctx -&gt;
     val multipart = ctx.multipart()              <i class="conum" data-value="1"></i><b>(1)</b>
 
     val multipartMap = ctx.multipartMultimap()   <i class="conum" data-value="2"></i><b>(2)</b>
@@ -3560,7 +3603,7 @@ class User {
     val user = ctx.multipart&lt;User&gt;()             <i class="conum" data-value="6"></i><b>(6)</b>
 
     ...
-  });
+  }
 }
 
 data class User (val id: String, val pass: String, val pic: FileUpload)</code><button class="clipboard">Copy</button></pre>
@@ -3699,7 +3742,7 @@ a <a href="https://www.javadoc.io/doc/io.jooby/jooby/latest/io/jooby/Session.htm
     return ctx.sendRedirect("/");                  <i class="conum" data-value="2"></i><b>(2)</b>
   });</code><button class="clipboard">Copy</button></pre>
 </div><div class="content hidden">
-<pre class="highlightjs highlight"><code class="language-kotlin hljs">  get("/") {
+<pre class="highlightjs highlight"><code class="language-kotlin hljs">  get("/") { ctx -&gt;
     ctx.flash("success").value("Welcome!")         <i class="conum" data-value="3"></i><b>(3)</b>
   }
 
@@ -3738,6 +3781,42 @@ a <a href="https://www.javadoc.io/doc/io.jooby/jooby/latest/io/jooby/Session.htm
 <pre class="highlightjs highlight"><code class="language-kotlin hljs">  install(FlashScope(Cookie("myflash").setHttpOnly(true)))</code><button class="clipboard">Copy</button></pre>
 </div></div>
 
+</div>
+<div class="sect3">
+<h4 id="context-parameters-parameter-lookup"><a class="anchor" href="#context-parameters-parameter-lookup"></a><a class="link" href="#context-parameters-parameter-lookup">4.1.9. Parameter Lookup</a></h4>
+<div class="paragraph">
+<p>You can search for parameters in multiple sources with an explicitly defined priority using the
+<a href="https://www.javadoc.io/doc/io.jooby/jooby/latest/io/jooby/Context.html#lookup--" target="_blank">lookup()</a> or <a href="https://www.javadoc.io/doc/io.jooby/jooby/latest/io/jooby/Context.html#lookup-java.lang.String-ParamSource...-" target="_blank">lookup(String,ParamSource…​)</a> method:</p>
+</div>
+<div class="listingblock primary">
+
+
+<div class="switch"><div class="switch--item selected">Java</div><div class="switch--item">Kotlin</div></div><div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs">get("/{foo}", ctx -&gt; {
+  String foo = ctx.lookup("foo", ParamSource.QUERY, ParamSource.PATH).value();
+  return "foo is: " + foo;
+});
+
+get("/{foo}", ctx -&gt; {
+  String foo = ctx.lookup().inQuery().inPath().get("foo").value();
+  return "foo is: " + foo;
+});</code><button class="clipboard">Copy</button></pre>
+</div><div class="content hidden">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs">get("/{foo}") { ctx -&gt;
+  val foo = ctx.lookup("foo", ParamSource.QUERY, ParamSource.PATH).value()
+  "foo is: $foo"
+}
+
+get("/{foo}") { ctx -&gt;
+  val foo = ctx.lookup().inQuery().inPath()["foo"].value()
+  "foo is: $foo"
+}</code><button class="clipboard">Copy</button></pre>
+</div></div>
+
+<div class="paragraph">
+<p>In case of a request like <code>/bar?foo=baz</code>, <code>foo is: baz</code> will be returned since the query parameter
+takes precedence over the path parameter.</p>
+</div>
 </div>
 </div>
 <div class="sect2">
@@ -4503,10 +4582,10 @@ and returns a single result of the given type.</p>
 <pre class="highlightjs highlight"><code class="language-xml hljs">&lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
   &lt;artifactId&gt;jooby-jackson&lt;/artifactId&gt;
-  &lt;version&gt;2.8.10&lt;/version&gt;
+  &lt;version&gt;2.9.0&lt;/version&gt;
 &lt;/dependency&gt;</code><button class="clipboard">Copy</button></pre>
 </div><div class="content hidden">
-<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'io.jooby:jooby-jackson:2.8.10'</code><button class="clipboard">Copy</button></pre>
+<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'io.jooby:jooby-jackson:2.9.0'</code><button class="clipboard">Copy</button></pre>
 </div></div>
 
 </td>
@@ -4672,10 +4751,10 @@ produces a result.</p>
 <pre class="highlightjs highlight"><code class="language-xml hljs">&lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
   &lt;artifactId&gt;jooby-jackson&lt;/artifactId&gt;
-  &lt;version&gt;2.8.10&lt;/version&gt;
+  &lt;version&gt;2.9.0&lt;/version&gt;
 &lt;/dependency&gt;</code><button class="clipboard">Copy</button></pre>
 </div><div class="content hidden">
-<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'io.jooby:jooby-jackson:2.8.10'</code><button class="clipboard">Copy</button></pre>
+<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'io.jooby:jooby-jackson:2.9.0'</code><button class="clipboard">Copy</button></pre>
 </div></div>
 
 </td>
@@ -4930,6 +5009,10 @@ MVC routes (Singleton vs Non-Singleton routes).</p>
 <h3 id="mvc-api-parameters"><a class="anchor" href="#mvc-api-parameters"></a><a class="link" href="#mvc-api-parameters">5.3. Parameters</a></h3>
 <div class="paragraph">
 <p>HTTP parameter provision is available via <code>*Param</code> annotations.</p>
+</div>
+<div class="paragraph">
+<p>There is also a <a href="https://www.javadoc.io/doc/io.jooby/jooby/latest/io/jooby/annotations/Param.html" target="_blank">Param</a> annotation which allows to retrieve parameters from
+<a href="#mvc-api-parameters-multiple-sources">multiple sources</a>.</p>
 </div>
 <div class="sect3">
 <h4 id="mvc-api-parameters-header"><a class="anchor" href="#mvc-api-parameters-header"></a><a class="link" href="#mvc-api-parameters-header">5.3.1. Header</a></h4>
@@ -5333,6 +5416,36 @@ non valid Java names:</p>
 <td>All context attributes must be set as arguments. They must be declared as <code>Map&lt;String, Object&gt;</code></td>
 </tr>
 </tbody></table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="mvc-api-parameters-multiple-sources"><a class="anchor" href="#mvc-api-parameters-multiple-sources"></a><a class="link" href="#mvc-api-parameters-multiple-sources">5.3.10. Multiple Sources</a></h4>
+<div class="paragraph">
+<p>You can use the <a href="https://www.javadoc.io/doc/io.jooby/jooby/latest/io/jooby/annotations/Param.html" target="_blank">Param</a> annotation to search for a parameter in multiple sources.
+The sources and their precedence can be specified as follows:</p>
+</div>
+<div class="listingblock primary">
+<div class="title">Multiple Sources</div>
+
+<div class="switch"><div class="switch--item selected">Java</div><div class="switch--item">Kotlin</div></div><div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs">public class FooController {
+
+  @GET("/{foo}")
+  public String multipleSources(@Param({ QUERY, PATH }) String foo) {
+    return "foo is: " + foo;
+  }
+}</code><button class="clipboard">Copy</button></pre>
+</div><div class="content hidden">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs">class FooController {
+
+  @GET("/{foo}")
+  fun multipleSources(@Param(QUERY, PATH) foo: String) = "foo is: $foo"
+}</code><button class="clipboard">Copy</button></pre>
+</div></div>
+
+<div class="paragraph">
+<p>In case of a request like <code>/bar?foo=baz</code>, <code>foo is: baz</code> will be returned since the query parameter
+takes precedence over the path parameter.</p>
 </div>
 </div>
 </div>
@@ -7297,8 +7410,9 @@ automatically close the writer/stream:</p>
 <div class="sect2">
 <h3 id="responses-file-download"><a class="anchor" href="#responses-file-download"></a><a class="link" href="#responses-file-download">12.3. File download</a></h3>
 <div class="paragraph">
-<p>The <a href="https://www.javadoc.io/doc/io.jooby/jooby/latest/io/jooby/AttachedFile.html" target="_blank">AttachedFile</a> is used to generate file downloads, i.e. responses with
-<code>Content-Disposition</code> header.</p>
+<p>The <a href="https://www.javadoc.io/doc/io.jooby/jooby/latest/io/jooby/FileDownload.html" target="_blank">FileDownload</a> is used to generate file downloads, i.e. responses with
+<code>Content-Disposition</code> header. You can use the convenience subclasses <a href="https://www.javadoc.io/doc/io.jooby/jooby/latest/io/jooby/AttachedFile.html" target="_blank">AttachedFile</a>
+or <a href="https://www.javadoc.io/doc/io.jooby/jooby/latest/io/jooby/InlineFile.html" target="_blank">InlineFile</a> to set the header value to <code>attachment</code> or <code>inline</code> respectively.</p>
 </div>
 <div class="listingblock primary">
 <div class="title">File download example</div>
@@ -7310,9 +7424,9 @@ automatically close the writer/stream:</p>
     return new AttachedFile(source);               <i class="conum" data-value="1"></i><b>(1)</b>
   });
 
-  get("/download-stream", ctx -&gt; {
+  get("/view-stream", ctx -&gt; {
     InputStream source = ...;
-    return new AttachedFile("myfile.txt", source); <i class="conum" data-value="2"></i><b>(2)</b>
+    return new InlineFile("myfile.txt", source); <i class="conum" data-value="2"></i><b>(2)</b>
   });
 }</code><button class="clipboard">Copy</button></pre>
 </div><div class="content hidden">
@@ -7322,9 +7436,9 @@ automatically close the writer/stream:</p>
     AttachedFile(source)                <i class="conum" data-value="1"></i><b>(1)</b>
   }
 
-  get("/download-stream") {
+  get("/view-stream") {
     val source = ...
-    AttachedFile("myfile.txt", source)  <i class="conum" data-value="2"></i><b>(2)</b>
+    InlineFile("myfile.txt", source)  <i class="conum" data-value="2"></i><b>(2)</b>
   }
 }</code><button class="clipboard">Copy</button></pre>
 </div></div>
@@ -7341,6 +7455,37 @@ automatically close the writer/stream:</p>
 </tr>
 </tbody></table>
 </div>
+<div class="paragraph">
+<p>Another possibility is to use one of the static builder methods of <code>FileDownload</code> and specify
+the download type (attachment or inline) later.</p>
+</div>
+<div class="listingblock primary">
+<div class="title">File download with builder method</div>
+
+<div class="switch"><div class="switch--item selected">Java</div><div class="switch--item">Kotlin</div></div><div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs">FileDownload.Builder produceDownload(Context ctx) {
+  return FileDownload.build(...);
+}
+
+{
+  get("/view", ctx -&gt; produceDownload(ctx).inline());
+
+  get("/download", ctx -&gt; produceDownload(ctx).attachment());
+}</code><button class="clipboard">Copy</button></pre>
+</div><div class="content hidden">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs">fun produceDownload(ctx: Context) = FileDownload.build(...)
+
+{
+  get("/view") {
+    produceDownload(it).inline()
+  }
+
+  get("/download") {
+    produceDownload(it).attachment()
+  }
+}</code><button class="clipboard">Copy</button></pre>
+</div></div>
+
 </div>
 <div class="sect2">
 <h3 id="responses-nonblocking"><a class="anchor" href="#responses-nonblocking"></a><a class="link" href="#responses-nonblocking">12.4. NonBlocking</a></h3>
@@ -7671,10 +7816,10 @@ non-blocking API.</p>
 <pre class="highlightjs highlight"><code class="language-xml hljs">&lt;dependency&gt;
   &lt;groupId&gt;io.projectreactor&lt;/groupId&gt;
   &lt;artifactId&gt;reactor-core&lt;/artifactId&gt;
-  &lt;version&gt;3.3.8.RELEASE&lt;/version&gt;
+  &lt;version&gt;3.3.9.RELEASE&lt;/version&gt;
 &lt;/dependency&gt;</code><button class="clipboard">Copy</button></pre>
 </div><div class="content hidden">
-<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'io.projectreactor:reactor-core:3.3.8.RELEASE'</code><button class="clipboard">Copy</button></pre>
+<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'io.projectreactor:reactor-core:3.3.9.RELEASE'</code><button class="clipboard">Copy</button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -7999,7 +8144,7 @@ side effects ignoring the output of the route handler.</p>
 <p><a href="https://www.javadoc.io/doc/io.jooby/jooby/latest/io/jooby/Context.html#send-java.nio.channels.FileChannel-" target="_blank">send(FileChannel)</a></p>
 </li>
 <li>
-<p><a href="https://www.javadoc.io/doc/io.jooby/jooby/latest/io/jooby/Context.html#send-io.jooby.AttachedFile-" target="_blank">send(AttachedFile)</a></p>
+<p><a href="https://www.javadoc.io/doc/io.jooby/jooby/latest/io/jooby/Context.html#send-io.jooby.FileDownload-" target="_blank">send(FileDownload)</a></p>
 </li>
 <li>
 <p><a href="https://www.javadoc.io/doc/io.jooby/jooby/latest/io/jooby/Context.html#send-io.jooby.StatusCode-" target="_blank">send(StatusCode)</a></p>
@@ -9670,10 +9815,10 @@ the logging framework to configure without taking care the environment setup.</p
 <pre class="highlightjs highlight"><code class="language-xml hljs">&lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
   &lt;artifactId&gt;jooby-test&lt;/artifactId&gt;
-  &lt;version&gt;2.8.10&lt;/version&gt;
+  &lt;version&gt;2.9.0&lt;/version&gt;
 &lt;/dependency&gt;</code><button class="clipboard">Copy</button></pre>
 </div><div class="content hidden">
-<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'io.jooby:jooby-test:2.8.10'</code><button class="clipboard">Copy</button></pre>
+<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'io.jooby:jooby-test:2.9.0'</code><button class="clipboard">Copy</button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -9931,10 +10076,10 @@ you can set HTTP parameters, body, headers, etc.</p>
 <pre class="highlightjs highlight"><code class="language-xml hljs">&lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
   &lt;artifactId&gt;jooby-test&lt;/artifactId&gt;
-  &lt;version&gt;2.8.10&lt;/version&gt;
+  &lt;version&gt;2.9.0&lt;/version&gt;
 &lt;/dependency&gt;</code><button class="clipboard">Copy</button></pre>
 </div><div class="content hidden">
-<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'io.jooby:jooby-test:2.8.10'</code><button class="clipboard">Copy</button></pre>
+<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'io.jooby:jooby-test:2.9.0'</code><button class="clipboard">Copy</button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -10228,7 +10373,7 @@ that effectively reload application classes.</p>
   &lt;plugin&gt;
     &lt;groupId&gt;io.jooby&lt;/groupId&gt;
     &lt;artifactId&gt;jooby-maven-plugin&lt;/artifactId&gt;
-    &lt;version&gt;2.8.10&lt;/version&gt;
+    &lt;version&gt;2.9.0&lt;/version&gt;
   &lt;/plugin&gt;
   ...
 &lt;/plugins&gt;</code><button class="clipboard">Copy</button></pre>
@@ -10240,7 +10385,7 @@ that effectively reload application classes.</p>
   }
 
   dependencies {
-    classpath "io.jooby:jooby-gradle-plugin:2.8.10"
+    classpath "io.jooby:jooby-gradle-plugin:2.9.0"
   }
 }
 
@@ -10310,11 +10455,11 @@ project directory, when found plugin compiler is OFF and let Eclipse compiles th
   &lt;plugin&gt;
     &lt;groupId&gt;io.jooby&lt;/groupId&gt;
     &lt;artifactId&gt;jooby-maven-plugin&lt;/artifactId&gt;
-    &lt;version&gt;2.8.10&lt;/version&gt;
+    &lt;version&gt;2.9.0&lt;/version&gt;
     &lt;configuration&gt;
       &lt;mainClass&gt;${application.class}&lt;/mainClass&gt;                  <i class="conum" data-value="1"></i><b>(1)</b>
       &lt;restartExtensions&gt;conf,properties,class&lt;/restartExtensions&gt; <i class="conum" data-value="2"></i><b>(2)</b>
-      &lt;compileExtensions&gt;java,kt&lt;/compileExtensions&gt;                  <i class="conum" data-value="3"></i><b>(3)</b>
+      &lt;compileExtensions&gt;java,kt&lt;/compileExtensions&gt;               <i class="conum" data-value="3"></i><b>(3)</b>
       &lt;port&gt;8080&lt;/port&gt;                                            <i class="conum" data-value="4"></i><b>(4)</b>
     &lt;/configuration&gt;
   &lt;/plugin&gt;
@@ -10328,7 +10473,7 @@ project directory, when found plugin compiler is OFF and let Eclipse compiles th
   }
 
   dependencies {
-    classpath "io.jooby:jooby-gradle-plugin:2.8.10"
+    classpath "io.jooby:jooby-gradle-plugin:2.9.0"
   }
 }
 
@@ -10336,9 +10481,9 @@ apply plugin: "application"
 apply plugin: "jooby"
 
 joobyRun {
-  mainClass = "${mainClassName}"                                   <i class="conum" data-value="1"></i><b>(1)</b>
+  mainClassName = "${mainClassName}"                               <i class="conum" data-value="1"></i><b>(1)</b>
   restartExtensions = ["conf", "properties", "class"]              <i class="conum" data-value="2"></i><b>(2)</b>
-  compileExtensions =  ["java", "kt"]                               <i class="conum" data-value="3"></i><b>(3)</b>
+  compileExtensions = ["java", "kt"]                               <i class="conum" data-value="3"></i><b>(3)</b>
   port = 8080                                                      <i class="conum" data-value="4"></i><b>(4)</b>
 }</code><button class="clipboard">Copy</button></pre>
 </div></div>
@@ -10542,7 +10687,7 @@ symlink_java: true</code><button class="clipboard">Copy</button></pre>
         &lt;extensions&gt;true&lt;/extensions&gt;
         &lt;configuration&gt;
           &lt;tiles&gt;
-            &lt;tile&gt;io.jooby:jooby-stork:2.8.10&lt;/tile&gt;
+            &lt;tile&gt;io.jooby:jooby-stork:2.9.0&lt;/tile&gt;
           &lt;/tiles&gt;
         &lt;/configuration&gt;
     &lt;/plugin&gt;
@@ -10591,10 +10736,10 @@ symlink_java: true</code><button class="clipboard">Copy</button></pre>
 <pre class="highlightjs highlight"><code class="language-xml hljs">&lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
   &lt;artifactId&gt;jooby-jetty&lt;/artifactId&gt;
-  &lt;version&gt;2.8.10&lt;/version&gt;
+  &lt;version&gt;2.9.0&lt;/version&gt;
 &lt;/dependency&gt;</code><button class="clipboard">Copy</button></pre>
 </div><div class="content hidden">
-<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'io.jooby:jooby-jetty:2.8.10'</code><button class="clipboard">Copy</button></pre>
+<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'io.jooby:jooby-jetty:2.9.0'</code><button class="clipboard">Copy</button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -10607,10 +10752,10 @@ symlink_java: true</code><button class="clipboard">Copy</button></pre>
 <pre class="highlightjs highlight"><code class="language-xml hljs">&lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
   &lt;artifactId&gt;jooby-netty&lt;/artifactId&gt;
-  &lt;version&gt;2.8.10&lt;/version&gt;
+  &lt;version&gt;2.9.0&lt;/version&gt;
 &lt;/dependency&gt;</code><button class="clipboard">Copy</button></pre>
 </div><div class="content hidden">
-<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'io.jooby:jooby-netty:2.8.10'</code><button class="clipboard">Copy</button></pre>
+<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'io.jooby:jooby-netty:2.9.0'</code><button class="clipboard">Copy</button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -10623,10 +10768,10 @@ symlink_java: true</code><button class="clipboard">Copy</button></pre>
 <pre class="highlightjs highlight"><code class="language-xml hljs">&lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
   &lt;artifactId&gt;jooby-utow&lt;/artifactId&gt;
-  &lt;version&gt;2.8.10&lt;/version&gt;
+  &lt;version&gt;2.9.0&lt;/version&gt;
 &lt;/dependency&gt;</code><button class="clipboard">Copy</button></pre>
 </div><div class="content hidden">
-<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'io.jooby:jooby-utow:2.8.10'</code><button class="clipboard">Copy</button></pre>
+<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'io.jooby:jooby-utow:2.9.0'</code><button class="clipboard">Copy</button></pre>
 </div></div>
 
 <div class="admonitionblock important">
@@ -11337,10 +11482,10 @@ fun main(args: Array&lt;String&gt;) {
 <pre class="highlightjs highlight"><code class="language-xml hljs">&lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
   &lt;artifactId&gt;jooby-guice&lt;/artifactId&gt;
-  &lt;version&gt;2.8.10&lt;/version&gt;
+  &lt;version&gt;2.9.0&lt;/version&gt;
 &lt;/dependency&gt;</code><button class="clipboard">Copy</button></pre>
 </div><div class="content hidden">
-<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'io.jooby:jooby-guice:2.8.10'</code><button class="clipboard">Copy</button></pre>
+<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'io.jooby:jooby-guice:2.9.0'</code><button class="clipboard">Copy</button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -11505,10 +11650,10 @@ fun main(args: Array&lt;String&gt;) {
 <pre class="highlightjs highlight"><code class="language-xml hljs">&lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
   &lt;artifactId&gt;jooby-spring&lt;/artifactId&gt;
-  &lt;version&gt;2.8.10&lt;/version&gt;
+  &lt;version&gt;2.9.0&lt;/version&gt;
 &lt;/dependency&gt;</code><button class="clipboard">Copy</button></pre>
 </div><div class="content hidden">
-<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'io.jooby:jooby-spring:2.8.10'</code><button class="clipboard">Copy</button></pre>
+<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'io.jooby:jooby-spring:2.9.0'</code><button class="clipboard">Copy</button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -11674,10 +11819,10 @@ class Hello {
 <pre class="highlightjs highlight"><code class="language-xml hljs">&lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
   &lt;artifactId&gt;jooby-weld&lt;/artifactId&gt;
-  &lt;version&gt;2.8.10&lt;/version&gt;
+  &lt;version&gt;2.9.0&lt;/version&gt;
 &lt;/dependency&gt;</code><button class="clipboard">Copy</button></pre>
 </div><div class="content hidden">
-<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'io.jooby:jooby-weld:2.8.10'</code><button class="clipboard">Copy</button></pre>
+<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'io.jooby:jooby-weld:2.9.0'</code><button class="clipboard">Copy</button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -11888,6 +12033,9 @@ configuration properties.</p>
 </li>
 <li>
 <p><a href="modules/whoops">Whoops</a>: Pretty page stacktrace reporter.</p>
+</li>
+<li>
+<p><a href="modules/metrics">Metrics</a>: Application metrics from the excellent metrics library.</p>
 </li>
 </ul>
 </div>

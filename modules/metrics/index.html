@@ -8,7 +8,7 @@
 <meta name="description" content="The modular micro web framework for Java">
 <meta name="keywords" content="Java, Modern, Micro, Web, Framework, Reactive, Lightweight, Microservices">
 <link rel="icon" type="image/png" href="../../images/favicon96.png">
-<title>jooby: ebean module</title>
+<title>jooby: metrics module</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /* Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -514,15 +514,16 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#ebean">1. Ebean</a>
+<li><a href="#metrics">1. Metrics</a>
 <ul class="sectlevel2">
 <li><a href="#usage">1.1. Usage</a></li>
-<li><a href="#transactional-request">1.2. Transactional Request</a>
-<ul class="sectlevel3">
-<li><a href="#transactional">1.2.1. @Transactional</a></li>
-</ul>
-</li>
-<li><a href="#configuration">1.3. Configuration</a></li>
+<li><a href="#metrics-2">1.2. Metrics</a></li>
+<li><a href="#health-checks">1.3. Health Checks</a></li>
+<li><a href="#instrumented-requests">1.4. Instrumented Requests</a></li>
+<li><a href="#thread-dump">1.5. Thread Dump</a></li>
+<li><a href="#reporting">1.6. Reporting</a></li>
+<li><a href="#using-with-jooby-hikari">1.7. Using with jooby-hikari</a></li>
+<li><a href="#alternate-routes">1.8. Alternate Routes</a></li>
 </ul>
 </li>
 </ul>
@@ -530,366 +531,261 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div id="content">
 <div class="sect1">
-<h2 id="ebean"><a class="anchor" href="#ebean"></a><a class="link" href="#ebean">1. Ebean</a></h2>
+<h2 id="metrics"><a class="anchor" href="#metrics"></a><a class="link" href="#metrics">1. Metrics</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Persistence module using Ebean: <a href="https://ebean.io" class="bare" target="_blank">https://ebean.io</a></p>
+<p><a href="https://github.com/dropwizard/metrics" target="_blank">Metrics</a> provides a powerful toolkit of ways to measure the behavior of critical
+components in your production environment.</p>
 </div>
 <div class="sect2">
-<h3 id="ebean-usage"><a class="anchor" href="#ebean-usage"></a><a class="link" href="#ebean-usage">1.1. Usage</a></h3>
+<h3 id="metrics-usage"><a class="anchor" href="#metrics-usage"></a><a class="link" href="#metrics-usage">1.1. Usage</a></h3>
 <div class="paragraph">
-<p>1) Add the dependencies (hikari + ebean):</p>
+<p>1) Add the dependency:</p>
 </div>
 <div class="listingblock primary">
 
 
 <div class="switch"><div class="switch--item selected">Maven</div><div class="switch--item">Gradle</div></div><div class="content">
-<pre class="highlightjs highlight"><code class="language-xml hljs">&lt;!-- DataSource via HikariCP--&gt;
+<pre class="highlightjs highlight"><code class="language-xml hljs">&lt;!-- Metrics Module--&gt;
 &lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
-  &lt;artifactId&gt;jooby-hikari&lt;/artifactId&gt;
-  &lt;version&gt;2.9.0&lt;/version&gt;
-&lt;/dependency&gt;
-
-&lt;!-- Ebean Module--&gt;
-&lt;dependency&gt;
-  &lt;groupId&gt;io.jooby&lt;/groupId&gt;
-  &lt;artifactId&gt;jooby-ebean&lt;/artifactId&gt;
+  &lt;artifactId&gt;jooby-metrics&lt;/artifactId&gt;
   &lt;version&gt;2.9.0&lt;/version&gt;
 &lt;/dependency&gt;</code><button class="clipboard">Copy</button></pre>
 </div><div class="content hidden">
-<pre class="highlightjs highlight"><code class="language-javascript hljs">// DataSource via HikariCP
-implementation 'io.jooby:jooby-hikari:2.9.0'
-
-// Ebean Module
-implementation 'io.jooby:jooby-ebean:2.9.0'</code><button class="clipboard">Copy</button></pre>
+<pre class="highlightjs highlight"><code class="language-javascript hljs">// Metrics Module
+implementation 'io.jooby:jooby-metrics:2.9.0'</code><button class="clipboard">Copy</button></pre>
 </div></div>
 
 <div class="paragraph">
-<p>2) Add database driver (mySQL here):</p>
+<p>2) Install and configure the module</p>
 </div>
 <div class="listingblock primary">
 
-
-<div class="switch"><div class="switch--item selected">Maven</div><div class="switch--item">Gradle</div></div><div class="content">
-<pre class="highlightjs highlight"><code class="language-xml hljs">&lt;dependency&gt;
-  &lt;groupId&gt;mysql&lt;/groupId&gt;
-  &lt;artifactId&gt;mysql-connector-java&lt;/artifactId&gt;
-  &lt;version&gt;8.0.21&lt;/version&gt;
-&lt;/dependency&gt;</code><button class="clipboard">Copy</button></pre>
-</div><div class="content hidden">
-<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'mysql:mysql-connector-java:8.0.21'</code><button class="clipboard">Copy</button></pre>
-</div></div>
-
-<div class="paragraph">
-<p>3) Set database properties</p>
-</div>
-<div class="listingblock">
-<div class="title">application.conf</div>
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-properties hljs">db.url = "jdbc:mysql://localhost/mydb"
-db.user = myuser
-db.password = mypass</code><button class="clipboard">Copy</button></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>4) Configure build time enhancement of the entity beans</p>
-</div>
-<div class="listingblock primary">
-
-
-<div class="switch"><div class="switch--item selected">Maven</div><div class="switch--item">Gradle</div></div><div class="content">
-<pre class="highlightjs highlight"><code class="language-xml hljs">&lt;plugin&gt;
-  &lt;groupId&gt;io.repaint.maven&lt;/groupId&gt;
-  &lt;artifactId&gt;tiles-maven-plugin&lt;/artifactId&gt;
-  &lt;version&gt;${tiles-maven-plugin.version}&lt;/version&gt;
-  &lt;extensions&gt;true&lt;/extensions&gt;
-  &lt;configuration&gt;
-    &lt;tiles&gt;
-      &lt;!-- other tiles ... --&gt;
-      &lt;tile&gt;io.ebean.tile:enhancement:12.3.8&lt;/tile&gt;
-    &lt;/tiles&gt;
-  &lt;/configuration&gt;
-&lt;/plugin&gt;</code><button class="clipboard">Copy</button></pre>
-</div><div class="content hidden">
-<pre class="highlightjs highlight"><code class="language-javascript hljs">plugins {
-    id('io.ebean') version '12.3.8'
-}
-
-dependencies {
-    compile 'io.ebean:ebean:12.3.8'
-    compile 'io.ebean:ebean-querybean:12.3.8'
-
-    // query bean generation
-    annotationProcessor 'io.ebean:querybean-generator:12.3.8'
-}</code><button class="clipboard">Copy</button></pre>
-</div></div>
-
-<div class="paragraph">
-<p>4) Install and use Ebean</p>
-</div>
-<div class="listingblock primary">
-
-
-<div class="switch"><div class="switch--item selected">Java</div><div class="switch--item">Kotlin</div></div><div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs">import io.jooby.hikari.HikariModule;
-import io.jooby.ebean.EbeanModule;
-
-{
-  install(new HikariModule());                     <i class="conum" data-value="1"></i><b>(1)</b>
-
-  install(new EbeanModule());                      <i class="conum" data-value="2"></i><b>(2)</b>
-
-  get("/", ctx -&gt; {
-    Database db = require(Database.class);         <i class="conum" data-value="3"></i><b>(3)</b>
-    // work with Database
-  });
-}</code><button class="clipboard">Copy</button></pre>
-</div><div class="content hidden">
-<pre class="highlightjs highlight"><code class="language-kt hljs">import io.jooby.hikari.HikariModule
-import io.jooby.ebean.EbeanModule
-
-{
-  install(HikariModule())                          <i class="conum" data-value="1"></i><b>(1)</b>
-
-  install(EbeanModule())                           <i class="conum" data-value="2"></i><b>(2)</b>
-
-  get("/") {
-    val db = require(Database::class)              <i class="conum" data-value="3"></i><b>(3)</b>
-    // work with Database
-  }
-}</code><button class="clipboard">Copy</button></pre>
-</div></div>
-
-<div class="colist arabic">
-<table>
-<tbody><tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>Install and creates a <code>DataSource</code></td>
-</tr>
-<tr>
-<td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>Install Ebean</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="3"></i><b>3</b></td>
-<td>Use Ebean Database</td>
-</tr>
-</tbody></table>
-</div>
-</div>
-<div class="sect2">
-<h3 id="ebean-transactional-request"><a class="anchor" href="#ebean-transactional-request"></a><a class="link" href="#ebean-transactional-request">1.2. Transactional Request</a></h3>
-<div class="paragraph">
-<p>The <a href="https://www.javadoc.io/doc/io.jooby/jooby/latest/io/jooby/ebean/TransactionalRequest.html" target="_blank">TransactionalRequest</a> decorator takes care of a start/commit/rollback a
-transaction per HTTP request.</p>
-</div>
-<div class="listingblock primary">
-<div class="title">TransactionalRequest</div>
-
-<div class="switch"><div class="switch--item selected">Java</div><div class="switch--item">Kotlin</div></div><div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs">import io.jooby.hikari.HikariModule;
-import io.jooby.ebean.EbeanModule;
-import io.jooby.ebean.TransactionalRequest;
-
-{
-  install(new HikariModule());
-
-  install(new HibernateModule());
-
-  decorator(new TransactionalRequest());
-
-  post("/create", ctx -&gt; {
-    Database db = require(Database.class);
-
-    MyEntity e = ...;
-
-    db.save(e);
-
-    return e;
-  });
-}</code><button class="clipboard">Copy</button></pre>
-</div><div class="content hidden">
-<pre class="highlightjs highlight"><code class="language-kt hljs">import io.jooby.hikari.HikariModule
-import io.jooby.ebean.EbeanModule
-import io.jooby.ebean.TransactionalRequest
-
-{
-  install(HikariModule())
-
-  install(HibernateModule())
-
-  decorator(TransactionalRequest())
-
-  post("/create") { ctx -&gt;
-    val db = require(Database::class)
-
-    val e = ...
-
-    db.save(e)
-
-    e
-  }
-}</code><button class="clipboard">Copy</button></pre>
-</div></div>
-
-<div class="sect3">
-<h4 id="ebean-transactional-request-transactional"><a class="anchor" href="#ebean-transactional-request-transactional"></a><a class="link" href="#ebean-transactional-request-transactional">1.2.1. @Transactional</a></h4>
-<div class="paragraph">
-<p>If you simply install the decorator it becomes enabled by default, this means that each route in its
-scope become transactional. You can exclude an MVC route by annotating it with the
-<a href="https://www.javadoc.io/doc/io.jooby/jooby/latest/io/jooby/annotations/Transactional.html" target="_blank">Transactional</a> annotation:</p>
-</div>
-<div class="listingblock primary">
-<div class="title">@Transactional</div>
-
-<div class="switch"><div class="switch--item selected">Java</div><div class="switch--item">Kotlin</div></div><div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs">import io.jooby.annotations.Transactional;
-
-@Transactional(false)
-@GET("/")
-public void get(Context ctx) {
-  // no automatic transaction management here
-}</code><button class="clipboard">Copy</button></pre>
-</div><div class="content hidden">
-<pre class="highlightjs highlight"><code class="language-kt hljs">import io.jooby.annotations.Transactional
-
-@Transactional(false)
-@GET("/")
-fun get(ctx: Context) {
-  // no automatic transaction management here
-}</code><button class="clipboard">Copy</button></pre>
-</div></div>
-
-<div class="paragraph">
-<p>You also have the option to invert this logic by disabling the decorator by default:</p>
-</div>
-<div class="listingblock primary">
-<div class="title">TransactionalRequest disabled by default</div>
-
-<div class="switch"><div class="switch--item selected">Java</div><div class="switch--item">Kotlin</div></div><div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs">import io.jooby.ebean.TransactionalRequest;
-
-{
-  ...
-  decorator(new TransactionalRequest().enabledByDefault(false));
-  ...
-}</code><button class="clipboard">Copy</button></pre>
-</div><div class="content hidden">
-<pre class="highlightjs highlight"><code class="language-kt hljs">import io.jooby.ebean.TransactionalRequest
-
-{
-  ...
-  decorator(TransactionalRequest().enabledByDefault(false))
-  ...
-}</code><button class="clipboard">Copy</button></pre>
-</div></div>
-
-<div class="paragraph">
-<p>Then you can enable it for the selected routes using <code>@Transactional(true)</code>:</p>
-</div>
-<div class="listingblock primary">
-<div class="title">@Transactional</div>
-
-<div class="switch"><div class="switch--item selected">Java</div><div class="switch--item">Kotlin</div></div><div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs">import io.jooby.annotations.Transactional;
-
-@Inject
-private Database database;
-
-@Transactional(true)
-@GET("/")
-public void get(Context ctx) {
-  // work with Database
-}</code><button class="clipboard">Copy</button></pre>
-</div><div class="content hidden">
-<pre class="highlightjs highlight"><code class="language-kt hljs">import io.jooby.annotations.Transactional
-
-@Inject
-private lateinit var database: Database
-
-@Transactional(true)
-@GET("/")
-fun get(ctx: Context) {
-  // work with Database
-}</code><button class="clipboard">Copy</button></pre>
-</div></div>
-
-<div class="paragraph">
-<p>This feature is not limited to MVC routes. For script routes use the constant <code>Transactional.ATTRIBUTE</code>:</p>
-</div>
-<div class="listingblock primary">
-<div class="title">Transactional for script routes</div>
-
-<div class="switch"><div class="switch--item selected">Java</div><div class="switch--item">Kotlin</div></div><div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs">import io.jooby.annotations.Transactional;
-
-{
-  get("/", ctx -&gt; {
-    ...
-  }).attribute(Transactional.ATTRIBUTE, false);
-}</code><button class="clipboard">Copy</button></pre>
-</div><div class="content hidden">
-<pre class="highlightjs highlight"><code class="language-kt hljs">import io.jooby.annotations.Transactional
-
-{
-  get("/") {
-    ...
-  }).attribute(Transactional.ATTRIBUTE, false);
-}</code><button class="clipboard">Copy</button></pre>
-</div></div>
-
-</div>
-</div>
-<div class="sect2">
-<h3 id="ebean-configuration"><a class="anchor" href="#ebean-configuration"></a><a class="link" href="#ebean-configuration">1.3. Configuration</a></h3>
-<div class="paragraph">
-<p>Advanced/Custom configuration is supported programmatically or using property files.</p>
-</div>
-<div class="listingblock primary">
-<div class="title">Programmatically</div>
 
 <div class="switch"><div class="switch--item selected">Java</div><div class="switch--item">Kotlin</div></div><div class="content">
 <pre class="highlightjs highlight"><code class="language-java hljs">{
-  DatabaseConfig dbConfig = ...;         <i class="conum" data-value="1"></i><b>(1)</b>
-  install(new EbeanModule(dbConfig));    <i class="conum" data-value="2"></i><b>(2)</b>
+  install(new MetricsModule()
+      .threadDump()
+      .ping()
+      .healthCheck("deadlock", new ThreadDeadlockHealthCheck())
+      .metric("memory", new MemoryUsageGaugeSet())
+      .metric("threads", new ThreadStatesGaugeSet())
+      .metric("gc", new GarbageCollectorMetricSet())
+      .metric("fs", new FileDescriptorRatioGauge()));
 }</code><button class="clipboard">Copy</button></pre>
 </div><div class="content hidden">
 <pre class="highlightjs highlight"><code class="language-kt hljs">{
-  val dbConfig = ...                     <i class="conum" data-value="1"></i><b>(1)</b>
-  install(EbeanModule(dbConfig))         <i class="conum" data-value="2"></i><b>(2)</b>
+  install(MetricsModule()
+      .threadDump()
+      .ping()
+      .healthCheck("deadlock", ThreadDeadlockHealthCheck())
+      .metric("memory", MemoryUsageGaugeSet())
+      .metric("threads", ThreadStatesGaugeSet())
+      .metric("gc", GarbageCollectorMetricSet())
+      .metric("fs", FileDescriptorRatioGauge()))
 }</code><button class="clipboard">Copy</button></pre>
 </div></div>
 
-<div class="colist arabic">
-<table>
-<tbody><tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>Manually creates a database config or use the one provided by Jooby: <a href="https://www.javadoc.io/doc/io.jooby/jooby/latest/io/jooby/ebean/EbeanModule.html#create-io.jooby.Jooby-java.lang.String-" target="_blank">create(Jooby,String)</a>.</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>Install Ebean with custom database config</td>
-</tr>
-</tbody></table>
+<div class="paragraph">
+<p>Let’s see what all these means.</p>
 </div>
-<div class="listingblock">
-<div class="title">Configuration</div>
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-javascript hljs">{
-  ebean {
-    ddl {
-      generate = true
-      run = true
-    }
-  }
+</div>
+<div class="sect2">
+<h3 id="metrics"><a class="anchor" href="#metrics"></a><a class="link" href="#metrics">1.2. Metrics</a></h3>
+<div class="paragraph">
+<p>Metrics are available at <code>/sys/metrics</code> or <code>/sys/metrics/:type</code> via:</p>
+</div>
+<div class="listingblock primary">
+
+
+<div class="switch"><div class="switch--item selected">Java</div><div class="switch--item">Kotlin</div></div><div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs">{
+  install(new MetricsModule()
+      .metric("memory", new MemoryUsageGaugeSet())
+      .metric("threads", new ThreadStatesGaugeSet())
+      .metric("gc", new GarbageCollectorMetricSet())
+      .metric("fs", new FileDescriptorRatioGauge()));
 }</code><button class="clipboard">Copy</button></pre>
-</div>
+</div><div class="content hidden">
+<pre class="highlightjs highlight"><code class="language-kt hljs">{
+  install(MetricsModule()
+      .metric("memory", MemoryUsageGaugeSet())
+      .metric("threads", ThreadStatesGaugeSet())
+      .metric("gc", GarbageCollectorMetricSet())
+      .metric("fs", FileDescriptorRatioGauge()))
+}</code><button class="clipboard">Copy</button></pre>
+</div></div>
+
+<div class="paragraph">
+<p>The <code>/:type</code> parameter is optional and let you filter metrics by type <code>counters</code>, <code>gauges</code>, etc.</p>
 </div>
 <div class="paragraph">
-<p>Example shows how to setup Ebean migration tools. Keep in mind Jooby offers a better solution for
-database migrations <a href="flyway">Flyway Module</a>.</p>
+<p>There is a <code>name</code> filter too: <code>/sys/metrics?name=memory</code> or <code>/sys/metrics/guages?name=memory</code>. The <code>name</code> parameter
+filter all the metrics where the name starts with the given <code>name</code>.</p>
 </div>
+</div>
+<div class="sect2">
+<h3 id="metrics-health-checks"><a class="anchor" href="#metrics-health-checks"></a><a class="link" href="#metrics-health-checks">1.3. Health Checks</a></h3>
+<div class="paragraph">
+<p>Health checks are available at <code>/sys/healthCheck</code> via:</p>
+</div>
+<div class="listingblock primary">
+
+
+<div class="switch"><div class="switch--item selected">Java</div><div class="switch--item">Kotlin</div></div><div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs">{
+  install(new MetricsModule()
+      .healthCheck("deadlock", new ThreadDeadlockHealthCheck());
+}</code><button class="clipboard">Copy</button></pre>
+</div><div class="content hidden">
+<pre class="highlightjs highlight"><code class="language-kt hljs">{
+  install(MetricsModule()
+      .healthCheck("deadlock", ThreadDeadlockHealthCheck())
+}</code><button class="clipboard">Copy</button></pre>
+</div></div>
+
+</div>
+<div class="sect2">
+<h3 id="metrics-instrumented-requests"><a class="anchor" href="#metrics-instrumented-requests"></a><a class="link" href="#metrics-instrumented-requests">1.4. Instrumented Requests</a></h3>
+<div class="paragraph">
+<p>Use the <a href="https://www.javadoc.io/doc/io.jooby/jooby/latest/io/jooby/io/jooby/metrics/MetricsDecorator.html" target="_blank">MetricsDecorator</a> decorator to capture request information (like active requests
+or min/mean/max execution time) and a breakdown of the response codes being returned for a selection of routes:</p>
+</div>
+<div class="listingblock primary">
+
+
+<div class="switch"><div class="switch--item selected">Java</div><div class="switch--item">Kotlin</div></div><div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs">{
+  decorator(new MetricsDecorator());
+
+  // inspected route
+  get("/", context -&gt; "Hello metrics!");
+}</code><button class="clipboard">Copy</button></pre>
+</div><div class="content hidden">
+<pre class="highlightjs highlight"><code class="language-kt hljs">{
+  decorator(MetricsDecorator())
+
+  // inspected route
+  get("/") { context: Context? -&gt; "Hello metrics!" }
+}</code><button class="clipboard">Copy</button></pre>
+</div></div>
+
+</div>
+<div class="sect2">
+<h3 id="metrics-thread-dump"><a class="anchor" href="#metrics-thread-dump"></a><a class="link" href="#metrics-thread-dump">1.5. Thread Dump</a></h3>
+<div class="paragraph">
+<p>A thread dump is available at <code>/sys/threadDump</code> via:</p>
+</div>
+<div class="listingblock primary">
+
+
+<div class="switch"><div class="switch--item selected">Java</div><div class="switch--item">Kotlin</div></div><div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs">{
+  install(new MetricsModule()
+      .threadDump();
+}</code><button class="clipboard">Copy</button></pre>
+</div><div class="content hidden">
+<pre class="highlightjs highlight"><code class="language-kt hljs">{
+  install(MetricsModule()
+      .threadDump()
+}</code><button class="clipboard">Copy</button></pre>
+</div></div>
+
+</div>
+<div class="sect2">
+<h3 id="metrics-reporting"><a class="anchor" href="#metrics-reporting"></a><a class="link" href="#metrics-reporting">1.6. Reporting</a></h3>
+<div class="paragraph">
+<p>Reporters are appended via a callback API:</p>
+</div>
+<div class="listingblock primary">
+
+
+<div class="switch"><div class="switch--item selected">Java</div><div class="switch--item">Kotlin</div></div><div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs">{
+  install(new MetricsModule()
+      .reporter(registry -&gt; {
+        ConsoleReporter reporter = ConsoleReporter.forRegistry(registry)
+            .convertDurationsTo(TimeUnit.SECONDS)
+            .convertRatesTo(TimeUnit.SECONDS)
+            .build();
+        reporter.start(1, TimeUnit.HOURS);
+        return reporter;
+      });
+}</code><button class="clipboard">Copy</button></pre>
+</div><div class="content hidden">
+<pre class="highlightjs highlight"><code class="language-kt hljs">{
+  install(MetricsModule()
+      .reporter { registry: MetricRegistry -&gt;
+        ConsoleReporter.forRegistry(registry)
+            .convertDurationsTo(TimeUnit.SECONDS)
+            .convertRatesTo(TimeUnit.SECONDS)
+            .build()
+            .also { it.start(1, TimeUnit.HOURS) }
+      }
+}</code><button class="clipboard">Copy</button></pre>
+</div></div>
+
+<div class="paragraph">
+<p>You can add all the reporters you want. Keep in mind you have to start them (if need it), but you don’t have to stop
+them as long they implement the <code>java.io.Closeable</code> interface.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="metrics-using-with-jooby-hikari"><a class="anchor" href="#metrics-using-with-jooby-hikari"></a><a class="link" href="#metrics-using-with-jooby-hikari">1.7. Using with jooby-hikari</a></h3>
+<div class="paragraph">
+<p>You can instrument the database pool by passing <code>MetricRegistry</code> and <code>HealthCheckRegistry</code> instances to the configuration
+methods of <code>HikariModule</code>, but you must use the same instances with <code>MetricsModule</code>:</p>
+</div>
+<div class="listingblock primary">
+
+
+<div class="switch"><div class="switch--item selected">Java</div><div class="switch--item">Kotlin</div></div><div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs">{
+  MetricRegistry metricRegistry = new MetricRegistry();
+  HealthCheckRegistry healthCheckRegistry = new HealthCheckRegistry();
+
+  install(new HikariModule()
+      .metricRegistry(metricRegistry)
+      .healthCheckRegistry(healthCheckRegistry));
+
+  install(new MetricsModule(metricRegistry, healthCheckRegistry));
+}</code><button class="clipboard">Copy</button></pre>
+</div><div class="content hidden">
+<pre class="highlightjs highlight"><code class="language-kt hljs">{
+  val metricRegistry = MetricRegistry()
+  val healthCheckRegistry = HealthCheckRegistry()
+
+  install(HikariModule()
+      .metricRegistry(metricRegistry)
+      .healthCheckRegistry(healthCheckRegistry))
+
+  install(MetricsModule(metricRegistry, healthCheckRegistry)
+}</code><button class="clipboard">Copy</button></pre>
+</div></div>
+
+</div>
+<div class="sect2">
+<h3 id="metrics-alternate-routes"><a class="anchor" href="#metrics-alternate-routes"></a><a class="link" href="#metrics-alternate-routes">1.8. Alternate Routes</a></h3>
+<div class="paragraph">
+<p>Use constructor overloads of <code>MetricsModule</code> to change the default <code>/sys</code> prefix of the routes registered
+by the module:</p>
+</div>
+<div class="listingblock primary">
+
+
+<div class="switch"><div class="switch--item selected">Java</div><div class="switch--item">Kotlin</div></div><div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs">{
+  install(new MetricsModule("/diag")
+      .threadDump();
+}</code><button class="clipboard">Copy</button></pre>
+</div><div class="content hidden">
+<pre class="highlightjs highlight"><code class="language-kt hljs">{
+  install(MetricsModule("/diag")
+      .threadDump()
+}</code><button class="clipboard">Copy</button></pre>
+</div></div>
+
 </div>
 </div>
 </div>
