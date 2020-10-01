@@ -516,7 +516,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="details">
 <span id="author" class="author">Jooby Project</span><br>
 <span id="email" class="email"><a href="mailto:support@jooby.io">support@jooby.io</a></span><br>
-<span id="revdate">2.9.0</span>
+<span id="revdate">2.9.1</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
@@ -851,7 +851,7 @@ favorite web server.</p>
 </td>
 <td class="content">
 <div class="paragraph">
-<p>Latest Release: <a href="https://github.com/jooby-project/jooby/releases/tag/v2.9.0" target="_blank">2.9.0</a>.</p>
+<p>Latest Release: <a href="https://github.com/jooby-project/jooby/releases/tag/v2.9.1" target="_blank">2.9.1</a>.</p>
 </div>
 <div class="paragraph">
 <p>Looking for previous version? The <a href="v1">1.x</a> documentation is still available.</p>
@@ -1096,7 +1096,7 @@ Jooby projects very quickly.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>Download <a href="https://repo1.maven.org/maven2/io/jooby/jooby-cli/2.9.0/jooby-cli-2.9.0.zip" target="_blank">jooby-cli.zip</a></p>
+<p>Download <a href="https://repo1.maven.org/maven2/io/jooby/jooby-cli/2.9.1/jooby-cli-2.9.1.zip" target="_blank">jooby-cli.zip</a></p>
 </li>
 <li>
 <p>Unzip <code>jooby-cli.zip</code> in your user home directory (or any other directory you prefer to)</p>
@@ -3040,6 +3040,50 @@ explicitly request the registration of it as a service with the following invoca
 <p>Important to note that the context is a <strong>request scoped</strong> object, it’s only available through the service
 registry while the request it belongs to is being processed.</p>
 </div>
+<div class="paragraph">
+<p><a href="https://www.javadoc.io/doc/io.jooby/jooby/latest/io/jooby/Context.html" target="_blank">Context</a> also provides derived information about the current request such as a
+matching locale (or locales) based on the <code>Accept-Language</code> header (if presents). You may use
+the result of <a href="https://www.javadoc.io/doc/io.jooby/jooby/latest/io/jooby/Context.html#locale--" target="_blank">locale()</a> or <a href="https://www.javadoc.io/doc/io.jooby/jooby/latest/io/jooby/Context.html#locales--" target="_blank">locales()</a> to present content matching to
+the user’s language preference.</p>
+</div>
+<div class="paragraph">
+<p>The above methods use <code>Locale.lookup(…​)</code> and <code>Locale.filter(…​)</code> respectively to perform the
+language tag matching. See their overloads if you need to plug in your own matching strategy.</p>
+</div>
+<div class="paragraph">
+<p>To leverage language matching however, you need to tell Jooby which languages your application
+supports. This can be done by either setting the <code>application.lang</code> configuration property
+to a value compatible with the
+<a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Accept-Language" target="_blank">Accept-Language</a>
+header:</p>
+</div>
+<div class="listingblock">
+<div class="title">application.conf</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-properties hljs">application.lang = en, en-GB, de</code><button class="clipboard">Copy</button></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>or calling the <a href="https://www.javadoc.io/doc/io.jooby/jooby/latest/io/jooby/Jooby.html#setLocales-java.util.List-" target="_blank">setLocales(List)</a>
+or <a href="https://www.javadoc.io/doc/io.jooby/jooby/latest/io/jooby/Jooby.html#setLocales-java.util.Locale...-" target="_blank">setLocales(Locale…​)</a> method at runtime:</p>
+</div>
+<div class="listingblock primary">
+
+
+<div class="switch"><div class="switch--item selected">Java</div><div class="switch--item">Kotlin</div></div><div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs">{
+  setLocales(Locale.GERMAN, new Locale("hu", "HU"));
+}</code><button class="clipboard">Copy</button></pre>
+</div><div class="content hidden">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs">{
+  setLocales(Locale.GERMAN, Locale("hu", "HU"))
+}</code><button class="clipboard">Copy</button></pre>
+</div></div>
+
+<div class="paragraph">
+<p>If you don’t set the supported locales explicitly, Jooby uses a single locale provided by
+<code>Locale.getDefault()</code>.</p>
+</div>
 <div class="sect2">
 <h3 id="context-parameters"><a class="anchor" href="#context-parameters"></a><a class="link" href="#context-parameters">4.1. Parameters</a></h3>
 <div class="paragraph">
@@ -3769,16 +3813,26 @@ a <a href="https://www.javadoc.io/doc/io.jooby/jooby/latest/io/jooby/Session.htm
 </tbody></table>
 </div>
 <div class="paragraph">
-<p>Flash attributes are implemented using an <code>HTTP Cookie</code>. To customize the cookie name
-(defaults to <code>jooby.flash</code>) use the javadoc:FlashScope extension:</p>
+<p>Flash attributes are implemented using an <code>HTTP Cookie</code>. To customize the cookie
+(its name defaults to <code>jooby.flash</code>) use the <a href="https://www.javadoc.io/doc/io.jooby/jooby/latest/io/jooby/Router.html#setFlashCookie-Cookie-" target="_blank">setFlashCookie(Cookie)</a> method:</p>
 </div>
 <div class="listingblock primary">
 
 
 <div class="switch"><div class="switch--item selected">Java</div><div class="switch--item">Kotlin</div></div><div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs">  install(new FlashScope(new Cookie("myflash").setHttpOnly(true)));</code><button class="clipboard">Copy</button></pre>
+<pre class="highlightjs highlight"><code class="language-java hljs">{
+  setFlashCookie(new Cookie("myflash").setHttpOnly(true));
+
+  // or if you're fine with the default name
+  getFlashCookie().setHttpOnly(true);
+}</code><button class="clipboard">Copy</button></pre>
 </div><div class="content hidden">
-<pre class="highlightjs highlight"><code class="language-kotlin hljs">  install(FlashScope(Cookie("myflash").setHttpOnly(true)))</code><button class="clipboard">Copy</button></pre>
+<pre class="highlightjs highlight"><code class="language-kotlin hljs">{
+  flashCookie = Cookie("myflash").setHttpOnly(true)
+
+  // or if you're fine with the default name
+  flashCookie.isHttpOnly = true
+}</code><button class="clipboard">Copy</button></pre>
 </div></div>
 
 </div>
@@ -4582,10 +4636,10 @@ and returns a single result of the given type.</p>
 <pre class="highlightjs highlight"><code class="language-xml hljs">&lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
   &lt;artifactId&gt;jooby-jackson&lt;/artifactId&gt;
-  &lt;version&gt;2.9.0&lt;/version&gt;
+  &lt;version&gt;2.9.1&lt;/version&gt;
 &lt;/dependency&gt;</code><button class="clipboard">Copy</button></pre>
 </div><div class="content hidden">
-<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'io.jooby:jooby-jackson:2.9.0'</code><button class="clipboard">Copy</button></pre>
+<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'io.jooby:jooby-jackson:2.9.1'</code><button class="clipboard">Copy</button></pre>
 </div></div>
 
 </td>
@@ -4751,10 +4805,10 @@ produces a result.</p>
 <pre class="highlightjs highlight"><code class="language-xml hljs">&lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
   &lt;artifactId&gt;jooby-jackson&lt;/artifactId&gt;
-  &lt;version&gt;2.9.0&lt;/version&gt;
+  &lt;version&gt;2.9.1&lt;/version&gt;
 &lt;/dependency&gt;</code><button class="clipboard">Copy</button></pre>
 </div><div class="content hidden">
-<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'io.jooby:jooby-jackson:2.9.0'</code><button class="clipboard">Copy</button></pre>
+<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'io.jooby:jooby-jackson:2.9.1'</code><button class="clipboard">Copy</button></pre>
 </div></div>
 
 </td>
@@ -5916,7 +5970,7 @@ supports classpath and file-system resources.</p>
 <div class="sect2">
 <h3 id="static-files-options"><a class="anchor" href="#static-files-options"></a><a class="link" href="#static-files-options">6.3. Options</a></h3>
 <div class="paragraph">
-<p>The <a href="https://www.javadoc.io/doc/io.jooby/jooby/latest/io/jooby/AssetHandler.html" target="_blank">AssetHandler</a> automatically handles <code>E-Tag</code> and <code>Last-Modified</code> headers. You can turn
+<p>The <a href="https://www.javadoc.io/doc/io.jooby/jooby/latest/io/jooby/AssetHandler.html" target="_blank">AssetHandler</a> automatically handles <code>E-Tag</code> and <code>Last-Modified</code> headers. You can
 control these headers programmatically:</p>
 </div>
 <div class="listingblock primary">
@@ -5959,6 +6013,49 @@ control these headers programmatically:</p>
   assets("/static/*", AssetHandler(www)
     .setMaxAge(Duration.ofDays(365))
   );
+}</code><button class="clipboard">Copy</button></pre>
+</div></div>
+
+<div class="paragraph">
+<p>There is also a <a href="https://www.javadoc.io/doc/io.jooby/jooby/latest/io/jooby/AssetHandler.html#setNoCache--" target="_blank">setNoCache()</a> method that explicitly forbids web browsers
+to cache assets.</p>
+</div>
+<div class="paragraph">
+<p>You can use different cache configurations for different assets based on asset name if you
+specify a function via <a href="https://www.javadoc.io/doc/io.jooby/jooby/latest/io/jooby/AssetHandler.html#cacheControl-java.util.Function-" target="_blank">cacheControl(Function)</a>:</p>
+</div>
+<div class="listingblock primary">
+<div class="title">Per-asset cache control:</div>
+
+<div class="switch"><div class="switch--item selected">Java</div><div class="switch--item">Kotlin</div></div><div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs">{
+  AssetSource www = AssetSource.create(Paths.get("www"));
+  assets("/static/*", new AssetHandler(www)
+      .cacheControl(path -&gt; {
+        if (path.endsWith("dont-cache-me.html")) {
+          return CacheControl.noCache(); // disable caching
+        } else if (path.equals("foo.js")) {
+          return CacheControl.defaults()
+              .setETag(false)
+              .setMaxAge(Duration.ofDays(365));
+        } else {
+          return CacheControl.defaults(); // AssetHandler defaults
+        }
+      }));
+}</code><button class="clipboard">Copy</button></pre>
+</div><div class="content hidden">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs">{
+  val www = AssetSource.create(Paths.get("www"))
+  assets("/static/*", AssetHandler(www)
+      .cacheControl {
+        when {
+          it.endsWith("dont-cache-me.html") -&gt; CacheControl.noCache() // disable caching
+          it == "foo.js" -&gt; CacheControl.defaults()
+              .setETag(false)
+              .setMaxAge(Duration.ofDays(365))
+          else -&gt; CacheControl.defaults() // AssetHandler defaults
+        }
+      })
 }</code><button class="clipboard">Copy</button></pre>
 </div></div>
 
@@ -6007,6 +6104,61 @@ control these headers programmatically:</p>
 <tr>
 <td><i class="conum" data-value="3"></i><b>3</b></td>
 <td>Returns a ModelAndView instance</td>
+</tr>
+</tbody></table>
+</div>
+<div class="paragraph">
+<p><a href="https://www.javadoc.io/doc/io.jooby/jooby/latest/io/jooby/ModelAndView.html" target="_blank">ModelAndView</a> allows you to specify the desired locale used for template rendering:</p>
+</div>
+<div class="listingblock primary">
+
+
+<div class="switch"><div class="switch--item selected">Java</div><div class="switch--item">Kotlin</div></div><div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs">{
+  install(new MyTemplateEngineModule());
+
+  get("/", ctx -&gt; {
+    Map&lt;String, Object&gt; model = ...;
+    return new ModelAndView("index.html", model)
+        .setLocale(Locale.GERMAN);                <i class="conum" data-value="1"></i><b>(1)</b>
+  });
+}</code><button class="clipboard">Copy</button></pre>
+</div><div class="content hidden">
+<pre class="highlightjs highlight"><code class="language-kt hljs">{
+  install(MyTemplateEngineModule())
+
+  get("/") { ctx -&gt;
+    val model = mapOf(...)
+    ModelAndView("index.html", model)
+        .setLocale(Locale.GERMAN)                <i class="conum" data-value="1"></i><b>(1)</b>
+  }
+}</code><button class="clipboard">Copy</button></pre>
+</div></div>
+
+<div class="colist arabic">
+<table>
+<tbody><tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Set the preferred locale</td>
+</tr>
+</tbody></table>
+</div>
+<div class="paragraph">
+<p>If no locale is specified explicitly, a locale matched by the <code>Accept-Language</code> header of the current
+request is used.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tbody><tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Not all template engines support setting and using a specific locale. If you use such a template
+engine, the above configuration does not have any effect.</p>
+</div>
+</td>
 </tr>
 </tbody></table>
 </div>
@@ -9815,10 +9967,10 @@ the logging framework to configure without taking care the environment setup.</p
 <pre class="highlightjs highlight"><code class="language-xml hljs">&lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
   &lt;artifactId&gt;jooby-test&lt;/artifactId&gt;
-  &lt;version&gt;2.9.0&lt;/version&gt;
+  &lt;version&gt;2.9.1&lt;/version&gt;
 &lt;/dependency&gt;</code><button class="clipboard">Copy</button></pre>
 </div><div class="content hidden">
-<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'io.jooby:jooby-test:2.9.0'</code><button class="clipboard">Copy</button></pre>
+<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'io.jooby:jooby-test:2.9.1'</code><button class="clipboard">Copy</button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -10076,10 +10228,10 @@ you can set HTTP parameters, body, headers, etc.</p>
 <pre class="highlightjs highlight"><code class="language-xml hljs">&lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
   &lt;artifactId&gt;jooby-test&lt;/artifactId&gt;
-  &lt;version&gt;2.9.0&lt;/version&gt;
+  &lt;version&gt;2.9.1&lt;/version&gt;
 &lt;/dependency&gt;</code><button class="clipboard">Copy</button></pre>
 </div><div class="content hidden">
-<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'io.jooby:jooby-test:2.9.0'</code><button class="clipboard">Copy</button></pre>
+<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'io.jooby:jooby-test:2.9.1'</code><button class="clipboard">Copy</button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -10373,7 +10525,7 @@ that effectively reload application classes.</p>
   &lt;plugin&gt;
     &lt;groupId&gt;io.jooby&lt;/groupId&gt;
     &lt;artifactId&gt;jooby-maven-plugin&lt;/artifactId&gt;
-    &lt;version&gt;2.9.0&lt;/version&gt;
+    &lt;version&gt;2.9.1&lt;/version&gt;
   &lt;/plugin&gt;
   ...
 &lt;/plugins&gt;</code><button class="clipboard">Copy</button></pre>
@@ -10385,7 +10537,7 @@ that effectively reload application classes.</p>
   }
 
   dependencies {
-    classpath "io.jooby:jooby-gradle-plugin:2.9.0"
+    classpath "io.jooby:jooby-gradle-plugin:2.9.1"
   }
 }
 
@@ -10455,7 +10607,7 @@ project directory, when found plugin compiler is OFF and let Eclipse compiles th
   &lt;plugin&gt;
     &lt;groupId&gt;io.jooby&lt;/groupId&gt;
     &lt;artifactId&gt;jooby-maven-plugin&lt;/artifactId&gt;
-    &lt;version&gt;2.9.0&lt;/version&gt;
+    &lt;version&gt;2.9.1&lt;/version&gt;
     &lt;configuration&gt;
       &lt;mainClass&gt;${application.class}&lt;/mainClass&gt;                  <i class="conum" data-value="1"></i><b>(1)</b>
       &lt;restartExtensions&gt;conf,properties,class&lt;/restartExtensions&gt; <i class="conum" data-value="2"></i><b>(2)</b>
@@ -10473,7 +10625,7 @@ project directory, when found plugin compiler is OFF and let Eclipse compiles th
   }
 
   dependencies {
-    classpath "io.jooby:jooby-gradle-plugin:2.9.0"
+    classpath "io.jooby:jooby-gradle-plugin:2.9.1"
   }
 }
 
@@ -10687,7 +10839,7 @@ symlink_java: true</code><button class="clipboard">Copy</button></pre>
         &lt;extensions&gt;true&lt;/extensions&gt;
         &lt;configuration&gt;
           &lt;tiles&gt;
-            &lt;tile&gt;io.jooby:jooby-stork:2.9.0&lt;/tile&gt;
+            &lt;tile&gt;io.jooby:jooby-stork:2.9.1&lt;/tile&gt;
           &lt;/tiles&gt;
         &lt;/configuration&gt;
     &lt;/plugin&gt;
@@ -10736,10 +10888,10 @@ symlink_java: true</code><button class="clipboard">Copy</button></pre>
 <pre class="highlightjs highlight"><code class="language-xml hljs">&lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
   &lt;artifactId&gt;jooby-jetty&lt;/artifactId&gt;
-  &lt;version&gt;2.9.0&lt;/version&gt;
+  &lt;version&gt;2.9.1&lt;/version&gt;
 &lt;/dependency&gt;</code><button class="clipboard">Copy</button></pre>
 </div><div class="content hidden">
-<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'io.jooby:jooby-jetty:2.9.0'</code><button class="clipboard">Copy</button></pre>
+<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'io.jooby:jooby-jetty:2.9.1'</code><button class="clipboard">Copy</button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -10752,10 +10904,10 @@ symlink_java: true</code><button class="clipboard">Copy</button></pre>
 <pre class="highlightjs highlight"><code class="language-xml hljs">&lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
   &lt;artifactId&gt;jooby-netty&lt;/artifactId&gt;
-  &lt;version&gt;2.9.0&lt;/version&gt;
+  &lt;version&gt;2.9.1&lt;/version&gt;
 &lt;/dependency&gt;</code><button class="clipboard">Copy</button></pre>
 </div><div class="content hidden">
-<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'io.jooby:jooby-netty:2.9.0'</code><button class="clipboard">Copy</button></pre>
+<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'io.jooby:jooby-netty:2.9.1'</code><button class="clipboard">Copy</button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -10768,10 +10920,10 @@ symlink_java: true</code><button class="clipboard">Copy</button></pre>
 <pre class="highlightjs highlight"><code class="language-xml hljs">&lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
   &lt;artifactId&gt;jooby-utow&lt;/artifactId&gt;
-  &lt;version&gt;2.9.0&lt;/version&gt;
+  &lt;version&gt;2.9.1&lt;/version&gt;
 &lt;/dependency&gt;</code><button class="clipboard">Copy</button></pre>
 </div><div class="content hidden">
-<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'io.jooby:jooby-utow:2.9.0'</code><button class="clipboard">Copy</button></pre>
+<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'io.jooby:jooby-utow:2.9.1'</code><button class="clipboard">Copy</button></pre>
 </div></div>
 
 <div class="admonitionblock important">
@@ -11482,10 +11634,10 @@ fun main(args: Array&lt;String&gt;) {
 <pre class="highlightjs highlight"><code class="language-xml hljs">&lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
   &lt;artifactId&gt;jooby-guice&lt;/artifactId&gt;
-  &lt;version&gt;2.9.0&lt;/version&gt;
+  &lt;version&gt;2.9.1&lt;/version&gt;
 &lt;/dependency&gt;</code><button class="clipboard">Copy</button></pre>
 </div><div class="content hidden">
-<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'io.jooby:jooby-guice:2.9.0'</code><button class="clipboard">Copy</button></pre>
+<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'io.jooby:jooby-guice:2.9.1'</code><button class="clipboard">Copy</button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -11650,10 +11802,10 @@ fun main(args: Array&lt;String&gt;) {
 <pre class="highlightjs highlight"><code class="language-xml hljs">&lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
   &lt;artifactId&gt;jooby-spring&lt;/artifactId&gt;
-  &lt;version&gt;2.9.0&lt;/version&gt;
+  &lt;version&gt;2.9.1&lt;/version&gt;
 &lt;/dependency&gt;</code><button class="clipboard">Copy</button></pre>
 </div><div class="content hidden">
-<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'io.jooby:jooby-spring:2.9.0'</code><button class="clipboard">Copy</button></pre>
+<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'io.jooby:jooby-spring:2.9.1'</code><button class="clipboard">Copy</button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -11819,10 +11971,10 @@ class Hello {
 <pre class="highlightjs highlight"><code class="language-xml hljs">&lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
   &lt;artifactId&gt;jooby-weld&lt;/artifactId&gt;
-  &lt;version&gt;2.9.0&lt;/version&gt;
+  &lt;version&gt;2.9.1&lt;/version&gt;
 &lt;/dependency&gt;</code><button class="clipboard">Copy</button></pre>
 </div><div class="content hidden">
-<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'io.jooby:jooby-weld:2.9.0'</code><button class="clipboard">Copy</button></pre>
+<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'io.jooby:jooby-weld:2.9.1'</code><button class="clipboard">Copy</button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -11988,7 +12140,7 @@ configuration properties.</p>
 <div class="ulist">
 <ul>
 <li>
-<p><a href="modules/aws">AWS</a>: Amazon Web Service module.</p>
+<p><a href="/modules/aws">AWS</a>: Amazon Web Service module.</p>
 </li>
 </ul>
 </div>
@@ -11998,25 +12150,25 @@ configuration properties.</p>
 <div class="ulist">
 <ul>
 <li>
-<p><a href="modules/ebean">Ebean</a>: Ebean ORM module.</p>
+<p><a href="/modules/ebean">Ebean</a>: Ebean ORM module.</p>
 </li>
 <li>
-<p><a href="modules/flyway">Flyway</a>: Flyway migration module.</p>
+<p><a href="/modules/flyway">Flyway</a>: Flyway migration module.</p>
 </li>
 <li>
-<p><a href="modules/graphql">GraphQL</a>: GraphQL Java module.</p>
+<p><a href="/modules/graphql">GraphQL</a>: GraphQL Java module.</p>
 </li>
 <li>
-<p><a href="modules/hikari">HikariCP</a>: A high-performance JDBC connection pool.</p>
+<p><a href="/modules/hikari">HikariCP</a>: A high-performance JDBC connection pool.</p>
 </li>
 <li>
-<p><a href="modules/hibernate">Hibernate</a>: Hibernate ORM module.</p>
+<p><a href="/modules/hibernate">Hibernate</a>: Hibernate ORM module.</p>
 </li>
 <li>
-<p><a href="modules/jdbi">Jdbi</a>: Jdbi module.</p>
+<p><a href="/modules/jdbi">Jdbi</a>: Jdbi module.</p>
 </li>
 <li>
-<p><a href="modules/redis">Redis</a>: Redis module.</p>
+<p><a href="/modules/redis">Redis</a>: Redis module.</p>
 </li>
 </ul>
 </div>
@@ -12029,13 +12181,13 @@ configuration properties.</p>
 <p><a href="#hot-reload">Jooby Run</a>: Run and hot reload your application.</p>
 </li>
 <li>
-<p><a href="modules/node">Node</a>: Download, Install and Run node locally.</p>
+<p><a href="/modules/node">Node</a>: Download, Install and Run node locally.</p>
 </li>
 <li>
-<p><a href="modules/whoops">Whoops</a>: Pretty page stacktrace reporter.</p>
+<p><a href="/modules/whoops">Whoops</a>: Pretty page stacktrace reporter.</p>
 </li>
 <li>
-<p><a href="modules/metrics">Metrics</a>: Application metrics from the excellent metrics library.</p>
+<p><a href="/modules/metrics">Metrics</a>: Application metrics from the excellent metrics library.</p>
 </li>
 </ul>
 </div>
@@ -12045,10 +12197,10 @@ configuration properties.</p>
 <div class="ulist">
 <ul>
 <li>
-<p><a href="modules/gson">Gson</a>: Gson module for Jooby.</p>
+<p><a href="/modules/gson">Gson</a>: Gson module for Jooby.</p>
 </li>
 <li>
-<p><a href="modules/jackson">Jackson</a>: Jackson module for Jooby.</p>
+<p><a href="/modules/jackson">Jackson</a>: Jackson module for Jooby.</p>
 </li>
 </ul>
 </div>
@@ -12058,7 +12210,7 @@ configuration properties.</p>
 <div class="ulist">
 <ul>
 <li>
-<p><a href="modules/openapi">OpenAPI</a>: OpenAPI supports.</p>
+<p><a href="/modules/openapi">OpenAPI</a>: OpenAPI supports.</p>
 </li>
 </ul>
 </div>
@@ -12068,19 +12220,19 @@ configuration properties.</p>
 <div class="ulist">
 <ul>
 <li>
-<p><a href="modules/handlebars">Handlebars</a>: Handlebars template engine.</p>
+<p><a href="/modules/handlebars">Handlebars</a>: Handlebars template engine.</p>
 </li>
 <li>
-<p><a href="modules/freemarker">Freemarker</a>: Freemarker template engine.</p>
+<p><a href="/modules/freemarker">Freemarker</a>: Freemarker template engine.</p>
 </li>
 <li>
-<p><a href="modules/pebble">Pebble</a>: Pebble template engine.</p>
+<p><a href="/modules/pebble">Pebble</a>: Pebble template engine.</p>
 </li>
 <li>
-<p><a href="modules/rocker">Rocker</a>: Rocker template engine.</p>
+<p><a href="/modules/rocker">Rocker</a>: Rocker template engine.</p>
 </li>
 <li>
-<p><a href="modules/thymeleaf">Thymeleaf</a>: Thymeleaf template engine.</p>
+<p><a href="/modules/thymeleaf">Thymeleaf</a>: Thymeleaf template engine.</p>
 </li>
 </ul>
 </div>
@@ -12090,7 +12242,7 @@ configuration properties.</p>
 <div class="ulist">
 <ul>
 <li>
-<p><a href="modules/pac4j">Pac4j</a>: Security engine module.</p>
+<p><a href="/modules/pac4j">Pac4j</a>: Security engine module.</p>
 </li>
 </ul>
 </div>
@@ -12100,13 +12252,13 @@ configuration properties.</p>
 <div class="ulist">
 <ul>
 <li>
-<p><a href="modules/caffeine">Caffeine</a>: In-memory session store using Caffeine cache.</p>
+<p><a href="/modules/caffeine">Caffeine</a>: In-memory session store using Caffeine cache.</p>
 </li>
 <li>
-<p><a href="modules/jwt-session-store">JWT</a>: JSON Web Token session store.</p>
+<p><a href="/modules/jwt-session-store">JWT</a>: JSON Web Token session store.</p>
 </li>
 <li>
-<p><a href="modules/redis#redis-http-session">Redis</a>: Save session data on redis.</p>
+<p><a href="/modules/redis#redis-http-session">Redis</a>: Save session data on redis.</p>
 </li>
 </ul>
 </div>
@@ -12116,7 +12268,7 @@ configuration properties.</p>
 <div class="ulist">
 <ul>
 <li>
-<p><a href="modules/quartz">Quartz</a>: Quartz scheduler module.</p>
+<p><a href="/modules/quartz">Quartz</a>: Quartz scheduler module.</p>
 </li>
 </ul>
 </div>
