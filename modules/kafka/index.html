@@ -8,7 +8,7 @@
 <meta name="description" content="The modular micro web framework for Java">
 <meta name="keywords" content="Java, Modern, Micro, Web, Framework, Reactive, Lightweight, Microservices">
 <link rel="icon" type="image/png" href="../../images/favicon96.png">
-<title>jooby: metrics module</title>
+<title>jooby: kafka module</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /* Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -514,16 +514,9 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#metrics">1. Metrics</a>
+<li><a href="#kafka">1. Kafka</a>
 <ul class="sectlevel2">
 <li><a href="#usage">1.1. Usage</a></li>
-<li><a href="#metrics-2">1.2. Metrics</a></li>
-<li><a href="#health-checks">1.3. Health Checks</a></li>
-<li><a href="#instrumented-requests">1.4. Instrumented Requests</a></li>
-<li><a href="#thread-dump">1.5. Thread Dump</a></li>
-<li><a href="#reporting">1.6. Reporting</a></li>
-<li><a href="#using-with-jooby-hikari">1.7. Using with jooby-hikari</a></li>
-<li><a href="#alternate-routes">1.8. Alternate Routes</a></li>
 </ul>
 </li>
 </ul>
@@ -531,14 +524,13 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div id="content">
 <div class="sect1">
-<h2 id="metrics"><a class="anchor" href="#metrics"></a><a class="link" href="#metrics">1. Metrics</a></h2>
+<h2 id="kafka"><a class="anchor" href="#kafka"></a><a class="link" href="#kafka">1. Kafka</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><a href="https://github.com/dropwizard/metrics" target="_blank">Metrics</a> provides a powerful toolkit of ways to measure the behavior of critical
-components in your production environment.</p>
+<p>Kafka module for <a href="https://kafka.apache.org/documentation" class="bare" target="_blank">https://kafka.apache.org/documentation</a></p>
 </div>
 <div class="sect2">
-<h3 id="metrics-usage"><a class="anchor" href="#metrics-usage"></a><a class="link" href="#metrics-usage">1.1. Usage</a></h3>
+<h3 id="kafka-usage"><a class="anchor" href="#kafka-usage"></a><a class="link" href="#kafka-usage">1.1. Usage</a></h3>
 <div class="paragraph">
 <p>1) Add the dependency:</p>
 </div>
@@ -546,246 +538,101 @@ components in your production environment.</p>
 
 
 <div class="switch"><div class="switch--item selected">Maven</div><div class="switch--item">Gradle</div></div><div class="content">
-<pre class="highlightjs highlight"><code class="language-xml hljs">&lt;!-- Metrics Module--&gt;
-&lt;dependency&gt;
+<pre class="highlightjs highlight"><code class="language-xml hljs">&lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
-  &lt;artifactId&gt;jooby-metrics&lt;/artifactId&gt;
+  &lt;artifactId&gt;jooby-kafka&lt;/artifactId&gt;
   &lt;version&gt;2.9.3&lt;/version&gt;
 &lt;/dependency&gt;</code><button class="clipboard">Copy</button></pre>
 </div><div class="content hidden">
-<pre class="highlightjs highlight"><code class="language-javascript hljs">// Metrics Module
-implementation 'io.jooby:jooby-metrics:2.9.3'</code><button class="clipboard">Copy</button></pre>
+<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'io.jooby:jooby-kafka:2.9.3'</code><button class="clipboard">Copy</button></pre>
 </div></div>
 
 <div class="paragraph">
-<p>2) Install and configure the module</p>
+<p>2) Setup properties:</p>
+</div>
+<div class="listingblock">
+<div class="title">application.conf</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-properties hljs">kafka.producer.bootstrap.servers = "localhost:9092"
+kafka.producer.key.serializer = "org.apache.kafka.common.serialization.StringSerializer"
+kafka.producer.value.serializer = "org.apache.kafka.common.serialization.StringSerializer"
+
+kafka.consumer.bootstrap.servers = "localhost:9092"
+kafka.consumer.key.deserializer = "org.apache.kafka.common.serialization.StringDeserializer"
+kafka.consumer.value.deserializer = "org.apache.kafka.common.serialization.StringDeserializer"</code><button class="clipboard">Copy</button></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>3) Install</p>
 </div>
 <div class="listingblock primary">
 
 
 <div class="switch"><div class="switch--item selected">Java</div><div class="switch--item">Kotlin</div></div><div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs">{
-  install(new MetricsModule()
-      .threadDump()
-      .ping()
-      .healthCheck("deadlock", new ThreadDeadlockHealthCheck())
-      .metric("memory", new MemoryUsageGaugeSet())
-      .metric("threads", new ThreadStatesGaugeSet())
-      .metric("gc", new GarbageCollectorMetricSet())
-      .metric("fs", new FileDescriptorRatioGauge()));
+<pre class="highlightjs highlight"><code class="language-java hljs">import io.jooby.kafka.KafkaModule;
+
+{
+  install(new KafkaModule());                              <i class="conum" data-value="1"></i><b>(1)</b>
+
+  get("/", ctx -&gt; {
+    KafkaProducer producer = require(KafkaProducer.class); <i class="conum" data-value="2"></i><b>(2)</b>
+    // work with producer
+
+    KafkaConsumer consumer = require(KafkaConsumer.class); <i class="conum" data-value="3"></i><b>(3)</b>
+    // work with consumer
+
+    ...
+  });
 }</code><button class="clipboard">Copy</button></pre>
 </div><div class="content hidden">
-<pre class="highlightjs highlight"><code class="language-kt hljs">{
-  install(MetricsModule()
-      .threadDump()
-      .ping()
-      .healthCheck("deadlock", ThreadDeadlockHealthCheck())
-      .metric("memory", MemoryUsageGaugeSet())
-      .metric("threads", ThreadStatesGaugeSet())
-      .metric("gc", GarbageCollectorMetricSet())
-      .metric("fs", FileDescriptorRatioGauge()))
+<pre class="highlightjs highlight"><code class="language-kt hljs">import io.jooby.kafka.KafkaModule
+
+{
+  install(KafkaModule())                                   <i class="conum" data-value="1"></i><b>(1)</b>
+
+  get("/") {
+    val producer = require(KafkaProducer::class);          <i class="conum" data-value="2"></i><b>(2)</b>
+    // work with producer
+
+    val consumer = require(KafkaConsumer::class);          <i class="conum" data-value="3"></i><b>(3)</b>
+    // work with consumer
+    ...
+  }
 }</code><button class="clipboard">Copy</button></pre>
 </div></div>
 
-<div class="paragraph">
-<p>Let’s see what all these means.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="metrics"><a class="anchor" href="#metrics"></a><a class="link" href="#metrics">1.2. Metrics</a></h3>
-<div class="paragraph">
-<p>Metrics are available at <code>/sys/metrics</code> or <code>/sys/metrics/:type</code> via:</p>
-</div>
-<div class="listingblock primary">
-
-
-<div class="switch"><div class="switch--item selected">Java</div><div class="switch--item">Kotlin</div></div><div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs">{
-  install(new MetricsModule()
-      .metric("memory", new MemoryUsageGaugeSet())
-      .metric("threads", new ThreadStatesGaugeSet())
-      .metric("gc", new GarbageCollectorMetricSet())
-      .metric("fs", new FileDescriptorRatioGauge()));
-}</code><button class="clipboard">Copy</button></pre>
-</div><div class="content hidden">
-<pre class="highlightjs highlight"><code class="language-kt hljs">{
-  install(MetricsModule()
-      .metric("memory", MemoryUsageGaugeSet())
-      .metric("threads", ThreadStatesGaugeSet())
-      .metric("gc", GarbageCollectorMetricSet())
-      .metric("fs", FileDescriptorRatioGauge()))
-}</code><button class="clipboard">Copy</button></pre>
-</div></div>
-
-<div class="paragraph">
-<p>The <code>/:type</code> parameter is optional and let you filter metrics by type <code>counters</code>, <code>gauges</code>, etc.</p>
+<div class="colist arabic">
+<table>
+<tbody><tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Install module</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Use KafkaProducer</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Use KafkaConsumer</td>
+</tr>
+</tbody></table>
 </div>
 <div class="paragraph">
-<p>There is a <code>name</code> filter too: <code>/sys/metrics?name=memory</code> or <code>/sys/metrics/guages?name=memory</code>. The <code>name</code> parameter
-filter all the metrics where the name starts with the given <code>name</code>.</p>
+<p>Optionally, you can install just a consumer:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>install(new KafkaConsumerModule());</pre>
 </div>
 </div>
-<div class="sect2">
-<h3 id="metrics-health-checks"><a class="anchor" href="#metrics-health-checks"></a><a class="link" href="#metrics-health-checks">1.3. Health Checks</a></h3>
 <div class="paragraph">
-<p>Health checks are available at <code>/sys/healthCheck</code> via:</p>
+<p>Or producer:</p>
 </div>
-<div class="listingblock primary">
-
-
-<div class="switch"><div class="switch--item selected">Java</div><div class="switch--item">Kotlin</div></div><div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs">{
-  install(new MetricsModule()
-      .healthCheck("deadlock", new ThreadDeadlockHealthCheck());
-}</code><button class="clipboard">Copy</button></pre>
-</div><div class="content hidden">
-<pre class="highlightjs highlight"><code class="language-kt hljs">{
-  install(MetricsModule()
-      .healthCheck("deadlock", ThreadDeadlockHealthCheck())
-}</code><button class="clipboard">Copy</button></pre>
-</div></div>
-
-</div>
-<div class="sect2">
-<h3 id="metrics-instrumented-requests"><a class="anchor" href="#metrics-instrumented-requests"></a><a class="link" href="#metrics-instrumented-requests">1.4. Instrumented Requests</a></h3>
-<div class="paragraph">
-<p>Use the <a href="https://www.javadoc.io/doc/io.jooby/jooby/latest/io/jooby/io/jooby/metrics/MetricsDecorator.html" target="_blank">MetricsDecorator</a> decorator to capture request information (like active requests
-or min/mean/max execution time) and a breakdown of the response codes being returned for a selection of routes:</p>
-</div>
-<div class="listingblock primary">
-
-
-<div class="switch"><div class="switch--item selected">Java</div><div class="switch--item">Kotlin</div></div><div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs">{
-  decorator(new MetricsDecorator());
-
-  // inspected route
-  get("/", context -&gt; "Hello metrics!");
-}</code><button class="clipboard">Copy</button></pre>
-</div><div class="content hidden">
-<pre class="highlightjs highlight"><code class="language-kt hljs">{
-  decorator(MetricsDecorator())
-
-  // inspected route
-  get("/") { context: Context? -&gt; "Hello metrics!" }
-}</code><button class="clipboard">Copy</button></pre>
-</div></div>
-
-</div>
-<div class="sect2">
-<h3 id="metrics-thread-dump"><a class="anchor" href="#metrics-thread-dump"></a><a class="link" href="#metrics-thread-dump">1.5. Thread Dump</a></h3>
-<div class="paragraph">
-<p>A thread dump is available at <code>/sys/threadDump</code> via:</p>
-</div>
-<div class="listingblock primary">
-
-
-<div class="switch"><div class="switch--item selected">Java</div><div class="switch--item">Kotlin</div></div><div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs">{
-  install(new MetricsModule()
-      .threadDump();
-}</code><button class="clipboard">Copy</button></pre>
-</div><div class="content hidden">
-<pre class="highlightjs highlight"><code class="language-kt hljs">{
-  install(MetricsModule()
-      .threadDump()
-}</code><button class="clipboard">Copy</button></pre>
-</div></div>
-
-</div>
-<div class="sect2">
-<h3 id="metrics-reporting"><a class="anchor" href="#metrics-reporting"></a><a class="link" href="#metrics-reporting">1.6. Reporting</a></h3>
-<div class="paragraph">
-<p>Reporters are appended via a callback API:</p>
-</div>
-<div class="listingblock primary">
-
-
-<div class="switch"><div class="switch--item selected">Java</div><div class="switch--item">Kotlin</div></div><div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs">{
-  install(new MetricsModule()
-      .reporter(registry -&gt; {
-        ConsoleReporter reporter = ConsoleReporter.forRegistry(registry)
-            .convertDurationsTo(TimeUnit.SECONDS)
-            .convertRatesTo(TimeUnit.SECONDS)
-            .build();
-        reporter.start(1, TimeUnit.HOURS);
-        return reporter;
-      });
-}</code><button class="clipboard">Copy</button></pre>
-</div><div class="content hidden">
-<pre class="highlightjs highlight"><code class="language-kt hljs">{
-  install(MetricsModule()
-      .reporter { registry: MetricRegistry -&gt;
-        ConsoleReporter.forRegistry(registry)
-            .convertDurationsTo(TimeUnit.SECONDS)
-            .convertRatesTo(TimeUnit.SECONDS)
-            .build()
-            .also { it.start(1, TimeUnit.HOURS) }
-      }
-}</code><button class="clipboard">Copy</button></pre>
-</div></div>
-
-<div class="paragraph">
-<p>You can add all the reporters you want. Keep in mind you have to start them (if need it), but you don’t have to stop
-them as long they implement the <code>java.io.Closeable</code> interface.</p>
+<div class="literalblock">
+<div class="content">
+<pre>install(new KafkaProducerModule());</pre>
 </div>
 </div>
-<div class="sect2">
-<h3 id="metrics-using-with-jooby-hikari"><a class="anchor" href="#metrics-using-with-jooby-hikari"></a><a class="link" href="#metrics-using-with-jooby-hikari">1.7. Using with jooby-hikari</a></h3>
-<div class="paragraph">
-<p>You can instrument the database pool by passing <code>MetricRegistry</code> and <code>HealthCheckRegistry</code> instances to the configuration
-methods of <code>HikariModule</code>, but you must use the same instances with <code>MetricsModule</code>:</p>
-</div>
-<div class="listingblock primary">
-
-
-<div class="switch"><div class="switch--item selected">Java</div><div class="switch--item">Kotlin</div></div><div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs">{
-  MetricRegistry metricRegistry = new MetricRegistry();
-  HealthCheckRegistry healthCheckRegistry = new HealthCheckRegistry();
-
-  install(new HikariModule()
-      .metricRegistry(metricRegistry)
-      .healthCheckRegistry(healthCheckRegistry));
-
-  install(new MetricsModule(metricRegistry, healthCheckRegistry));
-}</code><button class="clipboard">Copy</button></pre>
-</div><div class="content hidden">
-<pre class="highlightjs highlight"><code class="language-kt hljs">{
-  val metricRegistry = MetricRegistry()
-  val healthCheckRegistry = HealthCheckRegistry()
-
-  install(HikariModule()
-      .metricRegistry(metricRegistry)
-      .healthCheckRegistry(healthCheckRegistry))
-
-  install(MetricsModule(metricRegistry, healthCheckRegistry)
-}</code><button class="clipboard">Copy</button></pre>
-</div></div>
-
-</div>
-<div class="sect2">
-<h3 id="metrics-alternate-routes"><a class="anchor" href="#metrics-alternate-routes"></a><a class="link" href="#metrics-alternate-routes">1.8. Alternate Routes</a></h3>
-<div class="paragraph">
-<p>Use constructor overloads of <code>MetricsModule</code> to change the default <code>/sys</code> prefix of the routes registered
-by the module:</p>
-</div>
-<div class="listingblock primary">
-
-
-<div class="switch"><div class="switch--item selected">Java</div><div class="switch--item">Kotlin</div></div><div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs">{
-  install(new MetricsModule("/diag")
-      .threadDump();
-}</code><button class="clipboard">Copy</button></pre>
-</div><div class="content hidden">
-<pre class="highlightjs highlight"><code class="language-kt hljs">{
-  install(MetricsModule("/diag")
-      .threadDump()
-}</code><button class="clipboard">Copy</button></pre>
-</div></div>
-
 </div>
 </div>
 </div>
