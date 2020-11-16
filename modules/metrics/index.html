@@ -545,14 +545,14 @@ components in your production environment.</p>
 <div class="listingblock primary">
 
 
-<div class="switch"><div class="switch--item selected">Maven</div><div class="switch--item">Gradle</div></div><div class="content">
+<div class="switch"><div class="switch--item option-1 selected">Maven</div><div class="switch--item option-2">Gradle</div></div><div class="content option-1">
 <pre class="highlightjs highlight"><code class="language-xml hljs">&lt;!-- Metrics Module--&gt;
 &lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
   &lt;artifactId&gt;jooby-metrics&lt;/artifactId&gt;
   &lt;version&gt;2.9.3&lt;/version&gt;
 &lt;/dependency&gt;</code><button class="clipboard">Copy</button></pre>
-</div><div class="content hidden">
+</div><div class="content hidden option-2">
 <pre class="highlightjs highlight"><code class="language-javascript hljs">// Metrics Module
 implementation 'io.jooby:jooby-metrics:2.9.3'</code><button class="clipboard">Copy</button></pre>
 </div></div>
@@ -563,7 +563,7 @@ implementation 'io.jooby:jooby-metrics:2.9.3'</code><button class="clipboard">Co
 <div class="listingblock primary">
 
 
-<div class="switch"><div class="switch--item selected">Java</div><div class="switch--item">Kotlin</div></div><div class="content">
+<div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
 <pre class="highlightjs highlight"><code class="language-java hljs">{
   install(new MetricsModule()
       .threadDump()
@@ -574,7 +574,7 @@ implementation 'io.jooby:jooby-metrics:2.9.3'</code><button class="clipboard">Co
       .metric("gc", new GarbageCollectorMetricSet())
       .metric("fs", new FileDescriptorRatioGauge()));
 }</code><button class="clipboard">Copy</button></pre>
-</div><div class="content hidden">
+</div><div class="content hidden option-2">
 <pre class="highlightjs highlight"><code class="language-kt hljs">{
   install(MetricsModule()
       .threadDump()
@@ -599,7 +599,7 @@ implementation 'io.jooby:jooby-metrics:2.9.3'</code><button class="clipboard">Co
 <div class="listingblock primary">
 
 
-<div class="switch"><div class="switch--item selected">Java</div><div class="switch--item">Kotlin</div></div><div class="content">
+<div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
 <pre class="highlightjs highlight"><code class="language-java hljs">{
   install(new MetricsModule()
       .metric("memory", new MemoryUsageGaugeSet())
@@ -607,7 +607,7 @@ implementation 'io.jooby:jooby-metrics:2.9.3'</code><button class="clipboard">Co
       .metric("gc", new GarbageCollectorMetricSet())
       .metric("fs", new FileDescriptorRatioGauge()));
 }</code><button class="clipboard">Copy</button></pre>
-</div><div class="content hidden">
+</div><div class="content hidden option-2">
 <pre class="highlightjs highlight"><code class="language-kt hljs">{
   install(MetricsModule()
       .metric("memory", MemoryUsageGaugeSet())
@@ -633,12 +633,12 @@ filter all the metrics where the name starts with the given <code>name</code>.</
 <div class="listingblock primary">
 
 
-<div class="switch"><div class="switch--item selected">Java</div><div class="switch--item">Kotlin</div></div><div class="content">
+<div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
 <pre class="highlightjs highlight"><code class="language-java hljs">{
   install(new MetricsModule()
       .healthCheck("deadlock", new ThreadDeadlockHealthCheck());
 }</code><button class="clipboard">Copy</button></pre>
-</div><div class="content hidden">
+</div><div class="content hidden option-2">
 <pre class="highlightjs highlight"><code class="language-kt hljs">{
   install(MetricsModule()
       .healthCheck("deadlock", ThreadDeadlockHealthCheck())
@@ -655,14 +655,14 @@ or min/mean/max execution time) and a breakdown of the response codes being retu
 <div class="listingblock primary">
 
 
-<div class="switch"><div class="switch--item selected">Java</div><div class="switch--item">Kotlin</div></div><div class="content">
+<div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
 <pre class="highlightjs highlight"><code class="language-java hljs">{
   decorator(new MetricsDecorator());
 
   // inspected route
   get("/", context -&gt; "Hello metrics!");
 }</code><button class="clipboard">Copy</button></pre>
-</div><div class="content hidden">
+</div><div class="content hidden option-2">
 <pre class="highlightjs highlight"><code class="language-kt hljs">{
   decorator(MetricsDecorator())
 
@@ -680,12 +680,12 @@ or min/mean/max execution time) and a breakdown of the response codes being retu
 <div class="listingblock primary">
 
 
-<div class="switch"><div class="switch--item selected">Java</div><div class="switch--item">Kotlin</div></div><div class="content">
+<div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
 <pre class="highlightjs highlight"><code class="language-java hljs">{
   install(new MetricsModule()
       .threadDump();
 }</code><button class="clipboard">Copy</button></pre>
-</div><div class="content hidden">
+</div><div class="content hidden option-2">
 <pre class="highlightjs highlight"><code class="language-kt hljs">{
   install(MetricsModule()
       .threadDump()
@@ -701,7 +701,7 @@ or min/mean/max execution time) and a breakdown of the response codes being retu
 <div class="listingblock primary">
 
 
-<div class="switch"><div class="switch--item selected">Java</div><div class="switch--item">Kotlin</div></div><div class="content">
+<div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
 <pre class="highlightjs highlight"><code class="language-java hljs">{
   install(new MetricsModule()
       .reporter(registry -&gt; {
@@ -713,7 +713,7 @@ or min/mean/max execution time) and a breakdown of the response codes being retu
         return reporter;
       });
 }</code><button class="clipboard">Copy</button></pre>
-</div><div class="content hidden">
+</div><div class="content hidden option-2">
 <pre class="highlightjs highlight"><code class="language-kt hljs">{
   install(MetricsModule()
       .reporter { registry: MetricRegistry -&gt;
@@ -740,7 +740,7 @@ methods of <code>HikariModule</code>, but you must use the same instances with <
 <div class="listingblock primary">
 
 
-<div class="switch"><div class="switch--item selected">Java</div><div class="switch--item">Kotlin</div></div><div class="content">
+<div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
 <pre class="highlightjs highlight"><code class="language-java hljs">{
   MetricRegistry metricRegistry = new MetricRegistry();
   HealthCheckRegistry healthCheckRegistry = new HealthCheckRegistry();
@@ -751,7 +751,7 @@ methods of <code>HikariModule</code>, but you must use the same instances with <
 
   install(new MetricsModule(metricRegistry, healthCheckRegistry));
 }</code><button class="clipboard">Copy</button></pre>
-</div><div class="content hidden">
+</div><div class="content hidden option-2">
 <pre class="highlightjs highlight"><code class="language-kt hljs">{
   val metricRegistry = MetricRegistry()
   val healthCheckRegistry = HealthCheckRegistry()
@@ -774,12 +774,12 @@ by the module:</p>
 <div class="listingblock primary">
 
 
-<div class="switch"><div class="switch--item selected">Java</div><div class="switch--item">Kotlin</div></div><div class="content">
+<div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
 <pre class="highlightjs highlight"><code class="language-java hljs">{
   install(new MetricsModule("/diag")
       .threadDump();
 }</code><button class="clipboard">Copy</button></pre>
-</div><div class="content hidden">
+</div><div class="content hidden option-2">
 <pre class="highlightjs highlight"><code class="language-kt hljs">{
   install(MetricsModule("/diag")
       .threadDump()
@@ -797,16 +797,13 @@ by the module:</p>
 <script>
   $(function () {
     /** Tabs: */
-    $('.primary').each(function() {
-      var primary = $(this);
-      var content = primary.children('.content');
-      primary.children('.switch').children('.switch--item').on('click', function() {
-        var $this = $(this);
-        $this.addClass('selected');
-        $this.siblings().removeClass('selected');
-        content.addClass('hidden');
-        $(content[$this.index()]).removeClass('hidden');
-      });
+    $('.primary .switch .switch--item').on('click', function () {
+      const option = $(this)[0].className.match(/option-\d+/)[0].split('option-')[1];
+      $('.primary .switch .switch--item').removeClass('selected');
+      $(`.primary .content`).addClass('hidden');
+
+      $(`.primary .switch .switch--item.option-${option}`).addClass('selected');
+      $(`.primary .content.option-${option}`).removeClass('hidden');
     });
   });
 </script>

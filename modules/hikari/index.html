@@ -541,13 +541,13 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="listingblock primary">
 
 
-<div class="switch"><div class="switch--item selected">Maven</div><div class="switch--item">Gradle</div></div><div class="content">
+<div class="switch"><div class="switch--item option-1 selected">Maven</div><div class="switch--item option-2">Gradle</div></div><div class="content option-1">
 <pre class="highlightjs highlight"><code class="language-xml hljs">&lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
   &lt;artifactId&gt;jooby-hikari&lt;/artifactId&gt;
   &lt;version&gt;2.9.3&lt;/version&gt;
 &lt;/dependency&gt;</code><button class="clipboard">Copy</button></pre>
-</div><div class="content hidden">
+</div><div class="content hidden option-2">
 <pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'io.jooby:jooby-hikari:2.9.3'</code><button class="clipboard">Copy</button></pre>
 </div></div>
 
@@ -557,13 +557,13 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="listingblock primary">
 
 
-<div class="switch"><div class="switch--item selected">Maven</div><div class="switch--item">Gradle</div></div><div class="content">
+<div class="switch"><div class="switch--item option-1 selected">Maven</div><div class="switch--item option-2">Gradle</div></div><div class="content option-1">
 <pre class="highlightjs highlight"><code class="language-xml hljs">&lt;dependency&gt;
   &lt;groupId&gt;mysql&lt;/groupId&gt;
   &lt;artifactId&gt;mysql-connector-java&lt;/artifactId&gt;
   &lt;version&gt;8.0.22&lt;/version&gt;
 &lt;/dependency&gt;</code><button class="clipboard">Copy</button></pre>
-</div><div class="content hidden">
+</div><div class="content hidden option-2">
 <pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'mysql:mysql-connector-java:8.0.22'</code><button class="clipboard">Copy</button></pre>
 </div></div>
 
@@ -584,7 +584,7 @@ db.password = mypass</code><button class="clipboard">Copy</button></pre>
 <div class="listingblock primary">
 
 
-<div class="switch"><div class="switch--item selected">Java</div><div class="switch--item">Kotlin</div></div><div class="content">
+<div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
 <pre class="highlightjs highlight"><code class="language-java hljs">import io.jooby.hikari.HikariModule;
 
 {
@@ -595,7 +595,7 @@ db.password = mypass</code><button class="clipboard">Copy</button></pre>
     // work with data source
   });
 }</code><button class="clipboard">Copy</button></pre>
-</div><div class="content hidden">
+</div><div class="content hidden option-2">
 <pre class="highlightjs highlight"><code class="language-kt hljs">import io.jooby.hikari.HikariModule
 
 {
@@ -619,13 +619,13 @@ database prefix:</p>
 <div class="listingblock primary">
 <div class="title">Custom database prefix</div>
 
-<div class="switch"><div class="switch--item selected">Java</div><div class="switch--item">Kotlin</div></div><div class="content">
+<div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
 <pre class="highlightjs highlight"><code class="language-java hljs">import io.jooby.hikari.HikariModule;
 
 {
   install(new HikariModule("mydb"));
 }</code><button class="clipboard">Copy</button></pre>
-</div><div class="content hidden">
+</div><div class="content hidden option-2">
 <pre class="highlightjs highlight"><code class="language-kt hljs">import io.jooby.hikari.HikariModule
 
 {
@@ -639,13 +639,13 @@ database prefix:</p>
 <div class="listingblock primary">
 <div class="title">No properties</div>
 
-<div class="switch"><div class="switch--item selected">Java</div><div class="switch--item">Kotlin</div></div><div class="content">
+<div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
 <pre class="highlightjs highlight"><code class="language-java hljs">import io.jooby.hikari.HikariModule;
 
 {
   install(new HikariModule("jdbc:mysql://localhost/mydb"));
 }</code><button class="clipboard">Copy</button></pre>
-</div><div class="content hidden">
+</div><div class="content hidden option-2">
 <pre class="highlightjs highlight"><code class="language-kt hljs">import io.jooby.hikari.HikariModule
 
 {
@@ -693,7 +693,7 @@ auditdb.password = mypass</code><button class="clipboard">Copy</button></pre>
 <div class="listingblock primary">
 <div class="title">Multiple data sources</div>
 
-<div class="switch"><div class="switch--item selected">Java</div><div class="switch--item">Kotlin</div></div><div class="content">
+<div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
 <pre class="highlightjs highlight"><code class="language-java hljs">import io.jooby.hikari.HikariModule;
 
 {
@@ -708,7 +708,7 @@ auditdb.password = mypass</code><button class="clipboard">Copy</button></pre>
     // ...
   });
 }</code><button class="clipboard">Copy</button></pre>
-</div><div class="content hidden">
+</div><div class="content hidden option-2">
 <pre class="highlightjs highlight"><code class="language-kt hljs">import io.jooby.hikari.HikariModule
 
 {
@@ -769,16 +769,13 @@ auditdb.hikari.maximumPoolSize = 15</code><button class="clipboard">Copy</button
 <script>
   $(function () {
     /** Tabs: */
-    $('.primary').each(function() {
-      var primary = $(this);
-      var content = primary.children('.content');
-      primary.children('.switch').children('.switch--item').on('click', function() {
-        var $this = $(this);
-        $this.addClass('selected');
-        $this.siblings().removeClass('selected');
-        content.addClass('hidden');
-        $(content[$this.index()]).removeClass('hidden');
-      });
+    $('.primary .switch .switch--item').on('click', function () {
+      const option = $(this)[0].className.match(/option-\d+/)[0].split('option-')[1];
+      $('.primary .switch .switch--item').removeClass('selected');
+      $(`.primary .content`).addClass('hidden');
+
+      $(`.primary .switch .switch--item.option-${option}`).addClass('selected');
+      $(`.primary .content.option-${option}`).removeClass('hidden');
     });
   });
 </script>

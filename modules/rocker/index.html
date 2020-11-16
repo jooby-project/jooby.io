@@ -539,13 +539,13 @@ engine producing statically typed, plain java objects.</p>
 <div class="listingblock primary">
 
 
-<div class="switch"><div class="switch--item selected">Maven</div><div class="switch--item">Gradle</div></div><div class="content">
+<div class="switch"><div class="switch--item option-1 selected">Maven</div><div class="switch--item option-2">Gradle</div></div><div class="content option-1">
 <pre class="highlightjs highlight"><code class="language-xml hljs">&lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
   &lt;artifactId&gt;jooby-rocker&lt;/artifactId&gt;
   &lt;version&gt;2.9.3&lt;/version&gt;
 &lt;/dependency&gt;</code><button class="clipboard">Copy</button></pre>
-</div><div class="content hidden">
+</div><div class="content hidden option-2">
 <pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'io.jooby:jooby-rocker:2.9.3'</code><button class="clipboard">Copy</button></pre>
 </div></div>
 
@@ -555,7 +555,7 @@ engine producing statically typed, plain java objects.</p>
 <div class="listingblock primary">
 
 
-<div class="switch"><div class="switch--item selected">Maven</div><div class="switch--item">Gradle</div></div><div class="content">
+<div class="switch"><div class="switch--item option-1 selected">Maven</div><div class="switch--item option-2">Gradle</div></div><div class="content option-1">
 <pre class="highlightjs highlight"><code class="language-xml hljs">&lt;plugin&gt;
     &lt;groupId&gt;com.fizzed&lt;/groupId&gt;
     &lt;artifactId&gt;rocker-maven-plugin&lt;/artifactId&gt;
@@ -573,7 +573,7 @@ engine producing statically typed, plain java objects.</p>
         &lt;/execution&gt;
     &lt;/executions&gt;
 &lt;/plugin&gt;</code><button class="clipboard">Copy</button></pre>
-</div><div class="content hidden">
+</div><div class="content hidden option-2">
 <pre class="highlightjs highlight"><code class="language-groovy hljs">plugins {
   id "com.fizzed.rocker" version "1.3.0"
 }
@@ -616,7 +616,7 @@ Complete code generator options are <a href="https://github.com/fizzed/rocker#in
 <div class="listingblock primary">
 
 
-<div class="switch"><div class="switch--item selected">Java</div><div class="switch--item">Kotlin</div></div><div class="content">
+<div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
 <pre class="highlightjs highlight"><code class="language-java hljs">import io.jooby.rocker.RockerModule;
 
 {
@@ -626,7 +626,7 @@ Complete code generator options are <a href="https://github.com/fizzed/rocker#in
     return views.index.template("Rocker");  <i class="conum" data-value="2"></i><b>(2)</b>
   });
 }</code><button class="clipboard">Copy</button></pre>
-</div><div class="content hidden">
+</div><div class="content hidden option-2">
 <pre class="highlightjs highlight"><code class="language-kt hljs">import io.jooby.rocker.RockerModule
 
 {
@@ -659,13 +659,13 @@ Complete code generator options are <a href="https://github.com/fizzed/rocker#in
 <div class="listingblock primary">
 
 
-<div class="switch"><div class="switch--item selected">Java</div><div class="switch--item">Kotlin</div></div><div class="content">
+<div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
 <pre class="highlightjs highlight"><code class="language-java hljs">import io.jooby.rocker.RockerModule;
 
 {
   install(new RockerModule().bufferSize(1024));
 }</code><button class="clipboard">Copy</button></pre>
-</div><div class="content hidden">
+</div><div class="content hidden option-2">
 <pre class="highlightjs highlight"><code class="language-kt hljs">import io.jooby.rocker.RockerModule
 
 {
@@ -679,13 +679,13 @@ Complete code generator options are <a href="https://github.com/fizzed/rocker#in
 <div class="listingblock primary">
 
 
-<div class="switch"><div class="switch--item selected">Java</div><div class="switch--item">Kotlin</div></div><div class="content">
+<div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
 <pre class="highlightjs highlight"><code class="language-java hljs">import io.jooby.rocker.RockerModule;
 
 {
   install(new RockerModule().reuseBuffer(true));
 }</code><button class="clipboard">Copy</button></pre>
-</div><div class="content hidden">
+</div><div class="content hidden option-2">
 <pre class="highlightjs highlight"><code class="language-kt hljs">import io.jooby.rocker.RockerModule
 
 {
@@ -718,16 +718,13 @@ This technique works when the number of available threads is low enough
 <script>
   $(function () {
     /** Tabs: */
-    $('.primary').each(function() {
-      var primary = $(this);
-      var content = primary.children('.content');
-      primary.children('.switch').children('.switch--item').on('click', function() {
-        var $this = $(this);
-        $this.addClass('selected');
-        $this.siblings().removeClass('selected');
-        content.addClass('hidden');
-        $(content[$this.index()]).removeClass('hidden');
-      });
+    $('.primary .switch .switch--item').on('click', function () {
+      const option = $(this)[0].className.match(/option-\d+/)[0].split('option-')[1];
+      $('.primary .switch .switch--item').removeClass('selected');
+      $(`.primary .content`).addClass('hidden');
+
+      $(`.primary .switch .switch--item.option-${option}`).addClass('selected');
+      $(`.primary .content.option-${option}`).removeClass('hidden');
     });
   });
 </script>

@@ -546,7 +546,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="listingblock primary">
 
 
-<div class="switch"><div class="switch--item selected">Maven</div><div class="switch--item">Gradle</div></div><div class="content">
+<div class="switch"><div class="switch--item option-1 selected">Maven</div><div class="switch--item option-2">Gradle</div></div><div class="content option-1">
 <pre class="highlightjs highlight"><code class="language-xml hljs">&lt;!-- DataSource via HikariCP--&gt;
 &lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
@@ -560,7 +560,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
   &lt;artifactId&gt;jooby-hibernate&lt;/artifactId&gt;
   &lt;version&gt;2.9.3&lt;/version&gt;
 &lt;/dependency&gt;</code><button class="clipboard">Copy</button></pre>
-</div><div class="content hidden">
+</div><div class="content hidden option-2">
 <pre class="highlightjs highlight"><code class="language-javascript hljs">// DataSource via HikariCP
 implementation 'io.jooby:jooby-hikari:2.9.3'
 
@@ -574,13 +574,13 @@ implementation 'io.jooby:jooby-hibernate:2.9.3'</code><button class="clipboard">
 <div class="listingblock primary">
 
 
-<div class="switch"><div class="switch--item selected">Maven</div><div class="switch--item">Gradle</div></div><div class="content">
+<div class="switch"><div class="switch--item option-1 selected">Maven</div><div class="switch--item option-2">Gradle</div></div><div class="content option-1">
 <pre class="highlightjs highlight"><code class="language-xml hljs">&lt;dependency&gt;
   &lt;groupId&gt;mysql&lt;/groupId&gt;
   &lt;artifactId&gt;mysql-connector-java&lt;/artifactId&gt;
   &lt;version&gt;8.0.22&lt;/version&gt;
 &lt;/dependency&gt;</code><button class="clipboard">Copy</button></pre>
-</div><div class="content hidden">
+</div><div class="content hidden option-2">
 <pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'mysql:mysql-connector-java:8.0.22'</code><button class="clipboard">Copy</button></pre>
 </div></div>
 
@@ -601,7 +601,7 @@ db.password = mypass</code><button class="clipboard">Copy</button></pre>
 <div class="listingblock primary">
 
 
-<div class="switch"><div class="switch--item selected">Java</div><div class="switch--item">Kotlin</div></div><div class="content">
+<div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
 <pre class="highlightjs highlight"><code class="language-java hljs">import io.jooby.hikari.HikariModule;
 import io.jooby.hibernate.HibernateModule;
 {
@@ -628,7 +628,7 @@ import io.jooby.hibernate.HibernateModule;
     }
   });
 }</code><button class="clipboard">Copy</button></pre>
-</div><div class="content hidden">
+</div><div class="content hidden option-2">
 <pre class="highlightjs highlight"><code class="language-kt hljs">import io.jooby.hikari.HikariModule
 import io.jooby.hibernate.HibernateModule
 
@@ -740,7 +740,7 @@ doesn’t have to deal with that boring lines of code.</p>
 <div class="listingblock primary">
 <div class="title">TransactionalRequest</div>
 
-<div class="switch"><div class="switch--item selected">Java</div><div class="switch--item">Kotlin</div></div><div class="content">
+<div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
 <pre class="highlightjs highlight"><code class="language-java hljs">import io.jooby.hikari.HikariModule;
 import io.jooby.hibernate.HibernateModule;
 import io.jooby.hibernate.TransactionalRequest;
@@ -762,7 +762,7 @@ import io.jooby.hibernate.TransactionalRequest;
     return e;
   });
 }</code><button class="clipboard">Copy</button></pre>
-</div><div class="content hidden">
+</div><div class="content hidden option-2">
 <pre class="highlightjs highlight"><code class="language-kt hljs">import io.jooby.hikari.HikariModule
 import io.jooby.hibernate.HibernateModule
 import io.jooby.hibernate.TransactionalRequest
@@ -820,7 +820,7 @@ scope become transactional. You can exclude an MVC route by annotating it with t
 <div class="listingblock primary">
 <div class="title">@Transactional</div>
 
-<div class="switch"><div class="switch--item selected">Java</div><div class="switch--item">Kotlin</div></div><div class="content">
+<div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
 <pre class="highlightjs highlight"><code class="language-java hljs">import io.jooby.annotations.Transactional;
 
 @Transactional(false)
@@ -828,7 +828,7 @@ scope become transactional. You can exclude an MVC route by annotating it with t
 public void get(Context ctx) {
   // no automatic transaction management here
 }</code><button class="clipboard">Copy</button></pre>
-</div><div class="content hidden">
+</div><div class="content hidden option-2">
 <pre class="highlightjs highlight"><code class="language-kt hljs">import io.jooby.annotations.Transactional
 
 @Transactional(false)
@@ -844,7 +844,7 @@ fun get(ctx: Context) {
 <div class="listingblock primary">
 <div class="title">TransactionalRequest disabled by default</div>
 
-<div class="switch"><div class="switch--item selected">Java</div><div class="switch--item">Kotlin</div></div><div class="content">
+<div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
 <pre class="highlightjs highlight"><code class="language-java hljs">import io.jooby.ebean.TransactionalRequest;
 
 {
@@ -852,7 +852,7 @@ fun get(ctx: Context) {
   decorator(new TransactionalRequest().enabledByDefault(false));
   ...
 }</code><button class="clipboard">Copy</button></pre>
-</div><div class="content hidden">
+</div><div class="content hidden option-2">
 <pre class="highlightjs highlight"><code class="language-kt hljs">import io.jooby.ebean.TransactionalRequest
 
 {
@@ -868,7 +868,7 @@ fun get(ctx: Context) {
 <div class="listingblock primary">
 <div class="title">@Transactional</div>
 
-<div class="switch"><div class="switch--item selected">Java</div><div class="switch--item">Kotlin</div></div><div class="content">
+<div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
 <pre class="highlightjs highlight"><code class="language-java hljs">import io.jooby.annotations.Transactional;
 
 @Inject
@@ -879,7 +879,7 @@ private EntityManager entityManager;
 public void get(Context ctx) {
   // work with EntityManager
 }</code><button class="clipboard">Copy</button></pre>
-</div><div class="content hidden">
+</div><div class="content hidden option-2">
 <pre class="highlightjs highlight"><code class="language-kt hljs">import io.jooby.annotations.Transactional
 
 @Inject
@@ -898,7 +898,7 @@ fun get(ctx: Context) {
 <div class="listingblock primary">
 <div class="title">Transactional for script routes</div>
 
-<div class="switch"><div class="switch--item selected">Java</div><div class="switch--item">Kotlin</div></div><div class="content">
+<div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
 <pre class="highlightjs highlight"><code class="language-java hljs">import io.jooby.annotations.Transactional;
 
 {
@@ -906,7 +906,7 @@ fun get(ctx: Context) {
     ...
   }).attribute(Transactional.ATTRIBUTE, false);
 }</code><button class="clipboard">Copy</button></pre>
-</div><div class="content hidden">
+</div><div class="content hidden option-2">
 <pre class="highlightjs highlight"><code class="language-kt hljs">import io.jooby.annotations.Transactional
 
 {
@@ -933,12 +933,12 @@ of <code>UnitOfWork</code>. You may acquire one from the service registry or inj
 <div class="listingblock primary">
 <div class="title">UnitOfWork</div>
 
-<div class="switch"><div class="switch--item selected">Java</div><div class="switch--item">Kotlin</div></div><div class="content">
+<div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
 <pre class="highlightjs highlight"><code class="language-java hljs">{
   get("/pets", ctx -&gt; require(UnitOfWork.class)
       .apply(em -&gt; em.createQuery("from Pet", Pet.class).getResultList()));
 }</code><button class="clipboard">Copy</button></pre>
-</div><div class="content hidden">
+</div><div class="content hidden option-2">
 <pre class="highlightjs highlight"><code class="language-kt hljs">{
   get("/pets") {
     require(UnitOfWork::class.java)
@@ -960,7 +960,7 @@ You may access a <code>UnitOfWork.TransactionHandler</code> instance to be able 
 <div class="listingblock primary">
 <div class="title">Multiple transactions</div>
 
-<div class="switch"><div class="switch--item selected">Java</div><div class="switch--item">Kotlin</div></div><div class="content">
+<div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
 <pre class="highlightjs highlight"><code class="language-java hljs">{
   get("/update", ctx -&gt; require(UnitOfWork.class)
       .apply((em, txh) -&gt; {
@@ -971,7 +971,7 @@ You may access a <code>UnitOfWork.TransactionHandler</code> instance to be able 
         return "ok";
       }));
 }</code><button class="clipboard">Copy</button></pre>
-</div><div class="content hidden">
+</div><div class="content hidden option-2">
 <pre class="highlightjs highlight"><code class="language-kt hljs">{
   get("/update") {
     require(UnitOfWork::class.java)
@@ -1140,16 +1140,13 @@ public class MyConfigurer extends HibernateConfigurer {
 <script>
   $(function () {
     /** Tabs: */
-    $('.primary').each(function() {
-      var primary = $(this);
-      var content = primary.children('.content');
-      primary.children('.switch').children('.switch--item').on('click', function() {
-        var $this = $(this);
-        $this.addClass('selected');
-        $this.siblings().removeClass('selected');
-        content.addClass('hidden');
-        $(content[$this.index()]).removeClass('hidden');
-      });
+    $('.primary .switch .switch--item').on('click', function () {
+      const option = $(this)[0].className.match(/option-\d+/)[0].split('option-')[1];
+      $('.primary .switch .switch--item').removeClass('selected');
+      $(`.primary .content`).addClass('hidden');
+
+      $(`.primary .switch .switch--item.option-${option}`).addClass('selected');
+      $(`.primary .content.option-${option}`).removeClass('hidden');
     });
   });
 </script>

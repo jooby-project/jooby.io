@@ -542,13 +542,13 @@ handling system.</p>
 <div class="listingblock primary">
 
 
-<div class="switch"><div class="switch--item selected">Maven</div><div class="switch--item">Gradle</div></div><div class="content">
+<div class="switch"><div class="switch--item option-1 selected">Maven</div><div class="switch--item option-2">Gradle</div></div><div class="content option-1">
 <pre class="highlightjs highlight"><code class="language-xml hljs">&lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
   &lt;artifactId&gt;jooby-whoops&lt;/artifactId&gt;
   &lt;version&gt;2.9.3&lt;/version&gt;
 &lt;/dependency&gt;</code><button class="clipboard">Copy</button></pre>
-</div><div class="content hidden">
+</div><div class="content hidden option-2">
 <pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'io.jooby:jooby-whoops:2.9.3'</code><button class="clipboard">Copy</button></pre>
 </div></div>
 
@@ -558,7 +558,7 @@ handling system.</p>
 <div class="listingblock primary">
 
 
-<div class="switch"><div class="switch--item selected">Java</div><div class="switch--item">Kotlin</div></div><div class="content">
+<div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
 <pre class="highlightjs highlight"><code class="language-java hljs">import io.jooby.whoops.WhoopsModule;
 
 {
@@ -568,7 +568,7 @@ handling system.</p>
     return ctx.path("id").intValue();               <i class="conum" data-value="2"></i><b>(2)</b>
   });
 }</code><button class="clipboard">Copy</button></pre>
-</div><div class="content hidden">
+</div><div class="content hidden option-2">
 <pre class="highlightjs highlight"><code class="language-kt hljs">import io.jooby.whoops.WhoopsModule
 
 {
@@ -667,16 +667,13 @@ completely turn off whoops.</p>
 <script>
   $(function () {
     /** Tabs: */
-    $('.primary').each(function() {
-      var primary = $(this);
-      var content = primary.children('.content');
-      primary.children('.switch').children('.switch--item').on('click', function() {
-        var $this = $(this);
-        $this.addClass('selected');
-        $this.siblings().removeClass('selected');
-        content.addClass('hidden');
-        $(content[$this.index()]).removeClass('hidden');
-      });
+    $('.primary .switch .switch--item').on('click', function () {
+      const option = $(this)[0].className.match(/option-\d+/)[0].split('option-')[1];
+      $('.primary .switch .switch--item').removeClass('selected');
+      $(`.primary .content`).addClass('hidden');
+
+      $(`.primary .switch .switch--item.option-${option}`).addClass('selected');
+      $(`.primary .content.option-${option}`).removeClass('hidden');
     });
   });
 </script>
