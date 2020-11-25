@@ -8,7 +8,7 @@
 <meta name="description" content="The modular micro web framework for Java">
 <meta name="keywords" content="Java, Modern, Micro, Web, Framework, Reactive, Lightweight, Microservices">
 <link rel="icon" type="image/png" href="../../images/favicon96.png">
-<title>jooby: graphql module</title>
+<title>jooby: jasypt module</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /* Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -517,23 +517,15 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#graphql">1. GraphQL</a>
+<li><a href="#jasypt">1. Jasypt</a>
 <ul class="sectlevel2">
-<li><a href="#usage">1.1. Usage</a></li>
-<li><a href="#options">1.2. Options</a>
+<li><a href="#usage">1.1. Usage</a>
 <ul class="sectlevel3">
-<li><a href="#async">1.2.1. Async</a></li>
-<li><a href="#support-http-get">1.2.2. Support HTTP Get</a></li>
-<li><a href="#path">1.2.3. Path</a></li>
+<li><a href="#encrypting-values">1.1.1. Encrypting values</a></li>
+<li><a href="#securing-password">1.1.2. Securing password</a></li>
+<li><a href="#options">1.1.3. Options</a></li>
 </ul>
 </li>
-<li><a href="#ide">1.3. IDE</a>
-<ul class="sectlevel3">
-<li><a href="#graphiql">1.3.1. GraphIQL</a></li>
-<li><a href="#graphql-playground">1.3.2. GraphQL Playground</a></li>
-</ul>
-</li>
-<li><a href="#starter">1.4. Starter</a></li>
 </ul>
 </li>
 </ul>
@@ -541,13 +533,13 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div id="content">
 <div class="sect1">
-<h2 id="graphql"><a class="anchor" href="#graphql"></a><a class="link" href="#graphql">1. GraphQL</a></h2>
+<h2 id="jasypt"><a class="anchor" href="#jasypt"></a><a class="link" href="#jasypt">1. Jasypt</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>GraphQL using <a href="https://www.graphql-java.com" target="_blank">GraphQL Java</a> library.</p>
+<p>Decrypt configuration properties using <a href="http://www.jasypt.org" class="bare" target="_blank">http://www.jasypt.org</a></p>
 </div>
 <div class="sect2">
-<h3 id="graphql-usage"><a class="anchor" href="#graphql-usage"></a><a class="link" href="#graphql-usage">1.1. Usage</a></h3>
+<h3 id="jasypt-usage"><a class="anchor" href="#jasypt-usage"></a><a class="link" href="#jasypt-usage">1.1. Usage</a></h3>
 <div class="paragraph">
 <p>1) Add the dependency:</p>
 </div>
@@ -555,87 +547,51 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 
 
 <div class="switch"><div class="switch--item option-1 selected">Maven</div><div class="switch--item option-2">Gradle</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-xml hljs">&lt;!-- GraphQL--&gt;
-&lt;dependency&gt;
+<pre class="highlightjs highlight"><code class="language-xml hljs">&lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
-  &lt;artifactId&gt;jooby-graphql&lt;/artifactId&gt;
-  &lt;version&gt;2.9.4&lt;/version&gt;
-&lt;/dependency&gt;
-
-&lt;!--  JSON library--&gt;
-&lt;dependency&gt;
-  &lt;groupId&gt;io.jooby&lt;/groupId&gt;
-  &lt;artifactId&gt;jooby-jackson&lt;/artifactId&gt;
+  &lt;artifactId&gt;jooby-jasypt&lt;/artifactId&gt;
   &lt;version&gt;2.9.4&lt;/version&gt;
 &lt;/dependency&gt;</code><button class="clipboard">Copy</button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-javascript hljs">// GraphQL
-implementation 'io.jooby:jooby-graphql:2.9.4'
-
-//  JSON library
-implementation 'io.jooby:jooby-jackson:2.9.4'</code><button class="clipboard">Copy</button></pre>
+<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'io.jooby:jooby-jasypt:2.9.4'</code><button class="clipboard">Copy</button></pre>
 </div></div>
 
 <div class="paragraph">
-<p>2) Creates <code>schema.graphql</code> inside the <code>src/main/resource</code></p>
+<p>2) Setup properties:</p>
 </div>
 <div class="listingblock">
+<div class="title">application.conf</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-graphql hljs">type Query {
-    bookById(id: ID): Book
-}
+<pre class="highlightjs highlight"><code class="language-properties hljs">jasypt.password = password                              <i class="conum" data-value="1"></i><b>(1)</b>
 
-type Book {
-    id: ID
-    name: String
-    pageCount: Int
-    author: Author
-}
-
-type Author {
-    id: ID
-    firstName: String
-    lastName: String
-}</code><button class="clipboard">Copy</button></pre>
+enc.property = "uTSqb9grs1+vUv3iN8lItC0kl65lMG+8"       <i class="conum" data-value="2"></i><b>(2)</b></code><button class="clipboard">Copy</button></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>3) Install Jackson and GraphQL</p>
+<p>3) Install</p>
 </div>
 <div class="listingblock primary">
 
 
 <div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-java hljs">import io.jooby.json.JacksonModule;
-import io.jooby.graphql.GraphQLModule;
+<pre class="highlightjs highlight"><code class="language-java hljs">import io.jooby.jasypt.JasyptModule;
 
 {
-  install(new JacksonModule());           <i class="conum" data-value="1"></i><b>(1)</b>
+  install(new JasyptModule());                          <i class="conum" data-value="3"></i><b>(3)</b>
 
-  install(new GraphQLModule(
-    RuntimeWiring.newRuntimeWiring()      <i class="conum" data-value="2"></i><b>(2)</b>
-        .type(newTypeWiring("Query")
-            .dataFetcher("bookById", fetchers.getBookByIdDataFetcher()))
-        .type(newTypeWiring("Book")
-            .dataFetcher("author", fetchers.getAuthorDataFetcher()))
-        .build())
-   );
+  String property = getConfig().getString("property");  <i class="conum" data-value="4"></i><b>(4)</b>
+
+  System.out.println(property);
 }</code><button class="clipboard">Copy</button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-kt hljs">import io.jooby.json.JacksonModule
-import io.jooby.graphql.GraphQLModule
+<pre class="highlightjs highlight"><code class="language-kotlin hljs">import io.jooby.jasypt.JasyptModule
 
 {
-  install(JacksonModule())                <i class="conum" data-value="1"></i><b>(1)</b>
+  install(JasyptModule())                               <i class="conum" data-value="3"></i><b>(3)</b>
 
-  install(GraphQLModule(
-    RuntimeWiring.newRuntimeWiring()      <i class="conum" data-value="2"></i><b>(2)</b>
-        .type(newTypeWiring("Query")
-            .dataFetcher("bookById", fetchers.getBookByIdDataFetcher()))
-        .type(newTypeWiring("Book")
-            .dataFetcher("author", fetchers.getAuthorDataFetcher()))
-        .build())
-    )
+  val property = config.getString("property")           <i class="conum" data-value="4"></i><b>(4)</b>
+
+  println(property)
 }</code><button class="clipboard">Copy</button></pre>
 </div></div>
 
@@ -643,304 +599,127 @@ import io.jooby.graphql.GraphQLModule
 <table>
 <tbody><tr>
 <td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>Install Jackson</td>
+<td>Configure jasypt password. Jasypt use this to encrypt/decrypt values</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>Install GraphQL, uses the <code>schema.graphql</code> and provide a <code>RuntimeWiring</code></td>
-</tr>
-</tbody></table>
-</div>
-<div class="paragraph">
-<p>The GraphQL module generates a POST <code>/graphql</code> route.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="graphql-options"><a class="anchor" href="#graphql-options"></a><a class="link" href="#graphql-options">1.2. Options</a></h3>
-<div class="sect3">
-<h4 id="graphql-options-async"><a class="anchor" href="#graphql-options-async"></a><a class="link" href="#graphql-options-async">1.2.1. Async</a></h4>
-<div class="paragraph">
-<p>The <a href="https://www.graphql-java.com" target="_blank">GraphQL Java</a> library executes queries in async mode. To turn-off
-the async mode:</p>
-</div>
-<div class="listingblock primary">
-<div class="title">Async Mode</div>
-
-<div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-java hljs">import io.jooby.json.JacksonModule;
-import io.jooby.graphql.GraphQLModule;
-
-{
-  install(new GraphQLModule(...)
-      .setAsync(false)                    <i class="conum" data-value="1"></i><b>(1)</b>
-  );
-}</code><button class="clipboard">Copy</button></pre>
-</div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-kt hljs">import io.jooby.json.JacksonModule
-import io.jooby.graphql.GraphQLModule
-
-{
-  install(GraphQLModule(...)
-      .setAsync(false)                    <i class="conum" data-value="1"></i><b>(1)</b>
-  )
-}</code><button class="clipboard">Copy</button></pre>
-</div></div>
-
-<div class="colist arabic">
-<table>
-<tbody><tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>Set async false</td>
-</tr>
-</tbody></table>
-</div>
-<div class="paragraph">
-<p>Please refer to <a href="https://www.graphql-java.com/documentation/v12/execution/#asynchronous-execution" target="_blank">Asynchronous execution</a> for more information.</p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="graphql-options-support-http-get"><a class="anchor" href="#graphql-options-support-http-get"></a><a class="link" href="#graphql-options-support-http-get">1.2.2. Support HTTP Get</a></h4>
-<div class="paragraph">
-<p>By default the module only install a HTTP POST route. If you want a HTTP GET:</p>
-</div>
-<div class="listingblock primary">
-<div class="title">HTTP GET</div>
-
-<div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-java hljs">import io.jooby.json.JacksonModule;
-import io.jooby.graphql.GraphQLModule;
-
-{
-  install(new GraphQLModule(...)
-      .setSupportHttpGet(true)
-  );
-}</code><button class="clipboard">Copy</button></pre>
-</div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-kt hljs">import io.jooby.json.JacksonModule
-import io.jooby.graphql.GraphQLModule
-
-{
-  install(GraphQLModule(...)
-      .setSupportHttpGet(true)
-  )
-}</code><button class="clipboard">Copy</button></pre>
-</div></div>
-
-</div>
-<div class="sect3">
-<h4 id="graphql-options-path"><a class="anchor" href="#graphql-options-path"></a><a class="link" href="#graphql-options-path">1.2.3. Path</a></h4>
-<div class="paragraph">
-<p>To change the default path: <code>/graphql</code> set the <code>graphql.path</code> property in your application configuration file.</p>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="graphql-ide"><a class="anchor" href="#graphql-ide"></a><a class="link" href="#graphql-ide">1.3. IDE</a></h3>
-<div class="paragraph">
-<p>Jooby comes with supports for two IDE:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><a href="https://github.com/graphql/graphiql" target="_blank">GraphiQL</a></p>
-</li>
-<li>
-<p><a href="https://github.com/prisma-labs/graphql-playground" target="_blank">GraphQL Playground</a></p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>They are provided as optional dependencies.</p>
-</div>
-<div class="sect3">
-<h4 id="graphql-ide-graphiql"><a class="anchor" href="#graphql-ide-graphiql"></a><a class="link" href="#graphql-ide-graphiql">1.3.1. GraphIQL</a></h4>
-<div class="paragraph">
-<p>1) Add the dependencies:</p>
-</div>
-<div class="listingblock primary">
-
-
-<div class="switch"><div class="switch--item option-1 selected">Maven</div><div class="switch--item option-2">Gradle</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-xml hljs">&lt;!--  JSON library--&gt;
-&lt;dependency&gt;
-  &lt;groupId&gt;io.jooby&lt;/groupId&gt;
-  &lt;artifactId&gt;jooby-jackson&lt;/artifactId&gt;
-  &lt;version&gt;2.9.4&lt;/version&gt;
-&lt;/dependency&gt;
-
-&lt;!-- GraphQL--&gt;
-&lt;dependency&gt;
-  &lt;groupId&gt;io.jooby&lt;/groupId&gt;
-  &lt;artifactId&gt;jooby-graphql&lt;/artifactId&gt;
-  &lt;version&gt;2.9.4&lt;/version&gt;
-&lt;/dependency&gt;
-
-&lt;!--  GraphIQL--&gt;
-&lt;dependency&gt;
-  &lt;groupId&gt;io.jooby&lt;/groupId&gt;
-  &lt;artifactId&gt;jooby-graphiql&lt;/artifactId&gt;
-  &lt;version&gt;2.9.4&lt;/version&gt;
-&lt;/dependency&gt;</code><button class="clipboard">Copy</button></pre>
-</div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-javascript hljs">//  JSON library
-implementation 'io.jooby:jooby-jackson:2.9.4'
-
-// GraphQL
-implementation 'io.jooby:jooby-graphql:2.9.4'
-
-//  GraphIQL
-implementation 'io.jooby:jooby-graphiql:2.9.4'</code><button class="clipboard">Copy</button></pre>
-</div></div>
-
-<div class="paragraph">
-<p>1) Install</p>
-</div>
-<div class="listingblock primary">
-
-
-<div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-java hljs">import io.jooby.json.JacksonModule;
-import io.jooby.graphql.GraphQLModule;
-import io.jooby.graphql.GraphiQLModule;
-
-{
-  install(new JacksonModule());           <i class="conum" data-value="1"></i><b>(1)</b>
-
-  install(new GraphQLModule(...));        <i class="conum" data-value="2"></i><b>(2)</b>
-
-  install(new GraphiQLModule());          <i class="conum" data-value="3"></i><b>(3)</b>
-}</code><button class="clipboard">Copy</button></pre>
-</div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-kt hljs">import io.jooby.json.JacksonModule
-import io.jooby.graphql.GraphQLModule
-import io.jooby.graphql.GraphiQLModule
-
-{
-  install(JacksonModule())                <i class="conum" data-value="1"></i><b>(1)</b>
-
-  install(GraphQLModule(...))             <i class="conum" data-value="2"></i><b>(2)</b>
-
-  install(GraphiQLModule())               <i class="conum" data-value="3"></i><b>(3)</b>
-}</code><button class="clipboard">Copy</button></pre>
-</div></div>
-
-<div class="colist arabic">
-<table>
-<tbody><tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>Install Jackson</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>Install GraphQL</td>
+<td>Prefix encrypted properties with <code>enc</code></td>
 </tr>
 <tr>
 <td><i class="conum" data-value="3"></i><b>3</b></td>
-<td>Install GraphiQL</td>
+<td>Install Jasypt</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>Get a decrypted property</td>
 </tr>
 </tbody></table>
 </div>
 <div class="paragraph">
-<p><a href="https://github.com/graphql/graphiql" target="_blank">GraphiQL</a> should be up and running at <code>/graphql</code>.</p>
+<p>Due Jasypt overrides configuration properties, must be installed at very beginning of the
+application. Once installed, you can access to decrypted properties.</p>
 </div>
-</div>
-<div class="sect3">
-<h4 id="graphql-ide-graphql-playground"><a class="anchor" href="#graphql-ide-graphql-playground"></a><a class="link" href="#graphql-ide-graphql-playground">1.3.2. GraphQL Playground</a></h4>
 <div class="paragraph">
-<p>1) Add the dependencies:</p>
+<p>By default, encrypted properties must be prefixed with <code>enc</code>, you can change this by setting
+your own/preferred prefix:</p>
 </div>
-<div class="listingblock primary">
-
-
-<div class="switch"><div class="switch--item option-1 selected">Maven</div><div class="switch--item option-2">Gradle</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-xml hljs">&lt;!--  JSON library--&gt;
-&lt;dependency&gt;
-  &lt;groupId&gt;io.jooby&lt;/groupId&gt;
-  &lt;artifactId&gt;jooby-jackson&lt;/artifactId&gt;
-  &lt;version&gt;2.9.4&lt;/version&gt;
-&lt;/dependency&gt;
-
-&lt;!-- GraphQL--&gt;
-&lt;dependency&gt;
-  &lt;groupId&gt;io.jooby&lt;/groupId&gt;
-  &lt;artifactId&gt;jooby-graphql&lt;/artifactId&gt;
-  &lt;version&gt;2.9.4&lt;/version&gt;
-&lt;/dependency&gt;
-
-&lt;!--  GraphQL Playground--&gt;
-&lt;dependency&gt;
-  &lt;groupId&gt;io.jooby&lt;/groupId&gt;
-  &lt;artifactId&gt;jooby-graphiql-playground&lt;/artifactId&gt;
-  &lt;version&gt;2.9.4&lt;/version&gt;
-&lt;/dependency&gt;</code><button class="clipboard">Copy</button></pre>
-</div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-javascript hljs">//  JSON library
-implementation 'io.jooby:jooby-jackson:2.9.4'
-
-// GraphQL
-implementation 'io.jooby:jooby-graphql:2.9.4'
-
-//  GraphQL Playground
-implementation 'io.jooby:jooby-graphiql-playground:2.9.4'</code><button class="clipboard">Copy</button></pre>
-</div></div>
-
+<div class="literalblock">
+<div class="content">
+<pre>install(new JasyptModule().setPrefix("secret"));</pre>
+</div>
+</div>
 <div class="paragraph">
-<p>1) Install</p>
+<p>Module also export an instance of <code>PBEStringEncryptor</code>:</p>
 </div>
 <div class="listingblock primary">
 
 
 <div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-java hljs">import io.jooby.json.JacksonModule;
-import io.jooby.graphql.GraphQLModule;
-import io.jooby.graphql.GraphQLPlaygroundModule;
+<pre class="highlightjs highlight"><code class="language-java hljs">import io.jooby.jasypt.JasyptModule;
 
 {
-  install(new JacksonModule());                    <i class="conum" data-value="1"></i><b>(1)</b>
+  install(new JasyptModule());
 
-  install(new GraphQLModule(...));                 <i class="conum" data-value="2"></i><b>(2)</b>
-
-  install(new GraphQLPlaygroundModule());          <i class="conum" data-value="3"></i><b>(3)</b>
+  PBEStringEncryptor encryptor = require(PBEStringEncryptor.class);
 }</code><button class="clipboard">Copy</button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-kt hljs">import io.jooby.json.JacksonModule
-import io.jooby.graphql.GraphQLModule
-import io.jooby.graphql.GraphQLPlaygroundModule
+<pre class="highlightjs highlight"><code class="language-kotlin hljs">import io.jooby.jasypt.JasyptModule
 
 {
-  install(JacksonModule())                         <i class="conum" data-value="1"></i><b>(1)</b>
+  install(JasyptModule())
 
-  install(GraphQLModule(...))                      <i class="conum" data-value="2"></i><b>(2)</b>
-
-  install(GraphQLPlaygroundModule())               <i class="conum" data-value="3"></i><b>(3)</b>
+  val encryptor = require(PBEStringEncryptor::class)
 }</code><button class="clipboard">Copy</button></pre>
 </div></div>
 
-<div class="colist arabic">
-<table>
-<tbody><tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>Install Jackson</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>Install GraphQL</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="3"></i><b>3</b></td>
-<td>Install GraphQL Playground</td>
-</tr>
-</tbody></table>
+<div class="sect3">
+<h4 id="jasypt-usage-encrypting-values"><a class="anchor" href="#jasypt-usage-encrypting-values"></a><a class="link" href="#jasypt-usage-encrypting-values">1.1.1. Encrypting values</a></h4>
+<div class="paragraph">
+<p>Jasypt offers a <a href="https://github.com/jasypt/jasypt/releases/latest" target="_blank">command line application</a> for
+doing encryption.</p>
 </div>
 <div class="paragraph">
-<p><a href="https://github.com/prisma-labs/graphql-playground" target="_blank">GraphQL Playground</a> should be up and running at <code>/graphql</code>.</p>
+<p>Follow <a href="http://www.jasypt.org/cli.html" target="_blank">this guide</a> to see how to use it.</p>
 </div>
 </div>
-</div>
-<div class="sect2">
-<h3 id="graphql-starter"><a class="anchor" href="#graphql-starter"></a><a class="link" href="#graphql-starter">1.4. Starter</a></h3>
+<div class="sect3">
+<h4 id="jasypt-usage-securing-password"><a class="anchor" href="#jasypt-usage-securing-password"></a><a class="link" href="#jasypt-usage-securing-password">1.1.2. Securing password</a></h4>
 <div class="paragraph">
-<p>Checkout the starter/demo project for GraphQL: <a href="https://github.com/jooby-project/jooby/tree/2.x/starters/graphql-starter" target="_blank">GraphQL Starter</a>.</p>
+<p>Password can be configured as application property. It is accessed using the <code>jasypt.password</code>
+property name. It is important to keep your password safe and private.</p>
+</div>
+<div class="paragraph">
+<p>One simple way is to use a default password for development and override it with an environment variable. For example:</p>
+</div>
+<div class="listingblock">
+<div class="title">application.conf</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-properties hljs">jasypt.password = mypassword
+jasypt.password = ${?JASYPT_PASSWORD}</code><button class="clipboard">Copy</button></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Here Jasypt will use a default value of <code>mypassword</code>, unless an environment variable <code>JASYPT_PASSWORD</code> is set.</p>
+</div>
+<div class="paragraph">
+<p>Another option is to keep the password in the file system. For that you need to provide your own
+password provider:</p>
+</div>
+<div class="listingblock">
+<div class="title">File password provider</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs">{
+  install(new JasyptModule(config -&gt; {
+    return new String(Files.path(Paths.get("mypassword"), UTF-8));
+  }));
+}</code><button class="clipboard">Copy</button></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The password provider let you read password from multiple sources.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="jasypt-usage-options"><a class="anchor" href="#jasypt-usage-options"></a><a class="link" href="#jasypt-usage-options">1.1.3. Options</a></h4>
+<div class="paragraph">
+<p>Advanced configuration options are available from configuration file:</p>
+</div>
+<div class="listingblock">
+<div class="title">application.conf</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-properties hljs">jasypt.password = mypassword
+
+jasypt.algorithm = PBEWithMD5AndDES
+jasypt.keyObtentionIterations = 1000
+jasypt.poolSize = 2
+jasypt.ivGeneratorClassName = classname
+jasypt.saltGeneratorClassName = org.jasypt.salt.RandomSaltGenerator
+jasypt.providerName = SunJCE</code><button class="clipboard">Copy</button></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>A <code>PooledPBEStringEncryptor</code> encryptor is configured when <code>poolSize</code> is set.</p>
+</div>
 </div>
 </div>
 </div>
