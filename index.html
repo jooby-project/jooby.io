@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="generator" content="Asciidoctor 2.0.12">
+<meta name="generator" content="Asciidoctor 2.0.15">
 <meta name="description" content="The modular micro web framework for Java">
 <meta name="keywords" content="Java, Modern, Micro, Web, Framework, Reactive, Lightweight, Microservices">
 <meta name="author" content="Jooby Project">
@@ -98,9 +98,6 @@ dl dd{margin-bottom:1.25em}
 abbr,acronym{text-transform:uppercase;font-size:90%;color:rgba(0,0,0,.8);border-bottom:1px dotted #ddd;cursor:help}
 abbr{text-transform:none}
 blockquote{margin:0 0 1.25em;padding:.5625em 1.25em 0 1.1875em;border-left:1px solid #ddd}
-blockquote cite{display:block;font-size:.9375em;color:rgba(0,0,0,.6)}
-blockquote cite::before{content:"\2014 \0020"}
-blockquote cite a,blockquote cite a:visited{color:rgba(0,0,0,.6)}
 blockquote,blockquote p{line-height:1.6;color:rgba(0,0,0,.85)}
 @media screen and (min-width:768px){h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6{line-height:1.2}
 h1{font-size:2.75em}
@@ -265,7 +262,7 @@ pre.pygments .lineno::before{content:"";margin-right:-.125em}
 .quoteblock.excerpt>blockquote,.quoteblock .quoteblock{padding:0 0 .25em 1em;border-left:.25em solid #dddddf}
 .quoteblock.excerpt,.quoteblock .quoteblock{margin-left:0}
 .quoteblock.excerpt blockquote,.quoteblock.excerpt p,.quoteblock .quoteblock blockquote,.quoteblock .quoteblock p{color:inherit;font-size:1.0625rem}
-.quoteblock.excerpt .attribution,.quoteblock .quoteblock .attribution{color:inherit;text-align:left;margin-right:0}
+.quoteblock.excerpt .attribution,.quoteblock .quoteblock .attribution{color:inherit;font-size:.85rem;text-align:left;margin-right:0}
 p.tableblock:last-child{margin-bottom:0}
 td.tableblock>.content{margin-bottom:1.25em;word-wrap:anywhere}
 td.tableblock>.content>:last-child{margin-bottom:-1.25em}
@@ -519,7 +516,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="details">
 <span id="author" class="author">Jooby Project</span><br>
 <span id="email" class="email"><a href="mailto:support@jooby.io">support@jooby.io</a></span><br>
-<span id="revdate">2.9.6</span>
+<span id="revdate">2.10.0</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
@@ -773,8 +770,9 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <ul class="sectlevel3">
 <li><a href="#using-x-509">19.2.1. Using X.509</a></li>
 <li><a href="#using-pkcs12">19.2.2. Using PKCS12</a></li>
-<li><a href="#tls-protocol">19.2.3. TLS protocol</a></li>
-<li><a href="#openssl">19.2.4. OpenSSL</a></li>
+<li><a href="#client-authentication-mutual-tls">19.2.3. Client Authentication (Mutual TLS)</a></li>
+<li><a href="#tls-protocol">19.2.4. TLS protocol</a></li>
+<li><a href="#openssl">19.2.5. OpenSSL</a></li>
 </ul>
 </li>
 <li><a href="#http2-support">19.3. HTTP/2 Support</a></li>
@@ -862,7 +860,7 @@ favorite web server.</p>
 </td>
 <td class="content">
 <div class="paragraph">
-<p>Latest Release: <a href="https://github.com/jooby-project/jooby/releases/tag/v2.9.6" target="_blank">2.9.6</a>.</p>
+<p>Latest Release: <a href="https://github.com/jooby-project/jooby/releases/tag/v2.10.0" target="_blank">2.10.0</a>.</p>
 </div>
 <div class="paragraph">
 <p>Looking for previous version? The <a href="v1">1.x</a> documentation is still available.</p>
@@ -1107,7 +1105,7 @@ Jooby projects very quickly.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>Download <a href="https://repo1.maven.org/maven2/io/jooby/jooby-cli/2.9.6/jooby-cli-2.9.6.zip" target="_blank">jooby-cli.zip</a></p>
+<p>Download <a href="https://repo1.maven.org/maven2/io/jooby/jooby-cli/2.10.0/jooby-cli-2.10.0.zip" target="_blank">jooby-cli.zip</a></p>
 </li>
 <li>
 <p>Unzip <code>jooby-cli.zip</code> in your user home directory (or any other directory you prefer to)</p>
@@ -4726,10 +4724,10 @@ and returns a single result of the given type.</p>
 <pre class="highlightjs highlight"><code class="language-xml hljs">&lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
   &lt;artifactId&gt;jooby-jackson&lt;/artifactId&gt;
-  &lt;version&gt;2.9.6&lt;/version&gt;
+  &lt;version&gt;2.10.0&lt;/version&gt;
 &lt;/dependency&gt;</code><button class="clipboard">Copy</button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'io.jooby:jooby-jackson:2.9.6'</code><button class="clipboard">Copy</button></pre>
+<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'io.jooby:jooby-jackson:2.10.0'</code><button class="clipboard">Copy</button></pre>
 </div></div>
 
 </td>
@@ -4895,10 +4893,10 @@ produces a result.</p>
 <pre class="highlightjs highlight"><code class="language-xml hljs">&lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
   &lt;artifactId&gt;jooby-jackson&lt;/artifactId&gt;
-  &lt;version&gt;2.9.6&lt;/version&gt;
+  &lt;version&gt;2.10.0&lt;/version&gt;
 &lt;/dependency&gt;</code><button class="clipboard">Copy</button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'io.jooby:jooby-jackson:2.9.6'</code><button class="clipboard">Copy</button></pre>
+<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'io.jooby:jooby-jackson:2.10.0'</code><button class="clipboard">Copy</button></pre>
 </div></div>
 
 </td>
@@ -8298,7 +8296,7 @@ coroutines run in the <strong>caller thread</strong>(event loop in this case) un
 <div class="title">UNDISPATCHED</div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-kotlin hljs">{
-  coroutine (CoroutineStart.UNDISPATCHED) {
+  coroutine(CoroutineStart.UNDISPATCHED) {
     get("/") {
       val n = 5 * 5        <i class="conum" data-value="1"></i><b>(1)</b>
       delay(100)           <i class="conum" data-value="2"></i><b>(2)</b>
@@ -8321,6 +8319,32 @@ coroutines run in the <strong>caller thread</strong>(event loop in this case) un
 <tr>
 <td><i class="conum" data-value="3"></i><b>3</b></td>
 <td>Produces a response from <strong>worker executor</strong></td>
+</tr>
+</tbody></table>
+</div>
+<div class="paragraph">
+<p>You can also extend the <code>CoroutineContext</code> in which the coroutine routes run:</p>
+</div>
+<div class="listingblock">
+<div class="title">launchContext</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs">{
+  coroutine {
+    launchContext { MDCContext() } <i class="conum" data-value="1"></i><b>(1)</b>
+
+    get("/") {
+      ...
+    }
+  }
+}</code><button class="clipboard">Copy</button></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tbody><tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>The lambda is run before launching each coroutine, so it can customize the <code>CoroutineContext</code> for
+the request, e.g. store/restore MDC, transaction, or anything else that your handlers need.</td>
 </tr>
 </tbody></table>
 </div>
@@ -10059,10 +10083,10 @@ the logging framework to configure without taking care the environment setup.</p
 <pre class="highlightjs highlight"><code class="language-xml hljs">&lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
   &lt;artifactId&gt;jooby-test&lt;/artifactId&gt;
-  &lt;version&gt;2.9.6&lt;/version&gt;
+  &lt;version&gt;2.10.0&lt;/version&gt;
 &lt;/dependency&gt;</code><button class="clipboard">Copy</button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'io.jooby:jooby-test:2.9.6'</code><button class="clipboard">Copy</button></pre>
+<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'io.jooby:jooby-test:2.10.0'</code><button class="clipboard">Copy</button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -10321,10 +10345,10 @@ you can set HTTP parameters, body, headers, etc.</p>
 <pre class="highlightjs highlight"><code class="language-xml hljs">&lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
   &lt;artifactId&gt;jooby-test&lt;/artifactId&gt;
-  &lt;version&gt;2.9.6&lt;/version&gt;
+  &lt;version&gt;2.10.0&lt;/version&gt;
 &lt;/dependency&gt;</code><button class="clipboard">Copy</button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'io.jooby:jooby-test:2.9.6'</code><button class="clipboard">Copy</button></pre>
+<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'io.jooby:jooby-test:2.10.0'</code><button class="clipboard">Copy</button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -10618,7 +10642,7 @@ that effectively reload application classes.</p>
   &lt;plugin&gt;
     &lt;groupId&gt;io.jooby&lt;/groupId&gt;
     &lt;artifactId&gt;jooby-maven-plugin&lt;/artifactId&gt;
-    &lt;version&gt;2.9.6&lt;/version&gt;
+    &lt;version&gt;2.10.0&lt;/version&gt;
   &lt;/plugin&gt;
   ...
 &lt;/plugins&gt;</code><button class="clipboard">Copy</button></pre>
@@ -10630,7 +10654,7 @@ that effectively reload application classes.</p>
   }
 
   dependencies {
-    classpath "io.jooby:jooby-gradle-plugin:2.9.6"
+    classpath "io.jooby:jooby-gradle-plugin:2.10.0"
   }
 }
 
@@ -10700,7 +10724,7 @@ project directory, when found plugin compiler is OFF and let Eclipse compiles th
   &lt;plugin&gt;
     &lt;groupId&gt;io.jooby&lt;/groupId&gt;
     &lt;artifactId&gt;jooby-maven-plugin&lt;/artifactId&gt;
-    &lt;version&gt;2.9.6&lt;/version&gt;
+    &lt;version&gt;2.10.0&lt;/version&gt;
     &lt;configuration&gt;
       &lt;mainClass&gt;${application.class}&lt;/mainClass&gt;                  <i class="conum" data-value="1"></i><b>(1)</b>
       &lt;restartExtensions&gt;conf,properties,class&lt;/restartExtensions&gt; <i class="conum" data-value="2"></i><b>(2)</b>
@@ -10718,7 +10742,7 @@ project directory, when found plugin compiler is OFF and let Eclipse compiles th
   }
 
   dependencies {
-    classpath "io.jooby:jooby-gradle-plugin:2.9.6"
+    classpath "io.jooby:jooby-gradle-plugin:2.10.0"
   }
 }
 
@@ -10932,7 +10956,7 @@ symlink_java: true</code><button class="clipboard">Copy</button></pre>
         &lt;extensions&gt;true&lt;/extensions&gt;
         &lt;configuration&gt;
           &lt;tiles&gt;
-            &lt;tile&gt;io.jooby:jooby-stork:2.9.6&lt;/tile&gt;
+            &lt;tile&gt;io.jooby:jooby-stork:2.10.0&lt;/tile&gt;
           &lt;/tiles&gt;
         &lt;/configuration&gt;
     &lt;/plugin&gt;
@@ -10981,10 +11005,10 @@ symlink_java: true</code><button class="clipboard">Copy</button></pre>
 <pre class="highlightjs highlight"><code class="language-xml hljs">&lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
   &lt;artifactId&gt;jooby-jetty&lt;/artifactId&gt;
-  &lt;version&gt;2.9.6&lt;/version&gt;
+  &lt;version&gt;2.10.0&lt;/version&gt;
 &lt;/dependency&gt;</code><button class="clipboard">Copy</button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'io.jooby:jooby-jetty:2.9.6'</code><button class="clipboard">Copy</button></pre>
+<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'io.jooby:jooby-jetty:2.10.0'</code><button class="clipboard">Copy</button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -10997,10 +11021,10 @@ symlink_java: true</code><button class="clipboard">Copy</button></pre>
 <pre class="highlightjs highlight"><code class="language-xml hljs">&lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
   &lt;artifactId&gt;jooby-netty&lt;/artifactId&gt;
-  &lt;version&gt;2.9.6&lt;/version&gt;
+  &lt;version&gt;2.10.0&lt;/version&gt;
 &lt;/dependency&gt;</code><button class="clipboard">Copy</button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'io.jooby:jooby-netty:2.9.6'</code><button class="clipboard">Copy</button></pre>
+<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'io.jooby:jooby-netty:2.10.0'</code><button class="clipboard">Copy</button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -11013,10 +11037,10 @@ symlink_java: true</code><button class="clipboard">Copy</button></pre>
 <pre class="highlightjs highlight"><code class="language-xml hljs">&lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
   &lt;artifactId&gt;jooby-utow&lt;/artifactId&gt;
-  &lt;version&gt;2.9.6&lt;/version&gt;
+  &lt;version&gt;2.10.0&lt;/version&gt;
 &lt;/dependency&gt;</code><button class="clipboard">Copy</button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'io.jooby:jooby-utow:2.9.6'</code><button class="clipboard">Copy</button></pre>
+<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'io.jooby:jooby-utow:2.10.0'</code><button class="clipboard">Copy</button></pre>
 </div></div>
 
 <div class="admonitionblock important">
@@ -11045,6 +11069,7 @@ symlink_java: true</code><button class="clipboard">Copy</button></pre>
 <pre class="highlightjs highlight"><code class="language-java hljs">{
   setServerOptions(new ServerOptions()
       .setBufferSize(16384)
+      .setCompressionLevel(6)
       .setPort(8080)
       .setIoThreads(16)
       .setWorkerThreads(64)
@@ -11123,6 +11148,7 @@ symlink_java: true</code><button class="clipboard">Copy</button></pre>
 <div class="title">application.conf</div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-properties hljs">server.bufferSize = 16384
+server.compressionLevel = 6
 server.port = 8080
 server.ioThreads = 16
 server.workerThreads = 64
@@ -11131,7 +11157,7 @@ server.singleLoop = false
 server.defaultHeaders = true
 server.maxRequestSize = 10485760
 server.securePort = 8443
-server.ssl.type = self-signed
+server.ssl.type = self-signed | PKCS12 | X509
 server.http2 = true</code><button class="clipboard">Copy</button></pre>
 </div>
 </div>
@@ -11158,13 +11184,13 @@ HTTP. Jooby supports two certificate formats:</p>
 <div class="ulist">
 <ul>
 <li>
-<p>cert: A PKCS12 or X.509 certificate chain file in PEM format. It can be an absolute path or a classpath resource. Required.</p>
+<p>cert: A PKCS12 or X.509 certificate chain file in PEM format. Most commonly, a .crt file for X509 and .p12 for PKCS12. It can be an absolute path or a classpath resource. Required.</p>
 </li>
 <li>
-<p>key:  A PKCS#8 private key file in PEM format. It can be an absolute path or a classpath resource. Required when using X.509 certificates.</p>
+<p>key:  A PKCS#8 private key file in PEM format. Most commonly a .key file. It can be an absolute path or a classpath resource. Required when using X.509 certificates.</p>
 </li>
 <li>
-<p>password: Password to use (if any). Optional. Default is: null/empty.</p>
+<p>password: Password to use. Required when using PKCS12 certificates.</p>
 </li>
 </ul>
 </div>
@@ -11298,7 +11324,7 @@ HTTP. Jooby supports two certificate formats:</p>
 </div><div class="content hidden option-2">
 <pre class="highlightjs highlight"><code class="language-kotlin hljs">{
   serverOptions {
-    ssl = SslOptions.from(config)
+    ssl = SslOptions.from(config).get()
   }
 }</code><button class="clipboard">Copy</button></pre>
 </div></div>
@@ -11322,7 +11348,7 @@ HTTP. Jooby supports two certificate formats:</p>
 </div><div class="content hidden option-2">
 <pre class="highlightjs highlight"><code class="language-kotlin hljs">{
   serverOptions {
-    ssl = SslOptions.x509("path/to/server.p12", "password")             <i class="conum" data-value="1"></i><b>(1)</b>
+    ssl = SslOptions.pkcs12("path/to/server.p12", "password")             <i class="conum" data-value="1"></i><b>(1)</b>
   }
 }</code><button class="clipboard">Copy</button></pre>
 </div></div>
@@ -11336,7 +11362,7 @@ HTTP. Jooby supports two certificate formats:</p>
 </tbody></table>
 </div>
 <div class="paragraph">
-<p>Certificate (.crt) location can be file system or class path locations.</p>
+<p>Certificate (.p12 location can be file system or class path locations.</p>
 </div>
 <div class="paragraph">
 <p>Optionally you can define the SSL options in your application configuration file:</p>
@@ -11365,14 +11391,97 @@ HTTP. Jooby supports two certificate formats:</p>
 </div><div class="content hidden option-2">
 <pre class="highlightjs highlight"><code class="language-kotlin hljs">{
   serverOptions {
-    ssl = SslOptions.from(config)
+    ssl = SslOptions.from(config).get()
   }
 }</code><button class="clipboard">Copy</button></pre>
 </div></div>
 
 </div>
 <div class="sect3">
-<h4 id="server-https-support-tls-protocol"><a class="anchor" href="#server-https-support-tls-protocol"></a><a class="link" href="#server-https-support-tls-protocol">19.2.3. TLS protocol</a></h4>
+<h4 id="server-https-support-client-authentication-mutual-tls"><a class="anchor" href="#server-https-support-client-authentication-mutual-tls"></a><a class="link" href="#server-https-support-client-authentication-mutual-tls">19.2.3. Client Authentication (Mutual TLS)</a></h4>
+<div class="paragraph">
+<p>To enable 2-way TLS (Mutual TLS), set the trust certificate and client authentication. Setting the trust certificate is required if using self-signed or custom generated certificates so that the server will trust the client’s certificate signing authority.</p>
+</div>
+<div class="listingblock primary">
+<div class="title">Client Authentication</div>
+
+<div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
+<pre class="highlightjs highlight"><code class="language-java hljs">{
+  SslOptions ssl = SslOptions.pkcs12("path/to/server.p12", "password")
+    .setTrustCert("path/to/trustCert") <i class="conum" data-value="1"></i><b>(1)</b>
+    .setTrustPassword("password") <i class="conum" data-value="2"></i><b>(2)</b>
+    .setClientAuth(SslOptions.ClientAuth.REQUIRED); <i class="conum" data-value="3"></i><b>(3)</b>
+  setServerOptions(new ServerOptions()
+      .setSsl(ssl)
+  );
+}</code><button class="clipboard">Copy</button></pre>
+</div><div class="content hidden option-2">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs">{
+  serverOptions {
+    ssl = SslOptions.pkcs12("path/to/server.p12", "password")
+      .trustCert("path/to/trustCert") <i class="conum" data-value="1"></i><b>(1)</b>
+      .trustPassword("password") <i class="conum" data-value="2"></i><b>(2)</b>
+      .clientAuth(SslOptions.ClientAuth.REQUIRED) <i class="conum" data-value="3"></i><b>(3)</b>
+  }
+}</code><button class="clipboard">Copy</button></pre>
+</div></div>
+
+<div class="colist arabic">
+<table>
+<tbody><tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Set the trust certificate path.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Set the trust certificate password.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Set the client authentication mode. Possible values are REQUIRED, REQUESTED, or NONE. Default is NONE.</td>
+</tr>
+</tbody></table>
+</div>
+<div class="paragraph">
+<p>Optionally you can define these SSL options in your application configuration file:</p>
+</div>
+<div class="listingblock">
+<div class="title">Ssl options:</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json hljs">server {
+  ssl {
+    type: PKCS12,
+    cert: "path/to/server.p12",
+    password: "password",
+    trust {
+      cert: "path/to/trustCert",
+      password: "password"
+    }
+    clientAuth: REQUIRED
+  }
+}</code><button class="clipboard">Copy</button></pre>
+</div>
+</div>
+<div class="listingblock primary">
+<div class="title">Mutual TLS from configuration</div>
+
+<div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
+<pre class="highlightjs highlight"><code class="language-java hljs">{
+  setServerOptions(new ServerOptions()
+      .setSsl(SslOptions.from(getConfig()))
+  );
+}</code><button class="clipboard">Copy</button></pre>
+</div><div class="content hidden option-2">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs">{
+  serverOptions {
+    ssl = SslOptions.from(config).get()
+  }
+}</code><button class="clipboard">Copy</button></pre>
+</div></div>
+
+</div>
+<div class="sect3">
+<h4 id="server-https-support-tls-protocol"><a class="anchor" href="#server-https-support-tls-protocol"></a><a class="link" href="#server-https-support-tls-protocol">19.2.4. TLS protocol</a></h4>
 <div class="paragraph">
 <p>Default protocol is <code>TLSv1.3, TLSv1.2</code>. To override, just do:</p>
 </div>
@@ -11431,7 +11540,7 @@ none of which are supported, an exception will be thrown.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="server-https-support-openssl"><a class="anchor" href="#server-https-support-openssl"></a><a class="link" href="#server-https-support-openssl">19.2.4. OpenSSL</a></h4>
+<h4 id="server-https-support-openssl"><a class="anchor" href="#server-https-support-openssl"></a><a class="link" href="#server-https-support-openssl">19.2.5. OpenSSL</a></h4>
 <div class="paragraph">
 <p>SSL support is provided using built-in JDK capabilities. Jooby offers an OpenSSL support using
 <a href="https://github.com/google/conscrypt" target="_blank">Conscrypt</a>.</p>
@@ -11446,10 +11555,10 @@ none of which are supported, an exception will be thrown.</p>
 <pre class="highlightjs highlight"><code class="language-xml hljs">&lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
   &lt;artifactId&gt;jooby-conscrypt&lt;/artifactId&gt;
-  &lt;version&gt;2.9.6&lt;/version&gt;
+  &lt;version&gt;2.10.0&lt;/version&gt;
 &lt;/dependency&gt;</code><button class="clipboard">Copy</button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'io.jooby:jooby-conscrypt:2.9.6'</code><button class="clipboard">Copy</button></pre>
+<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'io.jooby:jooby-conscrypt:2.10.0'</code><button class="clipboard">Copy</button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -11475,10 +11584,10 @@ following dependencies:</p>
 <pre class="highlightjs highlight"><code class="language-xml hljs">&lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
   &lt;artifactId&gt;jooby-http2-jetty&lt;/artifactId&gt;
-  &lt;version&gt;2.9.6&lt;/version&gt;
+  &lt;version&gt;2.10.0&lt;/version&gt;
 &lt;/dependency&gt;</code><button class="clipboard">Copy</button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'io.jooby:jooby-http2-jetty:2.9.6'</code><button class="clipboard">Copy</button></pre>
+<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'io.jooby:jooby-http2-jetty:2.10.0'</code><button class="clipboard">Copy</button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -11491,10 +11600,10 @@ following dependencies:</p>
 <pre class="highlightjs highlight"><code class="language-xml hljs">&lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
   &lt;artifactId&gt;jooby-http2-netty&lt;/artifactId&gt;
-  &lt;version&gt;2.9.6&lt;/version&gt;
+  &lt;version&gt;2.10.0&lt;/version&gt;
 &lt;/dependency&gt;</code><button class="clipboard">Copy</button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'io.jooby:jooby-http2-netty:2.9.6'</code><button class="clipboard">Copy</button></pre>
+<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'io.jooby:jooby-http2-netty:2.10.0'</code><button class="clipboard">Copy</button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -11507,10 +11616,10 @@ following dependencies:</p>
 <pre class="highlightjs highlight"><code class="language-xml hljs">&lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
   &lt;artifactId&gt;jooby-http2-undertow&lt;/artifactId&gt;
-  &lt;version&gt;2.9.6&lt;/version&gt;
+  &lt;version&gt;2.10.0&lt;/version&gt;
 &lt;/dependency&gt;</code><button class="clipboard">Copy</button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'io.jooby:jooby-http2-undertow:2.9.6'</code><button class="clipboard">Copy</button></pre>
+<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'io.jooby:jooby-http2-undertow:2.10.0'</code><button class="clipboard">Copy</button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -11921,10 +12030,10 @@ fun main(args: Array&lt;String&gt;) {
 <pre class="highlightjs highlight"><code class="language-xml hljs">&lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
   &lt;artifactId&gt;jooby-guice&lt;/artifactId&gt;
-  &lt;version&gt;2.9.6&lt;/version&gt;
+  &lt;version&gt;2.10.0&lt;/version&gt;
 &lt;/dependency&gt;</code><button class="clipboard">Copy</button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'io.jooby:jooby-guice:2.9.6'</code><button class="clipboard">Copy</button></pre>
+<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'io.jooby:jooby-guice:2.10.0'</code><button class="clipboard">Copy</button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -12089,10 +12198,10 @@ fun main(args: Array&lt;String&gt;) {
 <pre class="highlightjs highlight"><code class="language-xml hljs">&lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
   &lt;artifactId&gt;jooby-spring&lt;/artifactId&gt;
-  &lt;version&gt;2.9.6&lt;/version&gt;
+  &lt;version&gt;2.10.0&lt;/version&gt;
 &lt;/dependency&gt;</code><button class="clipboard">Copy</button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'io.jooby:jooby-spring:2.9.6'</code><button class="clipboard">Copy</button></pre>
+<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'io.jooby:jooby-spring:2.10.0'</code><button class="clipboard">Copy</button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -12192,10 +12301,10 @@ public class BillingService {
 
 }</code><button class="clipboard">Copy</button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-kotlin hljs">import javax.injext.Inject
+<pre class="highlightjs highlight"><code class="language-kotlin hljs">import javax.inject.Inject
 import org.springframework.beans.factory.annotation.Value
 
-class BillingService @Inject constructor(@Value("${currency}") currency: String) {
+class BillingService @Inject constructor(@Value("\${currency}") val currency: String) {
   ...
 }</code><button class="clipboard">Copy</button></pre>
 </div></div>
@@ -12258,10 +12367,10 @@ class Hello {
 <pre class="highlightjs highlight"><code class="language-xml hljs">&lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
   &lt;artifactId&gt;jooby-weld&lt;/artifactId&gt;
-  &lt;version&gt;2.9.6&lt;/version&gt;
+  &lt;version&gt;2.10.0&lt;/version&gt;
 &lt;/dependency&gt;</code><button class="clipboard">Copy</button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'io.jooby:jooby-weld:2.9.6'</code><button class="clipboard">Copy</button></pre>
+<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'io.jooby:jooby-weld:2.10.0'</code><button class="clipboard">Copy</button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -12491,6 +12600,9 @@ configuration properties.</p>
 </li>
 <li>
 <p><a href="/modules/jackson">Jackson</a>: Jackson module for Jooby.</p>
+</li>
+<li>
+<p><a href="/modules/yasson">JSON-B</a>: JSON-B module for Jooby.</p>
 </li>
 </ul>
 </div>
