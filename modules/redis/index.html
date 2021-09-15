@@ -544,10 +544,10 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <pre class="highlightjs highlight"><code class="language-xml hljs">&lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
   &lt;artifactId&gt;jooby-redis&lt;/artifactId&gt;
-  &lt;version&gt;2.10.0&lt;/version&gt;
+  &lt;version&gt;2.11.0&lt;/version&gt;
 &lt;/dependency&gt;</code><button class="clipboard">Copy</button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'io.jooby:jooby-redis:2.10.0'</code><button class="clipboard">Copy</button></pre>
+<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'io.jooby:jooby-redis:2.11.0'</code><button class="clipboard">Copy</button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -696,12 +696,12 @@ bar = "redis://server2:6379"</code><button class="clipboard">Copy</button></pre>
 <pre class="highlightjs highlight"><code class="language-java hljs">import io.jooby.redis.RedisModule;
 import io.jooby.redis.RedisSessionStore;
 
-import io.lettuce.core.api.StatefulRedisConnection;
+import io.lettuce.core.RedisClient;
 
 {
   install(new RedisModule());                                                     <i class="conum" data-value="1"></i><b>(1)</b>
 
-  setSessionStore(new RedisSessionStore(require(StatefulRedisConnection.class))); <i class="conum" data-value="2"></i><b>(2)</b>
+  setSessionStore(new RedisSessionStore(require(RedisClient.class)));             <i class="conum" data-value="2"></i><b>(2)</b>
 
   get("/", ctx -&gt; {
     Session httpSession = ctx.session();                                          <i class="conum" data-value="3"></i><b>(3)</b>
@@ -712,12 +712,12 @@ import io.lettuce.core.api.StatefulRedisConnection;
 <pre class="highlightjs highlight"><code class="language-kt hljs">import io.jooby.redis.RedisModule
 import io.jooby.redis.RedisSessionStore
 
-import io.lettuce.core.api.StatefulRedisConnection
+import io.lettuce.core.RedisClient
 
 {
   install(RedisModule())                                                           <i class="conum" data-value="1"></i><b>(1)</b>
 
-  sessionStore = RedisSessionStore(require(StatefulRedisConnection::class))        <i class="conum" data-value="2"></i><b>(2)</b>
+  sessionStore = RedisSessionStore(require(RedisClient::class))                    <i class="conum" data-value="2"></i><b>(2)</b>
 
   get("/") {
     val httpSession = ctx.session()                                                <i class="conum" data-value="3"></i><b>(3)</b>
