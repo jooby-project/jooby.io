@@ -515,7 +515,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h1>Welcome to Jooby!</h1>
 <div class="details">
 <span id="author" class="author">by Edgar Espina</span><br>
-<span id="revdate">2.11.0</span>
+<span id="revdate">2.13.0</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
@@ -639,6 +639,11 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </li>
 <li><a href="#execution-model">5.5. Execution model</a></li>
 <li><a href="#jax-rs-annotations">5.6. JAX-RS Annotations</a></li>
+<li><a href="#annotation-processor-options">5.7. Annotation Processor Options</a>
+<ul class="sectlevel3">
+<li><a href="#setting-options">5.7.1. Setting options</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li><a href="#static-files">6. Static Files</a>
@@ -860,7 +865,7 @@ favorite web server.</p>
 </td>
 <td class="content">
 <div class="paragraph">
-<p>Latest Release: <a href="https://github.com/jooby-project/jooby/releases/tag/v2.11.0" target="_blank">2.11.0</a>.</p>
+<p>Latest Release: <a href="https://github.com/jooby-project/jooby/releases/tag/v2.13.0" target="_blank">2.13.0</a>.</p>
 </div>
 <div class="paragraph">
 <p>Looking for previous version? The <a href="v1">1.x</a> documentation is still available.</p>
@@ -1105,7 +1110,7 @@ Jooby projects very quickly.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>Download <a href="https://repo1.maven.org/maven2/io/jooby/jooby-cli/2.11.0/jooby-cli-2.11.0.zip" target="_blank">jooby-cli.zip</a></p>
+<p>Download <a href="https://repo1.maven.org/maven2/io/jooby/jooby-cli/2.13.0/jooby-cli-2.13.0.zip" target="_blank">jooby-cli.zip</a></p>
 </li>
 <li>
 <p>Unzip <code>jooby-cli.zip</code> in your user home directory (or any other directory you prefer to)</p>
@@ -4759,10 +4764,10 @@ and returns a single result of the given type.</p>
 <pre class="highlightjs highlight"><code class="language-xml hljs">&lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
   &lt;artifactId&gt;jooby-jackson&lt;/artifactId&gt;
-  &lt;version&gt;2.11.0&lt;/version&gt;
+  &lt;version&gt;2.13.0&lt;/version&gt;
 &lt;/dependency&gt;</code><button class="clipboard">Copy</button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'io.jooby:jooby-jackson:2.11.0'</code><button class="clipboard">Copy</button></pre>
+<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'io.jooby:jooby-jackson:2.13.0'</code><button class="clipboard">Copy</button></pre>
 </div></div>
 
 </td>
@@ -4928,10 +4933,10 @@ produces a result.</p>
 <pre class="highlightjs highlight"><code class="language-xml hljs">&lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
   &lt;artifactId&gt;jooby-jackson&lt;/artifactId&gt;
-  &lt;version&gt;2.11.0&lt;/version&gt;
+  &lt;version&gt;2.13.0&lt;/version&gt;
 &lt;/dependency&gt;</code><button class="clipboard">Copy</button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'io.jooby:jooby-jackson:2.11.0'</code><button class="clipboard">Copy</button></pre>
+<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'io.jooby:jooby-jackson:2.13.0'</code><button class="clipboard">Copy</button></pre>
 </div></div>
 
 </td>
@@ -5906,6 +5911,106 @@ JAX-RS specification and there is no immediate plan to do it.</p>
 <div class="paragraph">
 <p>The main reason to support JAX-RS annotations is to let you plug-in third-party tools that rely
 on them (mostly annotations processors).</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="mvc-api-annotation-processor-options"><a class="anchor" href="#mvc-api-annotation-processor-options"></a><a class="link" href="#mvc-api-annotation-processor-options">5.7. Annotation Processor Options</a></h3>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Option</th>
+<th class="tableblock halign-left valign-top">Value</th>
+<th class="tableblock halign-left valign-top">Default Value</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">jooby.debug</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">boolean</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Run processor in debug mode</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">jooby.incremental</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">boolean</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Hints maven/gradle to do incremental compilation. Useful for development.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">jooby.services</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">boolean</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Generates META-INF/services metadata</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">jooby.skipAttributeAnnotations</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">array</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">[]</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Skip annotation during byte code generation (i.e. don’t generate them as route attributes)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">jooby.extendedLookupOfSuperTypes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">boolean</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Extended lookup of super/base types. Useful when base route/controller isn’t part of current project (no sources code)</p></td>
+</tr>
+</tbody>
+</table>
+<div class="sect3">
+<h4 id="mvc-api-annotation-processor-options-setting-options"><a class="anchor" href="#mvc-api-annotation-processor-options-setting-options"></a><a class="link" href="#mvc-api-annotation-processor-options-setting-options">5.7.1. Setting options</a></h4>
+<div class="listingblock primary">
+
+
+<div class="switch"><div class="switch--item option-1 selected">Maven</div><div class="switch--item option-2">Gradle</div></div><div class="content option-1">
+<pre class="highlightjs highlight"><code class="language-xml hljs">  &lt;plugin&gt;
+    &lt;artifactId&gt;maven-compiler-plugin&lt;/artifactId&gt;
+    &lt;configuration&gt;
+      &lt;annotationProcessorPaths&gt;
+        &lt;path&gt;
+          &lt;groupId&gt;io.jooby&lt;/groupId&gt;
+          &lt;artifactId&gt;jooby-apt&lt;/artifactId&gt;
+          &lt;version&gt;${jooby.version}&lt;/version&gt;
+        &lt;/path&gt;
+      &lt;/annotationProcessorPaths&gt;
+      &lt;compilerArgs&gt;
+        &lt;compilerArg&gt;
+          -Ajooby.debug=false
+        &lt;/compilerArg&gt;
+        &lt;compilerArg&gt;
+          -Ajooby.incremental=true
+        &lt;/compilerArg&gt;
+        &lt;compilerArg&gt;
+          -Ajooby.services=true
+        &lt;/compilerArg&gt;
+        &lt;compilerArg&gt;
+          -Ajooby.skipAttributeAnnotations=FooAnnotation,BarAnnotation
+        &lt;/compilerArg&gt;
+        &lt;compilerArg&gt;
+          -Ajooby.extendedLookupOfSuperTypes=false
+        &lt;/compilerArg&gt;
+      &lt;/compilerArgs&gt;
+    &lt;/configuration&gt;
+  &lt;/plugin&gt;</code><button class="clipboard">Copy</button></pre>
+</div><div class="content hidden option-2">
+<pre class="highlightjs highlight"><code class="language-groovy hljs">tasks.withType(JavaCompile) {
+    options.compilerArgs += [
+        '-parameters',
+        '-Ajooby.debug=false',
+        '-Ajooby.incremental=true',
+        '-Ajooby.services=true',
+        '-Ajooby.skipAttributeAnnotations=FooAnnotation,BarAnnotation',
+        '-Ajooby.extendedLookupOfSuperTypes=false'
+    ]
+}</code><button class="clipboard">Copy</button></pre>
+</div></div>
+
 </div>
 </div>
 </div>
@@ -9941,10 +10046,10 @@ logback in your project:</p>
 <pre class="highlightjs highlight"><code class="language-xml hljs">&lt;dependency&gt;
   &lt;groupId&gt;ch.qos.logback&lt;/groupId&gt;
   &lt;artifactId&gt;logback-classic&lt;/artifactId&gt;
-  &lt;version&gt;1.2.3&lt;/version&gt;
+  &lt;version&gt;1.2.9&lt;/version&gt;
 &lt;/dependency&gt;</code><button class="clipboard">Copy</button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'ch.qos.logback:logback-classic:1.2.3'</code><button class="clipboard">Copy</button></pre>
+<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'ch.qos.logback:logback-classic:1.2.9'</code><button class="clipboard">Copy</button></pre>
 </div></div>
 
 <div class="listingblock">
@@ -9985,18 +10090,18 @@ the next steps to use logback in your project:</p>
 <pre class="highlightjs highlight"><code class="language-xml hljs">&lt;dependency&gt;
   &lt;groupId&gt;org.apache.logging.log4j&lt;/groupId&gt;
   &lt;artifactId&gt;log4j-slf4j-impl&lt;/artifactId&gt;
-  &lt;version&gt;2.14.1&lt;/version&gt;
+  &lt;version&gt;2.17.1&lt;/version&gt;
 &lt;/dependency&gt;
 
 &lt;dependency&gt;
   &lt;groupId&gt;org.apache.logging.log4j&lt;/groupId&gt;
   &lt;artifactId&gt;log4j-core&lt;/artifactId&gt;
-  &lt;version&gt;2.14.1&lt;/version&gt;
+  &lt;version&gt;2.17.1&lt;/version&gt;
 &lt;/dependency&gt;</code><button class="clipboard">Copy</button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'org.apache.logging.log4j:log4j-slf4j-impl:2.14.1'
+<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'org.apache.logging.log4j:log4j-slf4j-impl:2.17.1'
 
-implementation 'org.apache.logging.log4j:log4j-core:2.14.1'</code><button class="clipboard">Copy</button></pre>
+implementation 'org.apache.logging.log4j:log4j-core:2.17.1'</code><button class="clipboard">Copy</button></pre>
 </div></div>
 
 <div class="listingblock">
@@ -10118,10 +10223,10 @@ the logging framework to configure without taking care the environment setup.</p
 <pre class="highlightjs highlight"><code class="language-xml hljs">&lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
   &lt;artifactId&gt;jooby-test&lt;/artifactId&gt;
-  &lt;version&gt;2.11.0&lt;/version&gt;
+  &lt;version&gt;2.13.0&lt;/version&gt;
 &lt;/dependency&gt;</code><button class="clipboard">Copy</button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'io.jooby:jooby-test:2.11.0'</code><button class="clipboard">Copy</button></pre>
+<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'io.jooby:jooby-test:2.13.0'</code><button class="clipboard">Copy</button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -10380,10 +10485,10 @@ you can set HTTP parameters, body, headers, etc.</p>
 <pre class="highlightjs highlight"><code class="language-xml hljs">&lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
   &lt;artifactId&gt;jooby-test&lt;/artifactId&gt;
-  &lt;version&gt;2.11.0&lt;/version&gt;
+  &lt;version&gt;2.13.0&lt;/version&gt;
 &lt;/dependency&gt;</code><button class="clipboard">Copy</button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'io.jooby:jooby-test:2.11.0'</code><button class="clipboard">Copy</button></pre>
+<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'io.jooby:jooby-test:2.13.0'</code><button class="clipboard">Copy</button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -10677,7 +10782,7 @@ that effectively reload application classes.</p>
   &lt;plugin&gt;
     &lt;groupId&gt;io.jooby&lt;/groupId&gt;
     &lt;artifactId&gt;jooby-maven-plugin&lt;/artifactId&gt;
-    &lt;version&gt;2.11.0&lt;/version&gt;
+    &lt;version&gt;2.13.0&lt;/version&gt;
   &lt;/plugin&gt;
   ...
 &lt;/plugins&gt;</code><button class="clipboard">Copy</button></pre>
@@ -10689,7 +10794,7 @@ that effectively reload application classes.</p>
   }
 
   dependencies {
-    classpath "io.jooby:jooby-gradle-plugin:2.11.0"
+    classpath "io.jooby:jooby-gradle-plugin:2.13.0"
   }
 }
 
@@ -10759,7 +10864,7 @@ project directory, when found plugin compiler is OFF and let Eclipse compiles th
   &lt;plugin&gt;
     &lt;groupId&gt;io.jooby&lt;/groupId&gt;
     &lt;artifactId&gt;jooby-maven-plugin&lt;/artifactId&gt;
-    &lt;version&gt;2.11.0&lt;/version&gt;
+    &lt;version&gt;2.13.0&lt;/version&gt;
     &lt;configuration&gt;
       &lt;mainClass&gt;${application.class}&lt;/mainClass&gt;                  <i class="conum" data-value="1"></i><b>(1)</b>
       &lt;restartExtensions&gt;conf,properties,class&lt;/restartExtensions&gt; <i class="conum" data-value="2"></i><b>(2)</b>
@@ -10777,7 +10882,7 @@ project directory, when found plugin compiler is OFF and let Eclipse compiles th
   }
 
   dependencies {
-    classpath "io.jooby:jooby-gradle-plugin:2.11.0"
+    classpath "io.jooby:jooby-gradle-plugin:2.13.0"
   }
 }
 
@@ -10987,11 +11092,11 @@ symlink_java: true</code><button class="clipboard">Copy</button></pre>
     &lt;plugin&gt;
         &lt;groupId&gt;io.repaint.maven&lt;/groupId&gt;
         &lt;artifactId&gt;tiles-maven-plugin&lt;/artifactId&gt;
-        &lt;version&gt;2.20&lt;/version&gt;
+        &lt;version&gt;2.24&lt;/version&gt;
         &lt;extensions&gt;true&lt;/extensions&gt;
         &lt;configuration&gt;
           &lt;tiles&gt;
-            &lt;tile&gt;io.jooby:jooby-stork:2.11.0&lt;/tile&gt;
+            &lt;tile&gt;io.jooby:jooby-stork:2.13.0&lt;/tile&gt;
           &lt;/tiles&gt;
         &lt;/configuration&gt;
     &lt;/plugin&gt;
@@ -11040,10 +11145,10 @@ symlink_java: true</code><button class="clipboard">Copy</button></pre>
 <pre class="highlightjs highlight"><code class="language-xml hljs">&lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
   &lt;artifactId&gt;jooby-jetty&lt;/artifactId&gt;
-  &lt;version&gt;2.11.0&lt;/version&gt;
+  &lt;version&gt;2.13.0&lt;/version&gt;
 &lt;/dependency&gt;</code><button class="clipboard">Copy</button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'io.jooby:jooby-jetty:2.11.0'</code><button class="clipboard">Copy</button></pre>
+<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'io.jooby:jooby-jetty:2.13.0'</code><button class="clipboard">Copy</button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -11056,10 +11161,10 @@ symlink_java: true</code><button class="clipboard">Copy</button></pre>
 <pre class="highlightjs highlight"><code class="language-xml hljs">&lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
   &lt;artifactId&gt;jooby-netty&lt;/artifactId&gt;
-  &lt;version&gt;2.11.0&lt;/version&gt;
+  &lt;version&gt;2.13.0&lt;/version&gt;
 &lt;/dependency&gt;</code><button class="clipboard">Copy</button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'io.jooby:jooby-netty:2.11.0'</code><button class="clipboard">Copy</button></pre>
+<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'io.jooby:jooby-netty:2.13.0'</code><button class="clipboard">Copy</button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -11072,10 +11177,10 @@ symlink_java: true</code><button class="clipboard">Copy</button></pre>
 <pre class="highlightjs highlight"><code class="language-xml hljs">&lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
   &lt;artifactId&gt;jooby-utow&lt;/artifactId&gt;
-  &lt;version&gt;2.11.0&lt;/version&gt;
+  &lt;version&gt;2.13.0&lt;/version&gt;
 &lt;/dependency&gt;</code><button class="clipboard">Copy</button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'io.jooby:jooby-utow:2.11.0'</code><button class="clipboard">Copy</button></pre>
+<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'io.jooby:jooby-utow:2.13.0'</code><button class="clipboard">Copy</button></pre>
 </div></div>
 
 <div class="admonitionblock important">
@@ -11115,6 +11220,7 @@ symlink_java: true</code><button class="clipboard">Copy</button></pre>
       .setSecurePort(8433)
       .setSsl(SslOptions.selfSigned())
       .setHttp2(true)
+      .setExpectContinue(true)
   );
 }</code><button class="clipboard">Copy</button></pre>
 </div><div class="content hidden option-2">
@@ -11132,6 +11238,7 @@ symlink_java: true</code><button class="clipboard">Copy</button></pre>
     securePort = 8443
     ssl = SslOptions.selfSigned()
     http2 = true
+    expectContinue = true
   }
 }</code><button class="clipboard">Copy</button></pre>
 </div></div>
@@ -11174,6 +11281,10 @@ symlink_java: true</code><button class="clipboard">Copy</button></pre>
 <li>
 <p>http2: Enable HTTP 2.0.</p>
 </li>
+<li>
+<p>expectContinue: Whenever 100-Expect and continue requests are handled by the server. This is off
+by default, except for Jetty which is always ON.</p>
+</li>
 </ul>
 </div>
 <div class="paragraph">
@@ -11193,7 +11304,8 @@ server.defaultHeaders = true
 server.maxRequestSize = 10485760
 server.securePort = 8443
 server.ssl.type = self-signed | PKCS12 | X509
-server.http2 = true</code><button class="clipboard">Copy</button></pre>
+server.http2 = true
+server.expectContinue = false</code><button class="clipboard">Copy</button></pre>
 </div>
 </div>
 </div>
@@ -11590,10 +11702,10 @@ none of which are supported, an exception will be thrown.</p>
 <pre class="highlightjs highlight"><code class="language-xml hljs">&lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
   &lt;artifactId&gt;jooby-conscrypt&lt;/artifactId&gt;
-  &lt;version&gt;2.11.0&lt;/version&gt;
+  &lt;version&gt;2.13.0&lt;/version&gt;
 &lt;/dependency&gt;</code><button class="clipboard">Copy</button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'io.jooby:jooby-conscrypt:2.11.0'</code><button class="clipboard">Copy</button></pre>
+<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'io.jooby:jooby-conscrypt:2.13.0'</code><button class="clipboard">Copy</button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -11619,10 +11731,10 @@ following dependencies:</p>
 <pre class="highlightjs highlight"><code class="language-xml hljs">&lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
   &lt;artifactId&gt;jooby-http2-jetty&lt;/artifactId&gt;
-  &lt;version&gt;2.11.0&lt;/version&gt;
+  &lt;version&gt;2.13.0&lt;/version&gt;
 &lt;/dependency&gt;</code><button class="clipboard">Copy</button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'io.jooby:jooby-http2-jetty:2.11.0'</code><button class="clipboard">Copy</button></pre>
+<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'io.jooby:jooby-http2-jetty:2.13.0'</code><button class="clipboard">Copy</button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -11635,10 +11747,10 @@ following dependencies:</p>
 <pre class="highlightjs highlight"><code class="language-xml hljs">&lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
   &lt;artifactId&gt;jooby-http2-netty&lt;/artifactId&gt;
-  &lt;version&gt;2.11.0&lt;/version&gt;
+  &lt;version&gt;2.13.0&lt;/version&gt;
 &lt;/dependency&gt;</code><button class="clipboard">Copy</button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'io.jooby:jooby-http2-netty:2.11.0'</code><button class="clipboard">Copy</button></pre>
+<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'io.jooby:jooby-http2-netty:2.13.0'</code><button class="clipboard">Copy</button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -11651,10 +11763,10 @@ following dependencies:</p>
 <pre class="highlightjs highlight"><code class="language-xml hljs">&lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
   &lt;artifactId&gt;jooby-http2-undertow&lt;/artifactId&gt;
-  &lt;version&gt;2.11.0&lt;/version&gt;
+  &lt;version&gt;2.13.0&lt;/version&gt;
 &lt;/dependency&gt;</code><button class="clipboard">Copy</button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'io.jooby:jooby-http2-undertow:2.11.0'</code><button class="clipboard">Copy</button></pre>
+<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'io.jooby:jooby-http2-undertow:2.13.0'</code><button class="clipboard">Copy</button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -12065,10 +12177,10 @@ fun main(args: Array&lt;String&gt;) {
 <pre class="highlightjs highlight"><code class="language-xml hljs">&lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
   &lt;artifactId&gt;jooby-guice&lt;/artifactId&gt;
-  &lt;version&gt;2.11.0&lt;/version&gt;
+  &lt;version&gt;2.13.0&lt;/version&gt;
 &lt;/dependency&gt;</code><button class="clipboard">Copy</button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'io.jooby:jooby-guice:2.11.0'</code><button class="clipboard">Copy</button></pre>
+<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'io.jooby:jooby-guice:2.13.0'</code><button class="clipboard">Copy</button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -12233,10 +12345,10 @@ fun main(args: Array&lt;String&gt;) {
 <pre class="highlightjs highlight"><code class="language-xml hljs">&lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
   &lt;artifactId&gt;jooby-spring&lt;/artifactId&gt;
-  &lt;version&gt;2.11.0&lt;/version&gt;
+  &lt;version&gt;2.13.0&lt;/version&gt;
 &lt;/dependency&gt;</code><button class="clipboard">Copy</button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'io.jooby:jooby-spring:2.11.0'</code><button class="clipboard">Copy</button></pre>
+<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'io.jooby:jooby-spring:2.13.0'</code><button class="clipboard">Copy</button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -12402,10 +12514,10 @@ class Hello {
 <pre class="highlightjs highlight"><code class="language-xml hljs">&lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
   &lt;artifactId&gt;jooby-weld&lt;/artifactId&gt;
-  &lt;version&gt;2.11.0&lt;/version&gt;
+  &lt;version&gt;2.13.0&lt;/version&gt;
 &lt;/dependency&gt;</code><button class="clipboard">Copy</button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'io.jooby:jooby-weld:2.11.0'</code><button class="clipboard">Copy</button></pre>
+<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'io.jooby:jooby-weld:2.13.0'</code><button class="clipboard">Copy</button></pre>
 </div></div>
 
 <div class="paragraph">
