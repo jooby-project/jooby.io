@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="generator" content="Asciidoctor 2.0.17">
+<meta name="generator" content="Asciidoctor 2.0.18">
 <meta name="description" content="The modular micro web framework for Java">
 <meta name="keywords" content="Java, Modern, Micro, Web, Framework, Reactive, Lightweight, Microservices">
 <link rel="icon" type="image/png" href="../../images/favicon96.png">
@@ -87,10 +87,10 @@ code{font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;font-weight:400;
 ul,ol,dl{line-height:1.6;margin-bottom:1.25em;list-style-position:outside;font-family:inherit}
 ul,ol{margin-left:1.5em}
 ul li ul,ul li ol{margin-left:1.25em;margin-bottom:0}
-ul.square li ul,ul.circle li ul,ul.disc li ul{list-style:inherit}
-ul.square{list-style-type:square}
 ul.circle{list-style-type:circle}
 ul.disc{list-style-type:disc}
+ul.square{list-style-type:square}
+ul.circle ul:not([class]),ul.disc ul:not([class]),ul.square ul:not([class]){list-style:inherit}
 ol li ul,ol li ol{margin-left:1.25em;margin-bottom:0}
 dl dt{margin-bottom:.3125em;font-weight:bold}
 dl dd{margin-bottom:1.25em}
@@ -486,27 +486,81 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
     border-bottom: 1px solid #ffa;
   }
 
-  /** Copy */
-  .listingblock:hover .clipboard {
-    display: block;
-  }
-
   .clipboard {
-    border: 0;
-    font-size: .75em;
-    text-transform: uppercase;
-    font-weight: 500;
-    padding: 6px;
-    color: #999;
-    position: absolute;
-    top: .425rem;
-    right: .5rem;
-    background: transparent;
+      position: absolute;
+      bottom: .1rem;
+      right: .1rem;
+      display: inline-block;
+      padding: 4px 8px;
+      font-size: 13px;
+      font-weight: 700;
+      line-height: 20px;
+      color: #333;
+      white-space: nowrap;
+      vertical-align: middle;
+      cursor: pointer;
+      background-color: #eee;
+      background-image: linear-gradient(#fcfcfc,#eee);
+      border: 1px solid #d5d5d5;
+      border-radius: 3px;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      -webkit-appearance: none
   }
 
-  .clipboard:hover, .clipboard:focus, .clipboard:active {
-    outline: 0;
-    background-color: #eee9e6;
+  .clipboard i {
+      font-style: normal;
+      font-weight: 500;
+      opacity: .6
+  }
+
+  .clipboard .octicon {
+      vertical-align: text-top
+  }
+
+  .clipboard .counter {
+      text-shadow: none;
+      background-color: #e5e5e5
+  }
+
+  .clipboard:focus {
+      text-decoration: none;
+      border-color: #51a7e8;
+      outline: none;
+      box-shadow: 0 0 5px rgba(81,167,232,.5)
+  }
+
+  .clipboard:focus:hover,.clipboard.selected:focus {
+      border-color: #51a7e8
+  }
+
+  .clipboard:hover,.clipboard:active,.clipboard.zeroclipboard-is-hover,.clipboard.zeroclipboard-is-active {
+      text-decoration: none;
+      background-color: #ddd;
+      background-image: linear-gradient(#eee,#ddd);
+      border-color: #ccc
+  }
+
+  .clipboard:active,.clipboard.selected,.clipboard.zeroclipboard-is-active {
+      background-color: #dcdcdc;
+      background-image: none;
+      border-color: #b5b5b5;
+      box-shadow: inset 0 2px 4px rgba(0,0,0,.15)
+  }
+
+  .clipboard.selected:hover {
+      background-color: #cfcfcf
+  }
+
+  .clipboard:disabled,.clipboard:disabled:hover,.clipboard.disabled,.clipboard.disabled:hover {
+      color: rgba(102,102,102,.5);
+      cursor: default;
+      background-color: rgba(229,229,229,.5);
+      background-image: none;
+      border-color: rgba(197,197,197,.5);
+      box-shadow: none
   }
 </style>
 </head>
@@ -520,12 +574,13 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#cloud">1.1. Cloud</a></li>
 <li><a href="#data">1.2. Data</a></li>
 <li><a href="#development-tools">1.3. Development Tools</a></li>
-<li><a href="#json">1.4. JSON</a></li>
-<li><a href="#openapi">1.5. OpenAPI</a></li>
-<li><a href="#template-engine">1.6. Template Engine</a></li>
-<li><a href="#security">1.7. Security</a></li>
-<li><a href="#session-store">1.8. Session Store</a></li>
-<li><a href="#misc">1.9. Misc</a></li>
+<li><a href="#event-bus">1.4. Event Bus</a></li>
+<li><a href="#json">1.5. JSON</a></li>
+<li><a href="#openapi">1.6. OpenAPI</a></li>
+<li><a href="#template-engine">1.7. Template Engine</a></li>
+<li><a href="#security">1.8. Security</a></li>
+<li><a href="#session-store">1.9. Session Store</a></li>
+<li><a href="#misc">1.10. Misc</a></li>
 </ul>
 </li>
 </ul>
@@ -614,7 +669,17 @@ configuration properties.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="modules-json"><a class="anchor" href="#modules-json"></a><a class="link" href="#modules-json">1.4. JSON</a></h3>
+<h3 id="modules-event-bus"><a class="anchor" href="#modules-event-bus"></a><a class="link" href="#modules-event-bus">1.4. Event Bus</a></h3>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="/modules/camel">Camel</a>: Camel module for Jooby.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="modules-json"><a class="anchor" href="#modules-json"></a><a class="link" href="#modules-json">1.5. JSON</a></h3>
 <div class="ulist">
 <ul>
 <li>
@@ -626,11 +691,14 @@ configuration properties.</p>
 <li>
 <p><a href="/modules/yasson">JSON-B</a>: JSON-B module for Jooby.</p>
 </li>
+<li>
+<p><a href="/modules/avaje-jsonb">Avaje-JsonB</a>: Avaje-JsonB module for Jooby.</p>
+</li>
 </ul>
 </div>
 </div>
 <div class="sect2">
-<h3 id="modules-openapi"><a class="anchor" href="#modules-openapi"></a><a class="link" href="#modules-openapi">1.5. OpenAPI</a></h3>
+<h3 id="modules-openapi"><a class="anchor" href="#modules-openapi"></a><a class="link" href="#modules-openapi">1.6. OpenAPI</a></h3>
 <div class="ulist">
 <ul>
 <li>
@@ -640,11 +708,17 @@ configuration properties.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="modules-template-engine"><a class="anchor" href="#modules-template-engine"></a><a class="link" href="#modules-template-engine">1.6. Template Engine</a></h3>
+<h3 id="modules-template-engine"><a class="anchor" href="#modules-template-engine"></a><a class="link" href="#modules-template-engine">1.7. Template Engine</a></h3>
 <div class="ulist">
 <ul>
 <li>
 <p><a href="/modules/handlebars">Handlebars</a>: Handlebars template engine.</p>
+</li>
+<li>
+<p><a href="/modules/jstachio">JStachio</a>: JStachio template engine.</p>
+</li>
+<li>
+<p><a href="/modules/jte">jte</a>: jte template engine.</p>
 </li>
 <li>
 <p><a href="/modules/freemarker">Freemarker</a>: Freemarker template engine.</p>
@@ -662,7 +736,7 @@ configuration properties.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="modules-security"><a class="anchor" href="#modules-security"></a><a class="link" href="#modules-security">1.7. Security</a></h3>
+<h3 id="modules-security"><a class="anchor" href="#modules-security"></a><a class="link" href="#modules-security">1.8. Security</a></h3>
 <div class="ulist">
 <ul>
 <li>
@@ -675,7 +749,7 @@ configuration properties.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="modules-session-store"><a class="anchor" href="#modules-session-store"></a><a class="link" href="#modules-session-store">1.8. Session Store</a></h3>
+<h3 id="modules-session-store"><a class="anchor" href="#modules-session-store"></a><a class="link" href="#modules-session-store">1.9. Session Store</a></h3>
 <div class="ulist">
 <ul>
 <li>
@@ -691,7 +765,7 @@ configuration properties.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="modules-misc"><a class="anchor" href="#modules-misc"></a><a class="link" href="#modules-misc">1.9. Misc</a></h3>
+<h3 id="modules-misc"><a class="anchor" href="#modules-misc"></a><a class="link" href="#modules-misc">1.10. Misc</a></h3>
 <div class="ulist">
 <ul>
 <li>
@@ -713,7 +787,7 @@ configuration properties.</p>
 <script>
 if (!hljs.initHighlighting.called) {
   hljs.initHighlighting.called = true
-  ;[].slice.call(document.querySelectorAll('pre.highlight > code')).forEach(function (el) { hljs.highlightBlock(el) })
+  ;[].slice.call(document.querySelectorAll('pre.highlight > code[data-lang]')).forEach(function (el) { hljs.highlightBlock(el) })
 }
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/zepto/1.2.0/zepto.min.js"></script>
@@ -767,21 +841,12 @@ if (!hljs.initHighlighting.called) {
   });
 </script>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.../../js/2.0.0/clipboard.min.js"></script>
+<script src="/../../js/clipboard.min.js"></script>
 <script>
   $(function() {
-    new ClipboardJS('.clipboard', {
-      target: function(b) {
-        var p = b.parentNode;
-        var target = p.childNodes[0];
-        return target;
-      }
-    }).on('success', function(e) {
+    new ClipboardJS('.clipboard')
+    .on('success', function(e) {
       e.clearSelection();
-      e.trigger.textContent = 'Copied';
-      setTimeout(function() {
-        e.trigger.textContent = 'Copy';
-      }, 2000);
     });
   });
 </script>

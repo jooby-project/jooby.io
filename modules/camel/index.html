@@ -8,7 +8,7 @@
 <meta name="description" content="The modular micro web framework for Java">
 <meta name="keywords" content="Java, Modern, Micro, Web, Framework, Reactive, Lightweight, Microservices">
 <link rel="icon" type="image/png" href="../../images/favicon96.png">
-<title>jooby: aws module</title>
+<title>jooby: camel module</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -569,9 +569,12 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#amazonwebservices">1. AmazonWebServices</a>
+<li><a href="#camel">1. Camel</a>
 <ul class="sectlevel2">
 <li><a href="#usage">1.1. Usage</a></li>
+<li><a href="#configuration-files">1.2. Configuration files</a></li>
+<li><a href="#dependency-injection-support">1.3. Dependency Injection Support</a></li>
+<li><a href="#auto-configuration">1.4. Auto Configuration</a></li>
 </ul>
 </li>
 </ul>
@@ -579,13 +582,13 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div id="content">
 <div class="sect1">
-<h2 id="amazonwebservices"><a class="anchor" href="#amazonwebservices"></a><a class="link" href="#amazonwebservices">1. AmazonWebServices</a></h2>
+<h2 id="camel"><a class="anchor" href="#camel"></a><a class="link" href="#camel">1. Camel</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Amazon Web Services module for <a href="https://github.com/aws/aws-sdk-java" target="_blank">aws-sdk-java 1.x</a></p>
+<p>Event bus module using <a href="https://camel.apache.org/docs" target="_blank">Camel</a></p>
 </div>
 <div class="sect2">
-<h3 id="amazonwebservices-usage"><a class="anchor" href="#amazonwebservices-usage"></a><a class="link" href="#amazonwebservices-usage">1.1. Usage</a></h3>
+<h3 id="camel-usage"><a class="anchor" href="#camel-usage"></a><a class="link" href="#camel-usage">1.1. Usage</a></h3>
 <div class="paragraph">
 <p>1) Add the dependency:</p>
 </div>
@@ -593,118 +596,215 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 
 
 <div class="switch"><div class="switch--item option-1 selected">Maven</div><div class="switch--item option-2">Gradle</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="xd45f485722240aa">&lt;dependency&gt;
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="x8701f6c9c0324ec3">&lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
-  &lt;artifactId&gt;jooby-awssdk-v1&lt;/artifactId&gt;
+  &lt;artifactId&gt;jooby-camel&lt;/artifactId&gt;
   &lt;version&gt;3.0.0.M11&lt;/version&gt;
-&lt;/dependency&gt;</code><button class="clipboard" data-clipboard-target="#xd45f485722240aa"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+&lt;/dependency&gt;</code><button class="clipboard" data-clipboard-target="#x8701f6c9c0324ec3"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-javascript hljs" data-lang="javascript" id="x645e01078d704e76">implementation 'io.jooby:jooby-awssdk-v1:3.0.0.M11'</code><button class="clipboard" data-clipboard-target="#x645e01078d704e76"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+<pre class="highlightjs highlight"><code class="language-javascript hljs" data-lang="javascript" id="xf6037d1193c0432c">implementation 'io.jooby:jooby-camel:3.0.0.M11'</code><button class="clipboard" data-clipboard-target="#xf6037d1193c0432c"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="paragraph">
-<p>2) Add required service dependency (S3 here):</p>
-</div>
-<div class="listingblock primary">
-
-
-<div class="switch"><div class="switch--item option-1 selected">Maven</div><div class="switch--item option-2">Gradle</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="x9db92cdc36a5430e">&lt;dependency&gt;
-  &lt;groupId&gt;com.amazonaws&lt;/groupId&gt;
-  &lt;artifactId&gt;aws-java-sdk-s3&lt;/artifactId&gt;
-  &lt;version&gt;1.12.481&lt;/version&gt;
-&lt;/dependency&gt;</code><button class="clipboard" data-clipboard-target="#x9db92cdc36a5430e"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
-</div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-javascript hljs" data-lang="javascript" id="x3d18274cee3b42df">implementation 'com.amazonaws:aws-java-sdk-s3:1.12.481'</code><button class="clipboard" data-clipboard-target="#x3d18274cee3b42df"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
-</div></div>
-
-<div class="paragraph">
-<p>3) Add the <code>aws.accessKeyId</code> and <code>aws.secretKey</code> properties:</p>
-</div>
-<div class="listingblock">
-<div class="title">application.conf</div>
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-properties hljs" data-lang="properties" id="xc2248e38d9314245">aws.accessKeyId = "your access key id"
-aws.secretKey = "your secret key"</code><button class="clipboard" data-clipboard-target="#xc2248e38d9314245"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>This step is optional if you choose one of the <a href="https://docs.aws.amazon.com/sdk-for-java/v1/developer-guide/credentials.html" target="_blank">default credentials mechanism</a>.</p>
-</div>
-<div class="paragraph">
-<p>4) Install</p>
+<p>2) Install</p>
 </div>
 <div class="listingblock primary">
 
 
 <div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x1821d82d3c25470c">import io.jooby.awssdkv1.AwsModule;
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xd1ceaac756294afa">import io.jooby.camel.CamelModule;
 
 {
-  install(
-        new AwsModule()                                     <i class="conum" data-value="1"></i><b>(1)</b>
-            .setup(credentials -&gt; {                         <i class="conum" data-value="2"></i><b>(2)</b>
-              return TransferManagerBuilder.standard()
-                  .withS3Client(
-                      AmazonS3ClientBuilder.standard()
-                          .withRegion(Regions.US_EAST_1)
-                          .withCredentials(credentials)
-                          .build()                          <i class="conum" data-value="3"></i><b>(3)</b>
-               ).build();                                   <i class="conum" data-value="4"></i><b>(4)</b>
-        })
-   );
-}</code><button class="clipboard" data-clipboard-target="#x1821d82d3c25470c"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+  install(new CamelModule(new MyRoutes()));                       <i class="conum" data-value="1"></i><b>(1)</b>
+
+  get("/{msg}", ctx -&gt; {
+    ProducerTemplate producer = require(ProducerTemplate.class);  <i class="conum" data-value="2"></i><b>(2)</b>
+
+    producer.sendBody("direct:foo", ctx.path("msg").value());     <i class="conum" data-value="3"></i><b>(3)</b>
+
+    ...
+  });
+}
+
+public class MyRoutes extends RouteBuilder {
+
+  @Override public void configure() throws Exception {
+    from("direct://foo")
+        .log("${body}");
+  }
+}</code><button class="clipboard" data-clipboard-target="#xd1ceaac756294afa"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="xbf0e24dcdc7e4737">import io.jooby.aws.AwsModule
+<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="x7394f303346f4b54">import io.jooby.camel.CamelModule
 
 {
-  install(
-        AwsModule()                                         <i class="conum" data-value="1"></i><b>(1)</b>
-            .setup { credentials -&gt;                         <i class="conum" data-value="2"></i><b>(2)</b>
-              TransferManagerBuilder.standard()
-                  .withS3Client(
-                      AmazonS3ClientBuilder.standard()
-                          .withRegion(Regions.US_EAST_1)
-                          .withCredentials(credentials)
-                          .build()                          <i class="conum" data-value="3"></i><b>(3)</b>
-              ).build()                                     <i class="conum" data-value="4"></i><b>(4)</b>
-        })
-   );
-}</code><button class="clipboard" data-clipboard-target="#xbf0e24dcdc7e4737"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+  install(CamelModule(MyRoutes()))                                <i class="conum" data-value="1"></i><b>(1)</b>
+
+  get("/{msg}") {
+    val producer = require(ProducerTemplate::class);              <i class="conum" data-value="2"></i><b>(2)</b>
+
+    producer.sendBody("direct:foo", ctx.path("msg").value())      <i class="conum" data-value="3"></i><b>(3)</b>
+    ...
+  }
+}
+
+class MyRoutes: RouteBuilder() {
+
+  fun configure(): Unit {
+    from("direct://foo")
+        .bean(FooService.class)
+        .log("${body}")
+  }
+}</code><button class="clipboard" data-clipboard-target="#x7394f303346f4b54"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="colist arabic">
 <table>
 <tbody><tr>
 <td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>Install module</td>
+<td>Install Camel</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>Setup one or more services</td>
+<td>Get ProducerTemplate</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="3"></i><b>3</b></td>
-<td>Creates AmazonS3Client</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="4"></i><b>4</b></td>
-<td>Creates TransferManager</td>
+<td>Send message to <code>direct:foo</code></td>
 </tr>
 </tbody></table>
 </div>
-<div class="paragraph">
-<p>Services created from setup function are:</p>
 </div>
-<div class="ulist">
-<ul>
-<li>
-<p>Registered in the application service registry, for require call usage or DI framework</p>
-</li>
-<li>
-<p>Services are shutdown at application shutdown time</p>
-</li>
-</ul>
+<div class="sect2">
+<h3 id="camel-configuration-files"><a class="anchor" href="#camel-configuration-files"></a><a class="link" href="#camel-configuration-files">1.2. Configuration files</a></h3>
+<div class="paragraph">
+<p>Camel module integrates with <code>application.conf</code> properties files:</p>
+</div>
+<div class="listingblock">
+<div class="title">application.conf</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-properties hljs" data-lang="properties" id="xa5982a2fdb754f49">myprop = "my prop value"</code><button class="clipboard" data-clipboard-target="#xa5982a2fdb754f49"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+</div>
+</div>
+<div class="listingblock primary">
+
+
+<div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x7b223f2c256e4aea">public class MyRoutes extends RouteBuilder {
+
+  @Override public void configure() throws Exception {
+    from("direct://foo")
+        .log("{{myprop}}");
+  }
+}</code><button class="clipboard" data-clipboard-target="#x7b223f2c256e4aea"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+</div><div class="content hidden option-2">
+<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="x7dc8ff46ee1847f5">class MyRoutes: RouteBuilder() {
+
+  fun configure(): Unit {
+    from("direct://foo")
+        .bean(FooService.class)
+        .log("{{myprop}}")
+  }
+}</code><button class="clipboard" data-clipboard-target="#x7dc8ff46ee1847f5"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+</div></div>
+
+<div class="paragraph">
+<p>See <a href="https://camel.apache.org/manual/using-propertyplaceholder.html" target="_blank">Property Placeholders</a></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="camel-dependency-injection-support"><a class="anchor" href="#camel-dependency-injection-support"></a><a class="link" href="#camel-dependency-injection-support">1.3. Dependency Injection Support</a></h3>
+<div class="paragraph">
+<p>Camel module integrates with <code>GuiceModule</code> or <code>SpringModule</code>. Here is an example with Guice:</p>
+</div>
+<div class="listingblock primary">
+
+
+<div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x97c98fa84887499c">import io.jooby.guice.GuiceModule;
+import io.jooby.camel.CamelModule;
+
+{
+  install(new CamelModule(MyRoutes.class));  <i class="conum" data-value="1"></i><b>(1)</b>
+
+  install(new GuiceModule());                <i class="conum" data-value="2"></i><b>(2)</b>
+}
+
+public class MyRoutes extends RouteBuilder {
+
+  @Override public void configure() throws Exception {
+    from("direct://foo")
+        .bean(FooService.class)              <i class="conum" data-value="3"></i><b>(3)</b>
+        .log("${body}");
+  }
+}</code><button class="clipboard" data-clipboard-target="#x97c98fa84887499c"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+</div><div class="content hidden option-2">
+<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="x96155722868249e2">import io.jooby.guice.GuiceModule
+import io.jooby.camel.CamelModule
+
+{
+  install(CamelModule(MyRoutes::class.java))  <i class="conum" data-value="1"></i><b>(1)</b>
+
+  install(GuiceModule())                      <i class="conum" data-value="2"></i><b>(2)</b>
+}
+
+class MyRoutes: RouteBuilder() {
+
+  fun configure(): Unit {
+    from("direct://foo")
+        .bean(FooService.class)               <i class="conum" data-value="3"></i><b>(3)</b>
+        .log("${body}");
+  }
+}</code><button class="clipboard" data-clipboard-target="#x96155722868249e2"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+</div></div>
+
+<div class="colist arabic">
+<table>
+<tbody><tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Install Camel. <code>MyRoutes</code> will be provisioning by Guice.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Install Guice</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Also <code>FooService</code> will be provisioning by Guice</td>
+</tr>
+</tbody></table>
+</div>
+<div class="admonitionblock important">
+<table>
+<tbody><tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="literalblock">
+<div class="content">
+<pre>  Keep in mind Camel beans are singleton by default, regardless of what dependency injection
+framework you choose.</pre>
+</div>
+</div>
+</td>
+</tr>
+</tbody></table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="camel-auto-configuration"><a class="anchor" href="#camel-auto-configuration"></a><a class="link" href="#camel-auto-configuration">1.4. Auto Configuration</a></h3>
+<div class="paragraph">
+<p>Camel modules can be fully configured from <code>application.conf</code> file.</p>
+</div>
+<div class="listingblock">
+<div class="title">application.conf</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-properties hljs" data-lang="properties" id="x97d9f26a99a458c">camel.main.name = My Camel Context
+camel.threadpool.poolSize = 10</code><button class="clipboard" data-clipboard-target="#x97d9f26a99a458c"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>See <a href="https://camel.apache.org/manual/camelcontext-autoconfigure.html" target="_blank">Auto Configuration</a> and  <a href="https://camel.apache.org/components/others/main.html" target="_blank">Camel Main Options</a></p>
 </div>
 </div>
 </div>

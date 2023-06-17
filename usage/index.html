@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="generator" content="Asciidoctor 2.0.17">
+<meta name="generator" content="Asciidoctor 2.0.18">
 <meta name="description" content="The modular micro web framework for Java">
 <meta name="keywords" content="Java, Modern, Micro, Web, Framework, Reactive, Lightweight, Microservices">
 <link rel="icon" type="image/png" href="../../images/favicon96.png">
@@ -87,10 +87,10 @@ code{font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;font-weight:400;
 ul,ol,dl{line-height:1.6;margin-bottom:1.25em;list-style-position:outside;font-family:inherit}
 ul,ol{margin-left:1.5em}
 ul li ul,ul li ol{margin-left:1.25em;margin-bottom:0}
-ul.square li ul,ul.circle li ul,ul.disc li ul{list-style:inherit}
-ul.square{list-style-type:square}
 ul.circle{list-style-type:circle}
 ul.disc{list-style-type:disc}
+ul.square{list-style-type:square}
+ul.circle ul:not([class]),ul.disc ul:not([class]),ul.square ul:not([class]){list-style:inherit}
 ol li ul,ol li ol{margin-left:1.25em;margin-bottom:0}
 dl dt{margin-bottom:.3125em;font-weight:bold}
 dl dd{margin-bottom:1.25em}
@@ -486,27 +486,81 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
     border-bottom: 1px solid #ffa;
   }
 
-  /** Copy */
-  .listingblock:hover .clipboard {
-    display: block;
-  }
-
   .clipboard {
-    border: 0;
-    font-size: .75em;
-    text-transform: uppercase;
-    font-weight: 500;
-    padding: 6px;
-    color: #999;
-    position: absolute;
-    top: .425rem;
-    right: .5rem;
-    background: transparent;
+      position: absolute;
+      bottom: .1rem;
+      right: .1rem;
+      display: inline-block;
+      padding: 4px 8px;
+      font-size: 13px;
+      font-weight: 700;
+      line-height: 20px;
+      color: #333;
+      white-space: nowrap;
+      vertical-align: middle;
+      cursor: pointer;
+      background-color: #eee;
+      background-image: linear-gradient(#fcfcfc,#eee);
+      border: 1px solid #d5d5d5;
+      border-radius: 3px;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      -webkit-appearance: none
   }
 
-  .clipboard:hover, .clipboard:focus, .clipboard:active {
-    outline: 0;
-    background-color: #eee9e6;
+  .clipboard i {
+      font-style: normal;
+      font-weight: 500;
+      opacity: .6
+  }
+
+  .clipboard .octicon {
+      vertical-align: text-top
+  }
+
+  .clipboard .counter {
+      text-shadow: none;
+      background-color: #e5e5e5
+  }
+
+  .clipboard:focus {
+      text-decoration: none;
+      border-color: #51a7e8;
+      outline: none;
+      box-shadow: 0 0 5px rgba(81,167,232,.5)
+  }
+
+  .clipboard:focus:hover,.clipboard.selected:focus {
+      border-color: #51a7e8
+  }
+
+  .clipboard:hover,.clipboard:active,.clipboard.zeroclipboard-is-hover,.clipboard.zeroclipboard-is-active {
+      text-decoration: none;
+      background-color: #ddd;
+      background-image: linear-gradient(#eee,#ddd);
+      border-color: #ccc
+  }
+
+  .clipboard:active,.clipboard.selected,.clipboard.zeroclipboard-is-active {
+      background-color: #dcdcdc;
+      background-image: none;
+      border-color: #b5b5b5;
+      box-shadow: inset 0 2px 4px rgba(0,0,0,.15)
+  }
+
+  .clipboard.selected:hover {
+      background-color: #cfcfcf
+  }
+
+  .clipboard:disabled,.clipboard:disabled:hover,.clipboard.disabled,.clipboard.disabled:hover {
+      color: rgba(102,102,102,.5);
+      cursor: default;
+      background-color: rgba(229,229,229,.5);
+      background-image: none;
+      border-color: rgba(197,197,197,.5);
+      box-shadow: none
   }
 </style>
 </head>
@@ -567,30 +621,30 @@ tool is not configured properly.</p>
 
 
 <div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-xml hljs">  &lt;build&gt;
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="xd9cc7fe71ccc4f85">  &lt;build&gt;
     &lt;plugins&gt;
       &lt;plugin&gt;
         &lt;artifactId&gt;maven-compiler-plugin&lt;/artifactId&gt;
-        &lt;version&gt;3.8.1&lt;/version&gt;
+        &lt;version&gt;3.11.0&lt;/version&gt;
         &lt;configuration&gt;
           &lt;annotationProcessorPaths&gt;
             &lt;path&gt;
               &lt;groupId&gt;io.jooby&lt;/groupId&gt;
               &lt;artifactId&gt;jooby-apt&lt;/artifactId&gt;
-              &lt;version&gt;2.16.2&lt;/version&gt;
+              &lt;version&gt;3.0.0.M11&lt;/version&gt;
             &lt;/path&gt;
           &lt;/annotationProcessorPaths&gt;
         &lt;/configuration&gt;
       &lt;/plugin&gt;
     &lt;/plugins&gt;
-  &lt;/build&gt;</code><button class="clipboard">Copy</button></pre>
+  &lt;/build&gt;</code><button class="clipboard" data-clipboard-target="#xd9cc7fe71ccc4f85"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-xml hljs">  &lt;build&gt;
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="x48b6379b9105439c">  &lt;build&gt;
     &lt;plugins&gt;
       &lt;plugin&gt;
         &lt;artifactId&gt;kotlin-maven-plugin&lt;/artifactId&gt;
         &lt;groupId&gt;org.jetbrains.kotlin&lt;/groupId&gt;
-        &lt;version&gt;1.8.10&lt;/version&gt;
+        &lt;version&gt;1.8.21&lt;/version&gt;
         &lt;configuration&gt;
           &lt;args&gt;
             &lt;arg&gt;-java-parameters&lt;/arg&gt;
@@ -611,7 +665,7 @@ tool is not configured properly.</p>
                 &lt;annotationProcessorPath&gt;
                   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
                   &lt;artifactId&gt;jooby-apt&lt;/artifactId&gt;
-                  &lt;version&gt;2.16.2&lt;/version&gt;
+                  &lt;version&gt;3.0.0.M11&lt;/version&gt;
                 &lt;/annotationProcessorPath&gt;
               &lt;/annotationProcessorPaths&gt;
             &lt;/configuration&gt;
@@ -640,7 +694,7 @@ tool is not configured properly.</p>
                 &lt;annotationProcessorPath&gt;
                   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
                   &lt;artifactId&gt;jooby-apt&lt;/artifactId&gt;
-                  &lt;version&gt;2.16.2&lt;/version&gt;
+                  &lt;version&gt;3.0.0.M11&lt;/version&gt;
                 &lt;/annotationProcessorPath&gt;
               &lt;/annotationProcessorPaths&gt;
             &lt;/configuration&gt;
@@ -659,7 +713,7 @@ tool is not configured properly.</p>
         &lt;/executions&gt;
       &lt;/plugin&gt;
     &lt;/plugins&gt;
-  &lt;/build&gt;</code><button class="clipboard">Copy</button></pre>
+  &lt;/build&gt;</code><button class="clipboard" data-clipboard-target="#x48b6379b9105439c"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -675,14 +729,14 @@ tool is not configured properly.</p>
 
 
 <div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-groovy hljs">dependencies {
-  annotationProcessor "io.jooby:jooby-apt:2.16.2"
-}</code><button class="clipboard">Copy</button></pre>
+<pre class="highlightjs highlight"><code class="language-groovy hljs" data-lang="groovy" id="x72a472b033864873">dependencies {
+  annotationProcessor "io.jooby:jooby-apt:3.0.0.M11"
+}</code><button class="clipboard" data-clipboard-target="#x72a472b033864873"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-groovy hljs">buildscript {
+<pre class="highlightjs highlight"><code class="language-groovy hljs" data-lang="groovy" id="xf1341704308140ea">buildscript {
   ...
   dependencies {
-    classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.8.10"
+    classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.8.21"
   }
 }
 
@@ -693,9 +747,9 @@ apply plugin: "org.jetbrains.kotlin.kapt"
 ...
 
 dependencies {
-  kapt "io.jooby:jooby-apt:2.16.2"
+  kapt "io.jooby:jooby-apt:3.0.0.M11"
 }
-...</code><button class="clipboard">Copy</button></pre>
+...</code><button class="clipboard" data-clipboard-target="#xf1341704308140ea"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -780,11 +834,11 @@ done using <code>parameters</code> compiler option.</p>
 
 
 <div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-xml hljs">  &lt;build&gt;
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="xdf3956fb0a654148">  &lt;build&gt;
     &lt;plugins&gt;
       &lt;plugin&gt;
         &lt;artifactId&gt;maven-compiler-plugin&lt;/artifactId&gt;
-        &lt;version&gt;3.8.1&lt;/version&gt;
+        &lt;version&gt;3.11.0&lt;/version&gt;
         &lt;configuration&gt;
         ...
           &lt;compilerArgs&gt;
@@ -793,25 +847,25 @@ done using <code>parameters</code> compiler option.</p>
         &lt;/configuration&gt;
       &lt;/plugin&gt;
     &lt;/plugins&gt;
-  &lt;/build&gt;</code><button class="clipboard">Copy</button></pre>
+  &lt;/build&gt;</code><button class="clipboard" data-clipboard-target="#xdf3956fb0a654148"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-xml hljs">  &lt;build&gt;
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="x8f478e91cf5c4434">  &lt;build&gt;
     &lt;plugins&gt;
       &lt;plugin&gt;
           &lt;artifactId&gt;kotlin-maven-plugin&lt;/artifactId&gt;
           &lt;groupId&gt;org.jetbrains.kotlin&lt;/groupId&gt;
-          &lt;version&gt;1.8.10&lt;/version&gt;
+          &lt;version&gt;1.8.21&lt;/version&gt;
           &lt;configuration&gt;
             ...
             &lt;args&gt;
               &lt;arg&gt;-java-parameters&lt;/arg&gt;
             &lt;/args&gt;
-            &lt;jvmTarget&gt;1.8&lt;/jvmTarget&gt;
+            &lt;jvmTarget&gt;17&lt;/jvmTarget&gt;
             ...
           &lt;/configuration&gt;
         &lt;/plugin&gt;
     &lt;/plugins&gt;
-  &lt;/build&gt;</code><button class="clipboard">Copy</button></pre>
+  &lt;/build&gt;</code><button class="clipboard" data-clipboard-target="#x8f478e91cf5c4434"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -821,14 +875,14 @@ done using <code>parameters</code> compiler option.</p>
 
 
 <div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-groovy hljs">tasks.withType(JavaCompile) {
+<pre class="highlightjs highlight"><code class="language-groovy hljs" data-lang="groovy" id="x75740ccbd1d34fd1">tasks.withType(JavaCompile) {
   options.compilerArgs &lt;&lt; '-parameters'
   options.debug = true
-}</code><button class="clipboard">Copy</button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x75740ccbd1d34fd1"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-groovy hljs">tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
+<pre class="highlightjs highlight"><code class="language-groovy hljs" data-lang="groovy" id="xdcabbc1e7c57431d">tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
   kotlinOptions.javaParameters = true
-}</code><button class="clipboard">Copy</button></pre>
+}</code><button class="clipboard" data-clipboard-target="#xdcabbc1e7c57431d"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 </div>
@@ -839,7 +893,7 @@ done using <code>parameters</code> compiler option.</p>
 <script>
 if (!hljs.initHighlighting.called) {
   hljs.initHighlighting.called = true
-  ;[].slice.call(document.querySelectorAll('pre.highlight > code')).forEach(function (el) { hljs.highlightBlock(el) })
+  ;[].slice.call(document.querySelectorAll('pre.highlight > code[data-lang]')).forEach(function (el) { hljs.highlightBlock(el) })
 }
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/zepto/1.2.0/zepto.min.js"></script>
@@ -893,21 +947,12 @@ if (!hljs.initHighlighting.called) {
   });
 </script>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.../../js/2.0.0/clipboard.min.js"></script>
+<script src="/../../js/clipboard.min.js"></script>
 <script>
   $(function() {
-    new ClipboardJS('.clipboard', {
-      target: function(b) {
-        var p = b.parentNode;
-        var target = p.childNodes[0];
-        return target;
-      }
-    }).on('success', function(e) {
+    new ClipboardJS('.clipboard')
+    .on('success', function(e) {
       e.clearSelection();
-      e.trigger.textContent = 'Copied';
-      setTimeout(function() {
-        e.trigger.textContent = 'Copy';
-      }, 2000);
     });
   });
 </script>
