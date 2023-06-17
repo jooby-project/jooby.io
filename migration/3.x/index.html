@@ -8,7 +8,7 @@
 <meta name="description" content="The modular micro web framework for Java">
 <meta name="keywords" content="Java, Modern, Micro, Web, Framework, Reactive, Lightweight, Microservices">
 <link rel="icon" type="image/png" href="../../images/favicon96.png">
-<title>jooby: handlebars module</title>
+<title>jooby: 3.x</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -568,134 +568,397 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="header">
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
-<ul class="sectlevel1">
-<li><a href="#handlebars">1. Handlebars</a>
 <ul class="sectlevel2">
-<li><a href="#usage">1.1. Usage</a></li>
-<li><a href="#templates-location">1.2. Templates Location</a></li>
-<li><a href="#template-cache">1.3. Template Cache</a></li>
-<li><a href="#custom-configuration">1.4. Custom configuration</a></li>
+<li><a href="#upgrading-from-2-x-to-3-x">1. Upgrading from 2.x to 3.x</a>
+<ul class="sectlevel3">
+<li><a href="#requirements">1.1. Requirements</a></li>
+<li><a href="#module-info-java">1.2. module-info.java</a></li>
+<li><a href="#kotlin">1.3. Kotlin</a></li>
+<li><a href="#jakarta">1.4. jakarta</a></li>
+<li><a href="#modules">1.5. Modules</a></li>
+<li><a href="#package-renames">1.6. Package renames</a></li>
+<li><a href="#class-renames">1.7. Class renames</a></li>
+<li><a href="#method-renames">1.8. Method renames</a></li>
+<li><a href="#dependencies">1.9. Dependencies</a></li>
+<li><a href="#reactive-support">1.10. Reactive support</a></li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
 <div id="content">
-<div class="sect1">
-<h2 id="handlebars"><a class="anchor" href="#handlebars"></a><a class="link" href="#handlebars">1. Handlebars</a></h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p><a href="https://github.com/jknack/handlebars.java" target="_blank">Handlebars templates</a> for Jooby.</p>
-</div>
 <div class="sect2">
-<h3 id="handlebars-usage"><a class="anchor" href="#handlebars-usage"></a><a class="link" href="#handlebars-usage">1.1. Usage</a></h3>
+<h3 id="upgrading-from-2-x-to-3-x"><a class="anchor" href="#upgrading-from-2-x-to-3-x"></a><a class="link" href="#upgrading-from-2-x-to-3-x">1. Upgrading from 2.x to 3.x</a></h3>
 <div class="paragraph">
-<p>1) Add the dependency:</p>
+<p>You will find here notes/tips about how to migrate from 2.x to 3.x.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tbody><tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>This is a <strong>work in progress</strong> document, if something is wrong or missing please <a href="https://github.com/jooby-project/jooby/issues/new" target="_blank">report to Github</a> or better <a href="https://github.com/jooby-project/jooby/edit/3.x/docs/asciidoc/migration.adoc" target="_blank">edit this file and fix it</a></p>
+</div>
+</td>
+</tr>
+</tbody></table>
+</div>
+<div class="sect3">
+<h4 id="upgrading-from-2-x-to-3-x-requirements"><a class="anchor" href="#upgrading-from-2-x-to-3-x-requirements"></a><a class="link" href="#upgrading-from-2-x-to-3-x-requirements">1.1. Requirements</a></h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Java 17 as minimum</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="upgrading-from-2-x-to-3-x-module-info-java"><a class="anchor" href="#upgrading-from-2-x-to-3-x-module-info-java"></a><a class="link" href="#upgrading-from-2-x-to-3-x-module-info-java">1.2. module-info.java</a></h4>
+<div class="paragraph">
+<p>Jooby is now compatible with Java Module system.</p>
+</div>
+<div class="paragraph">
+<p>Almost all Jooby components are now Java Modules, but not all them. For those where wasn’t
+possible the Jooby module contains the <code>Automatic-Module-Name</code> manifest entry.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="upgrading-from-2-x-to-3-x-kotlin"><a class="anchor" href="#upgrading-from-2-x-to-3-x-kotlin"></a><a class="link" href="#upgrading-from-2-x-to-3-x-kotlin">1.3. Kotlin</a></h4>
+<div class="paragraph">
+<p>Kotlin was removed from core, you need to the <code>jooby-kotlin</code> dependency:</p>
 </div>
 <div class="listingblock primary">
 
 
 <div class="switch"><div class="switch--item option-1 selected">Maven</div><div class="switch--item option-2">Gradle</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="x91eab2d73675429a">&lt;dependency&gt;
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="x77e2340aff8f4aa8">&lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
-  &lt;artifactId&gt;jooby-handlebars&lt;/artifactId&gt;
+  &lt;artifactId&gt;jooby-kotlin&lt;/artifactId&gt;
   &lt;version&gt;3.0.0.M11&lt;/version&gt;
-&lt;/dependency&gt;</code><button class="clipboard" data-clipboard-target="#x91eab2d73675429a"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+&lt;/dependency&gt;</code><button class="clipboard" data-clipboard-target="#x77e2340aff8f4aa8"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-javascript hljs" data-lang="javascript" id="x6e232e6d18f447a">implementation 'io.jooby:jooby-handlebars:3.0.0.M11'</code><button class="clipboard" data-clipboard-target="#x6e232e6d18f447a"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+<pre class="highlightjs highlight"><code class="language-javascript hljs" data-lang="javascript" id="xe9e981c2323545e7">implementation 'io.jooby:jooby-kotlin:3.0.0.M11'</code><button class="clipboard" data-clipboard-target="#xe9e981c2323545e7"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
+</div>
+<div class="sect3">
+<h4 id="upgrading-from-2-x-to-3-x-jakarta"><a class="anchor" href="#upgrading-from-2-x-to-3-x-jakarta"></a><a class="link" href="#upgrading-from-2-x-to-3-x-jakarta">1.4. jakarta</a></h4>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2.x</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">3.x</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">javax.servlet</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">jakarta.servlet</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">javax.inject</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">jakarta.inject</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">javax.persistence</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">jakarta.persistence</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect3">
+<h4 id="upgrading-from-2-x-to-3-x-modules"><a class="anchor" href="#upgrading-from-2-x-to-3-x-modules"></a><a class="link" href="#upgrading-from-2-x-to-3-x-modules">1.5. Modules</a></h4>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2.x</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">3.x</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">jooby-kotlin</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Added</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">jooby-weld</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Removed</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">jooby-archetype</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Removed</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">jooby-utow</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Renamed: jooby-undertow</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">jooby-commons-email</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Renamed: jooby-commons-mail</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">jooby-http2-jetty</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Merged into: jooby-netty</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">jooby-http2-netty</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Merged into: jooby-netty</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">jooby-http2-undertow</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Merged into: jooby-undertow</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect3">
+<h4 id="upgrading-from-2-x-to-3-x-package-renames"><a class="anchor" href="#upgrading-from-2-x-to-3-x-package-renames"></a><a class="link" href="#upgrading-from-2-x-to-3-x-package-renames">1.6. Package renames</a></h4>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2.x</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">3.x</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Module</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">io.jooby.annotations</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">io.jooby.annotation</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">jooby (core)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">io.jooby (Kotlin)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">io.jooby.kt</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">removed from jooby, now in jooby-kotlin</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">io.jooby.graphql</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">io.jooby.graphiql</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">jooby-graphiql</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">io.jooby.graphql</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">io.jooby.graphql.playground</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">jooby-graphql-playground</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">io.jooby.json</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">io.jooby.gson</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">jooby-gson</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">io.jooby.di</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">io.jooby.guice</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">jooby-guice</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">io.jooby.di</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">io.jooby.spring</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">jooby-spring</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">io.jooby.aws</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">io.jooby.awssdkv1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">jooby-awssdk-v1</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">io.jooby.email</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">io.jooby.commons.mail</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">jooby-commons-mail</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">io.jooby.utow</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">io.jooby.undertow</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">jooby-undertow</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect3">
+<h4 id="upgrading-from-2-x-to-3-x-class-renames"><a class="anchor" href="#upgrading-from-2-x-to-3-x-class-renames"></a><a class="link" href="#upgrading-from-2-x-to-3-x-class-renames">1.7. Class renames</a></h4>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2.x</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">3.x</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Module</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">io.jooby.Route.Decorator</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">io.jooby.Route.Filter</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">jooby (core)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">io.jooby.Kooby</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">io.jooby.kt.Kooby</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">jooby-kotlin (new module)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">io.jooby.jetty.Jetty</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">io.jooby.jetty.JettyServer</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">jooby-jetty</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">io.jooby.netty.netty</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">io.jooby.netty.NettyServer</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">jooby-netty</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">io.jooby.utow.Utow</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">io.jooby.undertow.UndertowServer</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">jooby-undertow</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect3">
+<h4 id="upgrading-from-2-x-to-3-x-method-renames"><a class="anchor" href="#upgrading-from-2-x-to-3-x-method-renames"></a><a class="link" href="#upgrading-from-2-x-to-3-x-method-renames">1.8. Method renames</a></h4>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2.x</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">3.x</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Description</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Router.decorator(Decorator)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Router.use(Filter)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>decorator</code> has been deprecated in favor of <code>use</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">SslOptions.setCert(String)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">SslOptions.setCert(InputStream)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Replaced the string argument with <code>InputStream</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">SslOptions.setTrustCert(String)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">SslOptions.setTrustCert(InputStream)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Replaced the string argument with <code>InputStream</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">SslOptions.setPrivateKey(String)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">SslOptions.setPrivateKey(InputStream)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Replaced the string argument with <code>InputStream</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">FileUpload.destroy</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">FileUpload.close</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>destroy</code> has been replaced by <code>close</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Context.attribute(String)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Context.getAttribute(String)</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Context.attribute(String, Object)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Context.setAttribute(String, Object)</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Context.multipart*</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Context.form*</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">All Context.multipart related methods where merged into Context.form</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Context.query&lt;Type&gt;()</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Context.query(Type::class)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Kotlin</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Context.form&lt;Type&gt;()</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Context.form(Type::class)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Kotlin</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Context.body&lt;Type&gt;()</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Context.body(Type::class)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Kotlin</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect3">
+<h4 id="upgrading-from-2-x-to-3-x-dependencies"><a class="anchor" href="#upgrading-from-2-x-to-3-x-dependencies"></a><a class="link" href="#upgrading-from-2-x-to-3-x-dependencies">1.9. Dependencies</a></h4>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2.x</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">3.x</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Module</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Slf4j 1.x</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Slf4j 2.x</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">jooby (core)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Jetty 9.x</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Jetty 11.x</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">jooby-jetty</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Guice 5.x</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Guice 7.x</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">jooby-guice</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect3">
+<h4 id="upgrading-from-2-x-to-3-x-reactive-support"><a class="anchor" href="#upgrading-from-2-x-to-3-x-reactive-support"></a><a class="link" href="#upgrading-from-2-x-to-3-x-reactive-support">1.10. Reactive support</a></h4>
 <div class="paragraph">
-<p>2) Write your templates inside the <code>views</code> folder</p>
+<p>Reactive libraries has been removed from core to his own module.</p>
 </div>
-<div class="listingblock">
-<div class="title">views/index.hbs</div>
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html" id="x577a5873fb6b482b">&lt;p&gt; Hello {{name}}! &lt;/p&gt;</code><button class="clipboard" data-clipboard-target="#x577a5873fb6b482b"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
-</div>
-</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2.x</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">3.x</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">rxjava</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">jooby-rxjava3</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">reactor</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">jooby-reactor</p></td>
+</tr>
+</tbody>
+</table>
 <div class="paragraph">
-<p>3) Install and use freemarker templates</p>
-</div>
-<div class="listingblock primary">
-
-
-<div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xd92d850b93404f7b">import io.jooby.handlebars.HandlebarsModule;
-
-{
-  install(new HandlebarsModule());
-
-  get("/", ctx -&gt; {
-    return new ModelAndView("index.hbs")
-        .put("name", "Jooby");
-  });
-}</code><button class="clipboard" data-clipboard-target="#xd92d850b93404f7b"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
-</div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="x53fa2825c2ae45de">import io.jooby.handlebars.HandlebarsModule
-
-{
-  install(HandlebarsModule())
-
-  get("/") {
-    ModelAndView("index.hbs")
-        .put("name", "Jooby")
-  }
-}</code><button class="clipboard" data-clipboard-target="#x53fa2825c2ae45de"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
-</div></div>
-
-<div class="paragraph">
-<p>Template engine supports the following file extensions: <code>.hbs</code>, <code>.hbs.html</code> and <code>.html</code>.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="handlebars-templates-location"><a class="anchor" href="#handlebars-templates-location"></a><a class="link" href="#handlebars-templates-location">1.2. Templates Location</a></h3>
-<div class="paragraph">
-<p>Template location is set to <code>views</code>. The <code>views</code> folder/location is expected to be at the current
-user directory or at root of classpath.</p>
-</div>
-<div class="paragraph">
-<p>You can override the default location by setting the <code>templates.path</code> property in the application
-configuration file or programmatically at creation time.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="handlebars-template-cache"><a class="anchor" href="#handlebars-template-cache"></a><a class="link" href="#handlebars-template-cache">1.3. Template Cache</a></h3>
-<div class="paragraph">
-<p>The handlebars module turn off cache while running in <code>dev</code> or <code>test</code> environment. For any other
-environment it use <a href="https://github.com/jknack/handlebars.java#the-cache-system" target="_blank">HighConcurrencyTemplateCache</a></p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="handlebars-custom-configuration"><a class="anchor" href="#handlebars-custom-configuration"></a><a class="link" href="#handlebars-custom-configuration">1.4. Custom configuration</a></h3>
-<div class="paragraph">
-<p>Custom Handlebars object can be provided it programmatically:</p>
-</div>
-<div class="listingblock primary">
-
-
-<div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xf2c5f00b90f14743">import io.jooby.handlebars.HandlebarsModule;
-
-{
-  Handlebars handlebars = new Handlebars();
-
-  // Apply custom configuration
-
-  install(new HandlebarsModule(handlebars));
-}</code><button class="clipboard" data-clipboard-target="#xf2c5f00b90f14743"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
-</div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="x35568b13c7794ed0">import io.jooby.handlebars.HandlebarsModule
-
-{
-  val handlebars = Handlebars()
-
-  // Apply custom configuration
-
-  install(HandlebarsModule(handlebars))
-}</code><button class="clipboard" data-clipboard-target="#x35568b13c7794ed0"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
-</div></div>
-
+<p>All reactive libraries requires explicit handler while using script/lambda routes. More details on <a href="/#responses-nonblocking">NonBlocking</a> responses.</p>
 </div>
 </div>
 </div>
