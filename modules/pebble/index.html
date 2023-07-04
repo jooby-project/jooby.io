@@ -596,13 +596,13 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 
 
 <div class="switch"><div class="switch--item option-1 selected">Maven</div><div class="switch--item option-2">Gradle</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="x6db31c1a85b04e71">&lt;dependency&gt;
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="x4c4956753b7a47f3">&lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
   &lt;artifactId&gt;jooby-pebble&lt;/artifactId&gt;
-  &lt;version&gt;3.0.0.M11&lt;/version&gt;
-&lt;/dependency&gt;</code><button class="clipboard" data-clipboard-target="#x6db31c1a85b04e71"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+  &lt;version&gt;3.0.0&lt;/version&gt;
+&lt;/dependency&gt;</code><button class="clipboard" data-clipboard-target="#x4c4956753b7a47f3"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-javascript hljs" data-lang="javascript" id="xf2ce55320f545b7">implementation 'io.jooby:jooby-pebble:3.0.0.M11'</code><button class="clipboard" data-clipboard-target="#xf2ce55320f545b7"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+<pre class="highlightjs highlight"><code class="language-javascript hljs" data-lang="javascript" id="x8e6dd5a3b96a4ba1">implementation 'io.jooby:jooby-pebble:3.0.0'</code><button class="clipboard" data-clipboard-target="#x8e6dd5a3b96a4ba1"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -611,7 +611,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="listingblock">
 <div class="title">views/index.peb</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html" id="x58eca57e40d34a2f">&lt;p&gt; Hello {{name}}! &lt;/p&gt;</code><button class="clipboard" data-clipboard-target="#x58eca57e40d34a2f"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html" id="x2d3d0b39ec40496c">&lt;p&gt; Hello {{name}}! &lt;/p&gt;</code><button class="clipboard" data-clipboard-target="#x2d3d0b39ec40496c"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -621,7 +621,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 
 
 <div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xa3ae75c2523a47b6">import io.jooby.pebble.PebbleModule;
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xf5635f2b9d774126">import io.jooby.pebble.PebbleModule;
 
 {
   install(new PebbleModule());
@@ -630,9 +630,9 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
     return new ModelAndView("index.peb")
         .put("name", "Jooby");
   });
-}</code><button class="clipboard" data-clipboard-target="#xa3ae75c2523a47b6"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#xf5635f2b9d774126"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="x21e754abccd64488">import io.jooby.pebble.PebbleModule
+<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="xfaca229c2e304060">import io.jooby.pebble.PebbleModule
 
 {
   install(PebbleModule())
@@ -641,7 +641,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
     ModelAndView("index.peb")
         .put("name", "Jooby")
   }
-}</code><button class="clipboard" data-clipboard-target="#x21e754abccd64488"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#xfaca229c2e304060"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -674,7 +674,7 @@ configuration file or programmatically at creation time.</p>
 
 
 <div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x220be926338646a0">import io.jooby.pebble.PebbleModule;
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xf0191c59b94f4795">import io.jooby.pebble.PebbleModule;
 
 {
   // Apply custom configuration via builder
@@ -684,9 +684,9 @@ configuration file or programmatically at creation time.</p>
   .build(getEnvironment());
 
   install(new PebbleModule(builder));
-}</code><button class="clipboard" data-clipboard-target="#x220be926338646a0"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#xf0191c59b94f4795"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="x39512ad6f8a34af9">import io.jooby.pebble.PebbleModule
+<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="xaa610a4786354e0a">import io.jooby.pebble.PebbleModule
 
 {
   val builder = PebbleModule.create()
@@ -694,7 +694,7 @@ configuration file or programmatically at creation time.</p>
       .build(getEnvironment())
 
   install(PebbleModule(builder))
-}</code><button class="clipboard" data-clipboard-target="#x39512ad6f8a34af9"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#xaa610a4786354e0a"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 </div>
