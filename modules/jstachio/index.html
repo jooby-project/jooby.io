@@ -586,7 +586,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <p><a href="https://github.com/jstachio/jstachio" target="_blank">JStachio</a> A type-safe Java Mustache templating engine.</p>
 </div>
 <div class="paragraph">
-<p><a href="https://jstach.io/doc/jstachio/1.2.1/apidocs/" target="_blank">JStachio Documentation</a></p>
+<p><a href="https://jstach.io/doc/jstachio/1.3.0/apidocs/" target="_blank">JStachio Documentation</a></p>
 </div>
 <div class="sect2">
 <h3 id="jstachio-usage"><a class="anchor" href="#jstachio-usage"></a><a class="link" href="#jstachio-usage">1.1. Usage</a></h3>
@@ -597,20 +597,20 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 
 
 <div class="switch"><div class="switch--item option-1 selected">Maven</div><div class="switch--item option-2">Gradle</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="x1fe547f6af444c32">&lt;dependency&gt;
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="xb484647b40646b8">&lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
   &lt;artifactId&gt;jooby-jstachio&lt;/artifactId&gt;
-  &lt;version&gt;3.0.1&lt;/version&gt;
-&lt;/dependency&gt;</code><button class="clipboard" data-clipboard-target="#x1fe547f6af444c32"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+  &lt;version&gt;3.0.2&lt;/version&gt;
+&lt;/dependency&gt;</code><button class="clipboard" data-clipboard-target="#xb484647b40646b8"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-javascript hljs" data-lang="javascript" id="x2a0d9340933545d8">implementation 'io.jooby:jooby-jstachio:3.0.1'</code><button class="clipboard" data-clipboard-target="#x2a0d9340933545d8"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+<pre class="highlightjs highlight"><code class="language-javascript hljs" data-lang="javascript" id="xb019f2c1da8941a3">implementation 'io.jooby:jooby-jstachio:3.0.2'</code><button class="clipboard" data-clipboard-target="#xb019f2c1da8941a3"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="listingblock primary">
 
 
 <div class="switch"><div class="switch--item option-1 selected">Maven</div><div class="switch--item option-2">Gradle</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="xef77a29eb230430a">&lt;build&gt;
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="xe62ed4f0b36c4bc9">&lt;build&gt;
     &lt;plugins&gt;
         &lt;plugin&gt;
             &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
@@ -620,21 +620,21 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
                     &lt;path&gt;
                         &lt;groupId&gt;io.jstach&lt;/groupId&gt;
                         &lt;artifactId&gt;jstachio-apt&lt;/artifactId&gt;
-                        &lt;version&gt;1.2.1&lt;/version&gt;
+                        &lt;version&gt;1.3.0&lt;/version&gt;
                     &lt;/path&gt;
                     &lt;!-- other annotation processors like jooby --&gt;
                 &lt;/annotationProcessorPaths&gt;
             &lt;/configuration&gt;
         &lt;/plugin&gt;
     &lt;/plugins&gt;
-&lt;/build&gt;</code><button class="clipboard" data-clipboard-target="#xef77a29eb230430a"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+&lt;/build&gt;</code><button class="clipboard" data-clipboard-target="#xe62ed4f0b36c4bc9"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-groovy hljs" data-lang="groovy" id="x976c30340c0e4655">dependencies {
+<pre class="highlightjs highlight"><code class="language-groovy hljs" data-lang="groovy" id="xaf1c632c5f7c4e03">dependencies {
 
-    implementation 'io.jstach:jstachio:1.2.1'
+    implementation 'io.jstach:jstachio:1.3.0'
 
-    annotationProcessor 'io.jstach:jstachio-apt:1.2.1'
-}</code><button class="clipboard" data-clipboard-target="#x976c30340c0e4655"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+    annotationProcessor 'io.jstach:jstachio-apt:1.3.0'
+}</code><button class="clipboard" data-clipboard-target="#xaf1c632c5f7c4e03"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -647,11 +647,11 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 
 
 <div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x5e0bd905651c485a">@JStache(path="index.mustache")            <i class="conum" data-value="1"></i><b>(1)</b>
-public record IndexPage(String message){}</code><button class="clipboard" data-clipboard-target="#x5e0bd905651c485a"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x78299936c1b04d66">@JStache(path="index.mustache")            <i class="conum" data-value="1"></i><b>(1)</b>
+public record IndexPage(String message){}</code><button class="clipboard" data-clipboard-target="#x78299936c1b04d66"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="x1d93d2b21c82460c">@JStache(path="index.mustache")            <i class="conum" data-value="1"></i><b>(1)</b>
-class IndexPage(String message){}</code><button class="clipboard" data-clipboard-target="#x1d93d2b21c82460c"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="xbf7117e620514e88">@JStache(path="index.mustache")            <i class="conum" data-value="1"></i><b>(1)</b>
+class IndexPage(String message){}</code><button class="clipboard" data-clipboard-target="#xbf7117e620514e88"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="colist arabic">
@@ -668,7 +668,7 @@ class IndexPage(String message){}</code><button class="clipboard" data-clipboard
 <div class="listingblock">
 <div class="title">src/main/resources/index.mustache</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html" id="xed24f01a1a0e4c06">&lt;p&gt;Hello {{message}}!&lt;/p&gt;</code><button class="clipboard" data-clipboard-target="#xed24f01a1a0e4c06"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html" id="xfb5b3e1228b4e8f">&lt;p&gt;Hello {{message}}!&lt;/p&gt;</code><button class="clipboard" data-clipboard-target="#xfb5b3e1228b4e8f"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -678,7 +678,7 @@ class IndexPage(String message){}</code><button class="clipboard" data-clipboard
 
 
 <div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xdccc0ca489774573">import io.jooby.jstachio.JStachioModule;
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x9132dc2ecd2240cb">import io.jooby.jstachio.JStachioModule;
 
 {
   install(new JStachioModule());              <i class="conum" data-value="1"></i><b>(1)</b>
@@ -686,9 +686,9 @@ class IndexPage(String message){}</code><button class="clipboard" data-clipboard
   get("/", ctx -&gt; {
     return new IndexPage("JStachio");         <i class="conum" data-value="2"></i><b>(2)</b>
   });
-}</code><button class="clipboard" data-clipboard-target="#xdccc0ca489774573"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x9132dc2ecd2240cb"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="x2dcd3336afd14813">import io.jooby.jstachio.JStachioModule
+<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="x17e1461e2e124208">import io.jooby.jstachio.JStachioModule
 
 {
   install(JStachioModule())                   <i class="conum" data-value="1"></i><b>(1)</b>
@@ -696,7 +696,7 @@ class IndexPage(String message){}</code><button class="clipboard" data-clipboard
   get("/") {
     IndexPage("JStachio")                     <i class="conum" data-value="2"></i><b>(2)</b>
   }
-}</code><button class="clipboard" data-clipboard-target="#x2dcd3336afd14813"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x17e1461e2e124208"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="colist arabic">
@@ -721,17 +721,17 @@ class IndexPage(String message){}</code><button class="clipboard" data-clipboard
 
 
 <div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x8c97c2a99ed7474c">import io.jooby.jstachio.JStachioModule;
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xb6c196cff73c4f25">import io.jooby.jstachio.JStachioModule;
 
 {
   install(new JStachioModule().bufferSize(1024));
-}</code><button class="clipboard" data-clipboard-target="#x8c97c2a99ed7474c"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#xb6c196cff73c4f25"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="x92f69ef6792b4d68">import io.jooby.jstachio.JStachioModule
+<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="x2e799ceed50840be">import io.jooby.jstachio.JStachioModule
 
 {
   install(JStachioModule().bufferSize(1024)
-}</code><button class="clipboard" data-clipboard-target="#x92f69ef6792b4d68"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x2e799ceed50840be"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -742,20 +742,20 @@ To add the extension the jar just needs to be in the classpath:</p>
 
 
 <div class="switch"><div class="switch--item option-1 selected">Maven</div><div class="switch--item option-2">Gradle</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="xc59241076d964c80">&lt;dependencies&gt;
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="x637b1761d6734355">&lt;dependencies&gt;
     &lt;dependency&gt;
         &lt;groupId&gt;io.jstach&lt;/groupId&gt;
         &lt;artifactId&gt;jstachio-jmustache&lt;/artifactId&gt;
-        &lt;version&gt;1.2.1&lt;/version&gt;
+        &lt;version&gt;1.3.0&lt;/version&gt;
         &lt;scope&gt;runtime&lt;/scope&gt;
     &lt;/dependency&gt;
-&lt;dependencies&gt;</code><button class="clipboard" data-clipboard-target="#xc59241076d964c80"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+&lt;dependencies&gt;</code><button class="clipboard" data-clipboard-target="#x637b1761d6734355"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-groovy hljs" data-lang="groovy" id="xfd4a448aeb8b40fb">dependencies {
+<pre class="highlightjs highlight"><code class="language-groovy hljs" data-lang="groovy" id="x342ab41cd6094bab">dependencies {
 
-    runtimeOnly 'io.jstach:jstachio-jmustache:1.2.1'
+    runtimeOnly 'io.jstach:jstachio-jmustache:1.3.0'
 
-}</code><button class="clipboard" data-clipboard-target="#xfd4a448aeb8b40fb"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x342ab41cd6094bab"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="paragraph">
