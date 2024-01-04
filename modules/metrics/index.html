@@ -601,15 +601,15 @@ components in your production environment.</p>
 
 
 <div class="switch"><div class="switch--item option-1 selected">Maven</div><div class="switch--item option-2">Gradle</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="xb28b8739c37d43d6">&lt;!-- Metrics Module--&gt;
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="xe5cc5516c644b49">&lt;!-- Metrics Module--&gt;
 &lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
   &lt;artifactId&gt;jooby-metrics&lt;/artifactId&gt;
-  &lt;version&gt;3.0.6&lt;/version&gt;
-&lt;/dependency&gt;</code><button class="clipboard" data-clipboard-target="#xb28b8739c37d43d6"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+  &lt;version&gt;3.0.7&lt;/version&gt;
+&lt;/dependency&gt;</code><button class="clipboard" data-clipboard-target="#xe5cc5516c644b49"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-javascript hljs" data-lang="javascript" id="xdf766b341ce74ef4">// Metrics Module
-implementation 'io.jooby:jooby-metrics:3.0.6'</code><button class="clipboard" data-clipboard-target="#xdf766b341ce74ef4"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+<pre class="highlightjs highlight"><code class="language-javascript hljs" data-lang="javascript" id="x56f75c8bedb7496b">// Metrics Module
+implementation 'io.jooby:jooby-metrics:3.0.7'</code><button class="clipboard" data-clipboard-target="#x56f75c8bedb7496b"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -619,7 +619,7 @@ implementation 'io.jooby:jooby-metrics:3.0.6'</code><button class="clipboard" da
 
 
 <div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x11bf755aa83f46a5">{
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x8af2ec9a2cc74c89">{
   install(new MetricsModule()
       .threadDump()
       .ping()
@@ -628,9 +628,9 @@ implementation 'io.jooby:jooby-metrics:3.0.6'</code><button class="clipboard" da
       .metric("threads", new ThreadStatesGaugeSet())
       .metric("gc", new GarbageCollectorMetricSet())
       .metric("fs", new FileDescriptorRatioGauge()));
-}</code><button class="clipboard" data-clipboard-target="#x11bf755aa83f46a5"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x8af2ec9a2cc74c89"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="x82386050a60247bd">{
+<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="xc07474f3262341f7">{
   install(MetricsModule()
       .threadDump()
       .ping()
@@ -639,7 +639,7 @@ implementation 'io.jooby:jooby-metrics:3.0.6'</code><button class="clipboard" da
       .metric("threads", ThreadStatesGaugeSet())
       .metric("gc", GarbageCollectorMetricSet())
       .metric("fs", FileDescriptorRatioGauge()))
-}</code><button class="clipboard" data-clipboard-target="#x82386050a60247bd"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#xc07474f3262341f7"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -655,21 +655,21 @@ implementation 'io.jooby:jooby-metrics:3.0.6'</code><button class="clipboard" da
 
 
 <div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xecb33de665c641ff">{
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x49a3a7378df944f2">{
   install(new MetricsModule()
       .metric("memory", new MemoryUsageGaugeSet())
       .metric("threads", new ThreadStatesGaugeSet())
       .metric("gc", new GarbageCollectorMetricSet())
       .metric("fs", new FileDescriptorRatioGauge()));
-}</code><button class="clipboard" data-clipboard-target="#xecb33de665c641ff"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x49a3a7378df944f2"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="xc012a72764e4493e">{
+<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="xdac30a3c568c4609">{
   install(MetricsModule()
       .metric("memory", MemoryUsageGaugeSet())
       .metric("threads", ThreadStatesGaugeSet())
       .metric("gc", GarbageCollectorMetricSet())
       .metric("fs", FileDescriptorRatioGauge()))
-}</code><button class="clipboard" data-clipboard-target="#xc012a72764e4493e"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#xdac30a3c568c4609"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -689,15 +689,15 @@ filter all the metrics where the name starts with the given <code>name</code>.</
 
 
 <div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xe6c109dfcbb64b74">{
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x3eabf802bb76495b">{
   install(new MetricsModule()
       .healthCheck("deadlock", new ThreadDeadlockHealthCheck());
-}</code><button class="clipboard" data-clipboard-target="#xe6c109dfcbb64b74"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x3eabf802bb76495b"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="x7645092e0fb14a24">{
+<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="x601770b7e76f44f0">{
   install(MetricsModule()
       .healthCheck("deadlock", ThreadDeadlockHealthCheck())
-}</code><button class="clipboard" data-clipboard-target="#x7645092e0fb14a24"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x601770b7e76f44f0"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 </div>
@@ -711,19 +711,19 @@ or min/mean/max execution time) and a breakdown of the response codes being retu
 
 
 <div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xa1c845e577784609">{
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xa386cd2474524625">{
   use(new Metricsuse());
 
   // inspected route
   get("/", context -&gt; "Hello metrics!");
-}</code><button class="clipboard" data-clipboard-target="#xa1c845e577784609"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#xa386cd2474524625"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="xca03b79f0b0d450e">{
+<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="xb6a87a9727994b34">{
   use(Metricsuse())
 
   // inspected route
   get("/") { context: Context? -&gt; "Hello metrics!" }
-}</code><button class="clipboard" data-clipboard-target="#xca03b79f0b0d450e"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#xb6a87a9727994b34"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 </div>
@@ -736,15 +736,15 @@ or min/mean/max execution time) and a breakdown of the response codes being retu
 
 
 <div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x48e8cf2395ae466e">{
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x88f44d54b4754ad1">{
   install(new MetricsModule()
       .threadDump();
-}</code><button class="clipboard" data-clipboard-target="#x48e8cf2395ae466e"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x88f44d54b4754ad1"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="xec9e962a99b64274">{
+<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="xaa3b7b77212488e">{
   install(MetricsModule()
       .threadDump()
-}</code><button class="clipboard" data-clipboard-target="#xec9e962a99b64274"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#xaa3b7b77212488e"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 </div>
@@ -757,7 +757,7 @@ or min/mean/max execution time) and a breakdown of the response codes being retu
 
 
 <div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x15e5d15be28946e6">{
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x20999d2a0d8d4f0e">{
   install(new MetricsModule()
       .reporter(registry -&gt; {
         ConsoleReporter reporter = ConsoleReporter.forRegistry(registry)
@@ -767,9 +767,9 @@ or min/mean/max execution time) and a breakdown of the response codes being retu
         reporter.start(1, TimeUnit.HOURS);
         return reporter;
       });
-}</code><button class="clipboard" data-clipboard-target="#x15e5d15be28946e6"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x20999d2a0d8d4f0e"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="xf75e9713e2454aea">{
+<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="x1b87418fbaf547d2">{
   install(MetricsModule()
       .reporter { registry: MetricRegistry -&gt;
         ConsoleReporter.forRegistry(registry)
@@ -778,7 +778,7 @@ or min/mean/max execution time) and a breakdown of the response codes being retu
             .build()
             .also { it.start(1, TimeUnit.HOURS) }
       }
-}</code><button class="clipboard" data-clipboard-target="#xf75e9713e2454aea"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x1b87418fbaf547d2"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -796,7 +796,7 @@ methods of <code>HikariModule</code>, but you must use the same instances with <
 
 
 <div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xfce682a44604b11">{
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xd358f49a52fb4966">{
   MetricRegistry metricRegistry = new MetricRegistry();
   HealthCheckRegistry healthCheckRegistry = new HealthCheckRegistry();
 
@@ -805,9 +805,9 @@ methods of <code>HikariModule</code>, but you must use the same instances with <
       .healthCheckRegistry(healthCheckRegistry));
 
   install(new MetricsModule(metricRegistry, healthCheckRegistry));
-}</code><button class="clipboard" data-clipboard-target="#xfce682a44604b11"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#xd358f49a52fb4966"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="x7dea2b94c04a407e">{
+<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="x481760ed405e4dee">{
   val metricRegistry = MetricRegistry()
   val healthCheckRegistry = HealthCheckRegistry()
 
@@ -816,7 +816,7 @@ methods of <code>HikariModule</code>, but you must use the same instances with <
       .healthCheckRegistry(healthCheckRegistry))
 
   install(MetricsModule(metricRegistry, healthCheckRegistry)
-}</code><button class="clipboard" data-clipboard-target="#x7dea2b94c04a407e"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x481760ed405e4dee"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 </div>
@@ -830,15 +830,15 @@ by the module:</p>
 
 
 <div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xcdbb86c1f334f9c">{
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x949474ce2e704cd1">{
   install(new MetricsModule("/diag")
       .threadDump();
-}</code><button class="clipboard" data-clipboard-target="#xcdbb86c1f334f9c"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x949474ce2e704cd1"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="xe736b00526574dc9">{
+<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="x3e892abdb74c4a02">{
   install(MetricsModule("/diag")
       .threadDump()
-}</code><button class="clipboard" data-clipboard-target="#xe736b00526574dc9"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x3e892abdb74c4a02"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 </div>

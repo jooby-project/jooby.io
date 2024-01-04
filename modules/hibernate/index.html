@@ -602,25 +602,25 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 
 
 <div class="switch"><div class="switch--item option-1 selected">Maven</div><div class="switch--item option-2">Gradle</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="xb043120f18f84ccd">&lt;!-- DataSource via HikariCP--&gt;
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="x66e733170d7642f1">&lt;!-- DataSource via HikariCP--&gt;
 &lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
   &lt;artifactId&gt;jooby-hikari&lt;/artifactId&gt;
-  &lt;version&gt;3.0.6&lt;/version&gt;
+  &lt;version&gt;3.0.7&lt;/version&gt;
 &lt;/dependency&gt;
 
 &lt;!-- Hibernate Module--&gt;
 &lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
   &lt;artifactId&gt;jooby-hibernate&lt;/artifactId&gt;
-  &lt;version&gt;3.0.6&lt;/version&gt;
-&lt;/dependency&gt;</code><button class="clipboard" data-clipboard-target="#xb043120f18f84ccd"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+  &lt;version&gt;3.0.7&lt;/version&gt;
+&lt;/dependency&gt;</code><button class="clipboard" data-clipboard-target="#x66e733170d7642f1"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-javascript hljs" data-lang="javascript" id="x75bb29b750444f3d">// DataSource via HikariCP
-implementation 'io.jooby:jooby-hikari:3.0.6'
+<pre class="highlightjs highlight"><code class="language-javascript hljs" data-lang="javascript" id="x46b6c60ccd7b45a2">// DataSource via HikariCP
+implementation 'io.jooby:jooby-hikari:3.0.7'
 
 // Hibernate Module
-implementation 'io.jooby:jooby-hibernate:3.0.6'</code><button class="clipboard" data-clipboard-target="#x75bb29b750444f3d"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+implementation 'io.jooby:jooby-hibernate:3.0.7'</code><button class="clipboard" data-clipboard-target="#x46b6c60ccd7b45a2"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -630,13 +630,13 @@ implementation 'io.jooby:jooby-hibernate:3.0.6'</code><button class="clipboard" 
 
 
 <div class="switch"><div class="switch--item option-1 selected">Maven</div><div class="switch--item option-2">Gradle</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="x692106ebe584436d">&lt;dependency&gt;
-  &lt;groupId&gt;com.mysql&lt;/groupId&gt;
-  &lt;artifactId&gt;mysql-connector-j&lt;/artifactId&gt;
-  &lt;version&gt;&lt;/version&gt;
-&lt;/dependency&gt;</code><button class="clipboard" data-clipboard-target="#x692106ebe584436d"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="x9b5952d26e0b45a4">&lt;dependency&gt;
+  &lt;groupId&gt;mysql&lt;/groupId&gt;
+  &lt;artifactId&gt;mysql-connector-java&lt;/artifactId&gt;
+  &lt;version&gt;${mysql-connector-java.version}&lt;/version&gt;
+&lt;/dependency&gt;</code><button class="clipboard" data-clipboard-target="#x9b5952d26e0b45a4"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-javascript hljs" data-lang="javascript" id="xf943e6a1f7ba4737">implementation 'com.mysql:mysql-connector-j:'</code><button class="clipboard" data-clipboard-target="#xf943e6a1f7ba4737"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+<pre class="highlightjs highlight"><code class="language-javascript hljs" data-lang="javascript" id="x35f78613573043ee">implementation 'mysql:mysql-connector-java:${mysql-connector-java.version}'</code><button class="clipboard" data-clipboard-target="#x35f78613573043ee"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -645,9 +645,9 @@ implementation 'io.jooby:jooby-hibernate:3.0.6'</code><button class="clipboard" 
 <div class="listingblock">
 <div class="title">application.conf</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-properties hljs" data-lang="properties" id="xcf860337c1024882">db.url = "jdbc:mysql://localhost/mydb"
+<pre class="highlightjs highlight"><code class="language-properties hljs" data-lang="properties" id="x144314792c8040c9">db.url = "jdbc:mysql://localhost/mydb"
 db.user = myuser
-db.password = mypass</code><button class="clipboard" data-clipboard-target="#xcf860337c1024882"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+db.password = mypass</code><button class="clipboard" data-clipboard-target="#x144314792c8040c9"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -657,7 +657,7 @@ db.password = mypass</code><button class="clipboard" data-clipboard-target="#xcf
 
 
 <div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x3e65d5c14a7446c">import io.jooby.hikari.HikariModule;
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x95786d7b6b7244f8">import io.jooby.hikari.HikariModule;
 import io.jooby.hibernate.HibernateModule;
 {
   install(new HikariModule());                        <i class="conum" data-value="1"></i><b>(1)</b>
@@ -682,9 +682,9 @@ import io.jooby.hibernate.HibernateModule;
       em.close();                                     <i class="conum" data-value="9"></i><b>(9)</b>
     }
   });
-}</code><button class="clipboard" data-clipboard-target="#x3e65d5c14a7446c"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x95786d7b6b7244f8"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="x4e9b16e18e334d16">import io.jooby.hikari.HikariModule
+<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="x798ae592330b46a2">import io.jooby.hikari.HikariModule
 import io.jooby.hibernate.HibernateModule
 
 {
@@ -710,7 +710,7 @@ import io.jooby.hibernate.HibernateModule
       em.close()                                      <i class="conum" data-value="9"></i><b>(9)</b>
     }
   }
-}</code><button class="clipboard" data-clipboard-target="#x4e9b16e18e334d16"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x798ae592330b46a2"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="colist arabic">
@@ -796,7 +796,7 @@ doesn’t have to deal with that boring lines of code.</p>
 <div class="title">TransactionalRequest</div>
 
 <div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xb7ca0417e7534d79">import io.jooby.hikari.HikariModule;
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x6a015dc8cbf944bd">import io.jooby.hikari.HikariModule;
 import io.jooby.hibernate.HibernateModule;
 import io.jooby.hibernate.TransactionalRequest;
 
@@ -816,9 +816,9 @@ import io.jooby.hibernate.TransactionalRequest;
 
     return e;
   });
-}</code><button class="clipboard" data-clipboard-target="#xb7ca0417e7534d79"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x6a015dc8cbf944bd"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="xe315d07c2215439e">import io.jooby.hikari.HikariModule
+<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="x934b498924e8422c">import io.jooby.hikari.HikariModule
 import io.jooby.hibernate.HibernateModule
 import io.jooby.hibernate.TransactionalRequest
 
@@ -838,7 +838,7 @@ import io.jooby.hibernate.TransactionalRequest
 
     e
   }
-}</code><button class="clipboard" data-clipboard-target="#xe315d07c2215439e"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x934b498924e8422c"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -876,21 +876,21 @@ scope become transactional. You can exclude an MVC route by annotating it with t
 <div class="title">@Transactional</div>
 
 <div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xb8958ffc40f64348">import io.jooby.annotation.Transactional;
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x1474339140fc4294">import io.jooby.annotation.Transactional;
 
 @Transactional(false)
 @GET("/")
 public void get(Context ctx) {
   // no automatic transaction management here
-}</code><button class="clipboard" data-clipboard-target="#xb8958ffc40f64348"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x1474339140fc4294"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="x202fc063817b4c6d">import io.jooby.annotation.Transactional
+<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="x66f54da515c54bd2">import io.jooby.annotation.Transactional
 
 @Transactional(false)
 @GET("/")
 fun get(ctx: Context) {
   // no automatic transaction management here
-}</code><button class="clipboard" data-clipboard-target="#x202fc063817b4c6d"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x66f54da515c54bd2"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -900,21 +900,21 @@ fun get(ctx: Context) {
 <div class="title">TransactionalRequest disabled by default</div>
 
 <div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xdb6693ea4ae14e5c">import io.jooby.ebean.TransactionalRequest;
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x341c6f3c1d1e400a">import io.jooby.ebean.TransactionalRequest;
 
 {
   ...
   use(new TransactionalRequest().enabledByDefault(false));
   ...
-}</code><button class="clipboard" data-clipboard-target="#xdb6693ea4ae14e5c"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x341c6f3c1d1e400a"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="x8e3b33ed56c94bc6">import io.jooby.ebean.TransactionalRequest
+<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="xc924edab44804515">import io.jooby.ebean.TransactionalRequest
 
 {
   ...
   use(TransactionalRequest().enabledByDefault(false))
   ...
-}</code><button class="clipboard" data-clipboard-target="#x8e3b33ed56c94bc6"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#xc924edab44804515"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -924,7 +924,7 @@ fun get(ctx: Context) {
 <div class="title">@Transactional</div>
 
 <div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x248275994e7642e6">import io.jooby.annotation.Transactional;
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xca1eab1939ff451a">import io.jooby.annotation.Transactional;
 
 @Inject
 private EntityManager entityManager;
@@ -933,9 +933,9 @@ private EntityManager entityManager;
 @GET("/")
 public void get(Context ctx) {
   // work with EntityManager
-}</code><button class="clipboard" data-clipboard-target="#x248275994e7642e6"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#xca1eab1939ff451a"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="x10b24c6a4cc949ce">import io.jooby.annotation.Transactional
+<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="x766c5bf7a8cf420b">import io.jooby.annotation.Transactional
 
 @Inject
 private lateinit var entityManager: EntityManager
@@ -944,7 +944,7 @@ private lateinit var entityManager: EntityManager
 @GET("/")
 fun get(ctx: Context) {
   // work with EntityManager
-}</code><button class="clipboard" data-clipboard-target="#x10b24c6a4cc949ce"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x766c5bf7a8cf420b"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -954,19 +954,19 @@ fun get(ctx: Context) {
 <div class="title">Transactional for script routes</div>
 
 <div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xcf63af7a19ba4746">{
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xeca501f3b62d4311">{
   get("/", ctx -&gt; {
     ...
   }).attribute(Transactional.ATTRIBUTE, false);
-}</code><button class="clipboard" data-clipboard-target="#xcf63af7a19ba4746"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#xeca501f3b62d4311"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="x78330ed669e94f26">import io.jooby.annotation.Transactional
+<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="xe97ae07d6b414d1e">import io.jooby.annotation.Transactional
 
 {
   get("/") {
     ...
   }).attribute(Transactional.ATTRIBUTE, false);
-}</code><button class="clipboard" data-clipboard-target="#x78330ed669e94f26"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#xe97ae07d6b414d1e"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -987,19 +987,19 @@ of <code>UnitOfWork</code>. You may acquire one from the service registry or inj
 <div class="title">UnitOfWork</div>
 
 <div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xba6796a733a24230">{
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x25e160bf9c5d4802">{
   get("/pets", ctx -&gt; require(UnitOfWork.class)
       .apply(em -&gt; em.createQuery("from Pet", Pet.class).getResultList()));
-}</code><button class="clipboard" data-clipboard-target="#xba6796a733a24230"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x25e160bf9c5d4802"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="xb4213ed50888420b">{
+<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="x9906855b5a53445a">{
   get("/pets") {
     require(UnitOfWork::class.java)
         .apply { em -&gt;
           em.createQuery("from Pet", Pet::class.java).resultList
         }
   }
-}</code><button class="clipboard" data-clipboard-target="#xb4213ed50888420b"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x9906855b5a53445a"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -1014,7 +1014,7 @@ You may access a <code>UnitOfWork.TransactionHandler</code> instance to be able 
 <div class="title">Multiple transactions</div>
 
 <div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x455e40d2c2d34ba5">{
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x53fb1d6ca6ec47a6">{
   get("/update", ctx -&gt; require(UnitOfWork.class)
       .apply((em, txh) -&gt; {
         em.createQuery("from Pet", Pet.class).getResultList().forEach(pet -&gt; {
@@ -1023,9 +1023,9 @@ You may access a <code>UnitOfWork.TransactionHandler</code> instance to be able 
         });
         return "ok";
       }));
-}</code><button class="clipboard" data-clipboard-target="#x455e40d2c2d34ba5"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x53fb1d6ca6ec47a6"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="xa58328960cb944f4">{
+<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="xee5b0442a22b44d7">{
   get("/update") {
     require(UnitOfWork::class.java)
         .apply { em, txh -&gt;
@@ -1036,7 +1036,7 @@ You may access a <code>UnitOfWork.TransactionHandler</code> instance to be able 
           "ok"
         }
   }
-}</code><button class="clipboard" data-clipboard-target="#xa58328960cb944f4"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#xee5b0442a22b44d7"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -1049,7 +1049,7 @@ after rolling back the current one.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xfd4a32b661b943e6">{
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x88719d577edc4986">{
   get("/nope", ctx -&gt; require(UnitOfWork.class)
       .apply(em -&gt; {
 
@@ -1058,7 +1058,7 @@ after rolling back the current one.</p>
 
         return "ok";
       }));
-}</code><button class="clipboard" data-clipboard-target="#xfd4a32b661b943e6"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x88719d577edc4986"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1066,13 +1066,13 @@ after rolling back the current one.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xbf47ae21f5c14660">{
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xd9910a02842e4fd1">{
   use(new TransactionalRequest());
 
   // will lead to exception
   get("/nope", ctx -&gt; require(UnitOfWork.class)
       .apply(em -&gt; em.createQuery("from Pet", Pet.class).getResultList()));
-}</code><button class="clipboard" data-clipboard-target="#xbf47ae21f5c14660"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#xd9910a02842e4fd1"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div>
 </div>
 </div>
@@ -1103,7 +1103,7 @@ after rolling back the current one.</p>
 <div class="listingblock">
 <div class="title">application.conf</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-properties hljs" data-lang="properties" id="x1f8b486cfbd9463b">hibernate.hbm2ddl.auto = create</code><button class="clipboard" data-clipboard-target="#x1f8b486cfbd9463b"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+<pre class="highlightjs highlight"><code class="language-properties hljs" data-lang="properties" id="xc8e4b5987d7a4d71">hibernate.hbm2ddl.auto = create</code><button class="clipboard" data-clipboard-target="#xc8e4b5987d7a4d71"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1113,7 +1113,7 @@ let you hook and customize Hibernate bootstrap process:</p>
 <div class="listingblock">
 <div class="title">HibernateConfigurer:</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x958cd0b494e44130">import io.jooby.hibernate.HibernateConfigurer;
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x3fcd686c5d494936">import io.jooby.hibernate.HibernateConfigurer;
 
 public class MyConfigurer extends HibernateConfigurer {
   /**
@@ -1164,7 +1164,7 @@ public class MyConfigurer extends HibernateConfigurer {
 
 {
   install(new HibernateModule().with(new MyConfigurer()));
-}</code><button class="clipboard" data-clipboard-target="#x958cd0b494e44130"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x3fcd686c5d494936"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1173,13 +1173,13 @@ public class MyConfigurer extends HibernateConfigurer {
 <div class="listingblock">
 <div class="title">SessionProvider</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xd414a58bc3204d6c">{
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xfd5ac70ff41144c3">{
   install(new HibernateModule().with(builder -&gt; {
     return builder
      .flushMode(AUTO)
      .openSession();
   }));
-}</code><button class="clipboard" data-clipboard-target="#xd414a58bc3204d6c"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#xfd5ac70ff41144c3"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div>
 </div>
 </div>
