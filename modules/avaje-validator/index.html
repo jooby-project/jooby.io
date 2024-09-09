@@ -8,7 +8,7 @@
 <meta name="description" content="The modular micro web framework for Java">
 <meta name="keywords" content="Java, Modern, Micro, Web, Framework, Reactive, Lightweight, Microservices">
 <link rel="icon" type="image/png" href="../../images/favicon96.png">
-<title>jooby: jwt session store module</title>
+<title>jooby: avaje validator module</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -568,82 +568,392 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="header">
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#avaje-validator">1. Avaje Validator</a>
 <ul class="sectlevel2">
-<li><a href="#jwt-session">1. JWT Session</a></li>
+<li><a href="#usage">1.1. Usage</a></li>
+<li><a href="#constraint-violations-rendering">1.2. Constraint Violations Rendering</a></li>
+<li><a href="#manual-validation">1.3. Manual Validation</a>
+<ul class="sectlevel3">
+<li><a href="#scriptlambda">1.3.1. Script/lambda:</a></li>
+<li><a href="#mvc-routes-with-dependency-injection">1.3.2. MVC routes with dependency injection:</a></li>
+</ul>
+</li>
+<li><a href="#configuration">1.4. Configuration</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
 <div id="content">
-<div class="sect2">
-<h3 id="jwt-session"><a class="anchor" href="#jwt-session"></a><a class="link" href="#jwt-session">1. JWT Session</a></h3>
+<div class="sect1">
+<h2 id="avaje-validator"><a class="anchor" href="#avaje-validator"></a><a class="link" href="#avaje-validator">1. Avaje Validator</a></h2>
+<div class="sectionbody">
 <div class="paragraph">
-<p>The <a href="https://www.javadoc.io/doc/io.jooby/jooby/latest/io.jooby/io/jooby/JWTSession.html" target="_blank">JWTSession</a> session store works it also a stateless session that
-uses <a href="https://jwt.io" target="_blank">JSON Web Token</a> standard to decode/encode data.</p>
+<p>Bean validation via <a href="https://avaje.io/validator/" target="_blank">Avaje Validator</a>.</p>
 </div>
+<div class="sect2">
+<h3 id="avaje-validator-usage"><a class="anchor" href="#avaje-validator-usage"></a><a class="link" href="#avaje-validator-usage">1.1. Usage</a></h3>
 <div class="paragraph">
-<p>To use the <a href="https://www.javadoc.io/doc/io.jooby/jooby/latest/io.jooby/io/jooby/JWTSession.html" target="_blank">JWTSession</a> session store you need to add the <code>jooby-jwt</code> dependency:</p>
+<p>1) Add the dependency:</p>
 </div>
 <div class="listingblock primary">
 
 
 <div class="switch"><div class="switch--item option-1 selected">Maven</div><div class="switch--item option-2">Gradle</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="x8138745bce254113">&lt;dependency&gt;
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="x3c7f019e5b724f24">&lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
-  &lt;artifactId&gt;jooby-jwt&lt;/artifactId&gt;
+  &lt;artifactId&gt;jooby-avaje-validator&lt;/artifactId&gt;
   &lt;version&gt;3.3.1&lt;/version&gt;
-&lt;/dependency&gt;</code><button class="clipboard" data-clipboard-target="#x8138745bce254113"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+&lt;/dependency&gt;</code><button class="clipboard" data-clipboard-target="#x3c7f019e5b724f24"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-gradle hljs" data-lang="gradle" id="x1702d239a1b4a22">implementation 'io.jooby:jooby-jwt:3.3.1'</code><button class="clipboard" data-clipboard-target="#x1702d239a1b4a22"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+<pre class="highlightjs highlight"><code class="language-gradle hljs" data-lang="gradle" id="x95c46f72f81c4c09">implementation 'io.jooby:jooby-avaje-validator:3.3.1'</code><button class="clipboard" data-clipboard-target="#x95c46f72f81c4c09"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
+<div class="paragraph">
+<p>2) Configure annotation processor</p>
+</div>
 <div class="listingblock primary">
-<div class="title">JWT Session</div>
+
+
+<div class="switch"><div class="switch--item option-1 selected">Maven</div><div class="switch--item option-2">Gradle</div></div><div class="content option-1">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="x14648839dca4da3">&lt;build&gt;
+  &lt;plugins&gt;
+    &lt;plugin&gt;
+      &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+      &lt;artifactId&gt;maven-compiler-plugin&lt;/artifactId&gt;
+      &lt;version&gt;...&lt;/version&gt;
+      &lt;configuration&gt;
+        &lt;annotationProcessorPaths&gt;
+          &lt;path&gt;
+            &lt;groupId&gt;io.avaje&lt;/groupId&gt;
+            &lt;artifactId&gt;avaje-validator-generator&lt;/artifactId&gt;
+            &lt;version&gt;2.1&lt;/version&gt;
+          &lt;/path&gt;
+        &lt;/annotationProcessorPaths&gt;
+      &lt;/configuration&gt;
+    &lt;/plugin&gt;
+  &lt;/plugins&gt;
+&lt;/build&gt;</code><button class="clipboard" data-clipboard-target="#x14648839dca4da3"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+</div><div class="content hidden option-2">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin" id="xf81a9cb1ab554c9f">plugins {
+  id "org.jetbrains.kotlin.kapt" version "1.9.10"
+}
+
+dependencies {
+  kapt 'io.avaje:avaje-validator-generator:2.1'
+}</code><button class="clipboard" data-clipboard-target="#xf81a9cb1ab554c9f"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+</div></div>
+
+<div class="paragraph">
+<p>3) Install</p>
+</div>
+<div class="listingblock primary">
+
 
 <div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xa8b2169db707414c">import io.jooby.session.JwtSessionStore;
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x78fd68e810d54c0b">import io.jooby.avaje.validator.AvajeValidatorModule;
 
 {
-  String secret = "super secret key";           <i class="conum" data-value="1"></i><b>(1)</b>
-
-  setSessionStore(new JwtSessionStore(secret)); <i class="conum" data-value="2"></i><b>(2)</b>
-
-  get("/", ctx -&gt; {
-    Session session = ctx.session();
-
-    session.put("foo", "bar");
-
-    return session.get("foo").value();
-  });
-}</code><button class="clipboard" data-clipboard-target="#xa8b2169db707414c"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+  install(new AvajeValidatorModule());
+}</code><button class="clipboard" data-clipboard-target="#x78fd68e810d54c0b"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin" id="xdf907ee2e5994fa2">import io.jooby.session.JwtSessionStore
+<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="x82b8335c7150479c">import io.jooby.avaje.validator.AvajeValidatorModule
 
 {
-  val secret = "super secret key"               <i class="conum" data-value="1"></i><b>(1)</b>
+  install(AvajeValidatorModule())
+}</code><button class="clipboard" data-clipboard-target="#x82b8335c7150479c"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+</div></div>
 
-  sessionStore = JwtSessionStore(secret)        <i class="conum" data-value="2"></i><b>(2)</b>
+<div class="paragraph">
+<p>4) Usage in MVC routes</p>
+</div>
+<div class="listingblock primary">
 
-  get("/") {
-    val session = ctx.session()
 
-    session.put("foo", "bar")
+<div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x15a7ab22ae334266">import io.jooby.annotation.*;
+import jakarta.validation.Valid;
 
-    session.get("foo").value()
+@Path("/mvc")
+public class Controller {
+
+  @POST("/validate-body")
+  public void validateBody(@Valid Bean bean) {                 <i class="conum" data-value="1"></i><b>(1)</b>
+    ...
   }
-}</code><button class="clipboard" data-clipboard-target="#xdf907ee2e5994fa2"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+
+  @POST("/validate-query")
+  public void validateQuery(@Valid @QueryParam Bean bean) {    <i class="conum" data-value="2"></i><b>(2)</b>
+    ...
+  }
+
+  @POST("/validate-list")
+  public void validateList(@Valid List&lt;Bean&gt; beans) {          <i class="conum" data-value="3"></i><b>(3)</b>
+    ...
+  }
+
+  @POST("/validate-map")
+  public void validateMap(@Valid Map&lt;String, Bean&gt; beans) {    <i class="conum" data-value="4"></i><b>(4)</b>
+    ...
+  }
+}</code><button class="clipboard" data-clipboard-target="#x15a7ab22ae334266"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+</div><div class="content hidden option-2">
+<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="x82bc68dc0af9429a">import io.jooby.annotation.*;
+import jakarta.validation.Valid
+
+@Path("/mvc")
+class Controller {
+
+  @POST("/validate-body")
+  fun validateBody(@Valid bean: Bean) : Unit {                 <i class="conum" data-value="1"></i><b>(1)</b>
+    ...
+  }
+
+  @POST("/validate-query")
+  fun validateQuery(@Valid @QueryParam bean: Bean) : Unit {    <i class="conum" data-value="2"></i><b>(2)</b>
+    ...
+  }
+
+  @POST("/validate-list")
+  fun validateList(@Valid beans: List&lt;Bean&gt;) : Unit {          <i class="conum" data-value="3"></i><b>(3)</b>
+    ...
+  }
+
+  @POST("/validate-map")
+  fun validateMap(@Valid beans: Map&lt;String, Bean&gt;) : Unit {    <i class="conum" data-value="4"></i><b>(4)</b>
+    ...
+  }
+}</code><button class="clipboard" data-clipboard-target="#x82bc68dc0af9429a"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="colist arabic">
 <table>
 <tbody><tr>
 <td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>Set a secret key</td>
+<td>Validate a bean decoded from the request body</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>Use <code>JwtSessionStore</code></td>
+<td>Validate a bean parsed from query parameters. This works the same for <code>@FormParam</code> or <code>@BindParam</code></td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Validate a list of beans. This also applies to arrays <code>@Valid Bean[] beans</code></td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>Validate a map of beans</td>
 </tr>
 </tbody></table>
+</div>
+<div class="paragraph">
+<p>4) Usage in in script/lambda routes</p>
+</div>
+<div class="listingblock primary">
+
+
+<div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x3147060031524c46">import io.jooby.validation.BeanValidator;
+
+{
+  use(BeanValidator.validate());
+  post("/validate", ctx -&gt; {
+    Bean bean = ctx.body(Bean.class);
+    ...
+  });
+}</code><button class="clipboard" data-clipboard-target="#x3147060031524c46"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+</div><div class="content hidden option-2">
+<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="xdc48dd60c0c249a2">import io.jooby.validation.BeanValidator
+
+{
+  use(BeanValidator.validate())
+  post("/validate") {
+    val bean = ctx, ctx.body(Bean.class)
+    ...
+  }
+}</code><button class="clipboard" data-clipboard-target="#xdc48dd60c0c249a2"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+</div></div>
+
+<div class="paragraph">
+<p><code>BeanValidator.validate()</code> behaves identically to validation in MVC routes.
+It also supports validating list, array, and map of beans.</p>
+</div>
+<div class="paragraph">
+<p>There is a handler version of it, so you can apply per route:</p>
+</div>
+<div class="listingblock">
+<div class="title">validate</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x89ba72e0da064c1c">import io.jooby.validation.BeanValidator.validate;
+
+{
+  post("/validate", validate(ctx -&gt; {
+    Bean bean = ctx.body(Bean.class);
+    ...
+  }));
+}</code><button class="clipboard" data-clipboard-target="#x89ba72e0da064c1c"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="avaje-validator-constraint-violations-rendering"><a class="anchor" href="#avaje-validator-constraint-violations-rendering"></a><a class="link" href="#avaje-validator-constraint-violations-rendering">1.2. Constraint Violations Rendering</a></h3>
+<div class="paragraph">
+<p><code>AvajeValidatorModule</code> provides default built-in error handler that
+catches <code>ConstraintViolationException</code> and transforms it into the following response:</p>
+</div>
+<div class="listingblock">
+<div class="title">JSON:</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json" id="x5a14eaa8fa3244b0">{
+  "title": "Validation failed",
+  "status": 422,
+  "errors": [
+    {
+      "field": "firstName",
+      "messages": [
+        "must not be empty",
+        "must not be null"
+      ],
+      "type": "FIELD"
+    },
+    {
+      "field": null,
+      "messages": [
+        "passwords are not the same"
+      ],
+      "type": "GLOBAL"
+    }
+  ]
+}</code><button class="clipboard" data-clipboard-target="#x5a14eaa8fa3244b0"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>It is possible to override the <code>title</code> and <code>status</code> code of the response above:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x246070bf8bc64abe">{
+  install(new AvajeJsonbModule());
+  install(new AvajeValidatorModule()
+    .statusCode(StatusCode.BAD_REQUEST)
+    .validationTitle("Incorrect input data")
+  );
+}</code><button class="clipboard" data-clipboard-target="#x246070bf8bc64abe"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If the default error handler doesn’t fully meet your needs, you can always disable it and provide your own:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x6b1bd613ee194e5e">{
+  install(new AvajeJsonbModule());
+  install(new AvajeValidatorModule().disableViolationHandler());
+
+  error(ConstraintViolationException.class, new MyConstraintViolationHandler());
+}</code><button class="clipboard" data-clipboard-target="#x6b1bd613ee194e5e"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="avaje-validator-manual-validation"><a class="anchor" href="#avaje-validator-manual-validation"></a><a class="link" href="#avaje-validator-manual-validation">1.3. Manual Validation</a></h3>
+<div class="paragraph">
+<p>The module exposes <code>Validator</code> as a service, allowing you to run validation manually at any time.</p>
+</div>
+<div class="sect3">
+<h4 id="avaje-validator-manual-validation-scriptlambda"><a class="anchor" href="#avaje-validator-manual-validation-scriptlambda"></a><a class="link" href="#avaje-validator-manual-validation-scriptlambda">1.3.1. Script/lambda:</a></h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xa4b35b1fdd27410a">import io.avaje.validation.Validator;
+
+{
+  post("/validate", ctx -&gt; {
+    Validator validator = require(Validator.class);
+    validator.validate(ctx.body(Bean.class));
+    ...
+  });
+}</code><button class="clipboard" data-clipboard-target="#xa4b35b1fdd27410a"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="avaje-validator-manual-validation-mvc-routes-with-dependency-injection"><a class="anchor" href="#avaje-validator-manual-validation-mvc-routes-with-dependency-injection"></a><a class="link" href="#avaje-validator-manual-validation-mvc-routes-with-dependency-injection">1.3.2. MVC routes with dependency injection:</a></h4>
+<div class="paragraph">
+<p>1) Install DI framework at first.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xeaa2210678c74aa3">import io.jooby.avaje.validator.AvajeValidatorModule;
+
+{
+  install(AvajeInjectModule.of());                 <i class="conum" data-value="1"></i><b>(1)</b>
+  install(new AvajeValidatorModule());
+}</code><button class="clipboard" data-clipboard-target="#xeaa2210678c74aa3"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tbody><tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td><code>Avaje</code> is just an example, you can achieve the same with <code>Dagger</code> or <code>Guice</code></td>
+</tr>
+</tbody></table>
+</div>
+<div class="paragraph">
+<p>2) Inject <code>Validator</code> in controller, service etc.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xfeca9e7153594a44">import io.avaje.validation.Validator;
+import jakarta.inject.Inject;
+
+@Path("/mvc")
+public class Controller {
+
+  private final Validator validator;
+
+  @Inject
+  public Controller(Validator validator) {
+    this.validator = validator;
+  }
+
+  @POST("/validate")
+  public void validate(Bean bean) {
+    Set&lt;ConstraintViolation&lt;Bean&gt;&gt; violations = validator.validate(bean);
+    ...
+  }
+}</code><button class="clipboard" data-clipboard-target="#xfeca9e7153594a44"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="avaje-validator-configuration"><a class="anchor" href="#avaje-validator-configuration"></a><a class="link" href="#avaje-validator-configuration">1.4. Configuration</a></h3>
+<div class="paragraph">
+<p>Any property defined at <code>validation</code> will be added automatically:</p>
+</div>
+<div class="listingblock">
+<div class="title">application.conf</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-properties hljs" data-lang="properties" id="x9336db0c566a48d8">validation.fail_fast = true</code><button class="clipboard" data-clipboard-target="#x9336db0c566a48d8"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Or programmatically:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xeff2da050e334969">import io.jooby.avaje.validator.AvajeValidatorModule;
+
+{
+  install(new AvajeValidatorModule().doWith(cfg -&gt; {
+    cfg.failFast(true);
+  }));
+}</code><button class="clipboard" data-clipboard-target="#xeff2da050e334969"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+</div>
+</div>
+</div>
 </div>
 </div>
 </div>

@@ -8,7 +8,7 @@
 <meta name="description" content="The modular micro web framework for Java">
 <meta name="keywords" content="Java, Modern, Micro, Web, Framework, Reactive, Lightweight, Microservices">
 <link rel="icon" type="image/png" href="../../images/favicon96.png">
-<title>jooby: jwt session store module</title>
+<title>jooby: awssdkv2 module</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -568,82 +568,131 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="header">
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#amazonwebservices">1. AmazonWebServices</a>
 <ul class="sectlevel2">
-<li><a href="#jwt-session">1. JWT Session</a></li>
+<li><a href="#usage">1.1. Usage</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
 <div id="content">
-<div class="sect2">
-<h3 id="jwt-session"><a class="anchor" href="#jwt-session"></a><a class="link" href="#jwt-session">1. JWT Session</a></h3>
+<div class="sect1">
+<h2 id="amazonwebservices"><a class="anchor" href="#amazonwebservices"></a><a class="link" href="#amazonwebservices">1. AmazonWebServices</a></h2>
+<div class="sectionbody">
 <div class="paragraph">
-<p>The <a href="https://www.javadoc.io/doc/io.jooby/jooby/latest/io.jooby/io/jooby/JWTSession.html" target="_blank">JWTSession</a> session store works it also a stateless session that
-uses <a href="https://jwt.io" target="_blank">JSON Web Token</a> standard to decode/encode data.</p>
+<p>Amazon Web Services module for <a href="https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/home.html" target="_blank">aws-sdk-java 2.x</a></p>
 </div>
+<div class="sect2">
+<h3 id="amazonwebservices-usage"><a class="anchor" href="#amazonwebservices-usage"></a><a class="link" href="#amazonwebservices-usage">1.1. Usage</a></h3>
 <div class="paragraph">
-<p>To use the <a href="https://www.javadoc.io/doc/io.jooby/jooby/latest/io.jooby/io/jooby/JWTSession.html" target="_blank">JWTSession</a> session store you need to add the <code>jooby-jwt</code> dependency:</p>
+<p>1) Add the dependency:</p>
 </div>
 <div class="listingblock primary">
 
 
 <div class="switch"><div class="switch--item option-1 selected">Maven</div><div class="switch--item option-2">Gradle</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="x8138745bce254113">&lt;dependency&gt;
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="x16fab8e444f84212">&lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
-  &lt;artifactId&gt;jooby-jwt&lt;/artifactId&gt;
-  &lt;version&gt;3.3.1&lt;/version&gt;
-&lt;/dependency&gt;</code><button class="clipboard" data-clipboard-target="#x8138745bce254113"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+  &lt;artifactId&gt;jooby-awssdk-v2&lt;/artifactId&gt;
+  &lt;version&gt;1.12.771&lt;/version&gt;
+&lt;/dependency&gt;</code><button class="clipboard" data-clipboard-target="#x16fab8e444f84212"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-gradle hljs" data-lang="gradle" id="x1702d239a1b4a22">implementation 'io.jooby:jooby-jwt:3.3.1'</code><button class="clipboard" data-clipboard-target="#x1702d239a1b4a22"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+<pre class="highlightjs highlight"><code class="language-gradle hljs" data-lang="gradle" id="x3423e81270804c89">implementation 'io.jooby:jooby-awssdk-v2:1.12.771'</code><button class="clipboard" data-clipboard-target="#x3423e81270804c89"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
+<div class="paragraph">
+<p>2) Add required service dependency (S3 here):</p>
+</div>
 <div class="listingblock primary">
-<div class="title">JWT Session</div>
+
+
+<div class="switch"><div class="switch--item option-1 selected">Maven</div><div class="switch--item option-2">Gradle</div></div><div class="content option-1">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="x828fdb8394164142">&lt;dependency&gt;
+  &lt;groupId&gt;software.amazon.awssdk&lt;/groupId&gt;
+  &lt;artifactId&gt;s3&lt;/artifactId&gt;
+  &lt;version&gt;&lt;/version&gt;
+&lt;/dependency&gt;</code><button class="clipboard" data-clipboard-target="#x828fdb8394164142"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+</div><div class="content hidden option-2">
+<pre class="highlightjs highlight"><code class="language-gradle hljs" data-lang="gradle" id="x7224362de68d45f5">implementation 'software.amazon.awssdk:s3:'</code><button class="clipboard" data-clipboard-target="#x7224362de68d45f5"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+</div></div>
+
+<div class="paragraph">
+<p>3) Add the <code>aws.accessKeyId</code> and <code>aws.secretKey</code> properties:</p>
+</div>
+<div class="listingblock">
+<div class="title">application.conf</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-properties hljs" data-lang="properties" id="xdb09e7353f4c413c">aws.accessKeyId = "your access key id"
+aws.secretKey = "your secret key"</code><button class="clipboard" data-clipboard-target="#xdb09e7353f4c413c"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This step is optional if you choose one of the <a href="https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/credentials-chain.html" target="_blank">default credentials mechanism</a>.</p>
+</div>
+<div class="paragraph">
+<p>4) Install</p>
+</div>
+<div class="listingblock primary">
+
 
 <div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xa8b2169db707414c">import io.jooby.session.JwtSessionStore;
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x6c952d6f10fd405b">import io.jooby.awssdkv2.AwsModule;
 
 {
-  String secret = "super secret key";           <i class="conum" data-value="1"></i><b>(1)</b>
-
-  setSessionStore(new JwtSessionStore(secret)); <i class="conum" data-value="2"></i><b>(2)</b>
-
-  get("/", ctx -&gt; {
-    Session session = ctx.session();
-
-    session.put("foo", "bar");
-
-    return session.get("foo").value();
-  });
-}</code><button class="clipboard" data-clipboard-target="#xa8b2169db707414c"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+  install(
+        new AwsModule()                                     <i class="conum" data-value="1"></i><b>(1)</b>
+            .setup(credentials -&gt; {                         <i class="conum" data-value="2"></i><b>(2)</b>
+              var s3 = S3Client.builder().build();
+              var s3transfer = S3TransferManager.builder().s3Client(s3).build();
+              return Stream.of(s3, s3transfer);
+            })
+        )
+   );
+}</code><button class="clipboard" data-clipboard-target="#x6c952d6f10fd405b"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin" id="xdf907ee2e5994fa2">import io.jooby.session.JwtSessionStore
+<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="x469255ab6b674609">import io.jooby.awssdkv2.AwsModule
 
 {
-  val secret = "super secret key"               <i class="conum" data-value="1"></i><b>(1)</b>
-
-  sessionStore = JwtSessionStore(secret)        <i class="conum" data-value="2"></i><b>(2)</b>
-
-  get("/") {
-    val session = ctx.session()
-
-    session.put("foo", "bar")
-
-    session.get("foo").value()
-  }
-}</code><button class="clipboard" data-clipboard-target="#xdf907ee2e5994fa2"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+  install(
+        AwsModule()                                         <i class="conum" data-value="1"></i><b>(1)</b>
+            .setup { credentials -&gt;                         <i class="conum" data-value="2"></i><b>(2)</b>
+              val s3 = S3Client.builder().build()
+              val s3transfer = S3TransferManager.builder().s3Client(s3).build()
+              return Stream.of(s3, s3transfer)
+            }
+        )
+   );
+}</code><button class="clipboard" data-clipboard-target="#x469255ab6b674609"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="colist arabic">
 <table>
 <tbody><tr>
 <td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>Set a secret key</td>
+<td>Install module</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>Use <code>JwtSessionStore</code></td>
+<td>Setup one or more services</td>
 </tr>
 </tbody></table>
+</div>
+<div class="paragraph">
+<p>Services created from setup function are:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Registered in the application service registry, for require call usage or DI framework</p>
+</li>
+<li>
+<p>Services are shutdown at application shutdown time</p>
+</li>
+</ul>
+</div>
+</div>
 </div>
 </div>
 </div>

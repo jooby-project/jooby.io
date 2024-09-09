@@ -8,7 +8,7 @@
 <meta name="description" content="The modular micro web framework for Java">
 <meta name="keywords" content="Java, Modern, Micro, Web, Framework, Reactive, Lightweight, Microservices">
 <link rel="icon" type="image/png" href="../../images/favicon96.png">
-<title>jooby: jwt session store module</title>
+<title>jooby: hibernate validator module</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -568,82 +568,462 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="header">
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#hibernate-validator">1. Hibernate Validator</a>
 <ul class="sectlevel2">
-<li><a href="#jwt-session">1. JWT Session</a></li>
+<li><a href="#usage">1.1. Usage</a></li>
+<li><a href="#constraint-violations-rendering">1.2. Constraint Violations Rendering</a></li>
+<li><a href="#manual-validation">1.3. Manual Validation</a>
+<ul class="sectlevel3">
+<li><a href="#scriptlambda">1.3.1. Script/lambda:</a></li>
+<li><a href="#mvc-routes-with-dependency-injection">1.3.2. MVC routes with dependency injection:</a></li>
+</ul>
+</li>
+<li><a href="#business-rules-validation">1.4. Business rules validation</a></li>
+<li><a href="#configuration">1.5. Configuration</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
 <div id="content">
-<div class="sect2">
-<h3 id="jwt-session"><a class="anchor" href="#jwt-session"></a><a class="link" href="#jwt-session">1. JWT Session</a></h3>
+<div class="sect1">
+<h2 id="hibernate-validator"><a class="anchor" href="#hibernate-validator"></a><a class="link" href="#hibernate-validator">1. Hibernate Validator</a></h2>
+<div class="sectionbody">
 <div class="paragraph">
-<p>The <a href="https://www.javadoc.io/doc/io.jooby/jooby/latest/io.jooby/io/jooby/JWTSession.html" target="_blank">JWTSession</a> session store works it also a stateless session that
-uses <a href="https://jwt.io" target="_blank">JSON Web Token</a> standard to decode/encode data.</p>
+<p>Bean validation via <a href="https://hibernate.org/validator/" target="_blank">Hibernate Validator</a>.</p>
 </div>
+<div class="sect2">
+<h3 id="hibernate-validator-usage"><a class="anchor" href="#hibernate-validator-usage"></a><a class="link" href="#hibernate-validator-usage">1.1. Usage</a></h3>
 <div class="paragraph">
-<p>To use the <a href="https://www.javadoc.io/doc/io.jooby/jooby/latest/io.jooby/io/jooby/JWTSession.html" target="_blank">JWTSession</a> session store you need to add the <code>jooby-jwt</code> dependency:</p>
+<p>1) Add the dependency:</p>
 </div>
 <div class="listingblock primary">
 
 
 <div class="switch"><div class="switch--item option-1 selected">Maven</div><div class="switch--item option-2">Gradle</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="x8138745bce254113">&lt;dependency&gt;
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="x74324ae7d8d34bf2">&lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
-  &lt;artifactId&gt;jooby-jwt&lt;/artifactId&gt;
+  &lt;artifactId&gt;jooby-hibernate-validator&lt;/artifactId&gt;
   &lt;version&gt;3.3.1&lt;/version&gt;
-&lt;/dependency&gt;</code><button class="clipboard" data-clipboard-target="#x8138745bce254113"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+&lt;/dependency&gt;</code><button class="clipboard" data-clipboard-target="#x74324ae7d8d34bf2"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-gradle hljs" data-lang="gradle" id="x1702d239a1b4a22">implementation 'io.jooby:jooby-jwt:3.3.1'</code><button class="clipboard" data-clipboard-target="#x1702d239a1b4a22"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+<pre class="highlightjs highlight"><code class="language-gradle hljs" data-lang="gradle" id="x45710a1a99b341f2">implementation 'io.jooby:jooby-hibernate-validator:3.3.1'</code><button class="clipboard" data-clipboard-target="#x45710a1a99b341f2"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
+<div class="paragraph">
+<p>2) Install</p>
+</div>
 <div class="listingblock primary">
-<div class="title">JWT Session</div>
+
 
 <div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xa8b2169db707414c">import io.jooby.session.JwtSessionStore;
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x238e8eac6dfe4e6c">import io.jooby.hibernate.validator.HibernateValidatorModule;
 
 {
-  String secret = "super secret key";           <i class="conum" data-value="1"></i><b>(1)</b>
-
-  setSessionStore(new JwtSessionStore(secret)); <i class="conum" data-value="2"></i><b>(2)</b>
-
-  get("/", ctx -&gt; {
-    Session session = ctx.session();
-
-    session.put("foo", "bar");
-
-    return session.get("foo").value();
-  });
-}</code><button class="clipboard" data-clipboard-target="#xa8b2169db707414c"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+  install(new HibernateValidatorModule());
+}</code><button class="clipboard" data-clipboard-target="#x238e8eac6dfe4e6c"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin" id="xdf907ee2e5994fa2">import io.jooby.session.JwtSessionStore
+<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="x3f4584a60e424c98">import io.jooby.hibernate.validator.HibernateValidatorModule
 
 {
-  val secret = "super secret key"               <i class="conum" data-value="1"></i><b>(1)</b>
+  install(HibernateValidatorModule())
+}</code><button class="clipboard" data-clipboard-target="#x3f4584a60e424c98"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+</div></div>
 
-  sessionStore = JwtSessionStore(secret)        <i class="conum" data-value="2"></i><b>(2)</b>
+<div class="paragraph">
+<p>3) Usage in MVC routes</p>
+</div>
+<div class="listingblock primary">
 
-  get("/") {
-    val session = ctx.session()
 
-    session.put("foo", "bar")
+<div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x9ce9dcee31e544b5">import io.jooby.annotation.*;
+import jakarta.validation.Valid;
 
-    session.get("foo").value()
+@Path("/mvc")
+public class Controller {
+
+  @POST("/validate-body")
+  public void validateBody(@Valid Bean bean) {                 <i class="conum" data-value="1"></i><b>(1)</b>
+    ...
   }
-}</code><button class="clipboard" data-clipboard-target="#xdf907ee2e5994fa2"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+
+  @POST("/validate-query")
+  public void validateQuery(@Valid @QueryParam Bean bean) {    <i class="conum" data-value="2"></i><b>(2)</b>
+    ...
+  }
+
+  @POST("/validate-list")
+  public void validateList(@Valid List&lt;Bean&gt; beans) {          <i class="conum" data-value="3"></i><b>(3)</b>
+    ...
+  }
+
+  @POST("/validate-map")
+  public void validateMap(@Valid Map&lt;String, Bean&gt; beans) {    <i class="conum" data-value="4"></i><b>(4)</b>
+    ...
+  }
+}</code><button class="clipboard" data-clipboard-target="#x9ce9dcee31e544b5"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+</div><div class="content hidden option-2">
+<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="x15a11738bac54fc0">import io.jooby.annotation.*;
+import jakarta.validation.Valid
+
+@Path("/mvc")
+class Controller {
+
+  @POST("/validate-body")
+  fun validateBody(@Valid bean: Bean) : Unit {                 <i class="conum" data-value="1"></i><b>(1)</b>
+    ...
+  }
+
+  @POST("/validate-query")
+  fun validateQuery(@Valid @QueryParam bean: Bean) : Unit {    <i class="conum" data-value="2"></i><b>(2)</b>
+    ...
+  }
+
+  @POST("/validate-list")
+  fun validateList(@Valid beans: List&lt;Bean&gt;) : Unit {          <i class="conum" data-value="3"></i><b>(3)</b>
+    ...
+  }
+
+  @POST("/validate-map")
+  fun validateMap(@Valid beans: Map&lt;String, Bean&gt;) : Unit {    <i class="conum" data-value="4"></i><b>(4)</b>
+    ...
+  }
+}</code><button class="clipboard" data-clipboard-target="#x15a11738bac54fc0"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="colist arabic">
 <table>
 <tbody><tr>
 <td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>Set a secret key</td>
+<td>Validate a bean decoded from the request body</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>Use <code>JwtSessionStore</code></td>
+<td>Validate a bean parsed from query parameters. This works the same for <code>@FormParam</code> or <code>@BindParam</code></td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Validate a list of beans. This also applies to arrays <code>@Valid Bean[] beans</code></td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>Validate a map of beans</td>
 </tr>
 </tbody></table>
+</div>
+<div class="paragraph">
+<p>4) Usage in in script/lambda routes</p>
+</div>
+<div class="listingblock primary">
+
+
+<div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x36fa9efda6904c45">import io.jooby.validation.BeanValidator;
+
+{
+  use(BeanValidator.validate());
+  post("/validate", ctx -&gt; {
+    Bean bean = ctx.body(Bean.class);
+    ...
+  });
+}</code><button class="clipboard" data-clipboard-target="#x36fa9efda6904c45"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+</div><div class="content hidden option-2">
+<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="x95856ca821db41e7">import io.jooby.validation.BeanValidator
+
+{
+  use(BeanValidator.validate())
+  post("/validate") {
+    val bean = ctx, ctx.body(Bean.class)
+    ...
+  }
+}</code><button class="clipboard" data-clipboard-target="#x95856ca821db41e7"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+</div></div>
+
+<div class="paragraph">
+<p><code>BeanValidator.validate()</code> behaves identically to validation in MVC routes.
+It also supports validating list, array, and map of beans</p>
+</div>
+<div class="paragraph">
+<p>There is a handler version of it, so you can apply per route:</p>
+</div>
+<div class="listingblock">
+<div class="title">validate</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x7fda713b91e04219">import io.jooby.validation.BeanValidator.validate;
+
+{
+  post("/validate", validate(ctx -&gt; {
+    Bean bean = ctx.body(Bean.class);
+    ...
+  }));
+}</code><button class="clipboard" data-clipboard-target="#x7fda713b91e04219"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="hibernate-validator-constraint-violations-rendering"><a class="anchor" href="#hibernate-validator-constraint-violations-rendering"></a><a class="link" href="#hibernate-validator-constraint-violations-rendering">1.2. Constraint Violations Rendering</a></h3>
+<div class="paragraph">
+<p><code>HibernateValidatorModule</code> provides default built-in error handler that
+catches <code>ConstraintViolationException</code> and transforms it into the following response:</p>
+</div>
+<div class="listingblock">
+<div class="title">JSON:</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json" id="x6865ed3496d4021">{
+  "title": "Validation failed",
+  "status": 422,
+  "errors": [
+    {
+      "field": "firstName",
+      "messages": [
+        "must not be empty",
+        "must not be null"
+      ],
+      "type": "FIELD"
+    },
+    {
+      "field": null,
+      "messages": [
+        "passwords are not the same"
+      ],
+      "type": "GLOBAL"
+    }
+  ]
+}</code><button class="clipboard" data-clipboard-target="#x6865ed3496d4021"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>It is possible to override the <code>title</code> and <code>status</code> code of the response above:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x7b3eb1043a67466e">{
+  install(new JacksonModule());
+  install(new HibernateValidatorModule()
+    .statusCode(StatusCode.BAD_REQUEST)
+    .validationTitle("Incorrect input data")
+  );
+}</code><button class="clipboard" data-clipboard-target="#x7b3eb1043a67466e"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If the default error handler doesn’t fully meet your needs, you can always disable it and provide your own:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x8596d3f1f51e47ac">{
+  install(new JacksonModule());
+  install(new HibernateValidatorModule().disableViolationHandler());
+
+  error(ConstraintViolationException.class, new MyConstraintViolationHandler());
+}</code><button class="clipboard" data-clipboard-target="#x8596d3f1f51e47ac"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="hibernate-validator-manual-validation"><a class="anchor" href="#hibernate-validator-manual-validation"></a><a class="link" href="#hibernate-validator-manual-validation">1.3. Manual Validation</a></h3>
+<div class="paragraph">
+<p>The module exposes <code>Validator</code> as a service, allowing you to run validation manually at any time.</p>
+</div>
+<div class="sect3">
+<h4 id="hibernate-validator-manual-validation-scriptlambda"><a class="anchor" href="#hibernate-validator-manual-validation-scriptlambda"></a><a class="link" href="#hibernate-validator-manual-validation-scriptlambda">1.3.1. Script/lambda:</a></h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x89789d26871643a4">import jakarta.validation.Validator;
+
+{
+  post("/validate", ctx -&gt; {
+    Validator validator = require(Validator.class);
+    Set&lt;ConstraintViolation&lt;Bean&gt;&gt; violations = validator.validate(ctx.body(Bean.class));
+    if (!violations.isEmpty()) {
+      ...
+    }
+    ...
+  });
+}</code><button class="clipboard" data-clipboard-target="#x89789d26871643a4"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="hibernate-validator-manual-validation-mvc-routes-with-dependency-injection"><a class="anchor" href="#hibernate-validator-manual-validation-mvc-routes-with-dependency-injection"></a><a class="link" href="#hibernate-validator-manual-validation-mvc-routes-with-dependency-injection">1.3.2. MVC routes with dependency injection:</a></h4>
+<div class="paragraph">
+<p>1) Install DI framework at first.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x1daf26e433d24d7f">import io.jooby.hibernate.validator.HibernateValidatorModule;
+
+{
+  install(new GuiceModule());                 <i class="conum" data-value="1"></i><b>(1)</b>
+  install(new HibernateValidatorModule());
+}</code><button class="clipboard" data-clipboard-target="#x1daf26e433d24d7f"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tbody><tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td><code>Guice</code> is just an example, you can achieve the same with <code>Avaje</code> or <code>Dagger</code></td>
+</tr>
+</tbody></table>
+</div>
+<div class="paragraph">
+<p>2) Inject <code>Validator</code> in controller, service etc.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xe7ee83e36c3541d1">import jakarta.validation.Validator;
+import jakarta.inject.Inject;
+
+@Path("/mvc")
+public class Controller {
+
+  private final Validator validator;
+
+  @Inject
+  public Controller(Validator validator) {
+    this.validator = validator;
+  }
+
+  @POST("/validate")
+  public void validate(Bean bean) {
+    Set&lt;ConstraintViolation&lt;Bean&gt;&gt; violations = validator.validate(bean);
+    ...
+  }
+}</code><button class="clipboard" data-clipboard-target="#xe7ee83e36c3541d1"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="hibernate-validator-business-rules-validation"><a class="anchor" href="#hibernate-validator-business-rules-validation"></a><a class="link" href="#hibernate-validator-business-rules-validation">1.4. Business rules validation</a></h3>
+<div class="paragraph">
+<p>As you know, <code>Hibernate Validator</code> allows you to build fully custom <code>ConstraintValidator</code>.
+In some scenarios, you may need access not only to the bean but also to services, repositories, or other resources
+to perform more complex validations required by business rules.</p>
+</div>
+<div class="paragraph">
+<p>In this case you need to implement a custom <code>ConstraintValidatorFactory</code> that will rely on your DI framework
+instantiating your custom <code>ConstraintValidator</code></p>
+</div>
+<div class="paragraph">
+<p>1) Implement custom <code>ConstraintValidatorFactory</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x17bbfaa51d884156">public class MyConstraintValidatorFactory implements ConstraintValidatorFactory {
+
+    private final Function&lt;Class&lt;?&gt;, ?&gt; require;
+    private final ConstraintValidatorFactory defaultFactory;
+
+    public MyConstraintValidatorFactory(Function&lt;Class&lt;?&gt;, ?&gt; require) {
+        this.require = require;
+        try (ValidatorFactory factory = Validation.byDefaultProvider()
+                                          .configure().buildValidatorFactory()) {
+            this.defaultFactory = factory.getConstraintValidatorFactory();
+        }
+    }
+
+    @Override
+    public &lt;T extends ConstraintValidator&lt;?, ?&gt;&gt; T getInstance(Class&lt;T&gt; key) {
+        if (isBuiltIn(key)) {
+            // use default factory for built-in constraint validators
+            return defaultFactory.getInstance(key);
+        } else {
+            // use DI to instantiate custom constraint validator
+            return (T) require.apply(key);
+        }
+    }
+
+    @Override
+    public void releaseInstance(ConstraintValidator&lt;?, ?&gt; instance) {
+      if(isBuiltIn(instance.getClass())) {
+        defaultFactory.releaseInstance(instance);
+      } else {
+        // No-op: lifecycle usually handled by DI framework
+      }
+    }
+
+    private boolean isBuiltIn(Class&lt;?&gt; key) {
+      return key.getName().startsWith("org.hibernate.validator");
+    }
+}</code><button class="clipboard" data-clipboard-target="#x17bbfaa51d884156"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>2) Register your custom <code>ConstraintValidatorFactory</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xaee8d8187f5444a1">{
+  install(new HibernateValidatorModule().doWith(cfg -&gt; {
+    cfg.constraintValidatorFactory(new MyConstraintValidatorFactory(this::require));  <i class="conum" data-value="1"></i><b>(1)</b>
+  }));
+}</code><button class="clipboard" data-clipboard-target="#xaee8d8187f5444a1"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tbody><tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>This approach using <code>require</code> will work with <code>Guice</code> or <code>Avaje</code>. For <code>Dagger</code>, a bit more effort is required,
+but the concept is the same, and the same result can be achieved. Both <code>Avaje</code> and <code>Dagger</code> require additional
+configuration due to their build-time nature.</td>
+</tr>
+</tbody></table>
+</div>
+<div class="paragraph">
+<p>3) Implement your custom <code>ConstraintValidator</code></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x23d9d53efa9446ad">public class MyCustomValidator implements ConstraintValidator&lt;MyCustomAnnotation, Bean&gt; {
+
+  // This is the service you want to inject
+  private final MyService myService;
+
+  @Inject
+  public MyCustomValidator(MyService myService) {
+    this.myService = myService;
+  }
+
+  @Override
+  public boolean isValid(Bean bean, ConstraintValidatorContext context) {
+    // Use the injected service for validation logic
+    return myService.isValid(bean);
+  }
+}</code><button class="clipboard" data-clipboard-target="#x23d9d53efa9446ad"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="hibernate-validator-configuration"><a class="anchor" href="#hibernate-validator-configuration"></a><a class="link" href="#hibernate-validator-configuration">1.5. Configuration</a></h3>
+<div class="paragraph">
+<p>Any property defined at <code>hibernate.validator</code> will be added automatically:</p>
+</div>
+<div class="listingblock">
+<div class="title">application.conf</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-properties hljs" data-lang="properties" id="x1ec535948ef5407e">hibernate.validator.fail_fast = true</code><button class="clipboard" data-clipboard-target="#x1ec535948ef5407e"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Or programmatically:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x5a74428d80ba4cce">import io.jooby.hibernate.validator.HibernateValidatorModule;
+
+{
+  install(new HibernateValidatorModule().doWith(cfg -&gt; {
+    cfg.failFast(true);
+  }));
+}</code><button class="clipboard" data-clipboard-target="#x5a74428d80ba4cce"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+</div>
+</div>
+</div>
 </div>
 </div>
 </div>
