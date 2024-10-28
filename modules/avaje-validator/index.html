@@ -601,13 +601,13 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 
 
 <div class="switch"><div class="switch--item option-1 selected">Maven</div><div class="switch--item option-2">Gradle</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="x53ed133a06f64d05">&lt;dependency&gt;
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="x380db9811bab4ee1">&lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
   &lt;artifactId&gt;jooby-avaje-validator&lt;/artifactId&gt;
-  &lt;version&gt;3.4.2&lt;/version&gt;
-&lt;/dependency&gt;</code><button class="clipboard" data-clipboard-target="#x53ed133a06f64d05"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+  &lt;version&gt;3.4.3&lt;/version&gt;
+&lt;/dependency&gt;</code><button class="clipboard" data-clipboard-target="#x380db9811bab4ee1"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-gradle hljs" data-lang="gradle" id="xd1020719062f4cf4">implementation 'io.jooby:jooby-avaje-validator:3.4.2'</code><button class="clipboard" data-clipboard-target="#xd1020719062f4cf4"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+<pre class="highlightjs highlight"><code class="language-gradle hljs" data-lang="gradle" id="x64a8d3b4aab4412b">implementation 'io.jooby:jooby-avaje-validator:3.4.3'</code><button class="clipboard" data-clipboard-target="#x64a8d3b4aab4412b"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -617,7 +617,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 
 
 <div class="switch"><div class="switch--item option-1 selected">Maven</div><div class="switch--item option-2">Gradle</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="x1741bb26d6434778">&lt;build&gt;
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="xee92ebb681a54f48">&lt;build&gt;
   &lt;plugins&gt;
     &lt;plugin&gt;
       &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
@@ -625,6 +625,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
       &lt;version&gt;...&lt;/version&gt;
       &lt;configuration&gt;
         &lt;annotationProcessorPaths&gt;
+          &lt;!-- if using lombok, it must be placed before the generator --&gt;
           &lt;path&gt;
             &lt;groupId&gt;io.avaje&lt;/groupId&gt;
             &lt;artifactId&gt;avaje-validator-generator&lt;/artifactId&gt;
@@ -634,17 +635,31 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
       &lt;/configuration&gt;
     &lt;/plugin&gt;
   &lt;/plugins&gt;
-&lt;/build&gt;</code><button class="clipboard" data-clipboard-target="#x1741bb26d6434778"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+&lt;/build&gt;</code><button class="clipboard" data-clipboard-target="#xee92ebb681a54f48"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin" id="xa5def082c4d54b2b">plugins {
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin" id="x2557b22f09424750">plugins {
   id "org.jetbrains.kotlin.kapt" version "1.9.10"
 }
 
 dependencies {
   kapt 'io.avaje:avaje-validator-generator:2.3'
-}</code><button class="clipboard" data-clipboard-target="#xa5def082c4d54b2b"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x2557b22f09424750"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
+<div class="admonitionblock note">
+<table>
+<tbody><tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Please note that the order of annotation processors is important. For example, if you’re using <code>lombok</code>, the correct order should be: <code>lombok</code> → <code>avaje-validator</code></p>
+</div>
+</td>
+</tr>
+</tbody></table>
+</div>
 <div class="paragraph">
 <p>3) Install</p>
 </div>
@@ -652,17 +667,17 @@ dependencies {
 
 
 <div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xfd1c20fc35a843be">import io.jooby.avaje.validator.AvajeValidatorModule;
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x130bc71854cb4214">import io.jooby.avaje.validator.AvajeValidatorModule;
 
 {
   install(new AvajeValidatorModule());
-}</code><button class="clipboard" data-clipboard-target="#xfd1c20fc35a843be"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x130bc71854cb4214"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="x5f47fe613af24efd">import io.jooby.avaje.validator.AvajeValidatorModule
+<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="x16366d358a6a41aa">import io.jooby.avaje.validator.AvajeValidatorModule
 
 {
   install(AvajeValidatorModule())
-}</code><button class="clipboard" data-clipboard-target="#x5f47fe613af24efd"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x16366d358a6a41aa"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -672,7 +687,7 @@ dependencies {
 
 
 <div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xa1e718d9a8bd4338">import io.jooby.annotation.*;
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xea5949f7a7e4718">import io.jooby.annotation.*;
 import jakarta.validation.Valid;
 
 @Path("/mvc")
@@ -697,9 +712,9 @@ public class Controller {
   public void validateMap(@Valid Map&lt;String, Bean&gt; beans) {    <i class="conum" data-value="4"></i><b>(4)</b>
     ...
   }
-}</code><button class="clipboard" data-clipboard-target="#xa1e718d9a8bd4338"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#xea5949f7a7e4718"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="x4c1aec24337747b2">import io.jooby.annotation.*;
+<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="xd82b7b4e5e1f4517">import io.jooby.annotation.*;
 import jakarta.validation.Valid
 
 @Path("/mvc")
@@ -724,7 +739,7 @@ class Controller {
   fun validateMap(@Valid beans: Map&lt;String, Bean&gt;) : Unit {    <i class="conum" data-value="4"></i><b>(4)</b>
     ...
   }
-}</code><button class="clipboard" data-clipboard-target="#x4c1aec24337747b2"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#xd82b7b4e5e1f4517"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="colist arabic">
@@ -754,7 +769,7 @@ class Controller {
 
 
 <div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x917ea2883e664db6">import io.jooby.validation.BeanValidator;
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x4460bba980a045d8">import io.jooby.validation.BeanValidator;
 
 {
   use(BeanValidator.validate());
@@ -762,9 +777,9 @@ class Controller {
     Bean bean = ctx.body(Bean.class);
     ...
   });
-}</code><button class="clipboard" data-clipboard-target="#x917ea2883e664db6"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x4460bba980a045d8"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="xd904848ddae44956">import io.jooby.validation.BeanValidator
+<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="xeee5063d040448f9">import io.jooby.validation.BeanValidator
 
 {
   use(BeanValidator.validate())
@@ -772,7 +787,7 @@ class Controller {
     val bean = ctx, ctx.body(Bean.class)
     ...
   }
-}</code><button class="clipboard" data-clipboard-target="#xd904848ddae44956"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#xeee5063d040448f9"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -785,14 +800,14 @@ It also supports validating list, array, and map of beans.</p>
 <div class="listingblock">
 <div class="title">validate</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x5e201fd37ed04f05">import io.jooby.validation.BeanValidator.validate;
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x34c1f263339745d5">import io.jooby.validation.BeanValidator.validate;
 
 {
   post("/validate", validate(ctx -&gt; {
     Bean bean = ctx.body(Bean.class);
     ...
   }));
-}</code><button class="clipboard" data-clipboard-target="#x5e201fd37ed04f05"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x34c1f263339745d5"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div>
 </div>
 </div>
@@ -805,7 +820,7 @@ catches <code>ConstraintViolationException</code> and transforms it into the fol
 <div class="listingblock">
 <div class="title">JSON:</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json" id="x6fbad8629a444319">{
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json" id="xf6142e2e86646be">{
   "title": "Validation failed",
   "status": 422,
   "errors": [
@@ -825,7 +840,7 @@ catches <code>ConstraintViolationException</code> and transforms it into the fol
       "type": "GLOBAL"
     }
   ]
-}</code><button class="clipboard" data-clipboard-target="#x6fbad8629a444319"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#xf6142e2e86646be"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div>
 </div>
 <div class="admonitionblock note">
@@ -848,13 +863,13 @@ the Problem Details feature, the response above will be transformed into an <cod
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xe142be56b4db4bf4">{
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x3d8fe46b5abd46e0">{
   install(new AvajeJsonbModule());
   install(new AvajeValidatorModule()
     .statusCode(StatusCode.BAD_REQUEST)
     .validationTitle("Incorrect input data")
   );
-}</code><button class="clipboard" data-clipboard-target="#xe142be56b4db4bf4"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x3d8fe46b5abd46e0"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -862,12 +877,12 @@ the Problem Details feature, the response above will be transformed into an <cod
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x21f4eda5ea364101">{
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xe6a6587f89b1423c">{
   install(new AvajeJsonbModule());
   install(new AvajeValidatorModule().disableViolationHandler());
 
   error(ConstraintViolationException.class, new MyConstraintViolationHandler());
-}</code><button class="clipboard" data-clipboard-target="#x21f4eda5ea364101"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#xe6a6587f89b1423c"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div>
 </div>
 </div>
@@ -880,7 +895,7 @@ the Problem Details feature, the response above will be transformed into an <cod
 <h4 id="avaje-validator-manual-validation-scriptlambda"><a class="anchor" href="#avaje-validator-manual-validation-scriptlambda"></a><a class="link" href="#avaje-validator-manual-validation-scriptlambda">1.3.1. Script/lambda:</a></h4>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x72b72a71571b496d">import io.avaje.validation.Validator;
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x5d71ce87cb2c46c1">import io.avaje.validation.Validator;
 
 {
   post("/validate", ctx -&gt; {
@@ -888,7 +903,7 @@ the Problem Details feature, the response above will be transformed into an <cod
     validator.validate(ctx.body(Bean.class));
     ...
   });
-}</code><button class="clipboard" data-clipboard-target="#x72b72a71571b496d"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x5d71ce87cb2c46c1"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div>
 </div>
 </div>
@@ -899,12 +914,12 @@ the Problem Details feature, the response above will be transformed into an <cod
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xc46a77a5834646bb">import io.jooby.avaje.validator.AvajeValidatorModule;
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x33b876d6d50c4ed9">import io.jooby.avaje.validator.AvajeValidatorModule;
 
 {
   install(AvajeInjectModule.of());                 <i class="conum" data-value="1"></i><b>(1)</b>
   install(new AvajeValidatorModule());
-}</code><button class="clipboard" data-clipboard-target="#xc46a77a5834646bb"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x33b876d6d50c4ed9"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div>
 </div>
 <div class="colist arabic">
@@ -920,7 +935,7 @@ the Problem Details feature, the response above will be transformed into an <cod
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xebf72f7a78984662">import io.avaje.validation.Validator;
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xe50b2ea46a13425d">import io.avaje.validation.Validator;
 import jakarta.inject.Inject;
 
 @Path("/mvc")
@@ -938,7 +953,7 @@ public class Controller {
     Set&lt;ConstraintViolation&lt;Bean&gt;&gt; violations = validator.validate(bean);
     ...
   }
-}</code><button class="clipboard" data-clipboard-target="#xebf72f7a78984662"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#xe50b2ea46a13425d"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div>
 </div>
 </div>
@@ -951,7 +966,7 @@ public class Controller {
 <div class="listingblock">
 <div class="title">application.conf</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-properties hljs" data-lang="properties" id="xdee73e9795954199">validation.fail_fast = true</code><button class="clipboard" data-clipboard-target="#xdee73e9795954199"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+<pre class="highlightjs highlight"><code class="language-properties hljs" data-lang="properties" id="xe2c0cd329daa46d3">validation.fail_fast = true</code><button class="clipboard" data-clipboard-target="#xe2c0cd329daa46d3"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -959,13 +974,13 @@ public class Controller {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x9c1a01aab6354c75">import io.jooby.avaje.validator.AvajeValidatorModule;
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x25d22e0e4d90404e">import io.jooby.avaje.validator.AvajeValidatorModule;
 
 {
   install(new AvajeValidatorModule().doWith(cfg -&gt; {
     cfg.failFast(true);
   }));
-}</code><button class="clipboard" data-clipboard-target="#x9c1a01aab6354c75"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x25d22e0e4d90404e"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div>
 </div>
 </div>
