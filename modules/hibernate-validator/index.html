@@ -581,6 +581,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </li>
 <li><a href="#business-rules-validation">1.4. Business rules validation</a></li>
 <li><a href="#configuration">1.5. Configuration</a></li>
+<li><a href="#hibernate-integration">1.6. Hibernate integration</a></li>
 </ul>
 </li>
 </ul>
@@ -602,13 +603,13 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 
 
 <div class="switch"><div class="switch--item option-1 selected">Maven</div><div class="switch--item option-2">Gradle</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="x96a1dd73951d45ef">&lt;dependency&gt;
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="xdf6b1010fbb94c0c">&lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
   &lt;artifactId&gt;jooby-hibernate-validator&lt;/artifactId&gt;
-  &lt;version&gt;3.5.4&lt;/version&gt;
-&lt;/dependency&gt;</code><button class="clipboard" data-clipboard-target="#x96a1dd73951d45ef"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+  &lt;version&gt;3.5.5&lt;/version&gt;
+&lt;/dependency&gt;</code><button class="clipboard" data-clipboard-target="#xdf6b1010fbb94c0c"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-gradle hljs" data-lang="gradle" id="x486c903bc90646d7">implementation 'io.jooby:jooby-hibernate-validator:3.5.4'</code><button class="clipboard" data-clipboard-target="#x486c903bc90646d7"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+<pre class="highlightjs highlight"><code class="language-gradle hljs" data-lang="gradle" id="xa28de5520a7043ca">implementation 'io.jooby:jooby-hibernate-validator:3.5.5'</code><button class="clipboard" data-clipboard-target="#xa28de5520a7043ca"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -618,17 +619,17 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 
 
 <div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xc6bb7f2ef00a4df7">import io.jooby.hibernate.validator.HibernateValidatorModule;
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xc4f4da04bf8c455b">import io.jooby.hibernate.validator.HibernateValidatorModule;
 
 {
   install(new HibernateValidatorModule());
-}</code><button class="clipboard" data-clipboard-target="#xc6bb7f2ef00a4df7"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#xc4f4da04bf8c455b"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="x5d61ee087ea4739">import io.jooby.hibernate.validator.HibernateValidatorModule
+<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="x54d1c06db9e64a69">import io.jooby.hibernate.validator.HibernateValidatorModule
 
 {
   install(HibernateValidatorModule())
-}</code><button class="clipboard" data-clipboard-target="#x5d61ee087ea4739"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x54d1c06db9e64a69"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -638,7 +639,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 
 
 <div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xe8e6c9ca38c6490e">import io.jooby.annotation.*;
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xa7964e19cbe40ad">import io.jooby.annotation.*;
 import jakarta.validation.Valid;
 
 @Path("/mvc")
@@ -663,9 +664,9 @@ public class Controller {
   public void validateMap(@Valid Map&lt;String, Bean&gt; beans) {    <i class="conum" data-value="4"></i><b>(4)</b>
     ...
   }
-}</code><button class="clipboard" data-clipboard-target="#xe8e6c9ca38c6490e"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#xa7964e19cbe40ad"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="x877ade9659c9405b">import io.jooby.annotation.*;
+<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="x2e2dda4b6f5a4a8a">import io.jooby.annotation.*;
 import jakarta.validation.Valid
 
 @Path("/mvc")
@@ -690,7 +691,7 @@ class Controller {
   fun validateMap(@Valid beans: Map&lt;String, Bean&gt;) : Unit {    <i class="conum" data-value="4"></i><b>(4)</b>
     ...
   }
-}</code><button class="clipboard" data-clipboard-target="#x877ade9659c9405b"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x2e2dda4b6f5a4a8a"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="colist arabic">
@@ -720,7 +721,7 @@ class Controller {
 
 
 <div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xa6fb5cc4a51f40e8">import io.jooby.validation.BeanValidator;
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xff27a9891782463c">import io.jooby.validation.BeanValidator;
 
 {
   use(BeanValidator.validate());
@@ -728,9 +729,9 @@ class Controller {
     Bean bean = ctx.body(Bean.class);
     ...
   });
-}</code><button class="clipboard" data-clipboard-target="#xa6fb5cc4a51f40e8"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#xff27a9891782463c"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="x90cd2c5637ce490d">import io.jooby.validation.BeanValidator
+<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="x9068cf36cfe9498b">import io.jooby.validation.BeanValidator
 
 {
   use(BeanValidator.validate())
@@ -738,7 +739,7 @@ class Controller {
     val bean = ctx, ctx.body(Bean.class)
     ...
   }
-}</code><button class="clipboard" data-clipboard-target="#x90cd2c5637ce490d"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x9068cf36cfe9498b"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -751,14 +752,14 @@ It also supports validating list, array, and map of beans</p>
 <div class="listingblock">
 <div class="title">validate</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x32ef1e45639b4d23">import io.jooby.validation.BeanValidator.validate;
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xf337c58464674f27">import io.jooby.validation.BeanValidator.validate;
 
 {
   post("/validate", validate(ctx -&gt; {
     Bean bean = ctx.body(Bean.class);
     ...
   }));
-}</code><button class="clipboard" data-clipboard-target="#x32ef1e45639b4d23"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#xf337c58464674f27"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div>
 </div>
 </div>
@@ -771,7 +772,7 @@ catches <code>ConstraintViolationException</code> and transforms it into the fol
 <div class="listingblock">
 <div class="title">JSON:</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json" id="x2278c4fcbe1a4464">{
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json" id="x32ecde3359bb46b7">{
   "title": "Validation failed",
   "status": 422,
   "errors": [
@@ -791,7 +792,7 @@ catches <code>ConstraintViolationException</code> and transforms it into the fol
       "type": "GLOBAL"
     }
   ]
-}</code><button class="clipboard" data-clipboard-target="#x2278c4fcbe1a4464"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x32ecde3359bb46b7"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div>
 </div>
 <div class="admonitionblock note">
@@ -814,13 +815,13 @@ the response above will be transformed into an <code>RFC 7807</code> compliant f
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x413c3a73297e4a43">{
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x2dd82d7145194127">{
   install(new JacksonModule());
   install(new HibernateValidatorModule()
     .statusCode(StatusCode.BAD_REQUEST)
     .validationTitle("Incorrect input data")
   );
-}</code><button class="clipboard" data-clipboard-target="#x413c3a73297e4a43"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x2dd82d7145194127"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -828,12 +829,12 @@ the response above will be transformed into an <code>RFC 7807</code> compliant f
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x7e8dce34e43b4b31">{
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x6966ffdae7fb473f">{
   install(new JacksonModule());
   install(new HibernateValidatorModule().disableViolationHandler());
 
   error(ConstraintViolationException.class, new MyConstraintViolationHandler());
-}</code><button class="clipboard" data-clipboard-target="#x7e8dce34e43b4b31"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x6966ffdae7fb473f"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div>
 </div>
 </div>
@@ -846,18 +847,18 @@ the response above will be transformed into an <code>RFC 7807</code> compliant f
 <h4 id="hibernate-validator-manual-validation-scriptlambda"><a class="anchor" href="#hibernate-validator-manual-validation-scriptlambda"></a><a class="link" href="#hibernate-validator-manual-validation-scriptlambda">1.3.1. Script/lambda:</a></h4>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x649a8721878b48a2">import jakarta.validation.Validator;
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x618a846c63c494d">import jakarta.validation.Validator;
 
 {
   post("/validate", ctx -&gt; {
-    Validator validator = require(Validator.class);
-    Set&lt;ConstraintViolation&lt;Bean&gt;&gt; violations = validator.validate(ctx.body(Bean.class));
+    var validator = require(Validator.class);
+    var violations = validator.validate(ctx.body(Bean.class));
     if (!violations.isEmpty()) {
       ...
     }
     ...
   });
-}</code><button class="clipboard" data-clipboard-target="#x649a8721878b48a2"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x618a846c63c494d"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div>
 </div>
 </div>
@@ -868,12 +869,12 @@ the response above will be transformed into an <code>RFC 7807</code> compliant f
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x83e44db3576e4d02">import io.jooby.hibernate.validator.HibernateValidatorModule;
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xe13d321447f54a18">import io.jooby.hibernate.validator.HibernateValidatorModule;
 
 {
   install(new GuiceModule());                 <i class="conum" data-value="1"></i><b>(1)</b>
   install(new HibernateValidatorModule());
-}</code><button class="clipboard" data-clipboard-target="#x83e44db3576e4d02"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#xe13d321447f54a18"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div>
 </div>
 <div class="colist arabic">
@@ -889,7 +890,7 @@ the response above will be transformed into an <code>RFC 7807</code> compliant f
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xdba26d557b454d13">import jakarta.validation.Validator;
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x7ed35e14f7d84085">import jakarta.validation.Validator;
 import jakarta.inject.Inject;
 
 @Path("/mvc")
@@ -907,7 +908,7 @@ public class Controller {
     Set&lt;ConstraintViolation&lt;Bean&gt;&gt; violations = validator.validate(bean);
     ...
   }
-}</code><button class="clipboard" data-clipboard-target="#xdba26d557b454d13"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x7ed35e14f7d84085"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div>
 </div>
 </div>
@@ -920,81 +921,23 @@ In some scenarios, you may need access not only to the bean but also to services
 to perform more complex validations required by business rules.</p>
 </div>
 <div class="paragraph">
-<p>In this case you need to implement a custom <code>ConstraintValidatorFactory</code> that will rely on your DI framework
-instantiating your custom <code>ConstraintValidator</code></p>
-</div>
-<div class="paragraph">
-<p>1) Implement custom <code>ConstraintValidatorFactory</code>:</p>
+<p>In this case you need to implement a custom <code>ConstraintValidator</code> that will rely on your DI framework.</p>
 </div>
 <div class="listingblock">
+<div class="title">Custom Annotation and Validator</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x2eba37c3c87d48e6">public class MyConstraintValidatorFactory implements ConstraintValidatorFactory {
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x257a1d974e74e46">@Constraint(validatedBy = MyCustomValidator.class)
+@Target({TYPE, ANNOTATION_TYPE})
+@Retention(RUNTIME)
+public @interface MyCustomAnnotation {
+  String message() default "My custom message";
 
-    private final Function&lt;Class&lt;?&gt;, ?&gt; require;
-    private final ConstraintValidatorFactory defaultFactory;
+  Class&lt;?&gt;[] groups() default {};
 
-    public MyConstraintValidatorFactory(Function&lt;Class&lt;?&gt;, ?&gt; require) {
-        this.require = require;
-        try (ValidatorFactory factory = Validation.byDefaultProvider()
-                                          .configure().buildValidatorFactory()) {
-            this.defaultFactory = factory.getConstraintValidatorFactory();
-        }
-    }
+  Class&lt;? extends Payload&gt;[] payload() default {};
+}
 
-    @Override
-    public &lt;T extends ConstraintValidator&lt;?, ?&gt;&gt; T getInstance(Class&lt;T&gt; key) {
-        if (isBuiltIn(key)) {
-            // use default factory for built-in constraint validators
-            return defaultFactory.getInstance(key);
-        } else {
-            // use DI to instantiate custom constraint validator
-            return (T) require.apply(key);
-        }
-    }
-
-    @Override
-    public void releaseInstance(ConstraintValidator&lt;?, ?&gt; instance) {
-      if(isBuiltIn(instance.getClass())) {
-        defaultFactory.releaseInstance(instance);
-      } else {
-        // No-op: lifecycle usually handled by DI framework
-      }
-    }
-
-    private boolean isBuiltIn(Class&lt;?&gt; key) {
-      return key.getName().startsWith("org.hibernate.validator");
-    }
-}</code><button class="clipboard" data-clipboard-target="#x2eba37c3c87d48e6"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>2) Register your custom <code>ConstraintValidatorFactory</code>:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xd3f31d78cf5e41d6">{
-  install(new HibernateValidatorModule().doWith(cfg -&gt; {
-    cfg.constraintValidatorFactory(new MyConstraintValidatorFactory(this::require));  <i class="conum" data-value="1"></i><b>(1)</b>
-  }));
-}</code><button class="clipboard" data-clipboard-target="#xd3f31d78cf5e41d6"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
-</div>
-</div>
-<div class="colist arabic">
-<table>
-<tbody><tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>This approach using <code>require</code> will work with <code>Guice</code> or <code>Avaje</code>. For <code>Dagger</code>, a bit more effort is required,
-but the concept is the same, and the same result can be achieved. Both <code>Avaje</code> and <code>Dagger</code> require additional
-configuration due to their build-time nature.</td>
-</tr>
-</tbody></table>
-</div>
-<div class="paragraph">
-<p>3) Implement your custom <code>ConstraintValidator</code></p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x7305271eb93c45e0">public class MyCustomValidator implements ConstraintValidator&lt;MyCustomAnnotation, Bean&gt; {
+public class MyCustomValidator implements ConstraintValidator&lt;MyCustomAnnotation, Bean&gt; {
 
   // This is the service you want to inject
   private final MyService myService;
@@ -1009,7 +952,7 @@ configuration due to their build-time nature.</td>
     // Use the injected service for validation logic
     return myService.isValid(bean);
   }
-}</code><button class="clipboard" data-clipboard-target="#x7305271eb93c45e0"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x257a1d974e74e46"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div>
 </div>
 </div>
@@ -1021,7 +964,7 @@ configuration due to their build-time nature.</td>
 <div class="listingblock">
 <div class="title">application.conf</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-properties hljs" data-lang="properties" id="x3600b025cd974438">hibernate.validator.fail_fast = true</code><button class="clipboard" data-clipboard-target="#x3600b025cd974438"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+<pre class="highlightjs highlight"><code class="language-properties hljs" data-lang="properties" id="xbb39c744113a465f">hibernate.validator.fail_fast = true</code><button class="clipboard" data-clipboard-target="#xbb39c744113a465f"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1029,14 +972,35 @@ configuration due to their build-time nature.</td>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xaaa23accd9124314">import io.jooby.hibernate.validator.HibernateValidatorModule;
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xba35da34610044ea">import io.jooby.hibernate.validator.HibernateValidatorModule;
 
 {
-  install(new HibernateValidatorModule().doWith(cfg -&gt; {
-    cfg.failFast(true);
-  }));
-}</code><button class="clipboard" data-clipboard-target="#xaaa23accd9124314"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+  var cfg = byProvider(HibernateValidator.class).configure();
+  cfg.failFast(true);
+  install(new HibernateValidatorModule(cfg));
+}</code><button class="clipboard" data-clipboard-target="#xba35da34610044ea"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="hibernate-validator-hibernate-integration"><a class="anchor" href="#hibernate-validator-hibernate-integration"></a><a class="link" href="#hibernate-validator-hibernate-integration">1.6. Hibernate integration</a></h3>
+<div class="paragraph">
+<p>Just install <code>HibernateValidatorModule</code> before <code>HibernateModule</code>, like:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xf9e7fd05681445b3">import io.jooby.hibernate.validator.HibernateValidatorModule;
+
+{
+  install(new HibernateValidatorModule());
+
+  install(new HibernateModule());
+}</code><button class="clipboard" data-clipboard-target="#xf9e7fd05681445b3"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The <code>HibernateModule</code> will detect the constraint validator factory and setup. This avoid creating
+a new instance of constraint validator factory.</p>
 </div>
 </div>
 </div>
