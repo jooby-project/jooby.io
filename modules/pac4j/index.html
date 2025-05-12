@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="generator" content="Asciidoctor 2.0.18">
+<meta name="generator" content="Asciidoctor 2.0.23">
 <meta name="description" content="The modular micro web framework for Java">
 <meta name="keywords" content="Java, Modern, Micro, Web, Framework, Reactive, Lightweight, Microservices">
 <link rel="icon" type="image/png" href="../../images/favicon96.png">
@@ -143,7 +143,7 @@ p a>code:hover{color:rgba(0,0,0,.9)}
 #content::before{content:none}
 #header>h1:first-child{color:rgba(0,0,0,.85);margin-top:2.25rem;margin-bottom:0}
 #header>h1:first-child+#toc{margin-top:8px;border-top:1px solid #dddddf}
-#header>h1:only-child,body.toc2 #header>h1:nth-last-child(2){border-bottom:1px solid #dddddf;padding-bottom:8px}
+#header>h1:only-child{border-bottom:1px solid #dddddf;padding-bottom:8px}
 #header .details{border-bottom:1px solid #dddddf;line-height:1.45;padding-top:.25em;padding-bottom:.25em;padding-left:.25em;color:rgba(0,0,0,.6);display:flex;flex-flow:row wrap}
 #header .details span:first-child{margin-left:-.125em}
 #header .details span.email a{color:rgba(0,0,0,.85)}
@@ -165,6 +165,7 @@ p a>code:hover{color:rgba(0,0,0,.9)}
 #toctitle{color:#7a2518;font-size:1.2em}
 @media screen and (min-width:768px){#toctitle{font-size:1.375em}
 body.toc2{padding-left:15em;padding-right:0}
+body.toc2 #header>h1:nth-last-child(2){border-bottom:1px solid #dddddf;padding-bottom:8px}
 #toc.toc2{margin-top:0!important;background:#f8f8f7;position:fixed;width:15em;left:0;top:0;border-right:1px solid #e7e7e9;border-top-width:0!important;border-bottom-width:0!important;z-index:1000;padding:1.25em 1em;height:100%;overflow:auto}
 #toc.toc2 #toctitle{margin-top:0;margin-bottom:.8rem;font-size:1.2em}
 #toc.toc2>ul{font-size:.9em;margin-bottom:0}
@@ -211,13 +212,10 @@ table.tableblock.fit-content>caption.title{white-space:nowrap;width:0}
 .admonitionblock>table td.content{padding-left:1.125em;padding-right:1.25em;border-left:1px solid #dddddf;color:rgba(0,0,0,.6);word-wrap:anywhere}
 .admonitionblock>table td.content>:last-child>:last-child{margin-bottom:0}
 .exampleblock>.content{border:1px solid #e6e6e6;margin-bottom:1.25em;padding:1.25em;background:#fff;border-radius:4px}
-.exampleblock>.content>:first-child{margin-top:0}
-.exampleblock>.content>:last-child{margin-bottom:0}
 .sidebarblock{border:1px solid #dbdbd6;margin-bottom:1.25em;padding:1.25em;background:#f3f3f2;border-radius:4px}
-.sidebarblock>:first-child{margin-top:0}
-.sidebarblock>:last-child{margin-bottom:0}
 .sidebarblock>.content>.title{color:#7a2518;margin-top:0;text-align:center}
-.exampleblock>.content>:last-child>:last-child,.exampleblock>.content .olist>ol>li:last-child>:last-child,.exampleblock>.content .ulist>ul>li:last-child>:last-child,.exampleblock>.content .qlist>ol>li:last-child>:last-child,.sidebarblock>.content>:last-child>:last-child,.sidebarblock>.content .olist>ol>li:last-child>:last-child,.sidebarblock>.content .ulist>ul>li:last-child>:last-child,.sidebarblock>.content .qlist>ol>li:last-child>:last-child{margin-bottom:0}
+.exampleblock>.content>:first-child,.sidebarblock>.content>:first-child{margin-top:0}
+.exampleblock>.content>:last-child,.exampleblock>.content>:last-child>:last-child,.exampleblock>.content .olist>ol>li:last-child>:last-child,.exampleblock>.content .ulist>ul>li:last-child>:last-child,.exampleblock>.content .qlist>ol>li:last-child>:last-child,.sidebarblock>.content>:last-child,.sidebarblock>.content>:last-child>:last-child,.sidebarblock>.content .olist>ol>li:last-child>:last-child,.sidebarblock>.content .ulist>ul>li:last-child>:last-child,.sidebarblock>.content .qlist>ol>li:last-child>:last-child{margin-bottom:0}
 .literalblock pre,.listingblock>.content>pre{border-radius:4px;overflow-x:auto;padding:1em;font-size:.8125em}
 @media screen and (min-width:768px){.literalblock pre,.listingblock>.content>pre{font-size:.90625em}}
 @media screen and (min-width:1280px){.literalblock pre,.listingblock>.content>pre{font-size:1em}}
@@ -333,7 +331,7 @@ a.image{text-decoration:none;display:inline-block}
 a.image object{pointer-events:none}
 sup.footnote,sup.footnoteref{font-size:.875em;position:static;vertical-align:super}
 sup.footnote a,sup.footnoteref a{text-decoration:none}
-sup.footnote a:active,sup.footnoteref a:active{text-decoration:underline}
+sup.footnote a:active,sup.footnoteref a:active,#footnotes .footnote a:first-of-type:active{text-decoration:underline}
 #footnotes{padding-top:.75em;padding-bottom:.75em;margin-bottom:.625em}
 #footnotes hr{width:20%;min-width:6.25em;margin:-.25em 0 .75em;border-width:1px 0 0}
 #footnotes .footnote{padding:0 .375em 0 .225em;line-height:1.3334;font-size:.875em;margin-left:1.2em;margin-bottom:.2em}
@@ -396,7 +394,7 @@ b.conum *{color:inherit!important}
 dt,th.tableblock,td.content,div.footnote{text-rendering:optimizeLegibility}
 h1,h2,p,td.content,span.alt,summary{letter-spacing:-.01em}
 p strong,td.content strong,div.footnote strong{letter-spacing:-.005em}
-p,blockquote,dt,td.content,span.alt,summary{font-size:1.0625rem}
+p,blockquote,dt,td.content,td.hdlist1,span.alt,summary{font-size:1.0625rem}
 p{margin-bottom:1.25rem}
 .sidebarblock p,.sidebarblock dt,.sidebarblock td.content,p.tableblock{font-size:1em}
 .exampleblock>.content{background:#fffef7;border-color:#e0e0dc;box-shadow:0 1px 4px #e0e0dc}
@@ -604,13 +602,13 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 
 
 <div class="switch"><div class="switch--item option-1 selected">Maven</div><div class="switch--item option-2">Gradle</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="x47c3f33050fc4fe3">&lt;dependency&gt;
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="xa61152af389045dd">&lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
   &lt;artifactId&gt;jooby-pac4j&lt;/artifactId&gt;
-  &lt;version&gt;3.6.1&lt;/version&gt;
-&lt;/dependency&gt;</code><button class="clipboard" data-clipboard-target="#x47c3f33050fc4fe3"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+  &lt;version&gt;3.8.1&lt;/version&gt;
+&lt;/dependency&gt;</code><button class="clipboard" data-clipboard-target="#xa61152af389045dd"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-gradle hljs" data-lang="gradle" id="xe8ef7b1f254042d6">implementation 'io.jooby:jooby-pac4j:3.6.1'</code><button class="clipboard" data-clipboard-target="#xe8ef7b1f254042d6"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+<pre class="highlightjs highlight"><code class="language-gradle hljs" data-lang="gradle" id="x8e9436ed01df4c9f">implementation 'io.jooby:jooby-pac4j:3.8.1'</code><button class="clipboard" data-clipboard-target="#x8e9436ed01df4c9f"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -620,7 +618,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="title">Simple login form</div>
 
 <div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xedd8e054022d4a36">import io.jooby.pac4j.Pac4jModule;
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x15ded7efdf9342b1">import io.jooby.pac4j.Pac4jModule;
 
 {
   install(new Pac4jModule());           <i class="conum" data-value="1"></i><b>(1)</b>
@@ -629,9 +627,9 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
     UserProfile user = ctx.getUser();   <i class="conum" data-value="2"></i><b>(2)</b>
     return "Hello " + user.getId();
   });
-}</code><button class="clipboard" data-clipboard-target="#xedd8e054022d4a36"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x15ded7efdf9342b1"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="xcc6f2740e4cc4c9e">import io.jooby.pac4j.Pac4jModule
+<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="xc713c5e9ff1645c5">import io.jooby.pac4j.Pac4jModule
 
 {
   install(Pac4jModule())                <i class="conum" data-value="1"></i><b>(1)</b>
@@ -639,7 +637,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
   get("/") {
     "Hello $ctx.user.id"                <i class="conum" data-value="2"></i><b>(2)</b>
   }
-}</code><button class="clipboard" data-clipboard-target="#xcc6f2740e4cc4c9e"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#xc713c5e9ff1645c5"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="colist arabic">
@@ -676,13 +674,13 @@ Clients are configured at bootstrap time using the Pac4j DSL:</p>
 
 
 <div class="switch"><div class="switch--item option-1 selected">Maven</div><div class="switch--item option-2">Gradle</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="xd10738748f34432f">&lt;dependency&gt;
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="xec09a9542b3b4d97">&lt;dependency&gt;
   &lt;groupId&gt;org.pac4j&lt;/groupId&gt;
   &lt;artifactId&gt;pac4j-oidc&lt;/artifactId&gt;
-  &lt;version&gt;6.1.0&lt;/version&gt;
-&lt;/dependency&gt;</code><button class="clipboard" data-clipboard-target="#xd10738748f34432f"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+  &lt;version&gt;6.1.2&lt;/version&gt;
+&lt;/dependency&gt;</code><button class="clipboard" data-clipboard-target="#xec09a9542b3b4d97"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-gradle hljs" data-lang="gradle" id="xf7d6a0dcc8bd4010">implementation 'org.pac4j:pac4j-oidc:6.1.0'</code><button class="clipboard" data-clipboard-target="#xf7d6a0dcc8bd4010"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+<pre class="highlightjs highlight"><code class="language-gradle hljs" data-lang="gradle" id="xdc38a9b1b95c404b">implementation 'org.pac4j:pac4j-oidc:6.1.2'</code><button class="clipboard" data-clipboard-target="#xdc38a9b1b95c404b"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -691,8 +689,8 @@ Clients are configured at bootstrap time using the Pac4j DSL:</p>
 <div class="listingblock">
 <div class="title">application.conf</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-properties hljs" data-lang="properties" id="x57200c36fd8645dc">oidc.clientId = 167480702619-8e1lo80dnu8bpk3k0lvvj27noin97vu9.apps.googleusercontent.com
-oidc.secret = MhMme_Ik6IH2JMnAT6MFIfee</code><button class="clipboard" data-clipboard-target="#x57200c36fd8645dc"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+<pre class="highlightjs highlight"><code class="language-properties hljs" data-lang="properties" id="xfaa3ec2398714b61">oidc.clientId = 167480702619-8e1lo80dnu8bpk3k0lvvj27noin97vu9.apps.googleusercontent.com
+oidc.secret = MhMme_Ik6IH2JMnAT6MFIfee</code><button class="clipboard" data-clipboard-target="#xfaa3ec2398714b61"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -702,7 +700,7 @@ oidc.secret = MhMme_Ik6IH2JMnAT6MFIfee</code><button class="clipboard" data-clip
 <div class="title">Google</div>
 
 <div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xfe55b98116914350">import io.jooby.pac4j.Pac4jModule;
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x201e6d75987145e6">import io.jooby.pac4j.Pac4jModule;
 
 {
   install(new Pac4jModule()
@@ -720,9 +718,9 @@ oidc.secret = MhMme_Ik6IH2JMnAT6MFIfee</code><button class="clipboard" data-clip
     UserProfile user = ctx.getUser();
     return "Hello " + user.getId();
   });
-}</code><button class="clipboard" data-clipboard-target="#xfe55b98116914350"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x201e6d75987145e6"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="x2bfd1abc864448fc">import io.jooby.pac4j.Pac4jModule
+<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="x3efdd3a37df34547">import io.jooby.pac4j.Pac4jModule
 
 {
   install(Pac4jModule()
@@ -739,7 +737,7 @@ oidc.secret = MhMme_Ik6IH2JMnAT6MFIfee</code><button class="clipboard" data-clip
   get("/") {
     "Hello $ctx.user.id"
   }
-}</code><button class="clipboard" data-clipboard-target="#x2bfd1abc864448fc"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x3efdd3a37df34547"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 </div>
@@ -755,13 +753,13 @@ oidc.secret = MhMme_Ik6IH2JMnAT6MFIfee</code><button class="clipboard" data-clip
 
 
 <div class="switch"><div class="switch--item option-1 selected">Maven</div><div class="switch--item option-2">Gradle</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="xdf73baf80c18476d">&lt;dependency&gt;
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="x6a26749471f74b94">&lt;dependency&gt;
   &lt;groupId&gt;org.pac4j&lt;/groupId&gt;
   &lt;artifactId&gt;pac4j-oauth&lt;/artifactId&gt;
-  &lt;version&gt;6.1.0&lt;/version&gt;
-&lt;/dependency&gt;</code><button class="clipboard" data-clipboard-target="#xdf73baf80c18476d"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+  &lt;version&gt;6.1.2&lt;/version&gt;
+&lt;/dependency&gt;</code><button class="clipboard" data-clipboard-target="#x6a26749471f74b94"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-gradle hljs" data-lang="gradle" id="x64a7ffced9674e42">implementation 'org.pac4j:pac4j-oauth:6.1.0'</code><button class="clipboard" data-clipboard-target="#x64a7ffced9674e42"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+<pre class="highlightjs highlight"><code class="language-gradle hljs" data-lang="gradle" id="x2ca5b960e6654fee">implementation 'org.pac4j:pac4j-oauth:6.1.2'</code><button class="clipboard" data-clipboard-target="#x2ca5b960e6654fee"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -770,8 +768,8 @@ oidc.secret = MhMme_Ik6IH2JMnAT6MFIfee</code><button class="clipboard" data-clip
 <div class="listingblock">
 <div class="title">application.conf</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-properties hljs" data-lang="properties" id="xf28b529f2b244d67">twitter.key = CoxUiYwQOSFDReZYdjigBA
-twitter.secret = 2kAzunH5Btc4gRSaMr7D7MkyoJ5u1VzbOOzE8rBofs</code><button class="clipboard" data-clipboard-target="#xf28b529f2b244d67"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+<pre class="highlightjs highlight"><code class="language-properties hljs" data-lang="properties" id="x49e2c41777d44b68">twitter.key = CoxUiYwQOSFDReZYdjigBA
+twitter.secret = 2kAzunH5Btc4gRSaMr7D7MkyoJ5u1VzbOOzE8rBofs</code><button class="clipboard" data-clipboard-target="#x49e2c41777d44b68"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -781,7 +779,7 @@ twitter.secret = 2kAzunH5Btc4gRSaMr7D7MkyoJ5u1VzbOOzE8rBofs</code><button class=
 <div class="title">Twitter</div>
 
 <div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xb0944121d46a4334">import io.jooby.pac4j.Pac4jModule;
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xcbab71ba25fe467e">import io.jooby.pac4j.Pac4jModule;
 
 {
   install(new Pac4jModule()
@@ -794,9 +792,9 @@ twitter.secret = 2kAzunH5Btc4gRSaMr7D7MkyoJ5u1VzbOOzE8rBofs</code><button class=
     UserProfile user = ctx.getUser();
     return "Hello " + user.getId();
   });
-}</code><button class="clipboard" data-clipboard-target="#xb0944121d46a4334"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#xcbab71ba25fe467e"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="x5e2ee2501f6a4fff">import io.jooby.pac4j.Pac4jModule
+<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="x3bb021c9ca674bfd">import io.jooby.pac4j.Pac4jModule
 
 {
   install(Pac4jModule()
@@ -808,7 +806,7 @@ twitter.secret = 2kAzunH5Btc4gRSaMr7D7MkyoJ5u1VzbOOzE8rBofs</code><button class=
   get("/") {
     "Hello $ctx.user.id"
   }
-}</code><button class="clipboard" data-clipboard-target="#x5e2ee2501f6a4fff"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x3bb021c9ca674bfd"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 </div>
@@ -824,13 +822,13 @@ twitter.secret = 2kAzunH5Btc4gRSaMr7D7MkyoJ5u1VzbOOzE8rBofs</code><button class=
 
 
 <div class="switch"><div class="switch--item option-1 selected">Maven</div><div class="switch--item option-2">Gradle</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="x32f970a415154829">&lt;dependency&gt;
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="x1b4dc299bbbc45bd">&lt;dependency&gt;
   &lt;groupId&gt;org.pac4j&lt;/groupId&gt;
   &lt;artifactId&gt;pac4j-jwt&lt;/artifactId&gt;
-  &lt;version&gt;6.1.0&lt;/version&gt;
-&lt;/dependency&gt;</code><button class="clipboard" data-clipboard-target="#x32f970a415154829"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+  &lt;version&gt;6.1.2&lt;/version&gt;
+&lt;/dependency&gt;</code><button class="clipboard" data-clipboard-target="#x1b4dc299bbbc45bd"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-gradle hljs" data-lang="gradle" id="x61a96c83560c404d">implementation 'org.pac4j:pac4j-jwt:6.1.0'</code><button class="clipboard" data-clipboard-target="#x61a96c83560c404d"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+<pre class="highlightjs highlight"><code class="language-gradle hljs" data-lang="gradle" id="x91ad6af4378c4393">implementation 'org.pac4j:pac4j-jwt:6.1.2'</code><button class="clipboard" data-clipboard-target="#x91ad6af4378c4393"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -839,7 +837,7 @@ twitter.secret = 2kAzunH5Btc4gRSaMr7D7MkyoJ5u1VzbOOzE8rBofs</code><button class=
 <div class="listingblock">
 <div class="title">application.conf</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-properties hljs" data-lang="properties" id="x9a8a6a065e08423e">jwt.salt = CoxUiYwQOSFDReZYdjigBA</code><button class="clipboard" data-clipboard-target="#x9a8a6a065e08423e"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+<pre class="highlightjs highlight"><code class="language-properties hljs" data-lang="properties" id="x36c3f33dd6be4984">jwt.salt = CoxUiYwQOSFDReZYdjigBA</code><button class="clipboard" data-clipboard-target="#x36c3f33dd6be4984"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -849,7 +847,7 @@ twitter.secret = 2kAzunH5Btc4gRSaMr7D7MkyoJ5u1VzbOOzE8rBofs</code><button class=
 <div class="title">JWT</div>
 
 <div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x61b936773ba640a1">import io.jooby.pac4j.Pac4jModule;
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xf36e059734764ad2">import io.jooby.pac4j.Pac4jModule;
 
 {
   install(new Pac4jModule()
@@ -866,9 +864,9 @@ twitter.secret = 2kAzunH5Btc4gRSaMr7D7MkyoJ5u1VzbOOzE8rBofs</code><button class=
     UserProfile user = ctx.getUser();
     return "Hello " + user.getId();
   });
-}</code><button class="clipboard" data-clipboard-target="#x61b936773ba640a1"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#xf36e059734764ad2"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="x65c6ebe66ffa4307">import io.jooby.pac4j.Pac4jModule
+<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="x8fd496a6fe3a40e1">import io.jooby.pac4j.Pac4jModule
 
 {
   install(Pac4jModule()
@@ -884,7 +882,7 @@ twitter.secret = 2kAzunH5Btc4gRSaMr7D7MkyoJ5u1VzbOOzE8rBofs</code><button class=
   get("/") {
     "Hello $ctx.user.id"
   }
-}</code><button class="clipboard" data-clipboard-target="#x65c6ebe66ffa4307"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x8fd496a6fe3a40e1"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 </div>
@@ -899,7 +897,7 @@ what url must be protected using a path pattern:</p>
 
 
 <div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x18eac988481345ab">import io.jooby.pac4j.Pac4jModule;
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x6e862bd2d7b45b3">import io.jooby.pac4j.Pac4jModule;
 
 {
   install(new Pac4jModule()
@@ -907,9 +905,9 @@ what url must be protected using a path pattern:</p>
       return ...;
     })
   );
-}</code><button class="clipboard" data-clipboard-target="#x18eac988481345ab"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x6e862bd2d7b45b3"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="x4d3c9273b0284de5">import io.jooby.pac4j.Pac4jModule
+<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="x18c0307576ce4694">import io.jooby.pac4j.Pac4jModule
 
 {
   install(Pac4jModule()
@@ -917,7 +915,7 @@ what url must be protected using a path pattern:</p>
       ...
     }
   )
-}</code><button class="clipboard" data-clipboard-target="#x4d3c9273b0284de5"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x18c0307576ce4694"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -932,7 +930,7 @@ what url must be protected using a path pattern:</p>
 <div class="listingblock">
 <div class="title">Manual configuration</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xf0d86297fa30411a">import org.pac4j.core.config.Config;
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x2440b88370c24ce2">import org.pac4j.core.config.Config;
 {
 
   Config pac4j = new Config();
@@ -947,31 +945,31 @@ what url must be protected using a path pattern:</p>
       new Pac4jModule(pac4j)
           .client("/api/*", "test", conf -&gt; {...});
   );
-}</code><button class="clipboard" data-clipboard-target="#xf0d86297fa30411a"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x2440b88370c24ce2"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div>
 </div>
 <div class="listingblock">
 <div class="title">Automatic configuration</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x7577994fdacd4359">{
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xd8b7d2d4755f4009">{
 
   install(
       new Pac4jModule()
           .client("/api/*", new MyTestAuthorizer(), conf -&gt; {...});
   );
-}</code><button class="clipboard" data-clipboard-target="#x7577994fdacd4359"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#xd8b7d2d4755f4009"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div>
 </div>
 <div class="listingblock">
 <div class="title">Registry  (or dependency injection) integration</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xa76bdb24b9b446cd">{
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xf6febb21518d4fee">{
 
   install(
       new Pac4jModule()
           .client("/api/*", MyTestAuthorizer.class, conf -&gt; {...});
   );
-}</code><button class="clipboard" data-clipboard-target="#xa76bdb24b9b446cd"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#xf6febb21518d4fee"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -988,7 +986,7 @@ own Pac4j configuration.</p>
 
 
 <div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x37174af32a7a484a">import io.jooby.pac4j.Pac4jModule;
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xb985a2dc96054ac2">import io.jooby.pac4j.Pac4jModule;
 import org.pac4j.core.config.Config;
 
 {
@@ -996,9 +994,9 @@ import org.pac4j.core.config.Config;
   pac4j.setSecurityLogic(...);
 
   install(new Pac4jModule(pac4j));
-}</code><button class="clipboard" data-clipboard-target="#x37174af32a7a484a"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#xb985a2dc96054ac2"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="xae6df33fbb944a86">import io.jooby.pac4j.Pac4jModule
+<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="x3d2e47fd76324208">import io.jooby.pac4j.Pac4jModule
 import org.pac4j.core.config.Config
 
 {
@@ -1006,7 +1004,7 @@ import org.pac4j.core.config.Config
   pac4j.securityLogic = ...
 
   install(Pac4jModule(pa4j))
-}</code><button class="clipboard" data-clipboard-target="#xae6df33fbb944a86"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x3d2e47fd76324208"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 </div>
