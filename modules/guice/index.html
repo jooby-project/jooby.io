@@ -566,19 +566,14 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="header">
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
-<ul class="sectlevel2">
-<li><a href="#guice">1. Guice</a>
 <ul class="sectlevel3">
-<li><a href="#property-injection">1.1. Property Injection</a></li>
-<li><a href="#mvc-routes">1.2. MVC routes</a></li>
-</ul>
-</li>
+<li><a href="#guice">1. Guice</a></li>
 </ul>
 </div>
 </div>
 <div id="content">
-<div class="sect2">
-<h3 id="guice"><a class="anchor" href="#guice"></a><a class="link" href="#guice">1. Guice</a></h3>
+<div class="sect3">
+<h4 id="guice"><a class="anchor" href="#guice"></a><a class="link" href="#guice">1. Guice</a></h4>
 <div class="paragraph">
 <p>1) Add Guice dependency to your project:</p>
 </div>
@@ -586,13 +581,13 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 
 
 <div class="switch"><div class="switch--item option-1 selected">Maven</div><div class="switch--item option-2">Gradle</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="xe5090dd5dc494d83">&lt;dependency&gt;
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="x53f2fd543598434d">&lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
   &lt;artifactId&gt;jooby-guice&lt;/artifactId&gt;
-  &lt;version&gt;3.8.1&lt;/version&gt;
-&lt;/dependency&gt;</code><button class="clipboard" data-clipboard-target="#xe5090dd5dc494d83"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+  &lt;version&gt;3.9.0&lt;/version&gt;
+&lt;/dependency&gt;</code><button class="clipboard" data-clipboard-target="#x53f2fd543598434d"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-gradle hljs" data-lang="gradle" id="xdc7a99ff9cb44b8c">implementation 'io.jooby:jooby-guice:3.8.1'</code><button class="clipboard" data-clipboard-target="#xdc7a99ff9cb44b8c"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+<pre class="highlightjs highlight"><code class="language-gradle hljs" data-lang="gradle" id="x9da026152e494cd0">implementation 'io.jooby:jooby-guice:3.9.0'</code><button class="clipboard" data-clipboard-target="#x9da026152e494cd0"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -602,7 +597,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="title">Installing Guice</div>
 
 <div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x2858e554baf043f1">import io.jooby.guice.GuiceModule;
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x5aa4617c84a44ff9">import io.jooby.guice.GuiceModule;
 import io.jooby.kt.runApp;
 
 public class App extends Jooby {
@@ -619,9 +614,9 @@ public class App extends Jooby {
   public static void main(String[] args) {
     runApp(args, App::new);
   }
-}</code><button class="clipboard" data-clipboard-target="#x2858e554baf043f1"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x5aa4617c84a44ff9"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin" id="xbaf9aead01ac48b8">import io.jooby.di.GuiceModule
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin" id="xd93d0a5c43e847eb">import io.jooby.di.GuiceModule
 import io.jooby.kt.runApp
 
 fun main(args: Array&lt;String&gt;) {
@@ -633,7 +628,7 @@ fun main(args: Array&lt;String&gt;) {
       service.doSomething()
     }
   }
-}</code><button class="clipboard" data-clipboard-target="#xbaf9aead01ac48b8"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#xd93d0a5c43e847eb"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="colist arabic">
@@ -648,22 +643,22 @@ fun main(args: Array&lt;String&gt;) {
 </tr>
 </tbody></table>
 </div>
-<div class="sect3">
-<h4 id="guice-property-injection"><a class="anchor" href="#guice-property-injection"></a><a class="link" href="#guice-property-injection">1.1. Property Injection</a></h4>
+<div class="sect4">
+<h5 id="property-injection"><a class="anchor" href="#property-injection"></a><a class="link" href="#property-injection">Property Injection</a></h5>
 <div class="paragraph">
 <p>Configuration properties can be injected using the <code>@Named</code> annotation:</p>
 </div>
 <div class="listingblock">
 <div class="title">application.conf</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash" id="xbc172c3346d54ec3">currency = USD</code><button class="clipboard" data-clipboard-target="#xbc172c3346d54ec3"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash" id="xaffa6a16d2164e1e">currency = USD</code><button class="clipboard" data-clipboard-target="#xaffa6a16d2164e1e"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div>
 </div>
 <div class="listingblock primary">
 
 
 <div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x21dbf50cd74c4a10">import javax.injext.Named;
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x360aeeaf8694b0e">import javax.injext.Named;
 import javax.injext.Inject;
 
 public class BillingService {
@@ -673,16 +668,16 @@ public class BillingService {
     ...
   }
 
-}</code><button class="clipboard" data-clipboard-target="#x21dbf50cd74c4a10"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x360aeeaf8694b0e"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin" id="x377b9637f78e4913">class BillingService @Inject constructor(@Named("currency") currency: String) {
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin" id="x9434b5fa15eb400d">class BillingService @Inject constructor(@Named("currency") currency: String) {
   ...
-}</code><button class="clipboard" data-clipboard-target="#x377b9637f78e4913"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x9434b5fa15eb400d"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 </div>
-<div class="sect3">
-<h4 id="guice-mvc-routes"><a class="anchor" href="#guice-mvc-routes"></a><a class="link" href="#guice-mvc-routes">1.2. MVC routes</a></h4>
+<div class="sect4">
+<h5 id="mvc-routes"><a class="anchor" href="#mvc-routes"></a><a class="link" href="#mvc-routes">MVC routes</a></h5>
 <div class="paragraph">
 <p>Guice will also provisioning MVC routes</p>
 </div>
@@ -690,7 +685,7 @@ public class BillingService {
 <div class="title">MVC and Guice</div>
 
 <div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xc7f7fafb383d45bb">import io.jooby.guice.GuiceModule;
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xc618a0c393b64c8b">import io.jooby.guice.GuiceModule;
 import io.jooby.kt.runApp
 
 public class App extends Jooby {
@@ -704,9 +699,9 @@ public class App extends Jooby {
   public static void main(String[] args) {
     runApp(args, App::new);
   }
-}</code><button class="clipboard" data-clipboard-target="#xc7f7fafb383d45bb"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#xc618a0c393b64c8b"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin" id="x175c1c24ad014559">import io.jooby.di.GuiceModule
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin" id="x45e611f91704ad6">import io.jooby.di.GuiceModule
 import io.jooby.kt.runApp
 
 fun main(args: Array&lt;String&gt;) {
@@ -715,7 +710,7 @@ fun main(args: Array&lt;String&gt;) {
 
     mvc(MyController::class)     <i class="conum" data-value="2"></i><b>(2)</b>
   }
-}</code><button class="clipboard" data-clipboard-target="#x175c1c24ad014559"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x45e611f91704ad6"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="colist arabic">
