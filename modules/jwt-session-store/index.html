@@ -575,30 +575,30 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="sect2">
 <h3 id="jwt-session"><a class="anchor" href="#jwt-session"></a><a class="link" href="#jwt-session">1. JWT Session</a></h3>
 <div class="paragraph">
-<p>The <a href="https://www.javadoc.io/doc/io.jooby/jooby/latest/io.jooby/io/jooby/JWTSession.html" target="_blank">JWTSession</a> session store works it also a stateless session that
+<p>The <a href="https://www.javadoc.io/doc/io.jooby/jooby-jwt/latest/io.jooby.jwt/io/jooby/jwt/JwtSessionStore.html" target="_blank">JwtSessionStore</a> session store works it also a stateless session that
 uses <a href="https://jwt.io" target="_blank">JSON Web Token</a> standard to decode/encode data.</p>
 </div>
 <div class="paragraph">
-<p>To use the <a href="https://www.javadoc.io/doc/io.jooby/jooby/latest/io.jooby/io/jooby/JWTSession.html" target="_blank">JWTSession</a> session store you need to add the <code>jooby-jwt</code> dependency:</p>
+<p>To use the <a href="https://www.javadoc.io/doc/io.jooby/jooby-jwt/latest/io.jooby.jwt/io/jooby/jwt/JwtSessionStore.html" target="_blank">JwtSessionStore</a> session store you need to add the <code>jooby-jwt</code> dependency:</p>
 </div>
 <div class="listingblock primary">
 
 
 <div class="switch"><div class="switch--item option-1 selected">Maven</div><div class="switch--item option-2">Gradle</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="xd3be3315b07040b4">&lt;dependency&gt;
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="xb80697e542a04ce1">&lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
   &lt;artifactId&gt;jooby-jwt&lt;/artifactId&gt;
-  &lt;version&gt;3.9.1&lt;/version&gt;
-&lt;/dependency&gt;</code><button class="clipboard" data-clipboard-target="#xd3be3315b07040b4"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+  &lt;version&gt;3.10.0&lt;/version&gt;
+&lt;/dependency&gt;</code><button class="clipboard" data-clipboard-target="#xb80697e542a04ce1"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-gradle hljs" data-lang="gradle" id="x9c3827f9860a4802">implementation 'io.jooby:jooby-jwt:3.9.1'</code><button class="clipboard" data-clipboard-target="#x9c3827f9860a4802"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+<pre class="highlightjs highlight"><code class="language-gradle hljs" data-lang="gradle" id="x24c68db3af304198">implementation 'io.jooby:jooby-jwt:3.10.0'</code><button class="clipboard" data-clipboard-target="#x24c68db3af304198"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="listingblock primary">
 <div class="title">JWT Session</div>
 
 <div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xa61661ed9e904696">import io.jooby.session.JwtSessionStore;
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xf1f4c6b905ce48c9">import io.jooby.session.JwtSessionStore;
 
 {
   String secret = "super secret key";           <i class="conum" data-value="1"></i><b>(1)</b>
@@ -612,9 +612,9 @@ uses <a href="https://jwt.io" target="_blank">JSON Web Token</a> standard to dec
 
     return session.get("foo").value();
   });
-}</code><button class="clipboard" data-clipboard-target="#xa61661ed9e904696"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#xf1f4c6b905ce48c9"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin" id="x61ef0abb9dd646b7">import io.jooby.session.JwtSessionStore
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin" id="x87617b34842c4957">import io.jooby.session.JwtSessionStore
 
 {
   val secret = "super secret key"               <i class="conum" data-value="1"></i><b>(1)</b>
@@ -628,7 +628,7 @@ uses <a href="https://jwt.io" target="_blank">JSON Web Token</a> standard to dec
 
     session.get("foo").value()
   }
-}</code><button class="clipboard" data-clipboard-target="#x61ef0abb9dd646b7"><img src="/images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x87617b34842c4957"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="colist arabic">
