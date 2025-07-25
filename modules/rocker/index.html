@@ -593,13 +593,13 @@ engine producing statically typed, plain java objects.</p>
 
 
 <div class="switch"><div class="switch--item option-1 selected">Maven</div><div class="switch--item option-2">Gradle</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="xa5594bc9b22147a0">&lt;dependency&gt;
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="xd679dd341dea4fa6">&lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
   &lt;artifactId&gt;jooby-rocker&lt;/artifactId&gt;
-  &lt;version&gt;3.11.0&lt;/version&gt;
-&lt;/dependency&gt;</code><button class="clipboard" data-clipboard-target="#xa5594bc9b22147a0"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+  &lt;version&gt;4.0.0&lt;/version&gt;
+&lt;/dependency&gt;</code><button class="clipboard" data-clipboard-target="#xd679dd341dea4fa6"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-gradle hljs" data-lang="gradle" id="x8b8a2810c0b24de3">implementation 'io.jooby:jooby-rocker:3.11.0'</code><button class="clipboard" data-clipboard-target="#x8b8a2810c0b24de3"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+<pre class="highlightjs highlight"><code class="language-gradle hljs" data-lang="gradle" id="x1e715618cbc9429c">implementation 'io.jooby:jooby-rocker:4.0.0'</code><button class="clipboard" data-clipboard-target="#x1e715618cbc9429c"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -609,7 +609,7 @@ engine producing statically typed, plain java objects.</p>
 
 
 <div class="switch"><div class="switch--item option-1 selected">Maven</div><div class="switch--item option-2">Gradle</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="xf24e51910aaf44dc">&lt;plugin&gt;
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="x4e1382d5fdbd4ebf">&lt;plugin&gt;
     &lt;groupId&gt;com.fizzed&lt;/groupId&gt;
     &lt;artifactId&gt;rocker-maven-plugin&lt;/artifactId&gt;
     &lt;version&gt;2.2.1&lt;/version&gt;
@@ -625,9 +625,9 @@ engine producing statically typed, plain java objects.</p>
             &lt;/goals&gt;
         &lt;/execution&gt;
     &lt;/executions&gt;
-&lt;/plugin&gt;</code><button class="clipboard" data-clipboard-target="#xf24e51910aaf44dc"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+&lt;/plugin&gt;</code><button class="clipboard" data-clipboard-target="#x4e1382d5fdbd4ebf"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-groovy hljs" data-lang="groovy" id="xc3a23a0f03ac4e09">plugins {
+<pre class="highlightjs highlight"><code class="language-groovy hljs" data-lang="groovy" id="x82324386b3044e2d">plugins {
   id "com.fizzed.rocker" version "2.2.1"
 }
 
@@ -637,7 +637,7 @@ sourceSets {
             srcDir('src/rocker')
         }
     }
-}</code><button class="clipboard" data-clipboard-target="#xc3a23a0f03ac4e09"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x82324386b3044e2d"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="admonitionblock note">
@@ -658,9 +658,9 @@ Complete code generator options are <a href="https://github.com/fizzed/rocker#in
 <div class="listingblock">
 <div class="title">src/rocker/views/index.rocker.html</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html" id="xbbe9fe965ad54043">@args (String message)
+<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html" id="x99eb4e930b6e4a45">@args (String message)
 
-&lt;p&gt;Hello @message!&lt;/p&gt;</code><button class="clipboard" data-clipboard-target="#xbbe9fe965ad54043"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+&lt;p&gt;Hello @message!&lt;/p&gt;</code><button class="clipboard" data-clipboard-target="#x99eb4e930b6e4a45"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -670,7 +670,7 @@ Complete code generator options are <a href="https://github.com/fizzed/rocker#in
 
 
 <div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x90da7451b350484c">import io.jooby.rocker.RockerModule;
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xba0252dc818c4acb">import io.jooby.rocker.RockerModule;
 
 {
   install(new RockerModule());              <i class="conum" data-value="1"></i><b>(1)</b>
@@ -678,9 +678,9 @@ Complete code generator options are <a href="https://github.com/fizzed/rocker#in
   get("/", ctx -&gt; {
     return views.index.template("Rocker");  <i class="conum" data-value="2"></i><b>(2)</b>
   });
-}</code><button class="clipboard" data-clipboard-target="#x90da7451b350484c"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#xba0252dc818c4acb"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="x610a5e29f0c24ac8">import io.jooby.rocker.RockerModule
+<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="xd1c1140c243c4ea6">import io.jooby.rocker.RockerModule
 
 {
   install(RockerModule())                   <i class="conum" data-value="1"></i><b>(1)</b>
@@ -688,7 +688,7 @@ Complete code generator options are <a href="https://github.com/fizzed/rocker#in
   get("/") {
     views.index.template("Rocker")          <i class="conum" data-value="2"></i><b>(2)</b>
   }
-}</code><button class="clipboard" data-clipboard-target="#x610a5e29f0c24ac8"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#xd1c1140c243c4ea6"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="colist arabic">
@@ -713,17 +713,17 @@ Complete code generator options are <a href="https://github.com/fizzed/rocker#in
 
 
 <div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xef9c3fb8049f4b4e">import io.jooby.rocker.RockerModule;
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xb7ac2d7b6fce4613">import io.jooby.rocker.RockerModule;
 
 {
   install(new RockerModule().bufferSize(1024));
-}</code><button class="clipboard" data-clipboard-target="#xef9c3fb8049f4b4e"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#xb7ac2d7b6fce4613"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="xf06d77a0c1934c20">import io.jooby.rocker.RockerModule
+<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="xe1ddc63555f146bb">import io.jooby.rocker.RockerModule
 
 {
   install(RockerModule().bufferSize(1024)
-}</code><button class="clipboard" data-clipboard-target="#xf06d77a0c1934c20"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#xe1ddc63555f146bb"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -733,17 +733,17 @@ Complete code generator options are <a href="https://github.com/fizzed/rocker#in
 
 
 <div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xe9ec9efb2fd5401b">import io.jooby.rocker.RockerModule;
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x424d4f9397b0402a">import io.jooby.rocker.RockerModule;
 
 {
   install(new RockerModule().reuseBuffer(true));
-}</code><button class="clipboard" data-clipboard-target="#xe9ec9efb2fd5401b"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x424d4f9397b0402a"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="x4fc426a29f0746dd">import io.jooby.rocker.RockerModule
+<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="xdd86cee881c343f8">import io.jooby.rocker.RockerModule
 
 {
   install(RockerModule().reuseBuffer(true)
-}</code><button class="clipboard" data-clipboard-target="#x4fc426a29f0746dd"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#xdd86cee881c343f8"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="admonitionblock caution">

@@ -604,25 +604,25 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 
 
 <div class="switch"><div class="switch--item option-1 selected">Maven</div><div class="switch--item option-2">Gradle</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="xed1e26f18b61416e">&lt;!-- GraphQL--&gt;
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="x8f255fb16bbf473f">&lt;!-- GraphQL--&gt;
 &lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
   &lt;artifactId&gt;jooby-graphql&lt;/artifactId&gt;
-  &lt;version&gt;3.11.0&lt;/version&gt;
+  &lt;version&gt;4.0.0&lt;/version&gt;
 &lt;/dependency&gt;
 
 &lt;!--  JSON library--&gt;
 &lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
   &lt;artifactId&gt;jooby-jackson&lt;/artifactId&gt;
-  &lt;version&gt;3.11.0&lt;/version&gt;
-&lt;/dependency&gt;</code><button class="clipboard" data-clipboard-target="#xed1e26f18b61416e"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+  &lt;version&gt;4.0.0&lt;/version&gt;
+&lt;/dependency&gt;</code><button class="clipboard" data-clipboard-target="#x8f255fb16bbf473f"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-gradle hljs" data-lang="gradle" id="x2e72660cce164344">// GraphQL
-implementation 'io.jooby:jooby-graphql:3.11.0'
+<pre class="highlightjs highlight"><code class="language-gradle hljs" data-lang="gradle" id="x567722e8e00c461f">// GraphQL
+implementation 'io.jooby:jooby-graphql:4.0.0'
 
 //  JSON library
-implementation 'io.jooby:jooby-jackson:3.11.0'</code><button class="clipboard" data-clipboard-target="#x2e72660cce164344"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+implementation 'io.jooby:jooby-jackson:4.0.0'</code><button class="clipboard" data-clipboard-target="#x567722e8e00c461f"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -630,7 +630,7 @@ implementation 'io.jooby:jooby-jackson:3.11.0'</code><button class="clipboard" d
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-graphql hljs" data-lang="graphql" id="xaf1f1e5eed114bb5">type Query {
+<pre class="highlightjs highlight"><code class="language-graphql hljs" data-lang="graphql" id="x95f5c1a2f3c9420d">type Query {
     bookById(id: ID): Book
 }
 
@@ -645,7 +645,7 @@ type Author {
     id: ID
     firstName: String
     lastName: String
-}</code><button class="clipboard" data-clipboard-target="#xaf1f1e5eed114bb5"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x95f5c1a2f3c9420d"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -655,7 +655,7 @@ type Author {
 
 
 <div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x8dbad30bccbd43f1">import io.jooby.json.JacksonModule;
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x5c1ecb3f34c04360">import io.jooby.json.JacksonModule;
 import io.jooby.graphql.GraphQLModule;
 
 {
@@ -669,9 +669,9 @@ import io.jooby.graphql.GraphQLModule;
             .dataFetcher("author", fetchers.getAuthorDataFetcher()))
         .build())
    );
-}</code><button class="clipboard" data-clipboard-target="#x8dbad30bccbd43f1"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x5c1ecb3f34c04360"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="xd0c63fe43eb94dea">import io.jooby.json.JacksonModule
+<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="xb419dc4978324ecc">import io.jooby.json.JacksonModule
 import io.jooby.graphql.GraphQLModule
 
 {
@@ -685,7 +685,7 @@ import io.jooby.graphql.GraphQLModule
             .dataFetcher("author", fetchers.getAuthorDataFetcher()))
         .build())
     )
-}</code><button class="clipboard" data-clipboard-target="#xd0c63fe43eb94dea"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#xb419dc4978324ecc"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="colist arabic">
@@ -716,23 +716,23 @@ the async mode:</p>
 <div class="title">Async Mode</div>
 
 <div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x4f3f644c7b9b4273">import io.jooby.json.JacksonModule;
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x8b051d69bea3403d">import io.jooby.json.JacksonModule;
 import io.jooby.graphql.GraphQLModule;
 
 {
   install(new GraphQLModule(...)
       .setAsync(false)                    <i class="conum" data-value="1"></i><b>(1)</b>
   );
-}</code><button class="clipboard" data-clipboard-target="#x4f3f644c7b9b4273"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x8b051d69bea3403d"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="x2e4f2678708f4a01">import io.jooby.json.JacksonModule
+<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="xdd833c3c97bc4f0c">import io.jooby.json.JacksonModule
 import io.jooby.graphql.GraphQLModule
 
 {
   install(GraphQLModule(...)
       .setAsync(false)                    <i class="conum" data-value="1"></i><b>(1)</b>
   )
-}</code><button class="clipboard" data-clipboard-target="#x2e4f2678708f4a01"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#xdd833c3c97bc4f0c"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="colist arabic">
@@ -756,23 +756,23 @@ import io.jooby.graphql.GraphQLModule
 <div class="title">HTTP GET</div>
 
 <div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xe25b6a0fb4884ddd">import io.jooby.json.JacksonModule;
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xd050cd57650e4b05">import io.jooby.json.JacksonModule;
 import io.jooby.graphql.GraphQLModule;
 
 {
   install(new GraphQLModule(...)
       .setSupportHttpGet(true)
   );
-}</code><button class="clipboard" data-clipboard-target="#xe25b6a0fb4884ddd"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#xd050cd57650e4b05"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="xab8f664da3d4fbf">import io.jooby.json.JacksonModule
+<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="xdf5a85f68121450f">import io.jooby.json.JacksonModule
 import io.jooby.graphql.GraphQLModule
 
 {
   install(GraphQLModule(...)
       .setSupportHttpGet(true)
   )
-}</code><button class="clipboard" data-clipboard-target="#xab8f664da3d4fbf"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#xdf5a85f68121450f"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 </div>
@@ -810,35 +810,35 @@ import io.jooby.graphql.GraphQLModule
 
 
 <div class="switch"><div class="switch--item option-1 selected">Maven</div><div class="switch--item option-2">Gradle</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="xa62a4f0404f1422b">&lt;!--  JSON library--&gt;
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="x12c16cb4971a4f25">&lt;!--  JSON library--&gt;
 &lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
   &lt;artifactId&gt;jooby-jackson&lt;/artifactId&gt;
-  &lt;version&gt;3.11.0&lt;/version&gt;
+  &lt;version&gt;4.0.0&lt;/version&gt;
 &lt;/dependency&gt;
 
 &lt;!-- GraphQL--&gt;
 &lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
   &lt;artifactId&gt;jooby-graphql&lt;/artifactId&gt;
-  &lt;version&gt;3.11.0&lt;/version&gt;
+  &lt;version&gt;4.0.0&lt;/version&gt;
 &lt;/dependency&gt;
 
 &lt;!--  GraphIQL--&gt;
 &lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
   &lt;artifactId&gt;jooby-graphiql&lt;/artifactId&gt;
-  &lt;version&gt;3.11.0&lt;/version&gt;
-&lt;/dependency&gt;</code><button class="clipboard" data-clipboard-target="#xa62a4f0404f1422b"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+  &lt;version&gt;4.0.0&lt;/version&gt;
+&lt;/dependency&gt;</code><button class="clipboard" data-clipboard-target="#x12c16cb4971a4f25"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-gradle hljs" data-lang="gradle" id="x456f3f57d5dc434f">//  JSON library
-implementation 'io.jooby:jooby-jackson:3.11.0'
+<pre class="highlightjs highlight"><code class="language-gradle hljs" data-lang="gradle" id="x56e413175627433f">//  JSON library
+implementation 'io.jooby:jooby-jackson:4.0.0'
 
 // GraphQL
-implementation 'io.jooby:jooby-graphql:3.11.0'
+implementation 'io.jooby:jooby-graphql:4.0.0'
 
 //  GraphIQL
-implementation 'io.jooby:jooby-graphiql:3.11.0'</code><button class="clipboard" data-clipboard-target="#x456f3f57d5dc434f"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+implementation 'io.jooby:jooby-graphiql:4.0.0'</code><button class="clipboard" data-clipboard-target="#x56e413175627433f"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -848,7 +848,7 @@ implementation 'io.jooby:jooby-graphiql:3.11.0'</code><button class="clipboard" 
 
 
 <div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xb1b0188408154a62">import io.jooby.json.JacksonModule;
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x892b595591414355">import io.jooby.json.JacksonModule;
 import io.jooby.graphql.GraphQLModule;
 import io.jooby.graphql.GraphiQLModule;
 
@@ -858,9 +858,9 @@ import io.jooby.graphql.GraphiQLModule;
   install(new GraphQLModule(...));        <i class="conum" data-value="2"></i><b>(2)</b>
 
   install(new GraphiQLModule());          <i class="conum" data-value="3"></i><b>(3)</b>
-}</code><button class="clipboard" data-clipboard-target="#xb1b0188408154a62"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x892b595591414355"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="xac4ed1bf109d4764">import io.jooby.json.JacksonModule
+<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="x8f2064f061c44308">import io.jooby.json.JacksonModule
 import io.jooby.graphql.GraphQLModule
 import io.jooby.graphql.GraphiQLModule
 
@@ -870,7 +870,7 @@ import io.jooby.graphql.GraphiQLModule
   install(GraphQLModule(...))             <i class="conum" data-value="2"></i><b>(2)</b>
 
   install(GraphiQLModule())               <i class="conum" data-value="3"></i><b>(3)</b>
-}</code><button class="clipboard" data-clipboard-target="#xac4ed1bf109d4764"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x8f2064f061c44308"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="colist arabic">
@@ -902,35 +902,35 @@ import io.jooby.graphql.GraphiQLModule
 
 
 <div class="switch"><div class="switch--item option-1 selected">Maven</div><div class="switch--item option-2">Gradle</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="x36323309d6ed4d71">&lt;!--  JSON library--&gt;
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="xe2acd526dd31413f">&lt;!--  JSON library--&gt;
 &lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
   &lt;artifactId&gt;jooby-jackson&lt;/artifactId&gt;
-  &lt;version&gt;3.11.0&lt;/version&gt;
+  &lt;version&gt;4.0.0&lt;/version&gt;
 &lt;/dependency&gt;
 
 &lt;!-- GraphQL--&gt;
 &lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
   &lt;artifactId&gt;jooby-graphql&lt;/artifactId&gt;
-  &lt;version&gt;3.11.0&lt;/version&gt;
+  &lt;version&gt;4.0.0&lt;/version&gt;
 &lt;/dependency&gt;
 
 &lt;!--  GraphQL Playground--&gt;
 &lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
   &lt;artifactId&gt;jooby-graphiql-playground&lt;/artifactId&gt;
-  &lt;version&gt;3.11.0&lt;/version&gt;
-&lt;/dependency&gt;</code><button class="clipboard" data-clipboard-target="#x36323309d6ed4d71"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+  &lt;version&gt;4.0.0&lt;/version&gt;
+&lt;/dependency&gt;</code><button class="clipboard" data-clipboard-target="#xe2acd526dd31413f"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-gradle hljs" data-lang="gradle" id="x275d63bd1cd4c3e">//  JSON library
-implementation 'io.jooby:jooby-jackson:3.11.0'
+<pre class="highlightjs highlight"><code class="language-gradle hljs" data-lang="gradle" id="x19469f3cdd824b92">//  JSON library
+implementation 'io.jooby:jooby-jackson:4.0.0'
 
 // GraphQL
-implementation 'io.jooby:jooby-graphql:3.11.0'
+implementation 'io.jooby:jooby-graphql:4.0.0'
 
 //  GraphQL Playground
-implementation 'io.jooby:jooby-graphiql-playground:3.11.0'</code><button class="clipboard" data-clipboard-target="#x275d63bd1cd4c3e"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+implementation 'io.jooby:jooby-graphiql-playground:4.0.0'</code><button class="clipboard" data-clipboard-target="#x19469f3cdd824b92"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -940,7 +940,7 @@ implementation 'io.jooby:jooby-graphiql-playground:3.11.0'</code><button class="
 
 
 <div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x8d54e72b52144821">import io.jooby.json.JacksonModule;
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xccbfc313a5db4dc3">import io.jooby.json.JacksonModule;
 import io.jooby.graphql.GraphQLModule;
 import io.jooby.graphql.GraphQLPlaygroundModule;
 
@@ -950,9 +950,9 @@ import io.jooby.graphql.GraphQLPlaygroundModule;
   install(new GraphQLModule(...));                 <i class="conum" data-value="2"></i><b>(2)</b>
 
   install(new GraphQLPlaygroundModule());          <i class="conum" data-value="3"></i><b>(3)</b>
-}</code><button class="clipboard" data-clipboard-target="#x8d54e72b52144821"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#xccbfc313a5db4dc3"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="x7e05f3dd1d154590">import io.jooby.json.JacksonModule
+<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="x89241f3aaa0a46fa">import io.jooby.json.JacksonModule
 import io.jooby.graphql.GraphQLModule
 import io.jooby.graphql.GraphQLPlaygroundModule
 
@@ -962,7 +962,7 @@ import io.jooby.graphql.GraphQLPlaygroundModule
   install(GraphQLModule(...))                      <i class="conum" data-value="2"></i><b>(2)</b>
 
   install(GraphQLPlaygroundModule())               <i class="conum" data-value="3"></i><b>(3)</b>
-}</code><button class="clipboard" data-clipboard-target="#x7e05f3dd1d154590"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x89241f3aaa0a46fa"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="colist arabic">
