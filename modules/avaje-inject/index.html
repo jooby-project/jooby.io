@@ -581,13 +581,13 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 
 
 <div class="switch"><div class="switch--item option-1 selected">Maven</div><div class="switch--item option-2">Gradle</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="xf12636ea6417440b">&lt;dependency&gt;
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="x5ce894b6f28f44da">&lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
   &lt;artifactId&gt;jooby-avaje-inject&lt;/artifactId&gt;
-  &lt;version&gt;4.0.5&lt;/version&gt;
-&lt;/dependency&gt;</code><button class="clipboard" data-clipboard-target="#xf12636ea6417440b"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+  &lt;version&gt;4.0.6&lt;/version&gt;
+&lt;/dependency&gt;</code><button class="clipboard" data-clipboard-target="#x5ce894b6f28f44da"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-gradle hljs" data-lang="gradle" id="xbf4ea1f281d45d9">implementation 'io.jooby:jooby-avaje-inject:4.0.5'</code><button class="clipboard" data-clipboard-target="#xbf4ea1f281d45d9"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+<pre class="highlightjs highlight"><code class="language-gradle hljs" data-lang="gradle" id="x82ee2ef038b74dd1">implementation 'io.jooby:jooby-avaje-inject:4.0.6'</code><button class="clipboard" data-clipboard-target="#x82ee2ef038b74dd1"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -597,7 +597,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 
 
 <div class="switch"><div class="switch--item option-1 selected">Maven</div><div class="switch--item option-2">Gradle</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="x14c4e2eaf2b04c0f">&lt;build&gt;
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="x88bfee8bba2540ed">&lt;build&gt;
   &lt;plugins&gt;
     &lt;plugin&gt;
       &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
@@ -616,15 +616,15 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
       &lt;/configuration&gt;
     &lt;/plugin&gt;
   &lt;/plugins&gt;
-&lt;/build&gt;</code><button class="clipboard" data-clipboard-target="#x14c4e2eaf2b04c0f"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+&lt;/build&gt;</code><button class="clipboard" data-clipboard-target="#x88bfee8bba2540ed"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin" id="x1da08c241df6470c">plugins {
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin" id="xa8e96f3468ce4904">plugins {
   id "org.jetbrains.kotlin.kapt" version "1.9.10"
 }
 
 dependencies {
   kapt 'io.avaje:avaje-inject-generator:{avaje.inject.version}'
-}</code><button class="clipboard" data-clipboard-target="#x1da08c241df6470c"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#xa8e96f3468ce4904"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="admonitionblock note">
@@ -648,7 +648,7 @@ dependencies {
 <div class="title">Installing Avaje Inject</div>
 
 <div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x67ba4735b65a41d5">public class App extends Jooby {
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x913e0ed64f504dc5">public class App extends Jooby {
 
   {
     install(AvajeInjectModule.of());                     <i class="conum" data-value="1"></i><b>(1)</b>
@@ -662,9 +662,9 @@ dependencies {
   public static void main(String[] args) {
     runApp(args, App::new);
   }
-}</code><button class="clipboard" data-clipboard-target="#x67ba4735b65a41d5"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x913e0ed64f504dc5"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin" id="x5d779b1a5d2e4644">fun main(args: Array&lt;String&gt;) {
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin" id="x9d4344b4d50241fd">fun main(args: Array&lt;String&gt;) {
   runApp(args) {
     install(AvajeInjectModule.of())                    <i class="conum" data-value="1"></i><b>(1)</b>
 
@@ -673,7 +673,7 @@ dependencies {
       service.doSomething()
     }
   }
-}</code><button class="clipboard" data-clipboard-target="#x5d779b1a5d2e4644"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x9d4344b4d50241fd"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="colist arabic">
@@ -696,14 +696,14 @@ dependencies {
 <div class="listingblock">
 <div class="title">application.conf</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash" id="xbb0ae5f3b676415a">currency = USD</code><button class="clipboard" data-clipboard-target="#xbb0ae5f3b676415a"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash" id="xae54efb6f101448d">currency = USD</code><button class="clipboard" data-clipboard-target="#xae54efb6f101448d"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div>
 </div>
 <div class="listingblock primary">
 
 
 <div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x68436db024bc4d07">@Singleton
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x26bef6565f8e4719">@Singleton
 public class BillingService {
 
   @Inject
@@ -711,12 +711,12 @@ public class BillingService {
     ...
   }
 
-}</code><button class="clipboard" data-clipboard-target="#x68436db024bc4d07"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x26bef6565f8e4719"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin" id="x18305512d59d4efc">@Singleton
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin" id="xe333ee0bdb5485f">@Singleton
 class BillingService @Inject constructor(@External @Named("currency") currency: String) {
   ...
-}</code><button class="clipboard" data-clipboard-target="#x18305512d59d4efc"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#xe333ee0bdb5485f"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 </div>
@@ -729,7 +729,7 @@ class BillingService @Inject constructor(@External @Named("currency") currency: 
 <div class="title">MVC and Avaje Inject</div>
 
 <div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x69ec02c3089c451e">public class App extends Jooby {
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x5cf93e1098594cdd">public class App extends Jooby {
 
   {
     install(AvajeInjectModule.of());  <i class="conum" data-value="1"></i><b>(1)</b>
@@ -740,15 +740,15 @@ class BillingService @Inject constructor(@External @Named("currency") currency: 
   public static void main(String[] args) {
     runApp(args, App::new);
   }
-}</code><button class="clipboard" data-clipboard-target="#x69ec02c3089c451e"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x5cf93e1098594cdd"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin" id="x89bed8b907fd4107">fun main(args: Array&lt;String&gt;) {
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin" id="x33d5d0eccfd9434a">fun main(args: Array&lt;String&gt;) {
   runApp(args) {
     install(AvajeInjectModule.of())       <i class="conum" data-value="1"></i><b>(1)</b>
 
     mvc(MyController::class)              <i class="conum" data-value="2"></i><b>(2)</b>
   }
-}</code><button class="clipboard" data-clipboard-target="#x89bed8b907fd4107"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x33d5d0eccfd9434a"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="colist arabic">
