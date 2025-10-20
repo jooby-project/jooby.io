@@ -591,13 +591,13 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 
 
 <div class="switch"><div class="switch--item option-1 selected">Maven</div><div class="switch--item option-2">Gradle</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="x5be5831fe8e64126">&lt;dependency&gt;
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="xd4332bac228948a2">&lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
   &lt;artifactId&gt;jooby-kafka&lt;/artifactId&gt;
-  &lt;version&gt;4.0.6&lt;/version&gt;
-&lt;/dependency&gt;</code><button class="clipboard" data-clipboard-target="#x5be5831fe8e64126"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+  &lt;version&gt;4.0.9&lt;/version&gt;
+&lt;/dependency&gt;</code><button class="clipboard" data-clipboard-target="#xd4332bac228948a2"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-gradle hljs" data-lang="gradle" id="xeaeda4a5e4234a1a">implementation 'io.jooby:jooby-kafka:4.0.6'</code><button class="clipboard" data-clipboard-target="#xeaeda4a5e4234a1a"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+<pre class="highlightjs highlight"><code class="language-gradle hljs" data-lang="gradle" id="x129e1bf918eb4d83">implementation 'io.jooby:jooby-kafka:4.0.9'</code><button class="clipboard" data-clipboard-target="#x129e1bf918eb4d83"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -606,13 +606,13 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="listingblock">
 <div class="title">application.conf</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-properties hljs" data-lang="properties" id="x3c9bb11fd2de416e">kafka.producer.bootstrap.servers = "localhost:9092"
+<pre class="highlightjs highlight"><code class="language-properties hljs" data-lang="properties" id="xd94efc2481c64ead">kafka.producer.bootstrap.servers = "localhost:9092"
 kafka.producer.key.serializer = "org.apache.kafka.common.serialization.StringSerializer"
 kafka.producer.value.serializer = "org.apache.kafka.common.serialization.StringSerializer"
 
 kafka.consumer.bootstrap.servers = "localhost:9092"
 kafka.consumer.key.deserializer = "org.apache.kafka.common.serialization.StringDeserializer"
-kafka.consumer.value.deserializer = "org.apache.kafka.common.serialization.StringDeserializer"</code><button class="clipboard" data-clipboard-target="#x3c9bb11fd2de416e"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+kafka.consumer.value.deserializer = "org.apache.kafka.common.serialization.StringDeserializer"</code><button class="clipboard" data-clipboard-target="#xd94efc2481c64ead"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -622,7 +622,7 @@ kafka.consumer.value.deserializer = "org.apache.kafka.common.serialization.Strin
 
 
 <div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xfd5c2f58c01e4072">import io.jooby.kafka.KafkaModule;
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x805e39e69a104411">import io.jooby.kafka.KafkaModule;
 
 {
   install(new KafkaModule());                              <i class="conum" data-value="1"></i><b>(1)</b>
@@ -636,9 +636,9 @@ kafka.consumer.value.deserializer = "org.apache.kafka.common.serialization.Strin
 
     ...
   });
-}</code><button class="clipboard" data-clipboard-target="#xfd5c2f58c01e4072"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x805e39e69a104411"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="xd96c9a4d01254b7c">import io.jooby.kafka.KafkaModule
+<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="x31ea93a039124a3d">import io.jooby.kafka.KafkaModule
 
 {
   install(KafkaModule())                                   <i class="conum" data-value="1"></i><b>(1)</b>
@@ -651,7 +651,7 @@ kafka.consumer.value.deserializer = "org.apache.kafka.common.serialization.Strin
     // work with consumer
     ...
   }
-}</code><button class="clipboard" data-clipboard-target="#xd96c9a4d01254b7c"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x31ea93a039124a3d"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="colist arabic">
@@ -693,8 +693,8 @@ kafka.consumer.value.deserializer = "org.apache.kafka.common.serialization.Strin
 <script src="../../js/highlight.min.js"></script>
 <script>
 if (!hljs.initHighlighting.called) {
-  hljs.initHighlighting.called = true
-  ;[].slice.call(document.querySelectorAll('pre.highlight > code[data-lang]')).forEach(function (el) { hljs.highlightBlock(el) })
+  hljs.configure({ignoreUnescapedHTML: true});hljs.initHighlighting.called = true
+  ;[].slice.call(document.querySelectorAll('pre.highlight > code[data-lang]')).forEach(function (el) { hljs.highlightElement(el) })
 }
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/zepto/1.2.0/zepto.min.js"></script>

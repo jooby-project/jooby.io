@@ -596,13 +596,13 @@ handling system.</p>
 
 
 <div class="switch"><div class="switch--item option-1 selected">Maven</div><div class="switch--item option-2">Gradle</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="x848fc685b4e94343">&lt;dependency&gt;
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="xe0bc3182725c48c6">&lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
   &lt;artifactId&gt;jooby-whoops&lt;/artifactId&gt;
-  &lt;version&gt;4.0.6&lt;/version&gt;
-&lt;/dependency&gt;</code><button class="clipboard" data-clipboard-target="#x848fc685b4e94343"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+  &lt;version&gt;4.0.9&lt;/version&gt;
+&lt;/dependency&gt;</code><button class="clipboard" data-clipboard-target="#xe0bc3182725c48c6"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-gradle hljs" data-lang="gradle" id="xd5fd8ee7739c40e1">implementation 'io.jooby:jooby-whoops:4.0.6'</code><button class="clipboard" data-clipboard-target="#xd5fd8ee7739c40e1"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+<pre class="highlightjs highlight"><code class="language-gradle hljs" data-lang="gradle" id="xe4c6ed943adc4c3a">implementation 'io.jooby:jooby-whoops:4.0.9'</code><button class="clipboard" data-clipboard-target="#xe4c6ed943adc4c3a"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -612,7 +612,7 @@ handling system.</p>
 
 
 <div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x7a270ad05fd64530">import io.jooby.whoops.WhoopsModule;
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x18288e7107264a62">import io.jooby.whoops.WhoopsModule;
 
 {
   install(new WhoopsModule());                      <i class="conum" data-value="1"></i><b>(1)</b>
@@ -620,9 +620,9 @@ handling system.</p>
   get("/{id}", ctx -&gt; {
     return ctx.path("id").intValue();               <i class="conum" data-value="2"></i><b>(2)</b>
   });
-}</code><button class="clipboard" data-clipboard-target="#x7a270ad05fd64530"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x18288e7107264a62"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="xe185f03f40c4343">import io.jooby.whoops.WhoopsModule
+<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="xdf11e20e821e4922">import io.jooby.whoops.WhoopsModule
 
 {
   install(WhoopsModule())                           <i class="conum" data-value="1"></i><b>(1)</b>
@@ -630,7 +630,7 @@ handling system.</p>
   get("/{id}") {
     ctx.path("id").intValue()                       <i class="conum" data-value="2"></i><b>(2)</b>
   }
-}</code><button class="clipboard" data-clipboard-target="#xe185f03f40c4343"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#xdf11e20e821e4922"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="colist arabic">
@@ -716,8 +716,8 @@ completely turn off whoops.</p>
 <script src="../../js/highlight.min.js"></script>
 <script>
 if (!hljs.initHighlighting.called) {
-  hljs.initHighlighting.called = true
-  ;[].slice.call(document.querySelectorAll('pre.highlight > code[data-lang]')).forEach(function (el) { hljs.highlightBlock(el) })
+  hljs.configure({ignoreUnescapedHTML: true});hljs.initHighlighting.called = true
+  ;[].slice.call(document.querySelectorAll('pre.highlight > code[data-lang]')).forEach(function (el) { hljs.highlightElement(el) })
 }
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/zepto/1.2.0/zepto.min.js"></script>
