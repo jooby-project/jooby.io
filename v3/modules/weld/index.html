@@ -4,11 +4,11 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="generator" content="Asciidoctor 2.0.23">
+<meta name="generator" content="Asciidoctor 2.0.17">
 <meta name="description" content="The modular micro web framework for Java">
 <meta name="keywords" content="Java, Modern, Micro, Web, Framework, Reactive, Lightweight, Microservices">
 <link rel="icon" type="image/png" href="../../images/favicon96.png">
-<title>jooby: graphql module</title>
+<title>jooby: weld module</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -87,10 +87,10 @@ code{font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;font-weight:400;
 ul,ol,dl{line-height:1.6;margin-bottom:1.25em;list-style-position:outside;font-family:inherit}
 ul,ol{margin-left:1.5em}
 ul li ul,ul li ol{margin-left:1.25em;margin-bottom:0}
+ul.square li ul,ul.circle li ul,ul.disc li ul{list-style:inherit}
+ul.square{list-style-type:square}
 ul.circle{list-style-type:circle}
 ul.disc{list-style-type:disc}
-ul.square{list-style-type:square}
-ul.circle ul:not([class]),ul.disc ul:not([class]),ul.square ul:not([class]){list-style:inherit}
 ol li ul,ol li ol{margin-left:1.25em;margin-bottom:0}
 dl dt{margin-bottom:.3125em;font-weight:bold}
 dl dd{margin-bottom:1.25em}
@@ -143,7 +143,7 @@ p a>code:hover{color:rgba(0,0,0,.9)}
 #content::before{content:none}
 #header>h1:first-child{color:rgba(0,0,0,.85);margin-top:2.25rem;margin-bottom:0}
 #header>h1:first-child+#toc{margin-top:8px;border-top:1px solid #dddddf}
-#header>h1:only-child{border-bottom:1px solid #dddddf;padding-bottom:8px}
+#header>h1:only-child,body.toc2 #header>h1:nth-last-child(2){border-bottom:1px solid #dddddf;padding-bottom:8px}
 #header .details{border-bottom:1px solid #dddddf;line-height:1.45;padding-top:.25em;padding-bottom:.25em;padding-left:.25em;color:rgba(0,0,0,.6);display:flex;flex-flow:row wrap}
 #header .details span:first-child{margin-left:-.125em}
 #header .details span.email a{color:rgba(0,0,0,.85)}
@@ -165,7 +165,6 @@ p a>code:hover{color:rgba(0,0,0,.9)}
 #toctitle{color:#7a2518;font-size:1.2em}
 @media screen and (min-width:768px){#toctitle{font-size:1.375em}
 body.toc2{padding-left:15em;padding-right:0}
-body.toc2 #header>h1:nth-last-child(2){border-bottom:1px solid #dddddf;padding-bottom:8px}
 #toc.toc2{margin-top:0!important;background:#f8f8f7;position:fixed;width:15em;left:0;top:0;border-right:1px solid #e7e7e9;border-top-width:0!important;border-bottom-width:0!important;z-index:1000;padding:1.25em 1em;height:100%;overflow:auto}
 #toc.toc2 #toctitle{margin-top:0;margin-bottom:.8rem;font-size:1.2em}
 #toc.toc2>ul{font-size:.9em;margin-bottom:0}
@@ -212,10 +211,13 @@ table.tableblock.fit-content>caption.title{white-space:nowrap;width:0}
 .admonitionblock>table td.content{padding-left:1.125em;padding-right:1.25em;border-left:1px solid #dddddf;color:rgba(0,0,0,.6);word-wrap:anywhere}
 .admonitionblock>table td.content>:last-child>:last-child{margin-bottom:0}
 .exampleblock>.content{border:1px solid #e6e6e6;margin-bottom:1.25em;padding:1.25em;background:#fff;border-radius:4px}
+.exampleblock>.content>:first-child{margin-top:0}
+.exampleblock>.content>:last-child{margin-bottom:0}
 .sidebarblock{border:1px solid #dbdbd6;margin-bottom:1.25em;padding:1.25em;background:#f3f3f2;border-radius:4px}
+.sidebarblock>:first-child{margin-top:0}
+.sidebarblock>:last-child{margin-bottom:0}
 .sidebarblock>.content>.title{color:#7a2518;margin-top:0;text-align:center}
-.exampleblock>.content>:first-child,.sidebarblock>.content>:first-child{margin-top:0}
-.exampleblock>.content>:last-child,.exampleblock>.content>:last-child>:last-child,.exampleblock>.content .olist>ol>li:last-child>:last-child,.exampleblock>.content .ulist>ul>li:last-child>:last-child,.exampleblock>.content .qlist>ol>li:last-child>:last-child,.sidebarblock>.content>:last-child,.sidebarblock>.content>:last-child>:last-child,.sidebarblock>.content .olist>ol>li:last-child>:last-child,.sidebarblock>.content .ulist>ul>li:last-child>:last-child,.sidebarblock>.content .qlist>ol>li:last-child>:last-child{margin-bottom:0}
+.exampleblock>.content>:last-child>:last-child,.exampleblock>.content .olist>ol>li:last-child>:last-child,.exampleblock>.content .ulist>ul>li:last-child>:last-child,.exampleblock>.content .qlist>ol>li:last-child>:last-child,.sidebarblock>.content>:last-child>:last-child,.sidebarblock>.content .olist>ol>li:last-child>:last-child,.sidebarblock>.content .ulist>ul>li:last-child>:last-child,.sidebarblock>.content .qlist>ol>li:last-child>:last-child{margin-bottom:0}
 .literalblock pre,.listingblock>.content>pre{border-radius:4px;overflow-x:auto;padding:1em;font-size:.8125em}
 @media screen and (min-width:768px){.literalblock pre,.listingblock>.content>pre{font-size:.90625em}}
 @media screen and (min-width:1280px){.literalblock pre,.listingblock>.content>pre{font-size:1em}}
@@ -331,7 +333,7 @@ a.image{text-decoration:none;display:inline-block}
 a.image object{pointer-events:none}
 sup.footnote,sup.footnoteref{font-size:.875em;position:static;vertical-align:super}
 sup.footnote a,sup.footnoteref a{text-decoration:none}
-sup.footnote a:active,sup.footnoteref a:active,#footnotes .footnote a:first-of-type:active{text-decoration:underline}
+sup.footnote a:active,sup.footnoteref a:active{text-decoration:underline}
 #footnotes{padding-top:.75em;padding-bottom:.75em;margin-bottom:.625em}
 #footnotes hr{width:20%;min-width:6.25em;margin:-.25em 0 .75em;border-width:1px 0 0}
 #footnotes .footnote{padding:0 .375em 0 .225em;line-height:1.3334;font-size:.875em;margin-left:1.2em;margin-bottom:.2em}
@@ -394,7 +396,7 @@ b.conum *{color:inherit!important}
 dt,th.tableblock,td.content,div.footnote{text-rendering:optimizeLegibility}
 h1,h2,p,td.content,span.alt,summary{letter-spacing:-.01em}
 p strong,td.content strong,div.footnote strong{letter-spacing:-.005em}
-p,blockquote,dt,td.content,td.hdlist1,span.alt,summary{font-size:1.0625rem}
+p,blockquote,dt,td.content,span.alt,summary{font-size:1.0625rem}
 p{margin-bottom:1.25rem}
 .sidebarblock p,.sidebarblock dt,.sidebarblock td.content,p.tableblock{font-size:1em}
 .exampleblock>.content{background:#fffef7;border-color:#e0e0dc;box-shadow:0 1px 4px #e0e0dc}
@@ -484,81 +486,27 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
     border-bottom: 1px solid #ffa;
   }
 
+  /** Copy */
+  .listingblock:hover .clipboard {
+    display: block;
+  }
+
   .clipboard {
-      position: absolute;
-      bottom: .1rem;
-      right: .1rem;
-      display: inline-block;
-      padding: 4px 8px;
-      font-size: 13px;
-      font-weight: 700;
-      line-height: 20px;
-      color: #333;
-      white-space: nowrap;
-      vertical-align: middle;
-      cursor: pointer;
-      background-color: #eee;
-      background-image: linear-gradient(#fcfcfc,#eee);
-      border: 1px solid #d5d5d5;
-      border-radius: 3px;
-      -webkit-user-select: none;
-      -moz-user-select: none;
-      -ms-user-select: none;
-      user-select: none;
-      -webkit-appearance: none
+    border: 0;
+    font-size: .75em;
+    text-transform: uppercase;
+    font-weight: 500;
+    padding: 6px;
+    color: #999;
+    position: absolute;
+    top: .425rem;
+    right: .5rem;
+    background: transparent;
   }
 
-  .clipboard i {
-      font-style: normal;
-      font-weight: 500;
-      opacity: .6
-  }
-
-  .clipboard .octicon {
-      vertical-align: text-top
-  }
-
-  .clipboard .counter {
-      text-shadow: none;
-      background-color: #e5e5e5
-  }
-
-  .clipboard:focus {
-      text-decoration: none;
-      border-color: #51a7e8;
-      outline: none;
-      box-shadow: 0 0 5px rgba(81,167,232,.5)
-  }
-
-  .clipboard:focus:hover,.clipboard.selected:focus {
-      border-color: #51a7e8
-  }
-
-  .clipboard:hover,.clipboard:active,.clipboard.zeroclipboard-is-hover,.clipboard.zeroclipboard-is-active {
-      text-decoration: none;
-      background-color: #ddd;
-      background-image: linear-gradient(#eee,#ddd);
-      border-color: #ccc
-  }
-
-  .clipboard:active,.clipboard.selected,.clipboard.zeroclipboard-is-active {
-      background-color: #dcdcdc;
-      background-image: none;
-      border-color: #b5b5b5;
-      box-shadow: inset 0 2px 4px rgba(0,0,0,.15)
-  }
-
-  .clipboard.selected:hover {
-      background-color: #cfcfcf
-  }
-
-  .clipboard:disabled,.clipboard:disabled:hover,.clipboard.disabled,.clipboard.disabled:hover {
-      color: rgba(102,102,102,.5);
-      cursor: default;
-      background-color: rgba(229,229,229,.5);
-      background-image: none;
-      border-color: rgba(197,197,197,.5);
-      box-shadow: none
+  .clipboard:hover, .clipboard:focus, .clipboard:active {
+    outline: 0;
+    background-color: #eee9e6;
   }
 </style>
 </head>
@@ -566,434 +514,176 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="header">
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
-<ul class="sectlevel1">
-<li><a href="#graphql">1. GraphQL</a>
 <ul class="sectlevel2">
-<li><a href="#usage">1.1. Usage</a></li>
-<li><a href="#options">1.2. Options</a>
+<li><a href="#weld">1. Weld</a>
 <ul class="sectlevel3">
-<li><a href="#async">1.2.1. Async</a></li>
-<li><a href="#support-http-get">1.2.2. Support HTTP Get</a></li>
-<li><a href="#path">1.2.3. Path</a></li>
-</ul>
-</li>
-<li><a href="#ide">1.3. IDE</a>
-<ul class="sectlevel3">
-<li><a href="#graphiql">1.3.1. GraphIQL</a></li>
-<li><a href="#graphql-playground">1.3.2. GraphQL Playground</a></li>
-</ul>
-</li>
+<li><a href="#property-injection">1.1. Property Injection</a></li>
+<li><a href="#mvc-routes">1.2. MVC routes</a></li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
 <div id="content">
-<div class="sect1">
-<h2 id="graphql"><a class="anchor" href="#graphql"></a><a class="link" href="#graphql">1. GraphQL</a></h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>GraphQL using <a href="https://www.graphql-java.com" target="_blank">GraphQL Java</a> library.</p>
-</div>
 <div class="sect2">
-<h3 id="graphql-usage"><a class="anchor" href="#graphql-usage"></a><a class="link" href="#graphql-usage">1.1. Usage</a></h3>
+<h3 id="weld"><a class="anchor" href="#weld"></a><a class="link" href="#weld">1. Weld</a></h3>
 <div class="paragraph">
-<p>1) Add the dependency:</p>
+<p>1) Add Weld dependency to your project:</p>
 </div>
 <div class="listingblock primary">
 
 
 <div class="switch"><div class="switch--item option-1 selected">Maven</div><div class="switch--item option-2">Gradle</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="x33d6695842a64f86">&lt;!-- GraphQL--&gt;
-&lt;dependency&gt;
+<pre class="highlightjs highlight"><code class="language-xml hljs">&lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
-  &lt;artifactId&gt;jooby-graphql&lt;/artifactId&gt;
-  &lt;version&gt;4.0.12&lt;/version&gt;
-&lt;/dependency&gt;
-
-&lt;!--  JSON library--&gt;
-&lt;dependency&gt;
-  &lt;groupId&gt;io.jooby&lt;/groupId&gt;
-  &lt;artifactId&gt;jooby-jackson&lt;/artifactId&gt;
-  &lt;version&gt;4.0.12&lt;/version&gt;
-&lt;/dependency&gt;</code><button class="clipboard" data-clipboard-target="#x33d6695842a64f86"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+  &lt;artifactId&gt;jooby-weld&lt;/artifactId&gt;
+  &lt;version&gt;2.16.2&lt;/version&gt;
+&lt;/dependency&gt;</code><button class="clipboard">Copy</button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-gradle hljs" data-lang="gradle" id="xe06dd651665b48ae">// GraphQL
-implementation 'io.jooby:jooby-graphql:4.0.12'
-
-//  JSON library
-implementation 'io.jooby:jooby-jackson:4.0.12'</code><button class="clipboard" data-clipboard-target="#xe06dd651665b48ae"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+<pre class="highlightjs highlight"><code class="language-javascript hljs">implementation 'io.jooby:jooby-weld:2.16.2'</code><button class="clipboard">Copy</button></pre>
 </div></div>
 
 <div class="paragraph">
-<p>2) Creates <code>schema.graphql</code> inside the <code>src/main/resource</code></p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-graphql hljs" data-lang="graphql" id="xe47951d6e95a4ea9">type Query {
-    bookById(id: ID): Book
-}
-
-type Book {
-    id: ID
-    name: String
-    pageCount: Int
-    author: Author
-}
-
-type Author {
-    id: ID
-    firstName: String
-    lastName: String
-}</code><button class="clipboard" data-clipboard-target="#xe47951d6e95a4ea9"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>3) Install Jackson and GraphQL</p>
+<p>2) Install Weld:</p>
 </div>
 <div class="listingblock primary">
-
+<div class="title">Installing Weld</div>
 
 <div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x7e9e65c2128647e8">import io.jooby.json.JacksonModule;
-import io.jooby.graphql.GraphQLModule;
+<pre class="highlightjs highlight"><code class="language-java hljs">import io.jooby.di.WeldModule;
+import static io.jooby.Jooby.runApp;
 
-{
-  install(new JacksonModule());           <i class="conum" data-value="1"></i><b>(1)</b>
+public class App extends Jooby {
 
-  install(new GraphQLModule(
-    RuntimeWiring.newRuntimeWiring()      <i class="conum" data-value="2"></i><b>(2)</b>
-        .type(newTypeWiring("Query")
-            .dataFetcher("bookById", fetchers.getBookByIdDataFetcher()))
-        .type(newTypeWiring("Book")
-            .dataFetcher("author", fetchers.getAuthorDataFetcher()))
-        .build())
-   );
-}</code><button class="clipboard" data-clipboard-target="#x7e9e65c2128647e8"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+  {
+    install(new WeldModule());                      <i class="conum" data-value="1"></i><b>(1)</b>
+
+    get ("/", ctx -&gt; {
+      MyService service = require(MyService.class); <i class="conum" data-value="2"></i><b>(2)</b>
+      service.doSomething();
+    });
+  }
+
+  public static void main(String[] args) {
+    runApp(args, App::new);
+  }
+}</code><button class="clipboard">Copy</button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="xe06417e69c3a4085">import io.jooby.json.JacksonModule
-import io.jooby.graphql.GraphQLModule
+<pre class="highlightjs highlight"><code class="language-kotlin hljs">import io.jooby.di.WeldModule
+import io.jooby.runApp
 
-{
-  install(JacksonModule())                <i class="conum" data-value="1"></i><b>(1)</b>
+fun main(args: Array&lt;String&gt;) {
+  runApp(args) {
+    install(WeldModule())                           <i class="conum" data-value="1"></i><b>(1)</b>
 
-  install(GraphQLModule(
-    RuntimeWiring.newRuntimeWiring()      <i class="conum" data-value="2"></i><b>(2)</b>
-        .type(newTypeWiring("Query")
-            .dataFetcher("bookById", fetchers.getBookByIdDataFetcher()))
-        .type(newTypeWiring("Book")
-            .dataFetcher("author", fetchers.getAuthorDataFetcher()))
-        .build())
-    )
-}</code><button class="clipboard" data-clipboard-target="#xe06417e69c3a4085"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+    get ("/") {
+      val service = require(MyService::class)       <i class="conum" data-value="2"></i><b>(2)</b>
+      service.doSomething()
+    }
+  }
+}</code><button class="clipboard">Copy</button></pre>
 </div></div>
 
 <div class="colist arabic">
 <table>
 <tbody><tr>
 <td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>Install Jackson</td>
+<td>Install Weld</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>Install GraphQL, uses the <code>schema.graphql</code> and provide a <code>RuntimeWiring</code></td>
+<td>The <a href="https://www.javadoc.io/doc/io.jooby/jooby/latest/io/jooby/Jooby.html#require-java.lang.Class-" target="_blank">require(Class)</a> call is now resolved by Weld</td>
 </tr>
 </tbody></table>
 </div>
-<div class="paragraph">
-<p>The GraphQL module generates a POST <code>/graphql</code> route.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="graphql-options"><a class="anchor" href="#graphql-options"></a><a class="link" href="#graphql-options">1.2. Options</a></h3>
 <div class="sect3">
-<h4 id="graphql-options-async"><a class="anchor" href="#graphql-options-async"></a><a class="link" href="#graphql-options-async">1.2.1. Async</a></h4>
+<h4 id="weld-property-injection"><a class="anchor" href="#weld-property-injection"></a><a class="link" href="#weld-property-injection">1.1. Property Injection</a></h4>
 <div class="paragraph">
-<p>The <a href="https://www.graphql-java.com" target="_blank">GraphQL Java</a> library executes queries in async mode. To turn-off
-the async mode:</p>
+<p>Configuration properties can be injected using the <code>@Named</code> annotation:</p>
+</div>
+<div class="listingblock">
+<div class="title">application.conf</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs">currency = USD</code><button class="clipboard">Copy</button></pre>
+</div>
 </div>
 <div class="listingblock primary">
-<div class="title">Async Mode</div>
+
 
 <div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xb59e3cd2130741e3">import io.jooby.json.JacksonModule;
-import io.jooby.graphql.GraphQLModule;
+<pre class="highlightjs highlight"><code class="language-java hljs">import javax.injext.Inject;
+import javax.injext.Named;
 
-{
-  install(new GraphQLModule(...)
-      .setAsync(false)                    <i class="conum" data-value="1"></i><b>(1)</b>
-  );
-}</code><button class="clipboard" data-clipboard-target="#xb59e3cd2130741e3"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+public class BillingService {
+
+  @Inject
+  public BillingService(@Named("currency") String currency) {
+    ...
+  }
+
+}</code><button class="clipboard">Copy</button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="xd2f9bc3a42374d9d">import io.jooby.json.JacksonModule
-import io.jooby.graphql.GraphQLModule
+<pre class="highlightjs highlight"><code class="language-kotlin hljs">import javax.injext.Inject
+import javax.injext.Named
 
-{
-  install(GraphQLModule(...)
-      .setAsync(false)                    <i class="conum" data-value="1"></i><b>(1)</b>
-  )
-}</code><button class="clipboard" data-clipboard-target="#xd2f9bc3a42374d9d"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
-</div></div>
-
-<div class="colist arabic">
-<table>
-<tbody><tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>Set async false</td>
-</tr>
-</tbody></table>
-</div>
-<div class="paragraph">
-<p>Please refer to <a href="https://www.graphql-java.com/documentation/v12/execution/#asynchronous-execution" target="_blank">Asynchronous execution</a> for more information.</p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="graphql-options-support-http-get"><a class="anchor" href="#graphql-options-support-http-get"></a><a class="link" href="#graphql-options-support-http-get">1.2.2. Support HTTP Get</a></h4>
-<div class="paragraph">
-<p>By default the module only install a HTTP POST route. If you want a HTTP GET:</p>
-</div>
-<div class="listingblock primary">
-<div class="title">HTTP GET</div>
-
-<div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x389e99e069e64e39">import io.jooby.json.JacksonModule;
-import io.jooby.graphql.GraphQLModule;
-
-{
-  install(new GraphQLModule(...)
-      .setSupportHttpGet(true)
-  );
-}</code><button class="clipboard" data-clipboard-target="#x389e99e069e64e39"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
-</div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="xdd4b1602801d42d4">import io.jooby.json.JacksonModule
-import io.jooby.graphql.GraphQLModule
-
-{
-  install(GraphQLModule(...)
-      .setSupportHttpGet(true)
-  )
-}</code><button class="clipboard" data-clipboard-target="#xdd4b1602801d42d4"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+class BillingService @Inject constructor(@Named("currency") currency: String) {
+  ...
+}</code><button class="clipboard">Copy</button></pre>
 </div></div>
 
 </div>
 <div class="sect3">
-<h4 id="graphql-options-path"><a class="anchor" href="#graphql-options-path"></a><a class="link" href="#graphql-options-path">1.2.3. Path</a></h4>
+<h4 id="weld-mvc-routes"><a class="anchor" href="#weld-mvc-routes"></a><a class="link" href="#weld-mvc-routes">1.2. MVC routes</a></h4>
 <div class="paragraph">
-<p>To change the default path: <code>/graphql</code> set the <code>graphql.path</code> property in your application configuration file.</p>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="graphql-ide"><a class="anchor" href="#graphql-ide"></a><a class="link" href="#graphql-ide">1.3. IDE</a></h3>
-<div class="paragraph">
-<p>Jooby comes with supports for two IDE:</p>
+<p>The Weld extension does a bit more in relation to MVC routes:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p><a href="https://github.com/graphql/graphiql" target="_blank">GraphiQL</a></p>
+<p>A MVC route annotated with the <a href="https://www.javadoc.io/doc/io.jooby/jooby/latest/io/jooby/annotations/Path.html" target="_blank">Path</a> annotation is
+automatically registered. No need to register it manually</p>
 </li>
 <li>
-<p><a href="https://github.com/prisma-labs/graphql-playground" target="_blank">GraphQL Playground</a></p>
+<p>The default scope is <code>prototype</code> (creates a new instance per request). If you prefer a single
+instance add the <code>javax.inject.Singleton</code> annotation</p>
 </li>
 </ul>
 </div>
-<div class="paragraph">
-<p>They are provided as optional dependencies.</p>
-</div>
-<div class="sect3">
-<h4 id="graphql-ide-graphiql"><a class="anchor" href="#graphql-ide-graphiql"></a><a class="link" href="#graphql-ide-graphiql">1.3.1. GraphIQL</a></h4>
-<div class="paragraph">
-<p>1) Add the dependencies:</p>
-</div>
 <div class="listingblock primary">
-
-
-<div class="switch"><div class="switch--item option-1 selected">Maven</div><div class="switch--item option-2">Gradle</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="xa63b283105464f44">&lt;!--  JSON library--&gt;
-&lt;dependency&gt;
-  &lt;groupId&gt;io.jooby&lt;/groupId&gt;
-  &lt;artifactId&gt;jooby-jackson&lt;/artifactId&gt;
-  &lt;version&gt;4.0.12&lt;/version&gt;
-&lt;/dependency&gt;
-
-&lt;!-- GraphQL--&gt;
-&lt;dependency&gt;
-  &lt;groupId&gt;io.jooby&lt;/groupId&gt;
-  &lt;artifactId&gt;jooby-graphql&lt;/artifactId&gt;
-  &lt;version&gt;4.0.12&lt;/version&gt;
-&lt;/dependency&gt;
-
-&lt;!--  GraphIQL--&gt;
-&lt;dependency&gt;
-  &lt;groupId&gt;io.jooby&lt;/groupId&gt;
-  &lt;artifactId&gt;jooby-graphiql&lt;/artifactId&gt;
-  &lt;version&gt;4.0.12&lt;/version&gt;
-&lt;/dependency&gt;</code><button class="clipboard" data-clipboard-target="#xa63b283105464f44"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
-</div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-gradle hljs" data-lang="gradle" id="x8847470464c84904">//  JSON library
-implementation 'io.jooby:jooby-jackson:4.0.12'
-
-// GraphQL
-implementation 'io.jooby:jooby-graphql:4.0.12'
-
-//  GraphIQL
-implementation 'io.jooby:jooby-graphiql:4.0.12'</code><button class="clipboard" data-clipboard-target="#x8847470464c84904"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
-</div></div>
-
-<div class="paragraph">
-<p>1) Install</p>
-</div>
-<div class="listingblock primary">
-
+<div class="title">MVC route</div>
 
 <div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x5d43248f542b48f4">import io.jooby.json.JacksonModule;
-import io.jooby.graphql.GraphQLModule;
-import io.jooby.graphql.GraphiQLModule;
+<pre class="highlightjs highlight"><code class="language-java hljs">import io.jooby.annotations.*;
 
-{
-  install(new JacksonModule());           <i class="conum" data-value="1"></i><b>(1)</b>
+@Path("/")
+public class Hello {
 
-  install(new GraphQLModule(...));        <i class="conum" data-value="2"></i><b>(2)</b>
-
-  install(new GraphiQLModule());          <i class="conum" data-value="3"></i><b>(3)</b>
-}</code><button class="clipboard" data-clipboard-target="#x5d43248f542b48f4"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+   @GET
+   public String sayHi() {
+     return "Hi Weld!";
+   }
+}</code><button class="clipboard">Copy</button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="x7010148e7d9544db">import io.jooby.json.JacksonModule
-import io.jooby.graphql.GraphQLModule
-import io.jooby.graphql.GraphiQLModule
+<pre class="highlightjs highlight"><code class="language-kotlin hljs">import io.jooby.annotations.*;
 
-{
-  install(JacksonModule())                <i class="conum" data-value="1"></i><b>(1)</b>
+@Path("/")
+class Hello {
 
-  install(GraphQLModule(...))             <i class="conum" data-value="2"></i><b>(2)</b>
-
-  install(GraphiQLModule())               <i class="conum" data-value="3"></i><b>(3)</b>
-}</code><button class="clipboard" data-clipboard-target="#x7010148e7d9544db"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+   @GET
+   fun sayHi(): String {
+     return "Hi Weld!"
+   }
+}</code><button class="clipboard">Copy</button></pre>
 </div></div>
 
-<div class="colist arabic">
-<table>
-<tbody><tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>Install Jackson</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>Install GraphQL</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="3"></i><b>3</b></td>
-<td>Install GraphiQL</td>
-</tr>
-</tbody></table>
-</div>
-<div class="paragraph">
-<p><a href="https://github.com/graphql/graphiql" target="_blank">GraphiQL</a> should be up and running at <code>/graphql</code>.</p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="graphql-ide-graphql-playground"><a class="anchor" href="#graphql-ide-graphql-playground"></a><a class="link" href="#graphql-ide-graphql-playground">1.3.2. GraphQL Playground</a></h4>
-<div class="paragraph">
-<p>1) Add the dependencies:</p>
-</div>
-<div class="listingblock primary">
-
-
-<div class="switch"><div class="switch--item option-1 selected">Maven</div><div class="switch--item option-2">Gradle</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="x74d7dbcc687944a7">&lt;!--  JSON library--&gt;
-&lt;dependency&gt;
-  &lt;groupId&gt;io.jooby&lt;/groupId&gt;
-  &lt;artifactId&gt;jooby-jackson&lt;/artifactId&gt;
-  &lt;version&gt;4.0.12&lt;/version&gt;
-&lt;/dependency&gt;
-
-&lt;!-- GraphQL--&gt;
-&lt;dependency&gt;
-  &lt;groupId&gt;io.jooby&lt;/groupId&gt;
-  &lt;artifactId&gt;jooby-graphql&lt;/artifactId&gt;
-  &lt;version&gt;4.0.12&lt;/version&gt;
-&lt;/dependency&gt;
-
-&lt;!--  GraphQL Playground--&gt;
-&lt;dependency&gt;
-  &lt;groupId&gt;io.jooby&lt;/groupId&gt;
-  &lt;artifactId&gt;jooby-graphiql-playground&lt;/artifactId&gt;
-  &lt;version&gt;4.0.12&lt;/version&gt;
-&lt;/dependency&gt;</code><button class="clipboard" data-clipboard-target="#x74d7dbcc687944a7"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
-</div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-gradle hljs" data-lang="gradle" id="xca1146fe1747495d">//  JSON library
-implementation 'io.jooby:jooby-jackson:4.0.12'
-
-// GraphQL
-implementation 'io.jooby:jooby-graphql:4.0.12'
-
-//  GraphQL Playground
-implementation 'io.jooby:jooby-graphiql-playground:4.0.12'</code><button class="clipboard" data-clipboard-target="#xca1146fe1747495d"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
-</div></div>
-
-<div class="paragraph">
-<p>1) Install</p>
-</div>
-<div class="listingblock primary">
-
-
-<div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x4c172899f82d49ea">import io.jooby.json.JacksonModule;
-import io.jooby.graphql.GraphQLModule;
-import io.jooby.graphql.GraphQLPlaygroundModule;
-
-{
-  install(new JacksonModule());                    <i class="conum" data-value="1"></i><b>(1)</b>
-
-  install(new GraphQLModule(...));                 <i class="conum" data-value="2"></i><b>(2)</b>
-
-  install(new GraphQLPlaygroundModule());          <i class="conum" data-value="3"></i><b>(3)</b>
-}</code><button class="clipboard" data-clipboard-target="#x4c172899f82d49ea"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
-</div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="xed08f10d31c7479c">import io.jooby.json.JacksonModule
-import io.jooby.graphql.GraphQLModule
-import io.jooby.graphql.GraphQLPlaygroundModule
-
-{
-  install(JacksonModule())                         <i class="conum" data-value="1"></i><b>(1)</b>
-
-  install(GraphQLModule(...))                      <i class="conum" data-value="2"></i><b>(2)</b>
-
-  install(GraphQLPlaygroundModule())               <i class="conum" data-value="3"></i><b>(3)</b>
-}</code><button class="clipboard" data-clipboard-target="#xed08f10d31c7479c"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
-</div></div>
-
-<div class="colist arabic">
-<table>
-<tbody><tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>Install Jackson</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>Install GraphQL</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="3"></i><b>3</b></td>
-<td>Install GraphQL Playground</td>
-</tr>
-</tbody></table>
-</div>
-<div class="paragraph">
-<p><a href="https://github.com/prisma-labs/graphql-playground" target="_blank">GraphQL Playground</a> should be up and running at <code>/graphql</code>.</p>
-</div>
-</div>
-</div>
 </div>
 </div>
 </div>
 <script src="../../js/highlight.min.js"></script>
 <script>
 if (!hljs.initHighlighting.called) {
-  hljs.configure({ignoreUnescapedHTML: true});hljs.initHighlighting.called = true
-  ;[].slice.call(document.querySelectorAll('pre.highlight > code[data-lang]')).forEach(function (el) { hljs.highlightElement(el) })
+  hljs.initHighlighting.called = true
+  ;[].slice.call(document.querySelectorAll('pre.highlight > code')).forEach(function (el) { hljs.highlightBlock(el) })
 }
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/zepto/1.2.0/zepto.min.js"></script>
@@ -1047,12 +737,21 @@ if (!hljs.initHighlighting.called) {
   });
 </script>
 
-<script src="/../../js/clipboard.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.../../js/2.0.0/clipboard.min.js"></script>
 <script>
   $(function() {
-    new ClipboardJS('.clipboard')
-    .on('success', function(e) {
+    new ClipboardJS('.clipboard', {
+      target: function(b) {
+        var p = b.parentNode;
+        var target = p.childNodes[0];
+        return target;
+      }
+    }).on('success', function(e) {
       e.clearSelection();
+      e.trigger.textContent = 'Copied';
+      setTimeout(function() {
+        e.trigger.textContent = 'Copy';
+      }, 2000);
     });
   });
 </script>

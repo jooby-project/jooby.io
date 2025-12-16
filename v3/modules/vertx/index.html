@@ -8,7 +8,7 @@
 <meta name="description" content="The modular micro web framework for Java">
 <meta name="keywords" content="Java, Modern, Micro, Web, Framework, Reactive, Lightweight, Microservices">
 <link rel="icon" type="image/png" href="../../images/favicon96.png">
-<title>jooby: graphql module</title>
+<title>jooby: vertx module</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -567,20 +567,25 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#graphql">1. GraphQL</a>
+<li><a href="#vertx">1. Vertx</a>
 <ul class="sectlevel2">
 <li><a href="#usage">1.1. Usage</a></li>
-<li><a href="#options">1.2. Options</a>
-<ul class="sectlevel3">
-<li><a href="#async">1.2.1. Async</a></li>
-<li><a href="#support-http-get">1.2.2. Support HTTP Get</a></li>
-<li><a href="#path">1.2.3. Path</a></li>
+<li><a href="#options">1.2. Options</a></li>
 </ul>
 </li>
-<li><a href="#ide">1.3. IDE</a>
+<li><a href="#sql-client">2. Sql Client</a>
+<ul class="sectlevel2">
+<li><a href="#mysql">2.1. mysql</a></li>
+<li><a href="#postgresql">2.2. postgresql</a></li>
+</ul>
+</li>
+<li><a href="#vertx-server-advanced">3. Vertx Server (Advanced)</a>
+<ul class="sectlevel2">
+<li><a href="#sql-connection">3.1. Sql Connection</a>
 <ul class="sectlevel3">
-<li><a href="#graphiql">1.3.1. GraphIQL</a></li>
-<li><a href="#graphql-playground">1.3.2. GraphQL Playground</a></li>
+<li><a href="#mysql-2">3.1.1. MySQL</a></li>
+<li><a href="#postgres">3.1.2. Postgres</a></li>
+<li><a href="#how-it-works">3.1.3. How it works?</a></li>
 </ul>
 </li>
 </ul>
@@ -590,13 +595,29 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div id="content">
 <div class="sect1">
-<h2 id="graphql"><a class="anchor" href="#graphql"></a><a class="link" href="#graphql">1. GraphQL</a></h2>
+<h2 id="vertx"><a class="anchor" href="#vertx"></a><a class="link" href="#vertx">1. Vertx</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>GraphQL using <a href="https://www.graphql-java.com" target="_blank">GraphQL Java</a> library.</p>
+<p><a href="https://vertx.io/" target="_blank">Vertx</a> Reactive applications on the JVM.</p>
+</div>
+<div class="paragraph">
+<p>This module export the following services:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>io.vertx.core.Vertx</p>
+</li>
+<li>
+<p>io.vertx.core.eventbus.EventBus</p>
+</li>
+<li>
+<p>io.vertx.core.file.FileSystem</p>
+</li>
+</ul>
 </div>
 <div class="sect2">
-<h3 id="graphql-usage"><a class="anchor" href="#graphql-usage"></a><a class="link" href="#graphql-usage">1.1. Usage</a></h3>
+<h3 id="vertx-usage"><a class="anchor" href="#vertx-usage"></a><a class="link" href="#vertx-usage">1.1. Usage</a></h3>
 <div class="paragraph">
 <p>1) Add the dependency:</p>
 </div>
@@ -604,385 +625,835 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 
 
 <div class="switch"><div class="switch--item option-1 selected">Maven</div><div class="switch--item option-2">Gradle</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="x33d6695842a64f86">&lt;!-- GraphQL--&gt;
-&lt;dependency&gt;
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="xb4715a1c610f4685">&lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
-  &lt;artifactId&gt;jooby-graphql&lt;/artifactId&gt;
+  &lt;artifactId&gt;jooby-vertx&lt;/artifactId&gt;
   &lt;version&gt;4.0.12&lt;/version&gt;
-&lt;/dependency&gt;
-
-&lt;!--  JSON library--&gt;
-&lt;dependency&gt;
-  &lt;groupId&gt;io.jooby&lt;/groupId&gt;
-  &lt;artifactId&gt;jooby-jackson&lt;/artifactId&gt;
-  &lt;version&gt;4.0.12&lt;/version&gt;
-&lt;/dependency&gt;</code><button class="clipboard" data-clipboard-target="#x33d6695842a64f86"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+&lt;/dependency&gt;</code><button class="clipboard" data-clipboard-target="#xb4715a1c610f4685"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-gradle hljs" data-lang="gradle" id="xe06dd651665b48ae">// GraphQL
-implementation 'io.jooby:jooby-graphql:4.0.12'
-
-//  JSON library
-implementation 'io.jooby:jooby-jackson:4.0.12'</code><button class="clipboard" data-clipboard-target="#xe06dd651665b48ae"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+<pre class="highlightjs highlight"><code class="language-gradle hljs" data-lang="gradle" id="xbdc7d1fe73b1459e">implementation 'io.jooby:jooby-vertx:4.0.12'</code><button class="clipboard" data-clipboard-target="#xbdc7d1fe73b1459e"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="paragraph">
-<p>2) Creates <code>schema.graphql</code> inside the <code>src/main/resource</code></p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-graphql hljs" data-lang="graphql" id="xe47951d6e95a4ea9">type Query {
-    bookById(id: ID): Book
-}
-
-type Book {
-    id: ID
-    name: String
-    pageCount: Int
-    author: Author
-}
-
-type Author {
-    id: ID
-    firstName: String
-    lastName: String
-}</code><button class="clipboard" data-clipboard-target="#xe47951d6e95a4ea9"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>3) Install Jackson and GraphQL</p>
+<p>2) Install</p>
 </div>
 <div class="listingblock primary">
 
 
 <div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x7e9e65c2128647e8">import io.jooby.json.JacksonModule;
-import io.jooby.graphql.GraphQLModule;
-
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x4e3b3fb49eca4569">import io.jooby.vertx.VertxModule;
+import static io.jooby.vertx.VertxHandler.vertx;
 {
-  install(new JacksonModule());           <i class="conum" data-value="1"></i><b>(1)</b>
+  install(new VertxModule());                                         <i class="conum" data-value="1"></i><b>(1)</b>
 
-  install(new GraphQLModule(
-    RuntimeWiring.newRuntimeWiring()      <i class="conum" data-value="2"></i><b>(2)</b>
-        .type(newTypeWiring("Query")
-            .dataFetcher("bookById", fetchers.getBookByIdDataFetcher()))
-        .type(newTypeWiring("Book")
-            .dataFetcher("author", fetchers.getAuthorDataFetcher()))
-        .build())
-   );
-}</code><button class="clipboard" data-clipboard-target="#x7e9e65c2128647e8"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+  use(vertx());                                                       <i class="conum" data-value="2"></i><b>(2)</b>
+
+  get("/bus}", ctx -&gt; {
+    var eb = require(EventBus.class);                                 <i class="conum" data-value="3"></i><b>(3)</b>
+
+    eventBus.publish("msg", ctx.query("msg").value("Event Bus!"));    <i class="conum" data-value="4"></i><b>(4)</b>
+    ...
+  });
+
+  get("/*filepath", ctx -&gt; {
+    var fs = require(FileSytem.class);                                <i class="conum" data-value="5"></i><b>(5)</b>
+    return fs.open(ctx.path("filepath").value(), new OpenOptions());  <i class="conum" data-value="6"></i><b>(6)</b>
+  });
+}</code><button class="clipboard" data-clipboard-target="#x4e3b3fb49eca4569"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="xe06417e69c3a4085">import io.jooby.json.JacksonModule
-import io.jooby.graphql.GraphQLModule
+<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="x611d897b603e4636">import io.jooby.vertx.VertxModule
 
 {
-  install(JacksonModule())                <i class="conum" data-value="1"></i><b>(1)</b>
+  install(VertxModule())                                              <i class="conum" data-value="1"></i><b>(1)</b>
 
-  install(GraphQLModule(
-    RuntimeWiring.newRuntimeWiring()      <i class="conum" data-value="2"></i><b>(2)</b>
-        .type(newTypeWiring("Query")
-            .dataFetcher("bookById", fetchers.getBookByIdDataFetcher()))
-        .type(newTypeWiring("Book")
-            .dataFetcher("author", fetchers.getAuthorDataFetcher()))
-        .build())
-    )
-}</code><button class="clipboard" data-clipboard-target="#xe06417e69c3a4085"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+  use(vertx())                                                        <i class="conum" data-value="2"></i><b>(2)</b>
+
+  get("/bus") {
+    val eb = require(EventBus::class)                                 <i class="conum" data-value="3"></i><b>(3)</b>
+
+    eventBus.publish("msg", ctx.query("msg").value("Event Bus!"))     <i class="conum" data-value="4"></i><b>(4)</b>
+    ...
+  }
+
+  get("/*filepath") {
+    varl fs = require(FileSytem::class)                               <i class="conum" data-value="5"></i><b>(5)</b>
+    fs.open(ctx.path("filepath").value(), OpenOptions())              <i class="conum" data-value="6"></i><b>(6)</b>
+  }
+}</code><button class="clipboard" data-clipboard-target="#x611d897b603e4636"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="colist arabic">
 <table>
 <tbody><tr>
 <td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>Install Jackson</td>
+<td>Install Vertx</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>Install GraphQL, uses the <code>schema.graphql</code> and provide a <code>RuntimeWiring</code></td>
+<td>Install vertx handler. Know how to render future, promise and buffer.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Get EventBus instance</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>Send message to <code>msg</code></td>
+</tr>
+<tr>
+<td><i class="conum" data-value="5"></i><b>5</b></td>
+<td>Get FileSystem</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="6"></i><b>6</b></td>
+<td>Open a possible large file and send it to client.</td>
 </tr>
 </tbody></table>
 </div>
-<div class="paragraph">
-<p>The GraphQL module generates a POST <code>/graphql</code> route.</p>
-</div>
 </div>
 <div class="sect2">
-<h3 id="graphql-options"><a class="anchor" href="#graphql-options"></a><a class="link" href="#graphql-options">1.2. Options</a></h3>
-<div class="sect3">
-<h4 id="graphql-options-async"><a class="anchor" href="#graphql-options-async"></a><a class="link" href="#graphql-options-async">1.2.1. Async</a></h4>
+<h3 id="vertx-options"><a class="anchor" href="#vertx-options"></a><a class="link" href="#vertx-options">1.2. Options</a></h3>
 <div class="paragraph">
-<p>The <a href="https://www.graphql-java.com" target="_blank">GraphQL Java</a> library executes queries in async mode. To turn-off
-the async mode:</p>
+<p>Options can be provided manually or from application.conf properties:</p>
 </div>
-<div class="listingblock primary">
-<div class="title">Async Mode</div>
-
-<div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xb59e3cd2130741e3">import io.jooby.json.JacksonModule;
-import io.jooby.graphql.GraphQLModule;
+<div class="listingblock">
+<div class="title">Manually</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xdece47bb85684a81">import io.jooby.vertx.VertxModule;
 
 {
-  install(new GraphQLModule(...)
-      .setAsync(false)                    <i class="conum" data-value="1"></i><b>(1)</b>
-  );
-}</code><button class="clipboard" data-clipboard-target="#xb59e3cd2130741e3"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
-</div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="xd2f9bc3a42374d9d">import io.jooby.json.JacksonModule
-import io.jooby.graphql.GraphQLModule
+  install(new VertxModule(new VertxOptions()
+    .setEventLoopSize(5)
+    .setWorkerPoolSize(20)
+    .setBlockedThreadCheckInterval(500)
+    .setMaxEventLoopExecuteTime(2000)
+  ));
+}</code><button class="clipboard" data-clipboard-target="#xdece47bb85684a81"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">application.conf</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-properties hljs" data-lang="properties" id="x5d10f70f542e4d44">vertx.eventLoopPoolSize=5
+vertx.workerPoolSize = 20
+vertx.blockedThreadCheckInterval=500
+vertx.maxEventLoopExecuteTime=2000
+...</code><button class="clipboard" data-clipboard-target="#x5d10f70f542e4d44"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x96eb5aed53d04261">import io.jooby.vertx.VertxModule;
 
 {
-  install(GraphQLModule(...)
-      .setAsync(false)                    <i class="conum" data-value="1"></i><b>(1)</b>
-  )
-}</code><button class="clipboard" data-clipboard-target="#xd2f9bc3a42374d9d"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
-</div></div>
-
-<div class="colist arabic">
-<table>
-<tbody><tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>Set async false</td>
-</tr>
-</tbody></table>
+  install(new VertxModule());
+}</code><button class="clipboard" data-clipboard-target="#x96eb5aed53d04261"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+</div>
 </div>
 <div class="paragraph">
-<p>Please refer to <a href="https://www.graphql-java.com/documentation/v12/execution/#asynchronous-execution" target="_blank">Asynchronous execution</a> for more information.</p>
+<p>A clustered vertx instance can be provided at creation time:</p>
 </div>
-</div>
-<div class="sect3">
-<h4 id="graphql-options-support-http-get"><a class="anchor" href="#graphql-options-support-http-get"></a><a class="link" href="#graphql-options-support-http-get">1.2.2. Support HTTP Get</a></h4>
-<div class="paragraph">
-<p>By default the module only install a HTTP POST route. If you want a HTTP GET:</p>
-</div>
-<div class="listingblock primary">
-<div class="title">HTTP GET</div>
-
-<div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x389e99e069e64e39">import io.jooby.json.JacksonModule;
-import io.jooby.graphql.GraphQLModule;
+<div class="listingblock">
+<div class="title">Clustered</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xac479d1bcf214f90">import io.jooby.vertx.VertxModule;
 
 {
-  install(new GraphQLModule(...)
-      .setSupportHttpGet(true)
-  );
-}</code><button class="clipboard" data-clipboard-target="#x389e99e069e64e39"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
-</div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="xdd4b1602801d42d4">import io.jooby.json.JacksonModule
-import io.jooby.graphql.GraphQLModule
-
-{
-  install(GraphQLModule(...)
-      .setSupportHttpGet(true)
-  )
-}</code><button class="clipboard" data-clipboard-target="#xdd4b1602801d42d4"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
-</div></div>
-
+  install(new VertxModule(options -&gt; Vertx.builder()
+     .with(options)
+     .withClusteredManager(cm)
+     .buildClustered()
+  ));
+}</code><button class="clipboard" data-clipboard-target="#xac479d1bcf214f90"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div>
-<div class="sect3">
-<h4 id="graphql-options-path"><a class="anchor" href="#graphql-options-path"></a><a class="link" href="#graphql-options-path">1.2.3. Path</a></h4>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="sql-client"><a class="anchor" href="#sql-client"></a><a class="link" href="#sql-client">2. Sql Client</a></h2>
+<div class="sectionbody">
 <div class="paragraph">
-<p>To change the default path: <code>/graphql</code> set the <code>graphql.path</code> property in your application configuration file.</p>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="graphql-ide"><a class="anchor" href="#graphql-ide"></a><a class="link" href="#graphql-ide">1.3. IDE</a></h3>
-<div class="paragraph">
-<p>Jooby comes with supports for two IDE:</p>
+<p>A <a href="https://github.com/eclipse-vertx/vertx-sql-client" target="_blank">reactive SQL Client</a>. Supported databases:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p><a href="https://github.com/graphql/graphiql" target="_blank">GraphiQL</a></p>
+<p>MySQL</p>
 </li>
 <li>
-<p><a href="https://github.com/prisma-labs/graphql-playground" target="_blank">GraphQL Playground</a></p>
+<p>PostgreSQL</p>
 </li>
 </ul>
 </div>
 <div class="paragraph">
-<p>They are provided as optional dependencies.</p>
+<p>These modules require a Vertx instance available in the service registry.</p>
 </div>
-<div class="sect3">
-<h4 id="graphql-ide-graphiql"><a class="anchor" href="#graphql-ide-graphiql"></a><a class="link" href="#graphql-ide-graphiql">1.3.1. GraphIQL</a></h4>
+<div class="sect2">
+<h3 id="sql-client-mysql"><a class="anchor" href="#sql-client-mysql"></a><a class="link" href="#sql-client-mysql">2.1. mysql</a></h3>
 <div class="paragraph">
-<p>1) Add the dependencies:</p>
+<p>1) Add the dependency:</p>
 </div>
 <div class="listingblock primary">
 
 
 <div class="switch"><div class="switch--item option-1 selected">Maven</div><div class="switch--item option-2">Gradle</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="xa63b283105464f44">&lt;!--  JSON library--&gt;
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="xd72ac8dca66e46c1">&lt;!-- Vertx Module--&gt;
 &lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
-  &lt;artifactId&gt;jooby-jackson&lt;/artifactId&gt;
+  &lt;artifactId&gt;jooby-vertx&lt;/artifactId&gt;
   &lt;version&gt;4.0.12&lt;/version&gt;
 &lt;/dependency&gt;
 
-&lt;!-- GraphQL--&gt;
+&lt;!-- mysql Client--&gt;
 &lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
-  &lt;artifactId&gt;jooby-graphql&lt;/artifactId&gt;
+  &lt;artifactId&gt;jooby-vertx-mysql-client&lt;/artifactId&gt;
   &lt;version&gt;4.0.12&lt;/version&gt;
-&lt;/dependency&gt;
-
-&lt;!--  GraphIQL--&gt;
-&lt;dependency&gt;
-  &lt;groupId&gt;io.jooby&lt;/groupId&gt;
-  &lt;artifactId&gt;jooby-graphiql&lt;/artifactId&gt;
-  &lt;version&gt;4.0.12&lt;/version&gt;
-&lt;/dependency&gt;</code><button class="clipboard" data-clipboard-target="#xa63b283105464f44"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+&lt;/dependency&gt;</code><button class="clipboard" data-clipboard-target="#xd72ac8dca66e46c1"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-gradle hljs" data-lang="gradle" id="x8847470464c84904">//  JSON library
-implementation 'io.jooby:jooby-jackson:4.0.12'
+<pre class="highlightjs highlight"><code class="language-gradle hljs" data-lang="gradle" id="xa07cddd439c94994">// Vertx Module
+implementation 'io.jooby:jooby-vertx:4.0.12'
 
-// GraphQL
-implementation 'io.jooby:jooby-graphql:4.0.12'
-
-//  GraphIQL
-implementation 'io.jooby:jooby-graphiql:4.0.12'</code><button class="clipboard" data-clipboard-target="#x8847470464c84904"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+// mysql Client
+implementation 'io.jooby:jooby-vertx-mysql-client:4.0.12'</code><button class="clipboard" data-clipboard-target="#xa07cddd439c94994"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="paragraph">
-<p>1) Install</p>
+<p>2) Define connection string or key/value pairs details:</p>
+</div>
+<div class="listingblock">
+<div class="title">application.conf</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-properties hljs" data-lang="properties" id="xdf901661164d4fb9">db = mysql//dbuser:secretpassword@localhost:3306/mydb</code><button class="clipboard" data-clipboard-target="#xdf901661164d4fb9"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">application.conf</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-properties hljs" data-lang="properties" id="x9e735a2ecc043a4">db.host = localhost
+db.port = 3306
+db.database = mydb
+db.user = dbuser
+db.password = secretpassword</code><button class="clipboard" data-clipboard-target="#x9e735a2ecc043a4"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>3) Install</p>
 </div>
 <div class="listingblock primary">
 
 
 <div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x5d43248f542b48f4">import io.jooby.json.JacksonModule;
-import io.jooby.graphql.GraphQLModule;
-import io.jooby.graphql.GraphiQLModule;
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xe2775bb157834282">import io.jooby.vertx.VertxModule;
+import io.jooby.vertx.VertxMySQLModule;
+import static io.jooby.vertx.VertxHandler.vertx;
 
 {
-  install(new JacksonModule());           <i class="conum" data-value="1"></i><b>(1)</b>
+  install(new VertxModule());                                          <i class="conum" data-value="1"></i><b>(1)</b>
 
-  install(new GraphQLModule(...));        <i class="conum" data-value="2"></i><b>(2)</b>
+  install(new VertxMySQLModule());                                     <i class="conum" data-value="2"></i><b>(2)</b>
 
-  install(new GraphiQLModule());          <i class="conum" data-value="3"></i><b>(3)</b>
-}</code><button class="clipboard" data-clipboard-target="#x5d43248f542b48f4"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+  use(vertx());                                                        <i class="conum" data-value="3"></i><b>(3)</b>
+
+  get("/{id}", ctx -&gt; {
+    var db = require(SqlClient.class);                                 <i class="conum" data-value="4"></i><b>(4)</b>
+    return db.preparedQuery("SELECT id, name from World where id=$1")  <i class="conum" data-value="5"></i><b>(5)</b>
+        .execute(Tuple.of(ctx.path("id").longValue()))
+        .map(result -&gt; {
+          var row = result.iterator().next();
+          return new World(row.getInteger(0), row.getInteger(1));
+        });
+  });
+}</code><button class="clipboard" data-clipboard-target="#xe2775bb157834282"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="x7010148e7d9544db">import io.jooby.json.JacksonModule
-import io.jooby.graphql.GraphQLModule
-import io.jooby.graphql.GraphiQLModule
+<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="xfd2c5e6912e4405e">import io.jooby.vertx.VertxModule
+import io.jooby.vertx.VertxMySQLModule
+import static io.jooby.vertx.VertxHandler.vertx
 
 {
-  install(JacksonModule())                <i class="conum" data-value="1"></i><b>(1)</b>
+  install(VertxModule())                                               <i class="conum" data-value="1"></i><b>(1)</b>
 
-  install(GraphQLModule(...))             <i class="conum" data-value="2"></i><b>(2)</b>
+  install(VertxMySQLModule());                                           <i class="conum" data-value="2"></i><b>(2)</b>
 
-  install(GraphiQLModule())               <i class="conum" data-value="3"></i><b>(3)</b>
-}</code><button class="clipboard" data-clipboard-target="#x7010148e7d9544db"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+  use(vertx())                                                         <i class="conum" data-value="3"></i><b>(3)</b>
+
+  get("/{id}") {
+    val db = require(SqlClient::class)                                 <i class="conum" data-value="4"></i><b>(4)</b>
+    db.preparedQuery("SELECT id, name from World where id=$1")         <i class="conum" data-value="5"></i><b>(5)</b>
+        .execute(Tuple.of(ctx.path("id").longValue()))
+        .map({ result -&gt;
+          val row = result.iterator().next()
+          World(row.getInteger(0), row.getInteger(1))
+        })
+  }
+}</code><button class="clipboard" data-clipboard-target="#xfd2c5e6912e4405e"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="colist arabic">
 <table>
 <tbody><tr>
 <td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>Install Jackson</td>
+<td>Install Vertx</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>Install GraphQL</td>
+<td>Install Sql Client: {{sqlClient}</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="3"></i><b>3</b></td>
-<td>Install GraphiQL</td>
+<td>Install vertx handler. Render future, promise and buffer</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>Get SQL client instance</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="5"></i><b>5</b></td>
+<td>Run a database query</td>
 </tr>
 </tbody></table>
 </div>
 <div class="paragraph">
-<p><a href="https://github.com/graphql/graphiql" target="_blank">GraphiQL</a> should be up and running at <code>/graphql</code>.</p>
+<p>To use the client version of the driver:</p>
+</div>
+<div class="listingblock">
+<div class="title">Client</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x93ef16d7d7d74d88">{
+  ...
+  install(new VertxMySQLModule(MySQLBuilder::client));
+  ...
+}</code><button class="clipboard" data-clipboard-target="#x93ef16d7d7d74d88"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div>
 </div>
-<div class="sect3">
-<h4 id="graphql-ide-graphql-playground"><a class="anchor" href="#graphql-ide-graphql-playground"></a><a class="link" href="#graphql-ide-graphql-playground">1.3.2. GraphQL Playground</a></h4>
+</div>
+<div class="sect2">
+<h3 id="sql-client-postgresql"><a class="anchor" href="#sql-client-postgresql"></a><a class="link" href="#sql-client-postgresql">2.2. postgresql</a></h3>
 <div class="paragraph">
-<p>1) Add the dependencies:</p>
+<p>1) Add the dependency:</p>
 </div>
 <div class="listingblock primary">
 
 
 <div class="switch"><div class="switch--item option-1 selected">Maven</div><div class="switch--item option-2">Gradle</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="x74d7dbcc687944a7">&lt;!--  JSON library--&gt;
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="x18bdad0aed654e61">&lt;!-- Vertx Module--&gt;
 &lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
-  &lt;artifactId&gt;jooby-jackson&lt;/artifactId&gt;
+  &lt;artifactId&gt;jooby-vertx&lt;/artifactId&gt;
   &lt;version&gt;4.0.12&lt;/version&gt;
 &lt;/dependency&gt;
 
-&lt;!-- GraphQL--&gt;
+&lt;!-- postgresql Client--&gt;
 &lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
-  &lt;artifactId&gt;jooby-graphql&lt;/artifactId&gt;
+  &lt;artifactId&gt;jooby-vertx-pg-client&lt;/artifactId&gt;
   &lt;version&gt;4.0.12&lt;/version&gt;
-&lt;/dependency&gt;
-
-&lt;!--  GraphQL Playground--&gt;
-&lt;dependency&gt;
-  &lt;groupId&gt;io.jooby&lt;/groupId&gt;
-  &lt;artifactId&gt;jooby-graphiql-playground&lt;/artifactId&gt;
-  &lt;version&gt;4.0.12&lt;/version&gt;
-&lt;/dependency&gt;</code><button class="clipboard" data-clipboard-target="#x74d7dbcc687944a7"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+&lt;/dependency&gt;</code><button class="clipboard" data-clipboard-target="#x18bdad0aed654e61"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-gradle hljs" data-lang="gradle" id="xca1146fe1747495d">//  JSON library
-implementation 'io.jooby:jooby-jackson:4.0.12'
+<pre class="highlightjs highlight"><code class="language-gradle hljs" data-lang="gradle" id="x4b984ecc2cd047c1">// Vertx Module
+implementation 'io.jooby:jooby-vertx:4.0.12'
 
-// GraphQL
-implementation 'io.jooby:jooby-graphql:4.0.12'
-
-//  GraphQL Playground
-implementation 'io.jooby:jooby-graphiql-playground:4.0.12'</code><button class="clipboard" data-clipboard-target="#xca1146fe1747495d"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+// postgresql Client
+implementation 'io.jooby:jooby-vertx-pg-client:4.0.12'</code><button class="clipboard" data-clipboard-target="#x4b984ecc2cd047c1"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="paragraph">
-<p>1) Install</p>
+<p>2) Define connection string or key/value pairs details:</p>
+</div>
+<div class="listingblock">
+<div class="title">application.conf</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-properties hljs" data-lang="properties" id="xa9b15ff8d9be484c">db = postgresql//dbuser:secretpassword@localhost:5432/mydb</code><button class="clipboard" data-clipboard-target="#xa9b15ff8d9be484c"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">application.conf</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-properties hljs" data-lang="properties" id="x4a8ce4612c5742cf">db.host = localhost
+db.port = 5432
+db.database = mydb
+db.user = dbuser
+db.password = secretpassword</code><button class="clipboard" data-clipboard-target="#x4a8ce4612c5742cf"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>3) Install</p>
 </div>
 <div class="listingblock primary">
 
 
 <div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x4c172899f82d49ea">import io.jooby.json.JacksonModule;
-import io.jooby.graphql.GraphQLModule;
-import io.jooby.graphql.GraphQLPlaygroundModule;
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x2636ecfd849144fa">import io.jooby.vertx.VertxModule;
+import io.jooby.vertx.VertxPgModule;
+import static io.jooby.vertx.VertxHandler.vertx;
 
 {
-  install(new JacksonModule());                    <i class="conum" data-value="1"></i><b>(1)</b>
+  install(new VertxModule());                                          <i class="conum" data-value="1"></i><b>(1)</b>
 
-  install(new GraphQLModule(...));                 <i class="conum" data-value="2"></i><b>(2)</b>
+  install(new VertxPgModule());                                     <i class="conum" data-value="2"></i><b>(2)</b>
 
-  install(new GraphQLPlaygroundModule());          <i class="conum" data-value="3"></i><b>(3)</b>
-}</code><button class="clipboard" data-clipboard-target="#x4c172899f82d49ea"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+  use(vertx());                                                        <i class="conum" data-value="3"></i><b>(3)</b>
+
+  get("/{id}", ctx -&gt; {
+    var db = require(SqlClient.class);                                 <i class="conum" data-value="4"></i><b>(4)</b>
+    return db.preparedQuery("SELECT id, name from World where id=$1")  <i class="conum" data-value="5"></i><b>(5)</b>
+        .execute(Tuple.of(ctx.path("id").longValue()))
+        .map(result -&gt; {
+          var row = result.iterator().next();
+          return new World(row.getInteger(0), row.getInteger(1));
+        });
+  });
+}</code><button class="clipboard" data-clipboard-target="#x2636ecfd849144fa"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="xed08f10d31c7479c">import io.jooby.json.JacksonModule
-import io.jooby.graphql.GraphQLModule
-import io.jooby.graphql.GraphQLPlaygroundModule
+<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="x905ea42695724a61">import io.jooby.vertx.VertxModule
+import io.jooby.vertx.VertxPgModule
+import static io.jooby.vertx.VertxHandler.vertx
 
 {
-  install(JacksonModule())                         <i class="conum" data-value="1"></i><b>(1)</b>
+  install(VertxModule())                                               <i class="conum" data-value="1"></i><b>(1)</b>
 
-  install(GraphQLModule(...))                      <i class="conum" data-value="2"></i><b>(2)</b>
+  install(VertxPgModule());                                           <i class="conum" data-value="2"></i><b>(2)</b>
 
-  install(GraphQLPlaygroundModule())               <i class="conum" data-value="3"></i><b>(3)</b>
-}</code><button class="clipboard" data-clipboard-target="#xed08f10d31c7479c"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+  use(vertx())                                                         <i class="conum" data-value="3"></i><b>(3)</b>
+
+  get("/{id}") {
+    val db = require(SqlClient::class)                                 <i class="conum" data-value="4"></i><b>(4)</b>
+    db.preparedQuery("SELECT id, name from World where id=$1")         <i class="conum" data-value="5"></i><b>(5)</b>
+        .execute(Tuple.of(ctx.path("id").longValue()))
+        .map({ result -&gt;
+          val row = result.iterator().next()
+          World(row.getInteger(0), row.getInteger(1))
+        })
+  }
+}</code><button class="clipboard" data-clipboard-target="#x905ea42695724a61"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="colist arabic">
 <table>
 <tbody><tr>
 <td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>Install Jackson</td>
+<td>Install Vertx</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>Install GraphQL</td>
+<td>Install Sql Client: {{sqlClient}</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="3"></i><b>3</b></td>
-<td>Install GraphQL Playground</td>
+<td>Install vertx handler. Render future, promise and buffer</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>Get SQL client instance</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="5"></i><b>5</b></td>
+<td>Run a database query</td>
 </tr>
 </tbody></table>
 </div>
 <div class="paragraph">
-<p><a href="https://github.com/prisma-labs/graphql-playground" target="_blank">GraphQL Playground</a> should be up and running at <code>/graphql</code>.</p>
+<p>To use the client version of the driver:</p>
+</div>
+<div class="listingblock">
+<div class="title">Client</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x1f32c3667a6d47f1">{
+  ...
+  install(new VertxPgModule(PgBuilder::client));
+  ...
+}</code><button class="clipboard" data-clipboard-target="#x1f32c3667a6d47f1"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="vertx-server-advanced"><a class="anchor" href="#vertx-server-advanced"></a><a class="link" href="#vertx-server-advanced">3. Vertx Server (Advanced)</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The <a href="https://www.javadoc.io/doc/io.jooby/jooby/latest/io.jooby/io/jooby/vertx/VertxServer.html" target="_blank">VertxServer</a> allow you to share the Vertx acceptor and event loop groups within
+the <a href="https://www.javadoc.io/doc/io.jooby/jooby/latest/io.jooby/io/jooby/netty/NettyServer.html" target="_blank">NettyServer</a>, so both vertx and netty web server implementation share the same
+resources. See <a href="https://vertx.io/docs/guides/advanced-vertx-guide/#integrating-netty" target="_blank">for more information</a>.</p>
+</div>
+<div class="paragraph">
+<p>The vertx server must be manually provided at boot time (there is no service loader support for it):</p>
+</div>
+<div class="listingblock primary">
+
+
+<div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x9e30e038a8546a8">import io.jooby.vertx.VertxServer;
+
+{
+  get("/vertx", ctx -&gt; {
+    return "Running from vertx event loop";
+  });
+}
+
+public static void main(String[] args) {
+  runApp(args, new VertxServer(), EVENT_LOOP, App::new);
+}</code><button class="clipboard" data-clipboard-target="#x9e30e038a8546a8"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+</div><div class="content hidden option-2">
+<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="x64ec303d36a4e3a">import io.jooby.vertx.VertxServer
+
+import io.jooby.vertx.VertxServer;
+
+{
+  get("/vertx") {
+    "Running from vertx event loop"
+  }
+}
+
+un main(args: Array&lt;String&gt;) {
+  runApp(args, VertxServer(), EVENT_LOOP, ::App)
+}</code><button class="clipboard" data-clipboard-target="#x64ec303d36a4e3a"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+</div></div>
+
+<div class="paragraph">
+<p>If you run multiple applications, they all share a single Vertx instance.</p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tbody><tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p><strong>VertxModule must NOT be installed while running on VertxServer</strong></p>
+</div>
+</td>
+</tr>
+</tbody></table>
+</div>
+<div class="paragraph">
+<p>One of the main benefits of running on the VertxServer is to share/reuse the event loop threads.
+You can run non-blocking code on the Vertx event loop thread without context switch. A good example
+of this is to run within</p>
+</div>
+<div class="sect2">
+<h3 id="vertx-server-advanced-sql-connection"><a class="anchor" href="#vertx-server-advanced-sql-connection"></a><a class="link" href="#vertx-server-advanced-sql-connection">3.1. Sql Connection</a></h3>
+<div class="paragraph">
+<p>These modules exist as part of the performance tests required by <a href="https://www.techempower.com/benchmarks" target="_blank">Techempower</a>.</p>
+</div>
+<div class="paragraph">
+<p>You are free to use them, but keep in mind they are for very specific kind of application.</p>
+</div>
+<div class="sect3">
+<h4 id="vertx-server-advanced-sql-connection-mysql"><a class="anchor" href="#vertx-server-advanced-sql-connection-mysql"></a><a class="link" href="#vertx-server-advanced-sql-connection-mysql">3.1.1. MySQL</a></h4>
+<div class="paragraph">
+<p>1) Add the dependency:</p>
+</div>
+<div class="listingblock primary">
+
+
+<div class="switch"><div class="switch--item option-1 selected">Maven</div><div class="switch--item option-2">Gradle</div></div><div class="content option-1">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="x82985d057623480f">&lt;!-- Vertx Module--&gt;
+&lt;dependency&gt;
+  &lt;groupId&gt;io.jooby&lt;/groupId&gt;
+  &lt;artifactId&gt;jooby-vertx&lt;/artifactId&gt;
+  &lt;version&gt;4.0.12&lt;/version&gt;
+&lt;/dependency&gt;
+
+&lt;!-- MySQL Client--&gt;
+&lt;dependency&gt;
+  &lt;groupId&gt;io.jooby&lt;/groupId&gt;
+  &lt;artifactId&gt;jooby-vertx-mysql-client&lt;/artifactId&gt;
+  &lt;version&gt;4.0.12&lt;/version&gt;
+&lt;/dependency&gt;</code><button class="clipboard" data-clipboard-target="#x82985d057623480f"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+</div><div class="content hidden option-2">
+<pre class="highlightjs highlight"><code class="language-gradle hljs" data-lang="gradle" id="x3029ddfb25004936">// Vertx Module
+implementation 'io.jooby:jooby-vertx:4.0.12'
+
+// MySQL Client
+implementation 'io.jooby:jooby-vertx-mysql-client:4.0.12'</code><button class="clipboard" data-clipboard-target="#x3029ddfb25004936"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+</div></div>
+
+<div class="paragraph">
+<p>2) Install</p>
+</div>
+<div class="listingblock primary">
+
+
+<div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x7daff20fb7b448d0">import io.jooby.vertx.VertxServer;
+import io.jooby.vertx.VertxMySQLConnectionModule;
+import static io.jooby.vertx.VertxHandler.vertx;
+
+{
+  install(new VertxMySQLConnectionModule());                           <i class="conum" data-value="2"></i><b>(2)</b>
+
+  use(vertx());                                                        <i class="conum" data-value="3"></i><b>(3)</b>
+
+  get("/{id}", ctx -&gt; {
+    var db = require(SqlClient.class);                                 <i class="conum" data-value="4"></i><b>(4)</b>
+    return db.preparedQuery("SELECT id, name from World where id=$1")  <i class="conum" data-value="5"></i><b>(5)</b>
+        .execute(Tuple.of(ctx.path("id").longValue()))
+        .map(result -&gt; {
+          var row = result.iterator().next();
+          return new World(row.getInteger(0), row.getInteger(1));      <i class="conum" data-value="6"></i><b>(6)</b>
+        });
+  });
+}
+
+public static void main(String[] args) {
+  runApp(args, new VertxServer(), EVENT_LOOP, MyApp::new);              <i class="conum" data-value="1"></i><b>(1)</b>
+}</code><button class="clipboard" data-clipboard-target="#x7daff20fb7b448d0"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+</div><div class="content hidden option-2">
+<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="xcccd0f2f4431493b">import io.jooby.vertx.VertxServer
+import io.jooby.vertx.VertxMySQLConnectionModule
+import static io.jooby.vertx.VertxHandler.vertx
+
+{
+  install(VertxMySQLConnectionModule());                               <i class="conum" data-value="2"></i><b>(2)</b>
+
+  use(vertx())                                                         <i class="conum" data-value="3"></i><b>(3)</b>
+
+  get("/{id}") {
+    val db = require(SqlClient::class)                                 <i class="conum" data-value="4"></i><b>(4)</b>
+    db.preparedQuery("SELECT id, name from World where id=$1")         <i class="conum" data-value="5"></i><b>(5)</b>
+        .execute(Tuple.of(ctx.path("id").longValue()))
+        .map({ result -&gt;
+          val row = result.iterator().next()
+          World(row.getInteger(0), row.getInteger(1))                  <i class="conum" data-value="6"></i><b>(6)</b>
+        })
+  }
+}
+
+fun main(args: Array&lt;String&gt;) {
+  runApp(args, VertxServer(), EVENT_LOOP, ::MyApp)                     <i class="conum" data-value="1"></i><b>(1)</b>
+}</code><button class="clipboard" data-clipboard-target="#xcccd0f2f4431493b"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+</div></div>
+
+<div class="colist arabic">
+<table>
+<tbody><tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Install Vertx as web server</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Install Sql connection client: {{sqlClient}</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Install vertx handler. Render future, promise and buffer</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>Get SQL client instance, from Vertx event loop thread</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="5"></i><b>5</b></td>
+<td>Run a database query, from the same Vertx event loop thread</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="6"></i><b>6</b></td>
+<td>Run a database query, from the same Vertx event loop thread</td>
+</tr>
+</tbody></table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="vertx-server-advanced-sql-connection-postgres"><a class="anchor" href="#vertx-server-advanced-sql-connection-postgres"></a><a class="link" href="#vertx-server-advanced-sql-connection-postgres">3.1.2. Postgres</a></h4>
+<div class="paragraph">
+<p>1) Add the dependency:</p>
+</div>
+<div class="listingblock primary">
+
+
+<div class="switch"><div class="switch--item option-1 selected">Maven</div><div class="switch--item option-2">Gradle</div></div><div class="content option-1">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="x76227867b0094bef">&lt;!-- Vertx Module--&gt;
+&lt;dependency&gt;
+  &lt;groupId&gt;io.jooby&lt;/groupId&gt;
+  &lt;artifactId&gt;jooby-vertx&lt;/artifactId&gt;
+  &lt;version&gt;4.0.12&lt;/version&gt;
+&lt;/dependency&gt;
+
+&lt;!-- Postgres Client--&gt;
+&lt;dependency&gt;
+  &lt;groupId&gt;io.jooby&lt;/groupId&gt;
+  &lt;artifactId&gt;jooby-vertx-pg-client&lt;/artifactId&gt;
+  &lt;version&gt;4.0.12&lt;/version&gt;
+&lt;/dependency&gt;</code><button class="clipboard" data-clipboard-target="#x76227867b0094bef"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+</div><div class="content hidden option-2">
+<pre class="highlightjs highlight"><code class="language-gradle hljs" data-lang="gradle" id="xfe6f5080e8194fec">// Vertx Module
+implementation 'io.jooby:jooby-vertx:4.0.12'
+
+// Postgres Client
+implementation 'io.jooby:jooby-vertx-pg-client:4.0.12'</code><button class="clipboard" data-clipboard-target="#xfe6f5080e8194fec"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+</div></div>
+
+<div class="paragraph">
+<p>2) Install</p>
+</div>
+<div class="listingblock primary">
+
+
+<div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xff0d0a2c7ad34323">import io.jooby.vertx.VertxServer;
+import io.jooby.vertx.VertxPgConnectionModule;
+import static io.jooby.vertx.VertxHandler.vertx;
+
+{
+  install(new VertxPgConnectionModule());                           <i class="conum" data-value="2"></i><b>(2)</b>
+
+  use(vertx());                                                        <i class="conum" data-value="3"></i><b>(3)</b>
+
+  get("/{id}", ctx -&gt; {
+    var db = require(SqlClient.class);                                 <i class="conum" data-value="4"></i><b>(4)</b>
+    return db.preparedQuery("SELECT id, name from World where id=$1")  <i class="conum" data-value="5"></i><b>(5)</b>
+        .execute(Tuple.of(ctx.path("id").longValue()))
+        .map(result -&gt; {
+          var row = result.iterator().next();
+          return new World(row.getInteger(0), row.getInteger(1));      <i class="conum" data-value="6"></i><b>(6)</b>
+        });
+  });
+}
+
+public static void main(String[] args) {
+  runApp(args, new VertxServer(), EVENT_LOOP, MyApp::new);              <i class="conum" data-value="1"></i><b>(1)</b>
+}</code><button class="clipboard" data-clipboard-target="#xff0d0a2c7ad34323"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+</div><div class="content hidden option-2">
+<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="x68c1db99f4024cb6">import io.jooby.vertx.VertxServer
+import io.jooby.vertx.VertxPgConnectionModule
+import static io.jooby.vertx.VertxHandler.vertx
+
+{
+  install(VertxPgConnectionModule());                               <i class="conum" data-value="2"></i><b>(2)</b>
+
+  use(vertx())                                                         <i class="conum" data-value="3"></i><b>(3)</b>
+
+  get("/{id}") {
+    val db = require(SqlClient::class)                                 <i class="conum" data-value="4"></i><b>(4)</b>
+    db.preparedQuery("SELECT id, name from World where id=$1")         <i class="conum" data-value="5"></i><b>(5)</b>
+        .execute(Tuple.of(ctx.path("id").longValue()))
+        .map({ result -&gt;
+          val row = result.iterator().next()
+          World(row.getInteger(0), row.getInteger(1))                  <i class="conum" data-value="6"></i><b>(6)</b>
+        })
+  }
+}
+
+fun main(args: Array&lt;String&gt;) {
+  runApp(args, VertxServer(), EVENT_LOOP, ::MyApp)                     <i class="conum" data-value="1"></i><b>(1)</b>
+}</code><button class="clipboard" data-clipboard-target="#x68c1db99f4024cb6"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+</div></div>
+
+<div class="colist arabic">
+<table>
+<tbody><tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Install Vertx as web server</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Install Sql connection client: {{sqlClient}</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Install vertx handler. Render future, promise and buffer</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>Get SQL client instance, from Vertx event loop thread</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="5"></i><b>5</b></td>
+<td>Run a database query, from the same Vertx event loop thread</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="6"></i><b>6</b></td>
+<td>Run a database query, from the same Vertx event loop thread</td>
+</tr>
+</tbody></table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="vertx-server-advanced-sql-connection-how-it-works"><a class="anchor" href="#vertx-server-advanced-sql-connection-how-it-works"></a><a class="link" href="#vertx-server-advanced-sql-connection-how-it-works">3.1.3. How it works?</a></h4>
+<div class="paragraph">
+<p>There is an internal Verticle (one per IO threads) with a dedicated <a href="https://vertx.io/docs/apidocs/io/vertx/sqlclient/SqlConnection.html" target="_blank">SqlConnection</a>. This connection is only
+accessible from a Vertx thread any attempt to access to the connection from a non Vertx thread
+will result in exception.</p>
+</div>
+<div class="paragraph">
+<p>Same applies for the <a href="https://vertx.io/docs/apidocs/io/vertx/sqlclient/PreparedStatement.html" target="_blank">PreparedStatement</a> / <a href="https://vertx.io/docs/apidocs/io/vertx/sqlclient/PreparedQuery.html" target="_blank">PreparedQuery</a> instances.</p>
+</div>
+<div class="listingblock">
+<div class="title">PreparedStatement example:</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x4afee085955c492b">import io.jooby.Reified;
+
+String SELECT_WORLD = "SELECT id, randomnumber from WORLD where id=$1";
+
+Reified&lt;PreparedQuery&lt;RowSet&lt;Row&gt;&gt;&gt; PreparedQueryType =
+    getParameterized(PreparedQuery.class, getParameterized(RowSet.class, Row.class));
+
+{
+  install(new VertxPgConnectionModule()
+     .preparedStatement(Map.of("selectWorld", List.of(SELECT_WORLD)))      <i class="conum" data-value="1"></i><b>(1)</b>
+  );
+
+  use(vertx());                                                            <i class="conum" data-value="2"></i><b>(2)</b>
+
+  var selectWorldQuery = ctx.require(PreparedQueryType, "selectWorld");    <i class="conum" data-value="3"></i><b>(3)</b>
+  get("/world/{id}", ctx -&gt; {
+    return selectWorldQuery.execute(Tuple.of(ctx.path("id").longValue()))
+          .map(
+              result -&gt; {
+                var row = result.iterator().next();
+                return new World(row.getInteger(0), row.getInteger(1));
+              });
+  });
+}
+
+public static void main(String[] args) {
+  runApp(args, new VertxServer(), EVENT_LOOP, App::new);
+}</code><button class="clipboard" data-clipboard-target="#x4afee085955c492b"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tbody><tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Created a prepared statement. This is done when Verticle is deployed</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Add Vertx handler, so it can render Future and Promise.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Get a reference to the prepared statement</td>
+</tr>
+</tbody></table>
+</div>
+<div class="paragraph">
+<p>The line:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>var selectWorldQuery = ctx.require(PreparedQueryType, "selectWorld");</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Allow you to get a reference/proxy to the prepared statement/query. The proxy will thrown an exception
+if you try to use from a non Vertx thread. The prepared statement is compiled when the Verticle
+is deployed (at application startup time).</p>
+</div>
+<div class="paragraph">
+<p>If you work with any of the dependency injection supported framework, you can inject the prepared
+statement like:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x6d0399ab7a0a45bc">@Inject
+public WorldRepository(@Named("selectWorld") PreparedQuery&lt;RowSet&lt;Row&gt;&gt; selectWorld) {
+  this.selectWorld = selectWorld;
+}</code><button class="clipboard" data-clipboard-target="#x6d0399ab7a0a45bc"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+</div>
 </div>
 </div>
 </div>

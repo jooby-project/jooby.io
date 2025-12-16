@@ -571,16 +571,21 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <ul class="sectlevel2">
 <li><a href="#configuration">1.1. Configuration</a></li>
 <li><a href="#usage">1.2. Usage</a></li>
-<li><a href="#annotations">1.3. Annotations</a>
+<li><a href="#javadoc-comments">1.3. JavaDoc comments</a>
 <ul class="sectlevel3">
-<li><a href="#openapidefinition">1.3.1. OpenAPIDefinition</a></li>
-<li><a href="#tags">1.3.2. Tags</a></li>
-<li><a href="#responses-status">1.3.3. Responses &amp; Status</a></li>
+<li><a href="#supported-openapi-tags">1.3.1. Supported OpenAPI tags</a></li>
 </ul>
 </li>
-<li><a href="#documentation-template">1.4. Documentation Template</a></li>
-<li><a href="#swagger-ui">1.5. Swagger UI</a></li>
-<li><a href="#redoc">1.6. Redoc</a></li>
+<li><a href="#annotations">1.4. Annotations</a>
+<ul class="sectlevel3">
+<li><a href="#openapidefinition">1.4.1. OpenAPIDefinition</a></li>
+<li><a href="#tags">1.4.2. Tags</a></li>
+<li><a href="#responses-status">1.4.3. Responses &amp; Status</a></li>
+</ul>
+</li>
+<li><a href="#documentation-template">1.5. Documentation Template</a></li>
+<li><a href="#swagger-ui">1.6. Swagger UI</a></li>
+<li><a href="#redoc">1.7. Redoc</a></li>
 </ul>
 </li>
 </ul>
@@ -594,7 +599,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <p>This module helps automating the generation of API documentation using Jooby projects. jooby-openapi works by examining an application at <strong>build</strong> time to infer API semantics based on byte code and optional annotations.</p>
 </div>
 <div class="paragraph">
-<p>Automatically generates documentation in JSON/YAML format APIs. This documentation can be completed by comments using swagger-api annotations.</p>
+<p>Automatically generates documentation in JSON/YAML format APIs. This documentation can be completed by javadoc comments or using swagger-api annotations.</p>
 </div>
 <div class="paragraph">
 <p>This library supports:</p>
@@ -618,7 +623,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 
 
 <div class="switch"><div class="switch--item option-1 selected">pom.xml</div><div class="switch--item option-2">build.gradle</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="xc70eec0e37054325">&lt;properties&gt;
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="x1e66e2517e164125">&lt;properties&gt;
   &lt;application.class&gt;myapp.App&lt;/application.class&gt;
 &lt;/properties&gt;
 ...
@@ -627,7 +632,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
   &lt;plugin&gt;
     &lt;groupId&gt;io.jooby&lt;/groupId&gt;
     &lt;artifactId&gt;jooby-maven-plugin&lt;/artifactId&gt;
-    &lt;version&gt;3.11.4&lt;/version&gt;
+    &lt;version&gt;4.0.12&lt;/version&gt;
     &lt;executions&gt;
       &lt;execution&gt;
         &lt;goals&gt;
@@ -636,12 +641,12 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
       &lt;/execution&gt;
     &lt;/executions&gt;
   &lt;/plugin&gt;
-&lt;/plugins&gt;</code><button class="clipboard" data-clipboard-target="#xc70eec0e37054325"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+&lt;/plugins&gt;</code><button class="clipboard" data-clipboard-target="#x1e66e2517e164125"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-groovy hljs" data-lang="groovy" id="x2e1e7df45abd414c">buildscript {
+<pre class="highlightjs highlight"><code class="language-groovy hljs" data-lang="groovy" id="x1856067e913a4ff8">buildscript {
 
   ext {
-    joobyVersion = "3.11.4"
+    joobyVersion = "4.0.12"
   }
 
 }
@@ -660,7 +665,7 @@ mainClassName = "myapp.App"
 joobyRun.dependsOn openAPI
 
 // Run openAPI task on build
-jar.dependsOn openAPI</code><button class="clipboard" data-clipboard-target="#x2e1e7df45abd414c"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+jar.dependsOn openAPI</code><button class="clipboard" data-clipboard-target="#x1856067e913a4ff8"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="admonitionblock note">
@@ -689,7 +694,7 @@ To avoid this behaviour you can specify maven build phase which suits your needs
 
 
 <div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xd52191ab20cd4104">{
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xa156a447e1784f12">{
   install(new OpenAPIModule());        <i class="conum" data-value="1"></i><b>(1)</b>
 
   path("/pets", () {                   <i class="conum" data-value="2"></i><b>(2)</b>
@@ -700,9 +705,9 @@ To avoid this behaviour you can specify maven build phase which suits your needs
     });
 
   });
-}</code><button class="clipboard" data-clipboard-target="#xd52191ab20cd4104"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#xa156a447e1784f12"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="x56e780d185d74a26">{
+<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="x81e8454f4e544a8c">{
   install(OpenAPIModule())             <i class="conum" data-value="1"></i><b>(1)</b>
 
   path("/pets") {                      <i class="conum" data-value="2"></i><b>(2)</b>
@@ -713,7 +718,7 @@ To avoid this behaviour you can specify maven build phase which suits your needs
     }
 
   }
-}</code><button class="clipboard" data-clipboard-target="#x56e780d185d74a26"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x81e8454f4e544a8c"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="colist arabic">
@@ -795,26 +800,34 @@ build/classes/java/main/bar/Foo.yaml</pre>
 
 
 <div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x68b6a119cda241c9">{
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x5aea126476d54d9a">{
   install(new OpenAPIModule());
 
-  mvc(new Pets());
+  mvc(new Pets_());
 }
 
+/**
+* Pet Library.
+*/
 @Path("/pets")
 public class Pets {
 
+  /**
+   * List pets.
+   *
+   * @return All pets.
+   */
   @GET
   public List&lt;Pet&gt; list() {
     ...
   }
 
-}</code><button class="clipboard" data-clipboard-target="#x68b6a119cda241c9"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x5aea126476d54d9a"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="x7ed89a7a2b5f4a72">{
+<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="xebb479733b1b413f">{
   install(OpenAPIModule())
 
-  mvc(new MyController())
+  mvc(Pets_())
 }
 
 @Path("/pets")
@@ -825,7 +838,7 @@ class Pets {
     ...
   }
 
-}</code><button class="clipboard" data-clipboard-target="#x7ed89a7a2b5f4a72"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#xebb479733b1b413f"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -834,22 +847,306 @@ properties filter routes by their path pattern. The filter is a regular expressi
 </div>
 </div>
 <div class="sect2">
-<h3 id="openapi-annotations"><a class="anchor" href="#openapi-annotations"></a><a class="link" href="#openapi-annotations">1.3. Annotations</a></h3>
+<h3 id="openapi-javadoc-comments"><a class="anchor" href="#openapi-javadoc-comments"></a><a class="link" href="#openapi-javadoc-comments">1.3. JavaDoc comments</a></h3>
 <div class="paragraph">
-<p>To produces a better documentation this plugin depends on some OpenAPI annotations. To use them, you
-need to add a dependency to your project:</p>
+<p>JavaDoc comments are supported on Java in script and MVC routes.</p>
+</div>
+<div class="listingblock primary">
+
+
+<div class="switch"><div class="switch--item option-1 selected">Script routes</div><div class="switch--item option-2">MVC routes</div></div><div class="content option-1">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x1b72ff292e554fa6">/**
+* My Library.
+* @version 5.4.1
+* @tag Books. All about books.
+* @server.url https://books.api.com
+* @server.description Production
+* @x-logo https://my.api.com/logo.png
+*/
+public class App extends Jooby {
+  {
+    install(new OpenAPIModule());
+
+    /*
+     * Books operations.
+     * @tag Books
+    */
+    path("/api/books", () -&gt; {
+        /*
+         * Query and filter books.
+         *
+         * @param query Book filter.
+         * @return List of matching books.
+         * @operationId query
+         */
+        get("/", ctx -&gt; {
+         var query = ctx.query(BookQuery.class);
+        });
+        /*
+         * Find a book by ISBN.
+         * @param isbn ISBN code.
+         * @return A book.
+         * @throws BookNotFoundException When a book doesn't exist. &lt;code&gt;404&lt;/code&gt;
+         * @operationId bookByIsbn
+         */
+        get("/{isbn}", ctx -&gt; {
+         var query = ctx.query(BookQuery.class);
+        });
+    });
+
+  }
+}
+
+/**
+ * Book query.
+ *
+ * @type Book type.
+ * @aga Book age.
+ */
+public record BookQuery(BookType type, int age) {}
+
+/**
+ * Books can be broadly categorized into fiction and non-fiction
+ */
+public enum BookType {
+  /**
+  * Fiction includes genres like fantasy, science fiction, romance, and mystery.
+  */
+  Fiction,
+  /**
+  * Non-fiction encompasses genres like history, biography, and self-help.
+  */
+  NonFiction
+}</code><button class="clipboard" data-clipboard-target="#x1b72ff292e554fa6"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+</div><div class="content hidden option-2">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x4e6057945fa24a39">/**
+* My Library.
+* @version 5.4.1
+* @tag Books. All about books.
+* @server.url https://books.api.com
+* @server.description Production
+* @x-logo https://my.api.com/logo.png
+*/
+public class App extends Jooby {
+  {
+    mvc(new Books_());
+    install(new OpenAPIModule());
+  }
+}
+/**
+ * Books operations.
+ * @tag Books
+ */
+@Path("/api/books")
+public class Books {
+  /**
+   * Query and filter books.
+    *
+   * @param query Book filter.
+   * @return List of matching books.
+   */
+  public List&lt;Book&gt; query(@QueryParam BookQuery query) {
+     ....
+  }
+  /**
+   * Find a book by ISBN.
+   *
+   * @param isbn ISBN code.
+   * @return A book.
+   * @throws BookNotFoundException When a book doesn't exist. &lt;code&gt;404&lt;/code&gt;
+   */
+  public Book bookByIsbn(@PathParam String isbn) {
+
+  }
+}
+
+/**
+ * Book query.
+ *
+ * @type Book type.
+ * @aga Book age.
+ */
+public record BookQuery(BookType type, int age) {}
+
+/**
+ * Books can be broadly categorized into fiction and non-fiction
+ */
+public enum BookType {
+  /**
+  * Fiction includes genres like fantasy, science fiction, romance, and mystery.
+  */
+  Fiction,
+  /**
+  * Non-fiction encompasses genres like history, biography, and self-help.
+  */
+  NonFiction
+}</code><button class="clipboard" data-clipboard-target="#x4e6057945fa24a39"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+</div></div>
+
+<div class="paragraph">
+<p>A JavaDoc comment is split into:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>summary: Everything before the first <code>.</code> or <code>&lt;p&gt;</code> paragraph</p>
+</li>
+<li>
+<p>description: Everything after the first <code>.</code> or <code>&lt;p&gt;</code> paragraph</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Whitespaces (including new lines) are ignored. To introduce a new line, you must use a <code>&lt;p&gt;</code>.</p>
+</div>
+<div class="sect3">
+<h4 id="openapi-javadoc-comments-supported-openapi-tags"><a class="anchor" href="#openapi-javadoc-comments-supported-openapi-tags"></a><a class="link" href="#openapi-javadoc-comments-supported-openapi-tags">1.3.1. Supported OpenAPI tags</a></h4>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 30%;">
+<col style="width: 10%;">
+<col style="width: 10%;">
+<col style="width: 10%;">
+<col style="width: 40%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Tag</th>
+<th class="tableblock halign-left valign-top">Main</th>
+<th class="tableblock halign-left valign-top">Controller</th>
+<th class="tableblock halign-left valign-top">Method</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">@version 4.0.4</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">[x]</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">@contact.name</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">[x]</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">@contact.url</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">[x]</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">@contact.email</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">[x]</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">@license.name</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">[x]</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">@license.url</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">[x]</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">@server.description</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">[x]</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">@x-</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">[x]</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">[x]</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">[x]</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Tag starting with <code>x-</code> is considered an extension</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">@tag.name</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">[x]</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">[x]</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">[x]</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Tag name</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">@tag.description</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">[x]</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">[x]</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">[x]</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Tag Description</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">@tag</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">[x]</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">[x]</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">[x]</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Shortcut for previous <code>@tag.name</code> and <code>@tag.description</code>. The tag name is everything before <code>.</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">@operationId &lt;name&gt;</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">[x]</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Defined the operationId, useful for script routes.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">@param &lt;name&gt;</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">[x]</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Operation parameter</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">@return</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">[x]</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Operation default response</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">@throws</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">[x]</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Additional non-success responses types. The HTTP response code is taken from <code>&lt;code&gt;{number}&lt;/code&gt;</code>, or set to <code>500</code> error.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>This feature is only available for Java routes. Kotlin source code is not supported.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="openapi-annotations"><a class="anchor" href="#openapi-annotations"></a><a class="link" href="#openapi-annotations">1.4. Annotations</a></h3>
+<div class="paragraph">
+<p>Optionally this plugin depends on some OpenAPI annotations. To use them, you need to add a dependency to your project:</p>
 </div>
 <div class="listingblock primary">
 
 
 <div class="switch"><div class="switch--item option-1 selected">Maven</div><div class="switch--item option-2">Gradle</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="xc87996f926d44d9e">&lt;dependency&gt;
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="x69d4fac87e024dfb">&lt;dependency&gt;
   &lt;groupId&gt;io.swagger.core.v3&lt;/groupId&gt;
   &lt;artifactId&gt;swagger-annotations&lt;/artifactId&gt;
-  &lt;version&gt;2.2.39&lt;/version&gt;
-&lt;/dependency&gt;</code><button class="clipboard" data-clipboard-target="#xc87996f926d44d9e"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+  &lt;version&gt;2.2.40&lt;/version&gt;
+&lt;/dependency&gt;</code><button class="clipboard" data-clipboard-target="#x69d4fac87e024dfb"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-gradle hljs" data-lang="gradle" id="x83ad5978acca4429">implementation 'io.swagger.core.v3:swagger-annotations:2.2.39'</code><button class="clipboard" data-clipboard-target="#x83ad5978acca4429"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+<pre class="highlightjs highlight"><code class="language-gradle hljs" data-lang="gradle" id="x3ffc83d9bfda439a">implementation 'io.swagger.core.v3:swagger-annotations:2.2.40'</code><button class="clipboard" data-clipboard-target="#x3ffc83d9bfda439a"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -859,7 +1156,7 @@ need to add a dependency to your project:</p>
 <div class="title">Script</div>
 
 <div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x33c7933537d240a0">import io.swagger.v3.oas.annotations.Operation;
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xf583bbed312749bf">import io.swagger.v3.oas.annotations.Operation;
 ...
 
 public class App extends Jooby {
@@ -880,9 +1177,9 @@ public class App extends Jooby {
     long id = ctx.path("id").longValue();
     return repo.find(id);
   }
-}</code><button class="clipboard" data-clipboard-target="#x33c7933537d240a0"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#xf583bbed312749bf"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin" id="xc26a0f30f723497f">import io.swagger.v3.oas.annotations.Operation
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin" id="xd5482cd1823c4d8e">import io.swagger.v3.oas.annotations.Operation
 
 class App :Kooby({
   path("/pets") {
@@ -900,12 +1197,12 @@ fun findPetById(ctx: Context) : Pet {
   val repo = ...
   val id = ctx.path("id").longValue()
   return repo.find(id)
-}</code><button class="clipboard" data-clipboard-target="#xc26a0f30f723497f"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#xd5482cd1823c4d8e"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="paragraph">
 <p>The OpenAPI annotations complement the openAPI byte code parser by adding documentation
-or being more specific about a operation, parameter, response type, response status, etc.</p>
+or being more specific about an operation, parameter, response type, response status, etc.</p>
 </div>
 <div class="paragraph">
 <p>Annotations works as documentation but also as a way to override what was generated by the byte
@@ -934,7 +1231,7 @@ is going to be present in the OpenAPI files (present, but without documentation)
 <p>If the parameter annotation doesn’t specify a name, parameter binding follows a positional assignment.</p>
 </div>
 <div class="sect3">
-<h4 id="openapi-annotations-openapidefinition"><a class="anchor" href="#openapi-annotations-openapidefinition"></a><a class="link" href="#openapi-annotations-openapidefinition">1.3.1. OpenAPIDefinition</a></h4>
+<h4 id="openapi-annotations-openapidefinition"><a class="anchor" href="#openapi-annotations-openapidefinition"></a><a class="link" href="#openapi-annotations-openapidefinition">1.4.1. OpenAPIDefinition</a></h4>
 <div class="paragraph">
 <p>This annotation is supported at the application level:</p>
 </div>
@@ -942,7 +1239,7 @@ is going to be present in the OpenAPI files (present, but without documentation)
 <div class="title">OpenAPIDefinition</div>
 
 <div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xfcd4bdd396da427d">@OpenAPIDefinition(
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x3b54678ee2d645ab">@OpenAPIDefinition(
     info = @Info(
         title = "Title",
         description = "description",
@@ -964,9 +1261,9 @@ class App extends Jooby {
   {
     // All routes now have the default tag: `Pets`
   }
-}</code><button class="clipboard" data-clipboard-target="#xfcd4bdd396da427d"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x3b54678ee2d645ab"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="x23f17db9473044a2">@OpenAPIDefinition(
+<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="x5b67e8d6cbb143ac">@OpenAPIDefinition(
     info = Info(
         title = "Title",
         description = "description",
@@ -985,12 +1282,12 @@ class App extends Jooby {
     tags = [Tag(name = "mytag")]
 )
 class App: Kooby({
-})</code><button class="clipboard" data-clipboard-target="#x23f17db9473044a2"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+})</code><button class="clipboard" data-clipboard-target="#x5b67e8d6cbb143ac"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 </div>
 <div class="sect3">
-<h4 id="openapi-annotations-tags"><a class="anchor" href="#openapi-annotations-tags"></a><a class="link" href="#openapi-annotations-tags">1.3.2. Tags</a></h4>
+<h4 id="openapi-annotations-tags"><a class="anchor" href="#openapi-annotations-tags"></a><a class="link" href="#openapi-annotations-tags">1.4.2. Tags</a></h4>
 <div class="paragraph">
 <p>Tagging is supported at three different levels:</p>
 </div>
@@ -998,49 +1295,49 @@ class App: Kooby({
 <div class="title">Application level</div>
 
 <div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x61f373da9c1c4704">@Tag(name = "Pets", description = "Pet operations")
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xfc13b04e793b41f1">@Tag(name = "Pets", description = "Pet operations")
 class App extends Jooby {
   {
     // All routes now have the default tag: `Pets`
   }
-}</code><button class="clipboard" data-clipboard-target="#x61f373da9c1c4704"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#xfc13b04e793b41f1"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="xc7340c8eefbd4c4d">@Tag(name = "Pets", description = "Pet operations")
+<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="xf979d4a6148049fe">@Tag(name = "Pets", description = "Pet operations")
 class App: Kooby({
     // All routes now have the default tag: `Pets`
-})</code><button class="clipboard" data-clipboard-target="#xc7340c8eefbd4c4d"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+})</code><button class="clipboard" data-clipboard-target="#xf979d4a6148049fe"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="listingblock primary">
 <div class="title">Controller level</div>
 
 <div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x9cdefb939e84fd2">@Tag(name = "Pets", description = "Pet operations")
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x98d1188f152046a2">@Tag(name = "Pets", description = "Pet operations")
 @Path("/pets")
 class Pets {
   // All web method now have the default tag: `Pets`
-}</code><button class="clipboard" data-clipboard-target="#x9cdefb939e84fd2"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x98d1188f152046a2"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="xa6f73a7843634447">@Tag(name = "Pets", description = "Pet operations")
+<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="xa633ae4ebd37466a">@Tag(name = "Pets", description = "Pet operations")
 @Path("/pets")
 class Pets {
   // All web method now have the default tag: `Pets`
-}</code><button class="clipboard" data-clipboard-target="#xa6f73a7843634447"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#xa633ae4ebd37466a"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="listingblock primary">
 <div class="title">Method level</div>
 
 <div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xee40bfea3db04778">@Tag(name = "Pets", description = "Pet operations")
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x99e0b94f8b554ae0">@Tag(name = "Pets", description = "Pet operations")
 public List&lt;Pet&gt; list(Context ctx) {
   ...
-}</code><button class="clipboard" data-clipboard-target="#xee40bfea3db04778"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x99e0b94f8b554ae0"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="x97b3fc38c33c4a44">@Tag(name = "Pets", description = "Pet operations")
+<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="x28a0d4a478184596">@Tag(name = "Pets", description = "Pet operations")
 fun list(ctx: Context): List&lt;Pet&gt; {
   ...
-}</code><button class="clipboard" data-clipboard-target="#x97b3fc38c33c4a44"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x28a0d4a478184596"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -1049,7 +1346,7 @@ and/or <code>@Operation</code> annotations.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="openapi-annotations-responses-status"><a class="anchor" href="#openapi-annotations-responses-status"></a><a class="link" href="#openapi-annotations-responses-status">1.3.3. Responses &amp; Status</a></h4>
+<h4 id="openapi-annotations-responses-status"><a class="anchor" href="#openapi-annotations-responses-status"></a><a class="link" href="#openapi-annotations-responses-status">1.4.3. Responses &amp; Status</a></h4>
 <div class="paragraph">
 <p>The default response code is <code>Success(200)</code> (or <code>NO_CONTENT(204)</code> for DELETE mvc routes). Now, if
 you need to:</p>
@@ -1096,7 +1393,7 @@ you need to:</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="openapi-documentation-template"><a class="anchor" href="#openapi-documentation-template"></a><a class="link" href="#openapi-documentation-template">1.4. Documentation Template</a></h3>
+<h3 id="openapi-documentation-template"><a class="anchor" href="#openapi-documentation-template"></a><a class="link" href="#openapi-documentation-template">1.5. Documentation Template</a></h3>
 <div class="paragraph">
 <p>The OpenAPI output generates some default values for <code>info</code> and <code>server</code> section. It generates
 the necessary to follow the specification and produces a valid output. These sections can be override
@@ -1108,7 +1405,7 @@ with better information/metadata.</p>
 <div class="listingblock">
 <div class="title">conf/openapi.yaml</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml" id="xb3c48c793fb74c31">openapi: 3.0.1
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml" id="xa18087a2ba334ca4">openapi: 3.0.1
 info:
   title: My Super API
   description: |
@@ -1127,7 +1424,7 @@ info:
         description: List and sort pets.
         parameters:
           name: page
-            descripton: Page number.</code><button class="clipboard" data-clipboard-target="#xb3c48c793fb74c31"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+            descripton: Page number.</code><button class="clipboard" data-clipboard-target="#xa18087a2ba334ca4"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1168,7 +1465,7 @@ info:
 </div>
 </div>
 <div class="sect2">
-<h3 id="openapi-swagger-ui"><a class="anchor" href="#openapi-swagger-ui"></a><a class="link" href="#openapi-swagger-ui">1.5. Swagger UI</a></h3>
+<h3 id="openapi-swagger-ui"><a class="anchor" href="#openapi-swagger-ui"></a><a class="link" href="#openapi-swagger-ui">1.6. Swagger UI</a></h3>
 <div class="paragraph">
 <p>To use swagger-ui just add the dependency to your project:</p>
 </div>
@@ -1176,13 +1473,13 @@ info:
 
 
 <div class="switch"><div class="switch--item option-1 selected">Maven</div><div class="switch--item option-2">Gradle</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="x507bd16416364121">&lt;dependency&gt;
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="x57760a1be4764fa2">&lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
   &lt;artifactId&gt;jooby-swagger-ui&lt;/artifactId&gt;
-  &lt;version&gt;3.11.4&lt;/version&gt;
-&lt;/dependency&gt;</code><button class="clipboard" data-clipboard-target="#x507bd16416364121"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+  &lt;version&gt;4.0.12&lt;/version&gt;
+&lt;/dependency&gt;</code><button class="clipboard" data-clipboard-target="#x57760a1be4764fa2"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-gradle hljs" data-lang="gradle" id="x50dfb49889143d0">implementation 'io.jooby:jooby-swagger-ui:3.11.4'</code><button class="clipboard" data-clipboard-target="#x50dfb49889143d0"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+<pre class="highlightjs highlight"><code class="language-gradle hljs" data-lang="gradle" id="x16859d90e84a4175">implementation 'io.jooby:jooby-swagger-ui:4.0.12'</code><button class="clipboard" data-clipboard-target="#x16859d90e84a4175"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -1190,7 +1487,7 @@ info:
 </div>
 </div>
 <div class="sect2">
-<h3 id="openapi-redoc"><a class="anchor" href="#openapi-redoc"></a><a class="link" href="#openapi-redoc">1.6. Redoc</a></h3>
+<h3 id="openapi-redoc"><a class="anchor" href="#openapi-redoc"></a><a class="link" href="#openapi-redoc">1.7. Redoc</a></h3>
 <div class="paragraph">
 <p>To use redoc just add the dependency to your project:</p>
 </div>
@@ -1198,13 +1495,13 @@ info:
 
 
 <div class="switch"><div class="switch--item option-1 selected">Maven</div><div class="switch--item option-2">Gradle</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="xd6d843f28be84aa7">&lt;dependency&gt;
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="x53a754f42b77454a">&lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
   &lt;artifactId&gt;jooby-redoc&lt;/artifactId&gt;
-  &lt;version&gt;3.11.4&lt;/version&gt;
-&lt;/dependency&gt;</code><button class="clipboard" data-clipboard-target="#xd6d843f28be84aa7"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+  &lt;version&gt;4.0.12&lt;/version&gt;
+&lt;/dependency&gt;</code><button class="clipboard" data-clipboard-target="#x53a754f42b77454a"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-gradle hljs" data-lang="gradle" id="x7c26104a8acc4bd9">implementation 'io.jooby:jooby-redoc:3.11.4'</code><button class="clipboard" data-clipboard-target="#x7c26104a8acc4bd9"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+<pre class="highlightjs highlight"><code class="language-gradle hljs" data-lang="gradle" id="xb9a6e8cfd7fb4495">implementation 'io.jooby:jooby-redoc:4.0.12'</code><button class="clipboard" data-clipboard-target="#xb9a6e8cfd7fb4495"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -1217,8 +1514,8 @@ info:
 <script src="../../js/highlight.min.js"></script>
 <script>
 if (!hljs.initHighlighting.called) {
-  hljs.initHighlighting.called = true
-  ;[].slice.call(document.querySelectorAll('pre.highlight > code[data-lang]')).forEach(function (el) { hljs.highlightBlock(el) })
+  hljs.configure({ignoreUnescapedHTML: true});hljs.initHighlighting.called = true
+  ;[].slice.call(document.querySelectorAll('pre.highlight > code[data-lang]')).forEach(function (el) { hljs.highlightElement(el) })
 }
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/zepto/1.2.0/zepto.min.js"></script>
