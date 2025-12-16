@@ -608,12 +608,12 @@ distribution. Next example shows how to do it in case you created your applicati
 
 
 <div class="switch"><div class="switch--item option-1 selected">Maven</div><div class="switch--item option-2">Gradle</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="x83aeb5a8286d4f9d">&lt;build&gt;
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="x700cfefdf3d43a7">&lt;build&gt;
   &lt;plugins&gt;
     ...
     &lt;plugin&gt;
         &lt;artifactId&gt;maven-shade-plugin&lt;/artifactId&gt;
-        &lt;version&gt;3.6.0&lt;/version&gt;
+        &lt;version&gt;3.6.1&lt;/version&gt;
         &lt;executions&gt;
           &lt;execution&gt;
             &lt;id&gt;uber-jar&lt;/id&gt;
@@ -635,9 +635,9 @@ distribution. Next example shows how to do it in case you created your applicati
       &lt;/plugin&gt;
     ...
   &lt;/plugins&gt;
-&lt;/build&gt;</code><button class="clipboard" data-clipboard-target="#x83aeb5a8286d4f9d"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+&lt;/build&gt;</code><button class="clipboard" data-clipboard-target="#x700cfefdf3d43a7"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-groovy hljs" data-lang="groovy" id="xba3c2eb4fb0c47aa">plugins {
+<pre class="highlightjs highlight"><code class="language-groovy hljs" data-lang="groovy" id="x3d416b4a6b3b4ffc">plugins {
   ...
   id "com.github.johnrengelman.shadow" version "5.2.0"
   ...
@@ -647,7 +647,7 @@ distribution. Next example shows how to do it in case you created your applicati
 
 shadowJar {
   mergeServiceFiles()
-}</code><button class="clipboard" data-clipboard-target="#xba3c2eb4fb0c47aa"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x3d416b4a6b3b4ffc"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -695,7 +695,7 @@ shadowJar {
 <div class="listingblock">
 <div class="title">stork.yml</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml" id="xd5e4064f35ec419b"># Name of application (make sure it has no spaces)
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml" id="xf9d294a221ba413b"># Name of application (make sure it has no spaces)
 name: "${project.artifactId}"
 
 # Display name of application (can have spaces)
@@ -735,7 +735,7 @@ max_java_memory: 512
 # Try to create a symbolic link to java executable in &lt;app_home&gt;/run with
 # the name of "&lt;app_name&gt;-java" so that commands like "ps" will make it
 # easier to find your app
-symlink_java: true</code><button class="clipboard" data-clipboard-target="#xd5e4064f35ec419b"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+symlink_java: true</code><button class="clipboard" data-clipboard-target="#xf9d294a221ba413b"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -744,7 +744,7 @@ symlink_java: true</code><button class="clipboard" data-clipboard-target="#xd5e4
 <div class="listingblock">
 <div class="title">Maven</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="xcbc99df20f324642">&lt;build&gt;
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="x2df449e016b3492c">&lt;build&gt;
   &lt;plugins&gt;
     &lt;plugin&gt;
         &lt;groupId&gt;io.repaint.maven&lt;/groupId&gt;
@@ -753,12 +753,12 @@ symlink_java: true</code><button class="clipboard" data-clipboard-target="#xd5e4
         &lt;extensions&gt;true&lt;/extensions&gt;
         &lt;configuration&gt;
           &lt;tiles&gt;
-            &lt;tile&gt;io.jooby:jooby-stork:3.11.4&lt;/tile&gt;
+            &lt;tile&gt;io.jooby:jooby-stork:4.0.9&lt;/tile&gt;
           &lt;/tiles&gt;
         &lt;/configuration&gt;
     &lt;/plugin&gt;
   &lt;/plugins&gt;
-&lt;/build&gt;</code><button class="clipboard" data-clipboard-target="#xcbc99df20f324642"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+&lt;/build&gt;</code><button class="clipboard" data-clipboard-target="#x2df449e016b3492c"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -774,8 +774,8 @@ symlink_java: true</code><button class="clipboard" data-clipboard-target="#xd5e4
 <script src="../../js/highlight.min.js"></script>
 <script>
 if (!hljs.initHighlighting.called) {
-  hljs.initHighlighting.called = true
-  ;[].slice.call(document.querySelectorAll('pre.highlight > code[data-lang]')).forEach(function (el) { hljs.highlightBlock(el) })
+  hljs.configure({ignoreUnescapedHTML: true});hljs.initHighlighting.called = true
+  ;[].slice.call(document.querySelectorAll('pre.highlight > code[data-lang]')).forEach(function (el) { hljs.highlightElement(el) })
 }
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/zepto/1.2.0/zepto.min.js"></script>
