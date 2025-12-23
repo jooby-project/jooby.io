@@ -8,7 +8,7 @@
 <meta name="description" content="The modular micro web framework for Java">
 <meta name="keywords" content="Java, Modern, Micro, Web, Framework, Reactive, Lightweight, Microservices">
 <link rel="icon" type="image/png" href="../../images/favicon96.png">
-<title>jooby: vertx mysql client module</title>
+<title>jooby: openapi ascii module</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -566,168 +566,580 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="header">
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
-<ul class="sectlevel1">
-<li><a href="#sql-client">1. Sql Client</a>
-<ul class="sectlevel2">
-<li><a href="#mysql">1.1. MySQL</a></li>
-</ul>
-</li>
+<ul class="sectlevel3">
+<li><a href="#ascii-doc">1. Ascii Doc</a></li>
 </ul>
 </div>
 </div>
 <div id="content">
-<div class="sect1">
-<h2 id="sql-client"><a class="anchor" href="#sql-client"></a><a class="link" href="#sql-client">1. Sql Client</a></h2>
-<div class="sectionbody">
+<div class="sect3">
+<h4 id="ascii-doc"><a class="anchor" href="#ascii-doc"></a><a class="link" href="#ascii-doc">1. Ascii Doc</a></h4>
+<div class="sect4">
+<h5 id="ascii-doc-setup"><a class="anchor" href="#ascii-doc-setup"></a><a class="link" href="#ascii-doc-setup">Setup</a></h5>
 <div class="paragraph">
-<p>A <a href="https://github.com/eclipse-vertx/vertx-sql-client" target="_blank">reactive SQL Client</a>. Supported databases:</p>
+<p>1) create your template: <code>doc/library.adoc</code></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-asciidoc hljs" data-lang="asciidoc" id="x96e7a449095c4cb2">= 📚 {{info.title}} Guide
+:source-highlighter: highlightjs
+
+{{ info.description }}
+
+== Base URL
+
+All requests start with: `{{ server(0).url }}/library`
+
+===  Summary
+
+{{ routes | table(grid="rows") }}</code><button class="clipboard" data-clipboard-target="#x96e7a449095c4cb2"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>2) add to build process</p>
+</div>
+<div class="listingblock primary">
+
+
+<div class="switch"><div class="switch--item option-1 selected">pom.xml</div><div class="switch--item option-2">build.gradle</div></div><div class="content option-1">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="x69389ac8fac146e6">...
+&lt;plugins&gt;
+  ...
+  &lt;plugin&gt;
+    &lt;groupId&gt;io.jooby&lt;/groupId&gt;
+    &lt;artifactId&gt;jooby-maven-plugin&lt;/artifactId&gt;
+    &lt;version&gt;4.0.13&lt;/version&gt;
+    &lt;executions&gt;
+      &lt;execution&gt;
+        &lt;goals&gt;
+          &lt;goal&gt;openapi&lt;/goal&gt;
+        &lt;/goals&gt;
+        &lt;configuration&gt;
+          &lt;adoc&gt;
+            &lt;file&gt;doc/library.adoc&lt;/file&gt;
+          &lt;/adoc&gt;
+        &lt;/configuration&gt;
+      &lt;/execution&gt;
+    &lt;/executions&gt;
+  &lt;/plugin&gt;
+&lt;/plugins&gt;</code><button class="clipboard" data-clipboard-target="#x69389ac8fac146e6"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+</div><div class="content hidden option-2">
+<pre class="highlightjs highlight"><code class="language-groovy hljs" data-lang="groovy" id="x4805c17fd26a4e6a">openAPI {
+  adoc = ["doc/library.adoc"]
+}</code><button class="clipboard" data-clipboard-target="#x4805c17fd26a4e6a"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+</div></div>
+
+<div class="paragraph">
+<p>3) The output directory will have two files:
+  - library.adoc (final asciidoctor file)
+  - library.html (asciidoctor output)</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="ascii-doc-1-overview"><a class="anchor" href="#ascii-doc-1-overview"></a><a class="link" href="#ascii-doc-1-overview">1. Overview</a></h5>
+<div class="paragraph">
+<p>The <strong>Jooby OpenAPI Template Engine</strong> is a tool designed to generate comprehensive <strong>AsciiDoc (<code>.adoc</code>)</strong> documentation directly from your Jooby application’s OpenAPI model.</p>
+</div>
+<div class="paragraph">
+<p>It uses <a href="https://pebbletemplates.io" target="_blank">pebble</a> as a pre-processor to automate redundant tasks. Instead of manually writing repetitive documentation for every endpoint, you write a single template that pulls live data from your code (routes, schemas, javadoc).</p>
+</div>
+<div class="sect5">
+<h6 id="pebble-syntax-primer"><a class="anchor" href="#pebble-syntax-primer"></a><a class="link" href="#pebble-syntax-primer">Pebble Syntax Primer</a></h6>
+<div class="paragraph">
+<p>You mix standard AsciiDoc text with Pebble logic.</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>MySQL</p>
+<p><strong><code>{{ expression }}</code></strong>: <strong>Output.</strong> Use this to print values to the file.</p>
+<div class="paragraph">
+<p><em>Example:</em> <code>{{ info.title }}</code> prints the API title.</p>
+</div>
+</li>
+<li>
+<p><strong><code>{% tag %}</code></strong>: <strong>Logic.</strong> Use this for control flow (loops, variables, if/else) without printing output.</p>
+<div class="paragraph">
+<p><em>Example:</em> <code>{% for route in routes %} …​ {% endfor %}</code> loops through your API routes.</p>
+</div>
 </li>
 </ul>
 </div>
-<div class="paragraph">
-<p>These modules require a Vertx instance available in the service registry.</p>
+<hr>
 </div>
-<div class="sect2">
-<h3 id="sql-client-mysql"><a class="anchor" href="#sql-client-mysql"></a><a class="link" href="#sql-client-mysql">1.1. MySQL</a></h3>
-<div class="paragraph">
-<p>1) Add the dependency:</p>
 </div>
-<div class="listingblock primary">
-
-
-<div class="switch"><div class="switch--item option-1 selected">Maven</div><div class="switch--item option-2">Gradle</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="x9af3ddbffe874e3c">&lt;!-- Vertx Module--&gt;
-&lt;dependency&gt;
-  &lt;groupId&gt;io.jooby&lt;/groupId&gt;
-  &lt;artifactId&gt;jooby-vertx&lt;/artifactId&gt;
-  &lt;version&gt;4.0.13&lt;/version&gt;
-&lt;/dependency&gt;
-
-&lt;!-- MySQL Client--&gt;
-&lt;dependency&gt;
-  &lt;groupId&gt;io.jooby&lt;/groupId&gt;
-  &lt;artifactId&gt;jooby-vertx-mysql-client&lt;/artifactId&gt;
-  &lt;version&gt;4.0.13&lt;/version&gt;
-&lt;/dependency&gt;</code><button class="clipboard" data-clipboard-target="#x9af3ddbffe874e3c"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
-</div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-gradle hljs" data-lang="gradle" id="xf52f537a7f84401">// Vertx Module
-implementation 'io.jooby:jooby-vertx:4.0.13'
-
-// MySQL Client
-implementation 'io.jooby:jooby-vertx-mysql-client:4.0.13'</code><button class="clipboard" data-clipboard-target="#xf52f537a7f84401"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
-</div></div>
-
+<div class="sect4">
+<h5 id="ascii-doc-2-the-pipeline-concept"><a class="anchor" href="#ascii-doc-2-the-pipeline-concept"></a><a class="link" href="#ascii-doc-2-the-pipeline-concept">2. The Pipeline Concept</a></h5>
 <div class="paragraph">
-<p>2) Define connection string or key/value pairs details:</p>
+<p>Data generation follows a flexible pipeline architecture. You start with a source and can optionally transform it before rendering.</p>
 </div>
 <div class="listingblock">
-<div class="title">application.conf</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-properties hljs" data-lang="properties" id="x3f4ae63ce3ba4867">db = MySQL//dbuser:secretpassword@localhost:{{port}}/mydb</code><button class="clipboard" data-clipboard-target="#x3f4ae63ce3ba4867"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+<pre class="highlightjs highlight"><code class="language-none hljs" id="xd2f378a014c44606">{{ <strong>Source</strong> | [<strong>Mutator</strong>] | <strong>Display</strong> }}</code><button class="clipboard" data-clipboard-target="#xd2f378a014c44606"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+</div>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>Source</strong>: Finds an object in the OpenAPI model (e.g., a route or schema).</p>
+</li>
+<li>
+<p><strong>Mutator</strong> <em>(Optional)</em>: Transforms or filters the data (e.g., extracting just the body, or filtering parameters).</p>
+</li>
+<li>
+<p><strong>Display</strong>: Renders the final output (e.g., as JSON, a Table, or a cURL command).</p>
+</li>
+</ol>
+</div>
+<div class="sect5">
+<h6 id="examples"><a class="anchor" href="#examples"></a><a class="link" href="#examples">Examples</a></h6>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Simple:</strong> Source → Display</p>
+<div class="paragraph">
+<p><code>{{ info.description }}</code></p>
+</div>
+</li>
+<li>
+<p><strong>Chained:</strong> Source → Mutator → Display</p>
+<div class="paragraph">
+<p><code>{{ GET("/users") | request | body | example | json }}</code></p>
+</div>
+</li>
+</ul>
+</div>
+<hr>
+</div>
+</div>
+<div class="sect4">
+<h5 id="ascii-doc-3-data-sources-lookups"><a class="anchor" href="#ascii-doc-3-data-sources-lookups"></a><a class="link" href="#ascii-doc-3-data-sources-lookups">3. Data Sources (Lookups)</a></h5>
+<div class="paragraph">
+<p>These functions are your entry points to locate objects within the OpenAPI definition.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 37.5%;">
+<col style="width: 37.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Function</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>operation(method, path)</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Generic lookup for an API operation.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>{{ operation("GET", "/books") }}</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>GET(path)</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Shorthand for <code>operation("GET", path)</code>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>{{ GET("/books") }}</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>POST(path)</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Shorthand for <code>operation("POST", path)</code>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>{{ POST("/books") }}</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>PUT / PATCH / DELETE</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Shorthand for respective HTTP methods.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>{{ DELETE("/books/{id}") }}</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>schema(name)</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Looks up a Schema/Model definition by name.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>{{ schema("User") }}</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>tag(name)</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Selects a specific Tag group (containing name, description, and routes).</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>{{ tag("Inventory") }}</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>routes()</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns a collection of all available routes in the API.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>{% for r in routes() %}…​{% endfor %}</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>server(index)</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Selects a server definition from the OpenAPI spec by index.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>{{ server(0).url }}</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>error(code)</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Generates an error response object.<br>
+<strong>Default:</strong> <code>{statusCode, reason, message}</code>.<br>
+<strong>Custom:</strong> Looks for a global <code>error</code> variable map and interpolates values.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>{{ error(404) }}</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>statusCode(input)</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Generates status code descriptions. Accepts:<br>
+1. <strong>Int:</strong> Default reason.<br>
+2. <strong>List:</strong> <code>[200, 404]</code><br>
+3. <strong>Map:</strong> <code>{200: "OK", 400: "Bad Syntax"}</code> (Overrides defaults).</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>{{ statusCode(200) }}</code></p>
+<p class="tableblock"><code>{{ statusCode([200, 400]) }}</code></p>
+<p class="tableblock"><code>{{ statusCode( {200: "OK", 400: "Bad Syntax"} ) }}</code></p></td>
+</tr>
+</tbody>
+</table>
+<hr>
+</div>
+<div class="sect4">
+<h5 id="ascii-doc-4-mutators-transformers"><a class="anchor" href="#ascii-doc-4-mutators-transformers"></a><a class="link" href="#ascii-doc-4-mutators-transformers">4. Mutators (Transformers)</a></h5>
+<div class="paragraph">
+<p>Mutators modify the data stream. They are optional but powerful for drilling down into specific parts of an object.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 40%;">
+<col style="width: 40%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Filter</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Input Context</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>request</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Extracts the Request component from an operation.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Operation</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>response(code)</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Extracts a specific Response component.<br>
+<strong>Default:</strong> <code>200</code> (OK).</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Operation</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>body</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Extracts the Body payload definition.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Operation / Request / Response</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>form</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Extracts form-data parameters specifically.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Operation / Request</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>parameters(type)</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Extracts parameters.<br>
+<strong>Default:</strong> Returns all parameters.<br>
+<strong>Filter Arguments:</strong> <code>query</code>, <code>header</code>, <code>path</code>, <code>cookie</code>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Operation / Request</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>example</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Populates a Schema with example data.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Schema / Body</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>truncate</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Takes a complex Schema and returns a new Schema containing <strong>only direct fields</strong>. Removes nested objects and deep relationships.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Schema / Body</p></td>
+</tr>
+</tbody>
+</table>
+<hr>
+</div>
+<div class="sect4">
+<h5 id="ascii-doc-5-display-renderers"><a class="anchor" href="#ascii-doc-5-display-renderers"></a><a class="link" href="#ascii-doc-5-display-renderers">5. Display (Renderers)</a></h5>
+<div class="paragraph">
+<p>The final step in the chain. These filters determine how the data is written to the AsciiDoc file.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 75%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Filter</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>curl</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Generates a ready-to-use <strong>cURL</strong> command.<br>
+Includes method, headers, and body.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>http</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Renders the raw <strong>HTTP</strong> Request/Response wire format.<br>
+(Status line, Headers, Body).</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>path(params…​)</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Renders the full relative URI.<br>
+<strong>Arguments:</strong> Pass <code>key=value</code> pairs to override path variables or query parameters in the output.<br>
+<em>Example:</em> <code>path(id=123, sort="asc")</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>json</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Renders the input object as a formatted JSON block.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>yaml</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Renders the input object as a YAML block.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>table</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Renders a standard AsciiDoc/Markdown table.<br>
+Great for lists of parameters or schema fields.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>list</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Renders a simple bulleted list.<br>
+Used mostly for Status Codes or Enums.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>link</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Renders an ascii doc on schema.<br>
+Only for Schemas.</p></td>
+</tr>
+</tbody>
+</table>
+<hr>
+</div>
+<div class="sect4">
+<h5 id="ascii-doc-6-common-recipes"><a class="anchor" href="#ascii-doc-6-common-recipes"></a><a class="link" href="#ascii-doc-6-common-recipes">6. Common Recipes</a></h5>
+<div class="sect5">
+<h6 id="a-documenting-a-route-the-standard-block"><a class="anchor" href="#a-documenting-a-route-the-standard-block"></a><a class="link" href="#a-documenting-a-route-the-standard-block">A. Documenting a Route (The "Standard" Block)</a></h6>
+<div class="paragraph">
+<p>Use this pattern to document a specific endpoint, separating path parameters from query parameters.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-asciidoc hljs" data-lang="asciidoc" id="x83f80e78648b4a0b">// 1. Define the route
+{% set route = GET("/library/books/{isbn}") %}
+
+=== {{ route.summary }}
+
+{{ route.description }}
+
+// 2. Render Path Params
+.Path Parameters
+{{ route | parameters(path) | table }}
+
+// 3. Render Query Params
+.Query Parameters
+{{ route | parameters(query) | table }}
+
+// 4. Render Response + example
+.Response
+{{ route | response | body | example | json }}
+
+// 5. Render Response and Override Status Code
+.Created(201) Response
+{{ route | response(201) | http }}
+
+// 6. Render Response 400
+.Bad Request Response
+{{ route | response(400) | http }}
+
+{{ route | response(400) | json }}</code><button class="clipboard" data-clipboard-target="#x83f80e78648b4a0b"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+</div>
+</div>
+</div>
+<div class="sect5">
+<h6 id="b-the-try-it-button-curl"><a class="anchor" href="#b-the-try-it-button-curl"></a><a class="link" href="#b-the-try-it-button-curl">B. The "Try It" Button (cURL)</a></h6>
+<div class="paragraph">
+<p>Provide a copy-paste command for developers.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs" id="x59a6e6230de34f4f">{{ POST("/items") | curl }}</code><button class="clipboard" data-clipboard-target="#x59a6e6230de34f4f"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div>
 </div>
 <div class="listingblock">
-<div class="title">application.conf</div>
+<div class="title">Passing curl options</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-properties hljs" data-lang="properties" id="xf775c5fd1c874a96">db.host = localhost
-db.port = {{port}}
-db.database = mydb
-db.user = dbuser
-db.password = secretpassword</code><button class="clipboard" data-clipboard-target="#xf775c5fd1c874a96"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+<pre class="highlightjs highlight"><code class="language-none hljs" id="x1237d2a04d694650">{{ POST("/items") | curl("-i", "-H", "'Accept: application/xml'") }}</code><button class="clipboard" data-clipboard-target="#x1237d2a04d694650"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div>
-</div>
-<div class="paragraph">
-<p>3) Install</p>
-</div>
-<div class="listingblock primary">
-
-
-<div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xaa770d4a93964859">import io.jooby.vertx.VertxModule;
-import io.jooby.vertx.VertxMySQLModule;
-import static io.jooby.vertx.VertxHandler.vertx;
-
-{
-  install(new VertxModule());                                          <i class="conum" data-value="1"></i><b>(1)</b>
-
-  install(new VertxMySQLModule());                                     <i class="conum" data-value="2"></i><b>(2)</b>
-
-  use(vertx());                                                        <i class="conum" data-value="3"></i><b>(3)</b>
-
-  get("/{id}", ctx -&gt; {
-    var db = require(SqlClient.class);                                 <i class="conum" data-value="4"></i><b>(4)</b>
-    return db.preparedQuery("SELECT id, name from World where id=$1")  <i class="conum" data-value="5"></i><b>(5)</b>
-        .execute(Tuple.of(ctx.path("id").longValue()))
-        .map(result -&gt; {
-          var row = result.iterator().next();
-          return new World(row.getInteger(0), row.getInteger(1));
-        });
-  });
-}</code><button class="clipboard" data-clipboard-target="#xaa770d4a93964859"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
-</div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="x90f22111ca354e5f">import io.jooby.vertx.VertxModule
-import io.jooby.vertx.VertxMySQLModule
-import static io.jooby.vertx.VertxHandler.vertx
-
-{
-  install(VertxModule())                                               <i class="conum" data-value="1"></i><b>(1)</b>
-
-  install(VertxMySQLModule());                                           <i class="conum" data-value="2"></i><b>(2)</b>
-
-  use(vertx())                                                         <i class="conum" data-value="3"></i><b>(3)</b>
-
-  get("/{id}") {
-    val db = require(SqlClient::class)                                 <i class="conum" data-value="4"></i><b>(4)</b>
-    db.preparedQuery("SELECT id, name from World where id=$1")         <i class="conum" data-value="5"></i><b>(5)</b>
-        .execute(Tuple.of(ctx.path("id").longValue()))
-        .map({ result -&gt;
-          val row = result.iterator().next()
-          World(row.getInteger(0), row.getInteger(1))
-        })
-  }
-}</code><button class="clipboard" data-clipboard-target="#x90f22111ca354e5f"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
-</div></div>
-
-<div class="colist arabic">
-<table>
-<tbody><tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>Install Vertx</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>Install Sql Client: {{sqlClient}</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="3"></i><b>3</b></td>
-<td>Install vertx handler. Render future, promise and buffer</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="4"></i><b>4</b></td>
-<td>Get SQL client instance</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="5"></i><b>5</b></td>
-<td>Run a database query</td>
-</tr>
-</tbody></table>
-</div>
-<div class="paragraph">
-<p>To use the client version of the driver:</p>
 </div>
 <div class="listingblock">
-<div class="title">Client</div>
+<div class="title">Generate a bash source</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x5afd70b99745434c">{
-  ...
-  install(new VertxMySQLModule(MySQLBuilder::client));
-  ...
-}</code><button class="clipboard" data-clipboard-target="#x5afd70b99745434c"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash" id="x4da46e08c386407b">{{ POST("/items") | curl(language="bash") }}</code><button class="clipboard" data-clipboard-target="#x4da46e08c386407b"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+</div>
+</div>
+</div>
+<div class="sect5">
+<h6 id="c-simulating-specific-scenarios"><a class="anchor" href="#c-simulating-specific-scenarios"></a><a class="link" href="#c-simulating-specific-scenarios">C. Simulating specific scenarios</a></h6>
+<div class="paragraph">
+<p>Use the <code>path</code> filter to inject specific values into the URL, making the documentation more realistic.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-pebble hljs" data-lang="pebble" id="xbe6af08a27704c42">// Scenario: Searching for Sci-Fi books on page 2
+GET {{ GET("/search") | path(q="Sci-Fi", page=2) }}</code><button class="clipboard" data-clipboard-target="#xbe6af08a27704c42"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><em>Output:</em> <code>GET /search?q=Sci-Fi&amp;page=2</code></p>
+</div>
+</div>
+<div class="sect5">
+<h6 id="d-simplifying-complex-objects"><a class="anchor" href="#d-simplifying-complex-objects"></a><a class="link" href="#d-simplifying-complex-objects">D. Simplifying Complex Objects</a></h6>
+<div class="paragraph">
+<p>If your database entities have deep nesting (e.g., Book → Author → Address → Country), use <code>truncate</code> to show a summary view.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-pebble hljs" data-lang="pebble" id="x1be063b012bf4c19">// Full Graph (Huge JSON)
+{{ schema("Book") | example | json }}
+
+// Summary (Flat JSON)
+{{ schema("Book") | truncate | example | json }}</code><button class="clipboard" data-clipboard-target="#x1be063b012bf4c19"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+</div>
+</div>
+</div>
+<div class="sect5">
+<h6 id="e-error-response-reference"><a class="anchor" href="#e-error-response-reference"></a><a class="link" href="#e-error-response-reference">E. Error Response Reference</a></h6>
+<div class="paragraph">
+<p>You can generate error examples using the standard format or a custom structure.</p>
+</div>
+<div class="paragraph">
+<p><strong>1. Default Structure</strong>
+Generates a JSON with <code>statusCode</code>, <code>reason</code>, and <code>message</code>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-pebble hljs" data-lang="pebble" id="x30cf8c749aae4091">.404 Not Found
+{{ error(404) | json }}</code><button class="clipboard" data-clipboard-target="#x30cf8c749aae4091"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>2. Custom Error Structure</strong>
+Define a variable named <code>error</code> with a map containing your fields. Use <code>{{code}}</code>, <code>{{message}}</code>, and <code>{{reason}}</code> placeholders which the engine will automatically populate.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-pebble hljs" data-lang="pebble" id="x4c5a1d94ce7e4c1b">// Define the custom error shape once
+{%- set error = {
+    "code": "{{code}}",
+    "message": "{{message}}",
+    "reason": "{{reason}}",
+    "timestamp": "2025-01-01T12:00:00Z",
+    "support": "help@example.com"
+} -%}
+
+// Now generate the error. It will use the map above.
+.400 Bad Request
+{{ error(400) | json }}</code><button class="clipboard" data-clipboard-target="#x4c5a1d94ce7e4c1b"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><em>Output:</em></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json" id="x881b65ef88ec4211">{
+  "code": 400,
+  "message": "Bad Request",
+  "reason": "Bad Request",
+  "timestamp": "2025-01-01T12:00:00Z",
+  "support": "help@example.com"
+}</code><button class="clipboard" data-clipboard-target="#x881b65ef88ec4211"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+</div>
+</div>
+</div>
+<div class="sect5">
+<h6 id="f-dynamic-tag-loop"><a class="anchor" href="#f-dynamic-tag-loop"></a><a class="link" href="#f-dynamic-tag-loop">F. Dynamic Tag Loop</a></h6>
+<div class="paragraph">
+<p>Automatically document your API by iterating over tags defined in Java.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-pebble hljs" data-lang="pebble" id="x9c75a5955b2748f6">{% for tag in tags %}
+== {{ tag.name }}
+  {% for route in tag.routes %}
+  === {{ route.summary }}
+  {{ route.method }} {{ route.path }}
+  {% endfor %}
+{% endfor %}</code><button class="clipboard" data-clipboard-target="#x9c75a5955b2748f6"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+</div>
+</div>
+<hr>
+</div>
+</div>
+<div class="sect4">
+<h5 id="ascii-doc-7-advanced-patterns"><a class="anchor" href="#ascii-doc-7-advanced-patterns"></a><a class="link" href="#ascii-doc-7-advanced-patterns">7. Advanced Patterns</a></h5>
+<div class="sect5">
+<h6 id="g-reusable-macros-dry"><a class="anchor" href="#g-reusable-macros-dry"></a><a class="link" href="#g-reusable-macros-dry">G. Reusable Macros (DRY)</a></h6>
+<div class="paragraph">
+<p>As your template grows, use macros to create reusable UI components (like warning blocks or deprecated notices) to keep the main logic clean.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-pebble hljs" data-lang="pebble" id="xeeef42060aba4d9b">{# 1. Define the Macro at the top of your file #}
+{% macro deprecationWarning(since) %}
+[WARNING]
+====
+This endpoint is deprecated since version {{ since }}.
+Please use the newer version instead.
+====
+{% endmacro %}
+
+{# 2. Use it inside your route loop #}
+{% if route.deprecated %}
+    {{ deprecationWarning("v2.1") }}
+{% endif %}</code><button class="clipboard" data-clipboard-target="#xeeef42060aba4d9b"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+</div>
+</div>
+</div>
+<div class="sect5">
+<h6 id="h-security-permissions"><a class="anchor" href="#h-security-permissions"></a><a class="link" href="#h-security-permissions">H. Security &amp; Permissions</a></h6>
+<div class="paragraph">
+<p>If your API uses authentication (OAuth2, API Keys), the <code>security</code> property on the route contains the requirements.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-pebble hljs" data-lang="pebble" id="x78d54989a7b04e5b">{% if route.security %}
+.Required Permissions
+[cols="1,3"]
+|===
+|Type | Scopes
+
+{# Iterate through security schemes #}
+{% for scheme in route.security %}
+    {% for req in scheme %}
+| *{{ loop.key }}* | {{ req | join(", ") }}
+    {% endfor %}
+{% endfor %}
+|===
+{% endif %}</code><button class="clipboard" data-clipboard-target="#x78d54989a7b04e5b"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+</div>
+</div>
+</div>
+<div class="sect5">
+<h6 id="i-linking-to-schema-definitions"><a class="anchor" href="#i-linking-to-schema-definitions"></a><a class="link" href="#i-linking-to-schema-definitions">I. Linking to Schema Definitions</a></h6>
+<div class="paragraph">
+<p>AsciiDoc supports internal anchors. You can automatically link a route’s return type to its full Schema definition elsewhere in the document.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-pebble hljs" data-lang="pebble" id="xf8cbf5d5d19d48ca">{# 1. Create Anchors in your Schema Loop #}
+{% for s in schemas %}
+[id="{{ s.name }}"]
+== {{ s.name }}
+{{ s | table }}
+{% endfor %}
+
+{# 2. Link to them in your Route Loop #}
+.Response Type
+Returns a {{ route | response | link }} object.</code><button class="clipboard" data-clipboard-target="#xf8cbf5d5d19d48ca"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div>
 </div>
 </div>
