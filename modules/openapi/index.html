@@ -639,7 +639,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 
 
 <div class="switch"><div class="switch--item option-1 selected">pom.xml</div><div class="switch--item option-2">build.gradle</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="x78628d7d87f2477e">&lt;properties&gt;
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="x946c4a6dcfe54a25">&lt;properties&gt;
   &lt;application.class&gt;myapp.App&lt;/application.class&gt;
 &lt;/properties&gt;
 ...
@@ -648,7 +648,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
   &lt;plugin&gt;
     &lt;groupId&gt;io.jooby&lt;/groupId&gt;
     &lt;artifactId&gt;jooby-maven-plugin&lt;/artifactId&gt;
-    &lt;version&gt;4.0.14&lt;/version&gt;
+    &lt;version&gt;4.0.15&lt;/version&gt;
     &lt;executions&gt;
       &lt;execution&gt;
         &lt;goals&gt;
@@ -660,12 +660,12 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
       &lt;/execution&gt;
     &lt;/executions&gt;
   &lt;/plugin&gt;
-&lt;/plugins&gt;</code><button class="clipboard" data-clipboard-target="#x78628d7d87f2477e"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+&lt;/plugins&gt;</code><button class="clipboard" data-clipboard-target="#x946c4a6dcfe54a25"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-groovy hljs" data-lang="groovy" id="x759edd96133c451c">buildscript {
+<pre class="highlightjs highlight"><code class="language-groovy hljs" data-lang="groovy" id="x5f8a73245eea4caa">buildscript {
 
   ext {
-    joobyVersion = "4.0.14"
+    joobyVersion = "4.0.15"
   }
 
 }
@@ -690,7 +690,7 @@ openAPI {
 joobyRun.dependsOn openAPI
 
 // Run openAPI task on build
-jar.dependsOn openAPI</code><button class="clipboard" data-clipboard-target="#x759edd96133c451c"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+jar.dependsOn openAPI</code><button class="clipboard" data-clipboard-target="#x5f8a73245eea4caa"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="admonitionblock note">
@@ -756,13 +756,6 @@ To avoid this behaviour you can specify maven build phase which suits your needs
 </div></div></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>includes</code></p></td>
-<td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>Regular expression used to includes/keep route. Example: <code>/api/.*</code>.</p>
-</div></div></td>
-</tr>
-<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>excludes</code></p></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
@@ -770,17 +763,31 @@ To avoid this behaviour you can specify maven build phase which suits your needs
 </div></div></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>includes</code></p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Regular expression used to includes/keep route. Example: <code>/api/.*</code>.</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>javadoc</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>on/true</code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Turn on/off javadoc generation from Java source files. Set to <code>off</code> or <code>false</code> to turn it off.</p>
+</div></div></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>specVersion</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>3.0</code></p></td>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>Set the desired spec output</p>
+<p>Set the desired spec output. Possible values: <code>3.0</code> or <code>3.1</code></p>
 </div></div></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>templateName</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>openapi.yaml</code></p></td>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>Set openAPI template file name.</p>
+<p>Set openAPI template file path.</p>
 </div></div></td>
 </tr>
 </tbody>
@@ -796,7 +803,7 @@ To avoid this behaviour you can specify maven build phase which suits your needs
 
 
 <div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xe8335840e2e54697">{
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x27ff6051d578440e">{
   install(new OpenAPIModule());        <i class="conum" data-value="1"></i><b>(1)</b>
 
   path("/pets", () {                   <i class="conum" data-value="2"></i><b>(2)</b>
@@ -807,9 +814,9 @@ To avoid this behaviour you can specify maven build phase which suits your needs
     });
 
   });
-}</code><button class="clipboard" data-clipboard-target="#xe8335840e2e54697"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x27ff6051d578440e"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="x5d6d731b4fba4102">{
+<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="x23503c21dd5d4b8d">{
   install(OpenAPIModule())             <i class="conum" data-value="1"></i><b>(1)</b>
 
   path("/pets") {                      <i class="conum" data-value="2"></i><b>(2)</b>
@@ -820,7 +827,7 @@ To avoid this behaviour you can specify maven build phase which suits your needs
     }
 
   }
-}</code><button class="clipboard" data-clipboard-target="#x5d6d731b4fba4102"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x23503c21dd5d4b8d"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="colist arabic">
@@ -884,7 +891,7 @@ build/classes/java/main/bar/Foo.yaml</pre>
 <p>Are able to get our OpenAPI files at build time (of course)</p>
 </li>
 <li>
-<p>At runtime we don’t waste resources (CPU, memory) while analyze and build the OpenAPI model</p>
+<p>At runtime, we don’t waste resources (CPU, memory) while analyze and build the OpenAPI model</p>
 </li>
 <li>
 <p>We keep bootstrap as fast as possible</p>
@@ -902,7 +909,7 @@ build/classes/java/main/bar/Foo.yaml</pre>
 
 
 <div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x1d8c0f857a674602">{
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xd416dcc20cb04238">{
   install(new OpenAPIModule());
 
   mvc(new Pets_());
@@ -924,9 +931,9 @@ public class Pets {
     ...
   }
 
-}</code><button class="clipboard" data-clipboard-target="#x1d8c0f857a674602"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#xd416dcc20cb04238"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="x67b40c9d601f479f">{
+<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="x5b3b947e0094480b">{
   install(OpenAPIModule())
 
   mvc(Pets_())
@@ -940,7 +947,7 @@ class Pets {
     ...
   }
 
-}</code><button class="clipboard" data-clipboard-target="#x67b40c9d601f479f"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x5b3b947e0094480b"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -956,13 +963,13 @@ properties filter routes by their path pattern. The filter is a regular expressi
 <div class="sect3">
 <h4 id="openapi-documenting-your-api-javadoc-comments"><a class="anchor" href="#openapi-documenting-your-api-javadoc-comments"></a><a class="link" href="#openapi-documenting-your-api-javadoc-comments">1.3.1. JavaDoc comments</a></h4>
 <div class="paragraph">
-<p>JavaDoc comments are supported on Java in script and MVC routes.</p>
+<p>JavaDoc comments are supported for script and MVC routes on Java code base. They are enable by default, to turn them off set <code>javadoc: off</code> or <code>javadoc: false</code> in your maven/gradle plugin.</p>
 </div>
 <div class="listingblock primary">
 
 
 <div class="switch"><div class="switch--item option-1 selected">Script routes</div><div class="switch--item option-2">MVC routes</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x43ef6e1a7d5d4a86">/**
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x5249b5815f744e3">/**
 * My Library.
 * @version 5.4.1
 * @tag Books. All about books.
@@ -1024,9 +1031,9 @@ public enum BookType {
   * Non-fiction encompasses genres like history, biography, and self-help.
   */
   NonFiction
-}</code><button class="clipboard" data-clipboard-target="#x43ef6e1a7d5d4a86"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x5249b5815f744e3"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x7b32662d9c44216">/**
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xbec393337c9346be">/**
 * My Library.
 * @version 5.4.1
 * @tag Books. All about books.
@@ -1087,7 +1094,7 @@ public enum BookType {
   * Non-fiction encompasses genres like history, biography, and self-help.
   */
   NonFiction
-}</code><button class="clipboard" data-clipboard-target="#x7b32662d9c44216"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#xbec393337c9346be"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -1300,7 +1307,7 @@ with better information/metadata.</p>
 <div class="listingblock">
 <div class="title">conf/openapi.yaml</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml" id="x33bc1a380399489c">openapi: 3.0.1
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml" id="x93a178ed8e5a44c9">openapi: 3.0.1
 info:
   title: My Super API
   description: |
@@ -1319,7 +1326,7 @@ info:
         description: List and sort pets.
         parameters:
           name: page
-            descripton: Page number.</code><button class="clipboard" data-clipboard-target="#x33bc1a380399489c"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+            descripton: Page number.</code><button class="clipboard" data-clipboard-target="#x93a178ed8e5a44c9"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1369,13 +1376,13 @@ info:
 
 
 <div class="switch"><div class="switch--item option-1 selected">Maven</div><div class="switch--item option-2">Gradle</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="xbbabf07be1b4e63">&lt;dependency&gt;
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="x3043d61d9f344a61">&lt;dependency&gt;
   &lt;groupId&gt;io.swagger.core.v3&lt;/groupId&gt;
   &lt;artifactId&gt;swagger-annotations&lt;/artifactId&gt;
   &lt;version&gt;2.2.41&lt;/version&gt;
-&lt;/dependency&gt;</code><button class="clipboard" data-clipboard-target="#xbbabf07be1b4e63"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+&lt;/dependency&gt;</code><button class="clipboard" data-clipboard-target="#x3043d61d9f344a61"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-gradle hljs" data-lang="gradle" id="x4be4d455c4654f14">implementation 'io.swagger.core.v3:swagger-annotations:2.2.41'</code><button class="clipboard" data-clipboard-target="#x4be4d455c4654f14"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+<pre class="highlightjs highlight"><code class="language-gradle hljs" data-lang="gradle" id="x896754e624ff4099">implementation 'io.swagger.core.v3:swagger-annotations:2.2.41'</code><button class="clipboard" data-clipboard-target="#x896754e624ff4099"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -1385,7 +1392,7 @@ info:
 <div class="title">Script</div>
 
 <div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x2bec0d6daa8645ff">import io.swagger.v3.oas.annotations.Operation;
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xa177c47a27aa45e5">import io.swagger.v3.oas.annotations.Operation;
 ...
 
 public class App extends Jooby {
@@ -1406,9 +1413,9 @@ public class App extends Jooby {
     long id = ctx.path("id").longValue();
     return repo.find(id);
   }
-}</code><button class="clipboard" data-clipboard-target="#x2bec0d6daa8645ff"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#xa177c47a27aa45e5"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin" id="xa561db1acbbb4628">import io.swagger.v3.oas.annotations.Operation
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin" id="x72be08db4a634814">import io.swagger.v3.oas.annotations.Operation
 
 class App :Kooby({
   path("/pets") {
@@ -1426,7 +1433,7 @@ fun findPetById(ctx: Context) : Pet {
   val repo = ...
   val id = ctx.path("id").longValue()
   return repo.find(id)
-}</code><button class="clipboard" data-clipboard-target="#xa561db1acbbb4628"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x72be08db4a634814"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -1468,7 +1475,7 @@ is going to be present in the OpenAPI files (present, but without documentation)
 <div class="title">OpenAPIDefinition</div>
 
 <div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x428f4a025451459d">@OpenAPIDefinition(
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xa70fd5e1ddfb490d">@OpenAPIDefinition(
     info = @Info(
         title = "Title",
         description = "description",
@@ -1490,9 +1497,9 @@ class App extends Jooby {
   {
     // All routes now have the default tag: `Pets`
   }
-}</code><button class="clipboard" data-clipboard-target="#x428f4a025451459d"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#xa70fd5e1ddfb490d"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="xe6f7a57e82f24442">@OpenAPIDefinition(
+<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="x91d21d62e8264b7f">@OpenAPIDefinition(
     info = Info(
         title = "Title",
         description = "description",
@@ -1511,7 +1518,7 @@ class App extends Jooby {
     tags = [Tag(name = "mytag")]
 )
 class App: Kooby({
-})</code><button class="clipboard" data-clipboard-target="#xe6f7a57e82f24442"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+})</code><button class="clipboard" data-clipboard-target="#x91d21d62e8264b7f"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 </div>
@@ -1524,49 +1531,49 @@ class App: Kooby({
 <div class="title">Application level</div>
 
 <div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x4247ffde39bf4f00">@Tag(name = "Pets", description = "Pet operations")
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xfded5b85b94b4768">@Tag(name = "Pets", description = "Pet operations")
 class App extends Jooby {
   {
     // All routes now have the default tag: `Pets`
   }
-}</code><button class="clipboard" data-clipboard-target="#x4247ffde39bf4f00"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#xfded5b85b94b4768"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="x95eb7b59373f4744">@Tag(name = "Pets", description = "Pet operations")
+<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="x44496bd2f3fb4a12">@Tag(name = "Pets", description = "Pet operations")
 class App: Kooby({
     // All routes now have the default tag: `Pets`
-})</code><button class="clipboard" data-clipboard-target="#x95eb7b59373f4744"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+})</code><button class="clipboard" data-clipboard-target="#x44496bd2f3fb4a12"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="listingblock primary">
 <div class="title">Controller level</div>
 
 <div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x46f7141de63c4fd5">@Tag(name = "Pets", description = "Pet operations")
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xfad0d95722df49eb">@Tag(name = "Pets", description = "Pet operations")
 @Path("/pets")
 class Pets {
   // All web method now have the default tag: `Pets`
-}</code><button class="clipboard" data-clipboard-target="#x46f7141de63c4fd5"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#xfad0d95722df49eb"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="x4dd1728e68404617">@Tag(name = "Pets", description = "Pet operations")
+<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="x74a50bdc4a5947a7">@Tag(name = "Pets", description = "Pet operations")
 @Path("/pets")
 class Pets {
   // All web method now have the default tag: `Pets`
-}</code><button class="clipboard" data-clipboard-target="#x4dd1728e68404617"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x74a50bdc4a5947a7"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="listingblock primary">
 <div class="title">Method level</div>
 
 <div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x80db20fcf3454dd2">@Tag(name = "Pets", description = "Pet operations")
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x1ed08d3b6d984085">@Tag(name = "Pets", description = "Pet operations")
 public List&lt;Pet&gt; list(Context ctx) {
   ...
-}</code><button class="clipboard" data-clipboard-target="#x80db20fcf3454dd2"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x1ed08d3b6d984085"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="x516acaf7b0b84302">@Tag(name = "Pets", description = "Pet operations")
+<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="x8ebb0056073b419f">@Tag(name = "Pets", description = "Pet operations")
 fun list(ctx: Context): List&lt;Pet&gt; {
   ...
-}</code><button class="clipboard" data-clipboard-target="#x516acaf7b0b84302"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x8ebb0056073b419f"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -1632,7 +1639,7 @@ you need to:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-twig hljs" data-lang="twig" id="x17ce0d5c71c4a80">= 📚 {{info.title}} Guide
+<pre class="highlightjs highlight"><code class="language-twig hljs" data-lang="twig" id="x2f9f6999b0f4d9b">= 📚 {{info.title}} Guide
 :source-highlighter: highlightjs
 
 {{ info.description }}
@@ -1643,7 +1650,7 @@ All requests start with: `{{ server(0).url }}/library`
 
 ===  Summary
 
-{{ routes | table(grid="rows") }}</code><button class="clipboard" data-clipboard-target="#x17ce0d5c71c4a80"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+{{ routes | table(grid="rows") }}</code><button class="clipboard" data-clipboard-target="#x2f9f6999b0f4d9b"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1653,13 +1660,13 @@ All requests start with: `{{ server(0).url }}/library`
 
 
 <div class="switch"><div class="switch--item option-1 selected">pom.xml</div><div class="switch--item option-2">build.gradle</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="xd07bccd1e79b4c36">...
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="x9bbd6e1cdc2446aa">...
 &lt;plugins&gt;
   ...
   &lt;plugin&gt;
     &lt;groupId&gt;io.jooby&lt;/groupId&gt;
     &lt;artifactId&gt;jooby-maven-plugin&lt;/artifactId&gt;
-    &lt;version&gt;4.0.14&lt;/version&gt;
+    &lt;version&gt;4.0.15&lt;/version&gt;
     &lt;executions&gt;
       &lt;execution&gt;
         &lt;goals&gt;
@@ -1673,11 +1680,11 @@ All requests start with: `{{ server(0).url }}/library`
       &lt;/execution&gt;
     &lt;/executions&gt;
   &lt;/plugin&gt;
-&lt;/plugins&gt;</code><button class="clipboard" data-clipboard-target="#xd07bccd1e79b4c36"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+&lt;/plugins&gt;</code><button class="clipboard" data-clipboard-target="#x9bbd6e1cdc2446aa"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-groovy hljs" data-lang="groovy" id="xcb5e9075f0714cfe">openAPI {
+<pre class="highlightjs highlight"><code class="language-groovy hljs" data-lang="groovy" id="x8596ad52324e414b">openAPI {
   adoc = ["doc/library.adoc"]
-}</code><button class="clipboard" data-clipboard-target="#xcb5e9075f0714cfe"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x8596ad52324e414b"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -1725,7 +1732,7 @@ All requests start with: `{{ server(0).url }}/library`
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs" id="xdbd229947ba049d7">{{ <strong>Source</strong> | [<strong>Mutator</strong>] | <strong>Display</strong> }}</code><button class="clipboard" data-clipboard-target="#xdbd229947ba049d7"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+<pre class="highlightjs highlight"><code class="language-none hljs" id="x773ee3b3e89c4efa">{{ <strong>Source</strong> | [<strong>Mutator</strong>] | <strong>Display</strong> }}</code><button class="clipboard" data-clipboard-target="#x773ee3b3e89c4efa"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div>
 </div>
 <div class="olist arabic">
@@ -1972,7 +1979,7 @@ Only for Schemas.</p></td>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-twig hljs" data-lang="twig" id="x52c84e3af2e64492">// 1. Define the route
+<pre class="highlightjs highlight"><code class="language-twig hljs" data-lang="twig" id="xe6a60d49c4c54839">// 1. Define the route
 {% set route = GET("/library/books/{isbn}") %}
 
 === {{ route.summary }}
@@ -1999,7 +2006,7 @@ Only for Schemas.</p></td>
 .Bad Request Response
 {{ route | response(400) | http }}
 
-{{ route | response(400) | json }}</code><button class="clipboard" data-clipboard-target="#x52c84e3af2e64492"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+{{ route | response(400) | json }}</code><button class="clipboard" data-clipboard-target="#xe6a60d49c4c54839"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div>
 </div>
 </div>
@@ -2010,19 +2017,19 @@ Only for Schemas.</p></td>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs" id="xb2a195325d0f4c3a">{{ POST("/items") | curl }}</code><button class="clipboard" data-clipboard-target="#xb2a195325d0f4c3a"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+<pre class="highlightjs highlight"><code class="language-none hljs" id="x492e534fc8d84c95">{{ POST("/items") | curl }}</code><button class="clipboard" data-clipboard-target="#x492e534fc8d84c95"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div>
 </div>
 <div class="listingblock">
 <div class="title">Passing curl options</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs" id="xc7fd14ece5b54887">{{ POST("/items") | curl("-i", "-H", "'Accept: application/xml'") }}</code><button class="clipboard" data-clipboard-target="#xc7fd14ece5b54887"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+<pre class="highlightjs highlight"><code class="language-none hljs" id="xc2e368fcd594dfe">{{ POST("/items") | curl("-i", "-H", "'Accept: application/xml'") }}</code><button class="clipboard" data-clipboard-target="#xc2e368fcd594dfe"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div>
 </div>
 <div class="listingblock">
 <div class="title">Generate a bash source</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash" id="xfc43f2b973a64245">{{ POST("/items") | curl(language="bash") }}</code><button class="clipboard" data-clipboard-target="#xfc43f2b973a64245"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash" id="x1f5ea012e8dc466d">{{ POST("/items") | curl(language="bash") }}</code><button class="clipboard" data-clipboard-target="#x1f5ea012e8dc466d"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div>
 </div>
 </div>
@@ -2033,8 +2040,8 @@ Only for Schemas.</p></td>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-pebble hljs" data-lang="pebble" id="x9204083f644b4135">// Scenario: Searching for Sci-Fi books on page 2
-GET {{ GET("/search") | path(q="Sci-Fi", page=2) }}</code><button class="clipboard" data-clipboard-target="#x9204083f644b4135"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+<pre class="highlightjs highlight"><code class="language-pebble hljs" data-lang="pebble" id="x833d1cbf4c8a4850">// Scenario: Searching for Sci-Fi books on page 2
+GET {{ GET("/search") | path(q="Sci-Fi", page=2) }}</code><button class="clipboard" data-clipboard-target="#x833d1cbf4c8a4850"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2048,11 +2055,11 @@ GET {{ GET("/search") | path(q="Sci-Fi", page=2) }}</code><button class="clipboa
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-pebble hljs" data-lang="pebble" id="xa7e6a42503fe477e">// Full Graph (Huge JSON)
+<pre class="highlightjs highlight"><code class="language-pebble hljs" data-lang="pebble" id="xea7efe331d34453f">// Full Graph (Huge JSON)
 {{ schema("Book") | example | json }}
 
 // Summary (Flat JSON)
-{{ schema("Book") | truncate | example | json }}</code><button class="clipboard" data-clipboard-target="#xa7e6a42503fe477e"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+{{ schema("Book") | truncate | example | json }}</code><button class="clipboard" data-clipboard-target="#xea7efe331d34453f"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div>
 </div>
 </div>
@@ -2067,8 +2074,8 @@ Generates a JSON with <code>statusCode</code>, <code>reason</code>, and <code>me
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-pebble hljs" data-lang="pebble" id="x863238ce2cdb4214">.404 Not Found
-{{ error(404) | json }}</code><button class="clipboard" data-clipboard-target="#x863238ce2cdb4214"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+<pre class="highlightjs highlight"><code class="language-pebble hljs" data-lang="pebble" id="x621be81856704162">.404 Not Found
+{{ error(404) | json }}</code><button class="clipboard" data-clipboard-target="#x621be81856704162"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2077,7 +2084,7 @@ Define a variable named <code>error</code> with a map containing your fields. Us
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-pebble hljs" data-lang="pebble" id="x593e589f42b54498">// Define the custom error shape once
+<pre class="highlightjs highlight"><code class="language-pebble hljs" data-lang="pebble" id="xff304fbdb94d4c4c">// Define the custom error shape once
 {%- set error = {
     "code": "{{code}}",
     "message": "{{message}}",
@@ -2088,7 +2095,7 @@ Define a variable named <code>error</code> with a map containing your fields. Us
 
 // Now generate the error. It will use the map above.
 .400 Bad Request
-{{ error(400) | json }}</code><button class="clipboard" data-clipboard-target="#x593e589f42b54498"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+{{ error(400) | json }}</code><button class="clipboard" data-clipboard-target="#xff304fbdb94d4c4c"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2096,13 +2103,13 @@ Define a variable named <code>error</code> with a map containing your fields. Us
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json" id="x7a143285c5fc448d">{
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json" id="x726491815f1540d5">{
   "code": 400,
   "message": "Bad Request",
   "reason": "Bad Request",
   "timestamp": "2025-01-01T12:00:00Z",
   "support": "help@example.com"
-}</code><button class="clipboard" data-clipboard-target="#x7a143285c5fc448d"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x726491815f1540d5"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div>
 </div>
 </div>
@@ -2113,13 +2120,13 @@ Define a variable named <code>error</code> with a map containing your fields. Us
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-pebble hljs" data-lang="pebble" id="x65803f6315c04606">{% for tag in tags %}
+<pre class="highlightjs highlight"><code class="language-pebble hljs" data-lang="pebble" id="xd81fe65aaff54131">{% for tag in tags %}
 == {{ tag.name }}
   {% for route in tag.routes %}
   === {{ route.summary }}
   {{ route.method }} {{ route.path }}
   {% endfor %}
-{% endfor %}</code><button class="clipboard" data-clipboard-target="#x65803f6315c04606"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+{% endfor %}</code><button class="clipboard" data-clipboard-target="#xd81fe65aaff54131"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div>
 </div>
 <hr>
@@ -2134,7 +2141,7 @@ Define a variable named <code>error</code> with a map containing your fields. Us
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-pebble hljs" data-lang="pebble" id="x5bb36c20d46c4728">{# 1. Define the Macro at the top of your file #}
+<pre class="highlightjs highlight"><code class="language-pebble hljs" data-lang="pebble" id="x75f122cf47e1451d">{# 1. Define the Macro at the top of your file #}
 {% macro deprecationWarning(since) %}
 [WARNING]
 ====
@@ -2146,7 +2153,7 @@ Please use the newer version instead.
 {# 2. Use it inside your route loop #}
 {% if route.deprecated %}
     {{ deprecationWarning("v2.1") }}
-{% endif %}</code><button class="clipboard" data-clipboard-target="#x5bb36c20d46c4728"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+{% endif %}</code><button class="clipboard" data-clipboard-target="#x75f122cf47e1451d"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div>
 </div>
 </div>
@@ -2157,7 +2164,7 @@ Please use the newer version instead.
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-pebble hljs" data-lang="pebble" id="xd33a7eec304241fa">{% if route.security %}
+<pre class="highlightjs highlight"><code class="language-pebble hljs" data-lang="pebble" id="xbc87dff3acb84bed">{% if route.security %}
 .Required Permissions
 [cols="1,3"]
 |===
@@ -2170,7 +2177,7 @@ Please use the newer version instead.
     {% endfor %}
 {% endfor %}
 |===
-{% endif %}</code><button class="clipboard" data-clipboard-target="#xd33a7eec304241fa"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+{% endif %}</code><button class="clipboard" data-clipboard-target="#xbc87dff3acb84bed"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div>
 </div>
 </div>
@@ -2181,7 +2188,7 @@ Please use the newer version instead.
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-pebble hljs" data-lang="pebble" id="x7569e5161f544330">{# 1. Create Anchors in your Schema Loop #}
+<pre class="highlightjs highlight"><code class="language-pebble hljs" data-lang="pebble" id="xc96a2f6af0624809">{# 1. Create Anchors in your Schema Loop #}
 {% for s in schemas %}
 [id="{{ s.name }}"]
 == {{ s.name }}
@@ -2190,7 +2197,7 @@ Please use the newer version instead.
 
 {# 2. Link to them in your Route Loop #}
 .Response Type
-Returns a {{ route | response | link }} object.</code><button class="clipboard" data-clipboard-target="#x7569e5161f544330"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+Returns a {{ route | response | link }} object.</code><button class="clipboard" data-clipboard-target="#xc96a2f6af0624809"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div>
 </div>
 </div>
@@ -2205,13 +2212,13 @@ Returns a {{ route | response | link }} object.</code><button class="clipboard" 
 
 
 <div class="switch"><div class="switch--item option-1 selected">Maven</div><div class="switch--item option-2">Gradle</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="xd2c2be9e0eba405e">&lt;dependency&gt;
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="x596a4266023f44e0">&lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
   &lt;artifactId&gt;jooby-swagger-ui&lt;/artifactId&gt;
-  &lt;version&gt;4.0.14&lt;/version&gt;
-&lt;/dependency&gt;</code><button class="clipboard" data-clipboard-target="#xd2c2be9e0eba405e"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+  &lt;version&gt;4.0.15&lt;/version&gt;
+&lt;/dependency&gt;</code><button class="clipboard" data-clipboard-target="#x596a4266023f44e0"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-gradle hljs" data-lang="gradle" id="x436e7a5cae334c0f">implementation 'io.jooby:jooby-swagger-ui:4.0.14'</code><button class="clipboard" data-clipboard-target="#x436e7a5cae334c0f"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+<pre class="highlightjs highlight"><code class="language-gradle hljs" data-lang="gradle" id="x290d0c01071d43f0">implementation 'io.jooby:jooby-swagger-ui:4.0.15'</code><button class="clipboard" data-clipboard-target="#x290d0c01071d43f0"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -2227,13 +2234,13 @@ Returns a {{ route | response | link }} object.</code><button class="clipboard" 
 
 
 <div class="switch"><div class="switch--item option-1 selected">Maven</div><div class="switch--item option-2">Gradle</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="xcb0e90aded5b476e">&lt;dependency&gt;
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="xea73ea3140a64a35">&lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
   &lt;artifactId&gt;jooby-redoc&lt;/artifactId&gt;
-  &lt;version&gt;4.0.14&lt;/version&gt;
-&lt;/dependency&gt;</code><button class="clipboard" data-clipboard-target="#xcb0e90aded5b476e"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+  &lt;version&gt;4.0.15&lt;/version&gt;
+&lt;/dependency&gt;</code><button class="clipboard" data-clipboard-target="#xea73ea3140a64a35"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-gradle hljs" data-lang="gradle" id="x4d336ed4f0f43f3">implementation 'io.jooby:jooby-redoc:4.0.14'</code><button class="clipboard" data-clipboard-target="#x4d336ed4f0f43f3"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+<pre class="highlightjs highlight"><code class="language-gradle hljs" data-lang="gradle" id="x91dfc38d5ace4a12">implementation 'io.jooby:jooby-redoc:4.0.15'</code><button class="clipboard" data-clipboard-target="#x91dfc38d5ace4a12"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="paragraph">
