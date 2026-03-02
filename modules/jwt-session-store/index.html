@@ -11,8 +11,10 @@
 <title>jooby: jwt session store module</title>
 <link rel="stylesheet" href="../../js/styles/theme.css">
 <link rel="stylesheet" href="../../js/styles/atom-one-dark.min.css">
+<meta name="algolia-site-verification" content="B92EF92B303805F4">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet">
 <script>
   // This MUST be in the <head>. It runs before the body is rendered, preventing the white flash.
@@ -52,20 +54,20 @@ uses <a href="https://jwt.io" target="_blank">JSON Web Token</a> standard to dec
 
 
 <div class="switch"><div class="switch--item option-1 selected">Maven</div><div class="switch--item option-2">Gradle</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="x2b65d526bc9a4e22">&lt;dependency&gt;
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="xacc1f374075849d8">&lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
   &lt;artifactId&gt;jooby-jwt&lt;/artifactId&gt;
   &lt;version&gt;4.0.16&lt;/version&gt;
-&lt;/dependency&gt;</code><button class="clipboard" data-clipboard-target="#x2b65d526bc9a4e22"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+&lt;/dependency&gt;</code><button class="clipboard" data-clipboard-target="#xacc1f374075849d8"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-gradle hljs" data-lang="gradle" id="x9881066682654e0d">implementation 'io.jooby:jooby-jwt:4.0.16'</code><button class="clipboard" data-clipboard-target="#x9881066682654e0d"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+<pre class="highlightjs highlight"><code class="language-gradle hljs" data-lang="gradle" id="xddead2dbf89b43d1">implementation 'io.jooby:jooby-jwt:4.0.16'</code><button class="clipboard" data-clipboard-target="#xddead2dbf89b43d1"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="listingblock primary">
 <div class="title">JWT Session</div>
 
 <div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x725d9017874843c8">import io.jooby.session.JwtSessionStore;
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xcb879257d2c04613">import io.jooby.session.JwtSessionStore;
 
 {
   String secret = "super secret key";           // <b class="conum">(1)</b>
@@ -79,9 +81,9 @@ uses <a href="https://jwt.io" target="_blank">JSON Web Token</a> standard to dec
 
     return session.get("foo").value();
   });
-}</code><button class="clipboard" data-clipboard-target="#x725d9017874843c8"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#xcb879257d2c04613"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin" id="x50c11765aa924e2a">import io.jooby.session.JwtSessionStore
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin" id="x27b81e5bf80c4795">import io.jooby.session.JwtSessionStore
 
 {
   val secret = "super secret key"               // <b class="conum">(1)</b>
@@ -95,7 +97,7 @@ uses <a href="https://jwt.io" target="_blank">JSON Web Token</a> standard to dec
 
     session.get("foo").value()
   }
-}</code><button class="clipboard" data-clipboard-target="#x50c11765aa924e2a"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x27b81e5bf80c4795"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="colist arabic">
@@ -271,6 +273,34 @@ if (!hljs.initHighlighting.called) {
       });
     } else {
       console.warn("Hamburger menu: Could not find the navigation element to toggle.");
+    }
+  });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/@docsearch/js@3"></script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // 1. Find Asciidoctor's auto-generated TOC
+    const toc = document.getElementById('toc');
+
+    if (toc) {
+      // 2. Create the search container dynamically
+      const searchContainer = document.createElement('div');
+      searchContainer.id = 'docsearch';
+
+      // 3. Inject it at the very top of the TOC, above the title
+      toc.insertBefore(searchContainer, toc.firstChild);
+
+      // 4. Initialize Algolia into that new container
+      docsearch({
+        appId: '9U2WK2CSJ7',
+        apiKey: '113e159f5c587fdac629948dd80dd993',
+        indexName: 'jooby',
+        container: '#docsearch'
+      });
+    } else {
+      console.warn("Could not find the #toc element to inject the search bar.");
     }
   });
 </script>

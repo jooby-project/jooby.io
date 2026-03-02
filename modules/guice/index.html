@@ -11,8 +11,10 @@
 <title>jooby: guice module</title>
 <link rel="stylesheet" href="../../js/styles/theme.css">
 <link rel="stylesheet" href="../../js/styles/atom-one-dark.min.css">
+<meta name="algolia-site-verification" content="B92EF92B303805F4">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet">
 <script>
   // This MUST be in the <head>. It runs before the body is rendered, preventing the white flash.
@@ -53,13 +55,13 @@
 
 
 <div class="switch"><div class="switch--item option-1 selected">Maven</div><div class="switch--item option-2">Gradle</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="xa0ecd7468f754ca3">&lt;dependency&gt;
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="x3d81da54131646e6">&lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
   &lt;artifactId&gt;jooby-guice&lt;/artifactId&gt;
   &lt;version&gt;4.0.16&lt;/version&gt;
-&lt;/dependency&gt;</code><button class="clipboard" data-clipboard-target="#xa0ecd7468f754ca3"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+&lt;/dependency&gt;</code><button class="clipboard" data-clipboard-target="#x3d81da54131646e6"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-gradle hljs" data-lang="gradle" id="x7923e26f8a5b40d8">implementation 'io.jooby:jooby-guice:4.0.16'</code><button class="clipboard" data-clipboard-target="#x7923e26f8a5b40d8"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+<pre class="highlightjs highlight"><code class="language-gradle hljs" data-lang="gradle" id="xc96d42f912284ec7">implementation 'io.jooby:jooby-guice:4.0.16'</code><button class="clipboard" data-clipboard-target="#xc96d42f912284ec7"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -69,7 +71,7 @@
 <div class="title">Installing Guice</div>
 
 <div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x838dae25337a4667">import io.jooby.guice.GuiceModule;
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x988eb0e64a7e4619">import io.jooby.guice.GuiceModule;
 import io.jooby.kt.runApp;
 
 public class App extends Jooby {
@@ -86,9 +88,9 @@ public class App extends Jooby {
   public static void main(String[] args) {
     runApp(args, App::new);
   }
-}</code><button class="clipboard" data-clipboard-target="#x838dae25337a4667"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x988eb0e64a7e4619"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin" id="x30fb46dd80fb40f3">import io.jooby.di.GuiceModule
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin" id="x75499ee58bc5480f">import io.jooby.di.GuiceModule
 import io.jooby.kt.runApp
 
 fun main(args: Array&lt;String&gt;) {
@@ -100,7 +102,7 @@ fun main(args: Array&lt;String&gt;) {
       service.doSomething()
     }
   }
-}</code><button class="clipboard" data-clipboard-target="#x30fb46dd80fb40f3"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x75499ee58bc5480f"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="colist arabic">
@@ -121,14 +123,14 @@ fun main(args: Array&lt;String&gt;) {
 <div class="listingblock">
 <div class="title">application.conf</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash" id="x662db3824a1d4d14">currency = USD</code><button class="clipboard" data-clipboard-target="#x662db3824a1d4d14"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash" id="x3bef859d4c66468c">currency = USD</code><button class="clipboard" data-clipboard-target="#x3bef859d4c66468c"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div>
 </div>
 <div class="listingblock primary">
 
 
 <div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x6913934e899a4ff6">import javax.injext.Named;
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xe9cc428ac7db4bff">import javax.injext.Named;
 import javax.injext.Inject;
 
 public class BillingService {
@@ -138,11 +140,11 @@ public class BillingService {
     ...
   }
 
-}</code><button class="clipboard" data-clipboard-target="#x6913934e899a4ff6"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#xe9cc428ac7db4bff"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin" id="x6c602144e48413e">class BillingService @Inject constructor(@Named("currency") currency: String) {
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin" id="x7cb1f909b3e34521">class BillingService @Inject constructor(@Named("currency") currency: String) {
   ...
-}</code><button class="clipboard" data-clipboard-target="#x6c602144e48413e"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x7cb1f909b3e34521"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 </div>
@@ -155,7 +157,7 @@ public class BillingService {
 <div class="title">MVC and Guice</div>
 
 <div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xeb41a15360944469">import io.jooby.guice.GuiceModule;
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x1b98afa36edd40fe">import io.jooby.guice.GuiceModule;
 import io.jooby.kt.runApp
 
 public class App extends Jooby {
@@ -169,9 +171,9 @@ public class App extends Jooby {
   public static void main(String[] args) {
     runApp(args, App::new);
   }
-}</code><button class="clipboard" data-clipboard-target="#xeb41a15360944469"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x1b98afa36edd40fe"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin" id="x6093fc74b30e480b">import io.jooby.di.GuiceModule
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin" id="xe93b15f87b51431e">import io.jooby.di.GuiceModule
 import io.jooby.kt.runApp
 
 fun main(args: Array&lt;String&gt;) {
@@ -180,7 +182,7 @@ fun main(args: Array&lt;String&gt;) {
 
     mvc(MyController::class)     <b class="conum">(2)</b>
   }
-}</code><button class="clipboard" data-clipboard-target="#x6093fc74b30e480b"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#xe93b15f87b51431e"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="colist arabic">
@@ -370,6 +372,34 @@ if (!hljs.initHighlighting.called) {
       });
     } else {
       console.warn("Hamburger menu: Could not find the navigation element to toggle.");
+    }
+  });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/@docsearch/js@3"></script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // 1. Find Asciidoctor's auto-generated TOC
+    const toc = document.getElementById('toc');
+
+    if (toc) {
+      // 2. Create the search container dynamically
+      const searchContainer = document.createElement('div');
+      searchContainer.id = 'docsearch';
+
+      // 3. Inject it at the very top of the TOC, above the title
+      toc.insertBefore(searchContainer, toc.firstChild);
+
+      // 4. Initialize Algolia into that new container
+      docsearch({
+        appId: '9U2WK2CSJ7',
+        apiKey: '113e159f5c587fdac629948dd80dd993',
+        indexName: 'jooby',
+        container: '#docsearch'
+      });
+    } else {
+      console.warn("Could not find the #toc element to inject the search bar.");
     }
   });
 </script>

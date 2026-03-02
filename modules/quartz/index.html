@@ -11,8 +11,10 @@
 <title>jooby: quartz module</title>
 <link rel="stylesheet" href="../../js/styles/theme.css">
 <link rel="stylesheet" href="../../js/styles/atom-one-dark.min.css">
+<meta name="algolia-site-verification" content="B92EF92B303805F4">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet">
 <script>
   // This MUST be in the <head>. It runs before the body is rendered, preventing the white flash.
@@ -71,13 +73,13 @@
 
 
 <div class="switch"><div class="switch--item option-1 selected">Maven</div><div class="switch--item option-2">Gradle</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="xa4ab73986178422c">&lt;dependency&gt;
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="x9ec02ef2dd443e1">&lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
   &lt;artifactId&gt;jooby-quartz&lt;/artifactId&gt;
   &lt;version&gt;4.0.16&lt;/version&gt;
-&lt;/dependency&gt;</code><button class="clipboard" data-clipboard-target="#xa4ab73986178422c"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+&lt;/dependency&gt;</code><button class="clipboard" data-clipboard-target="#x9ec02ef2dd443e1"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-gradle hljs" data-lang="gradle" id="x27b1925c3f8044fa">implementation 'io.jooby:jooby-quartz:4.0.16'</code><button class="clipboard" data-clipboard-target="#x27b1925c3f8044fa"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+<pre class="highlightjs highlight"><code class="language-gradle hljs" data-lang="gradle" id="xc8a9134c3b7e447d">implementation 'io.jooby:jooby-quartz:4.0.16'</code><button class="clipboard" data-clipboard-target="#xc8a9134c3b7e447d"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -87,17 +89,17 @@
 
 
 <div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xddabc02312434e9e">import io.jooby.quartz.QuartzModule;
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x1c686b14a3b744c7">import io.jooby.quartz.QuartzModule;
 
 {
   install(new QuartzModule(SampleJob.class));
-}</code><button class="clipboard" data-clipboard-target="#xddabc02312434e9e"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x1c686b14a3b744c7"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="xd5ed7a666297486b">import io.jooby.quartz.QuartzModule
+<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="x5822e8a6dfe40a9">import io.jooby.quartz.QuartzModule
 
 {
   install(QuartzModule(SampleJob::class.java))
-}</code><button class="clipboard" data-clipboard-target="#xd5ed7a666297486b"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x5822e8a6dfe40a9"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -107,7 +109,7 @@
 
 
 <div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x5c1adfa8ac97474f">import io.quartz.Scheduled;
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xd1e7bf2f1d644f7f">import io.quartz.Scheduled;
 
 import org.quartz.Job;
 
@@ -117,9 +119,9 @@ public class SampleJob implements Job {            <b class="conum">(1)</b>
   public void execute(JobExecutionContext ctx) {
     ...
   }
-}</code><button class="clipboard" data-clipboard-target="#x5c1adfa8ac97474f"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#xd1e7bf2f1d644f7f"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="x36d4ad5c718f4328">import io.quartz.Scheduled
+<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="xdf9ae1983b0d460f">import io.quartz.Scheduled
 
 import org.quartz.Job
 
@@ -129,7 +131,7 @@ class SampleJob: Job {                             <b class="conum">(1)</b>
   fun execute(ctx: JobExecutionContext) : Unit {
     ...
   }
-}</code><button class="clipboard" data-clipboard-target="#x36d4ad5c718f4328"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#xdf9ae1983b0d460f"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="colist arabic">
@@ -154,7 +156,7 @@ an arbitrary method with the <a href="https://www.javadoc.io/doc/io.jooby/jooby-
 <div class="title">Without Job interface</div>
 
 <div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xbafb88afe8bc4f31">import io.quartz.Scheduled;
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x170848e943a749a4">import io.quartz.Scheduled;
 
 public class SampleJob {
 
@@ -162,9 +164,9 @@ public class SampleJob {
   public void everyMinute() {
     ...
   }
-}</code><button class="clipboard" data-clipboard-target="#xbafb88afe8bc4f31"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x170848e943a749a4"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="x673aa6a5b68f49b7">import io.quartz.Scheduled
+<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="x37c607768744872">import io.quartz.Scheduled
 
 class SampleJob: Job {
 
@@ -172,7 +174,7 @@ class SampleJob: Job {
   fun everyMinute() : Unit {
     ...
   }
-}</code><button class="clipboard" data-clipboard-target="#x673aa6a5b68f49b7"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x37c607768744872"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -192,7 +194,7 @@ class SampleJob: Job {
 <div class="title">Job Group</div>
 
 <div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xe1a94bc239f842fb">import io.quartz.Scheduled;
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xdc26eb46ffe744b1">import io.quartz.Scheduled;
 
 public class SampleJob {
 
@@ -205,9 +207,9 @@ public class SampleJob {
   public void everyHour() {
     ...
   }
-}</code><button class="clipboard" data-clipboard-target="#xe1a94bc239f842fb"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#xdc26eb46ffe744b1"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="x17aa261e30164d9d">import io.quartz.Scheduled
+<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="xc8eb7b0f6d724cb3">import io.quartz.Scheduled
 
 class SampleJob: Job {
 
@@ -220,7 +222,7 @@ class SampleJob: Job {
   fun everyHour() : Unit {
     ...
   }
-}</code><button class="clipboard" data-clipboard-target="#x17aa261e30164d9d"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#xc8eb7b0f6d724cb3"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -260,7 +262,7 @@ two options:</p>
 <div class="listingblock">
 <div class="title">Custom Job Factory</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xe5ee448b9d4e477c">{
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xef3cb137d1484c69">{
 
   Scheduler scheduler = QuartzModule.newScheduler(this);
 
@@ -272,7 +274,7 @@ two options:</p>
   });
 
   install(new QuartzModule(MyJob.class));
-}</code><button class="clipboard" data-clipboard-target="#xe5ee448b9d4e477c"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#xef3cb137d1484c69"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -281,7 +283,7 @@ two options:</p>
 <div class="listingblock">
 <div class="title">Guice provisioning</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x7286f5cf21e54ad7">import jakarta.inject.Inject;
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xd868305066e94ba8">import jakarta.inject.Inject;
 
 {
   install(new GuiceModule());
@@ -295,7 +297,7 @@ public class MyJob {
   public MyJob(SomeService someService) {
     this.someService = someService;
   }
-}</code><button class="clipboard" data-clipboard-target="#x7286f5cf21e54ad7"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#xd868305066e94ba8"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div>
 </div>
 </div>
@@ -358,13 +360,13 @@ expression.</p>
 
 
 <div class="switch"><div class="switch--item option-1 selected">Maven</div><div class="switch--item option-2">Gradle</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="x43950d691aa542f8">&lt;dependency&gt;
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="x5ba2bd9472c042ed">&lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
   &lt;artifactId&gt;jooby-hikari&lt;/artifactId&gt;
   &lt;version&gt;4.0.16&lt;/version&gt;
-&lt;/dependency&gt;</code><button class="clipboard" data-clipboard-target="#x43950d691aa542f8"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+&lt;/dependency&gt;</code><button class="clipboard" data-clipboard-target="#x5ba2bd9472c042ed"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-gradle hljs" data-lang="gradle" id="xf9ddf040d7ce46fb">implementation 'io.jooby:jooby-hikari:4.0.16'</code><button class="clipboard" data-clipboard-target="#xf9ddf040d7ce46fb"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+<pre class="highlightjs highlight"><code class="language-gradle hljs" data-lang="gradle" id="x78f677b8fe324ded">implementation 'io.jooby:jooby-hikari:4.0.16'</code><button class="clipboard" data-clipboard-target="#x78f677b8fe324ded"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -374,23 +376,23 @@ expression.</p>
 
 
 <div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x7ae7b7174b134870">import io.jooby.hikari.HikariModule;
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x47bec1d2f1704bae">import io.jooby.hikari.HikariModule;
 import io.jooby.quartz.QuartzModule;
 
 {
   install(new HikariModule());
 
   install(new QuartzModule(SampleJob.class));
-}</code><button class="clipboard" data-clipboard-target="#x7ae7b7174b134870"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x47bec1d2f1704bae"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="x17ef58bccd0f49b3">import io.jooby.hikari.HikariModule
+<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="xa6f8f9ad309d480a">import io.jooby.hikari.HikariModule
 import io.jooby.quartz.QuartzModule
 
 {
   install(new HikariModule())
 
   install(QuartzModule(SampleJob::class.java))
-}</code><button class="clipboard" data-clipboard-target="#x17ef58bccd0f49b3"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#xa6f8f9ad309d480a"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -399,11 +401,11 @@ import io.jooby.quartz.QuartzModule
 <div class="listingblock">
 <div class="title">application.conf</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-properties hljs" data-lang="properties" id="x6e1b63fb9f1842ff">db.url = "jdbc:mysql://localhost/mydb"
+<pre class="highlightjs highlight"><code class="language-properties hljs" data-lang="properties" id="xc4114b874396479c">db.url = "jdbc:mysql://localhost/mydb"
 db.user = "myuser"
 db.password = "mypassword"
 
-org.quartz.jobStore.class = org.quartz.impl.jdbcjobstore.JobStoreTX</code><button class="clipboard" data-clipboard-target="#x6e1b63fb9f1842ff"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+org.quartz.jobStore.class = org.quartz.impl.jdbcjobstore.JobStoreTX</code><button class="clipboard" data-clipboard-target="#xc4114b874396479c"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div>
 </div>
 </div>
@@ -416,8 +418,8 @@ application configuration file:</p>
 <div class="listingblock">
 <div class="title">Thread Pool</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-properties hljs" data-lang="properties" id="x443a3ebeca6147e5"># Set number of threads to use, default is to use the number of available processor
-org.quartz.threadPool.threadCount = 2</code><button class="clipboard" data-clipboard-target="#x443a3ebeca6147e5"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+<pre class="highlightjs highlight"><code class="language-properties hljs" data-lang="properties" id="x1e00954fed0a4a94"># Set number of threads to use, default is to use the number of available processor
+org.quartz.threadPool.threadCount = 2</code><button class="clipboard" data-clipboard-target="#x1e00954fed0a4a94"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -429,14 +431,14 @@ org.quartz.threadPool.threadCount = 2</code><button class="clipboard" data-clipb
 <div class="listingblock">
 <div class="title">Custom Scheduler</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x74653c870d6c4e1a">{
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x701e2a1e0ad14ebe">{
 
   Scheduler scheduler = QuartzModule.newScheduler(this);
   // configure scheduler as you need it
 
   install(new QuartzModule(scheduler, SampleJob.class));
 
-}</code><button class="clipboard" data-clipboard-target="#x74653c870d6c4e1a"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x701e2a1e0ad14ebe"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div>
 </div>
 <div class="sect3">
@@ -448,7 +450,7 @@ on/off job is implementing by pausing (job off) and then resume (job on) operati
 <div class="listingblock">
 <div class="title">Pausing Job at startup time</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-properties hljs" data-lang="properties" id="x3c262eb2c6a945d9">org.quartz.jobs.SampleJob.execute.enabled = false</code><button class="clipboard" data-clipboard-target="#x3c262eb2c6a945d9"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+<pre class="highlightjs highlight"><code class="language-properties hljs" data-lang="properties" id="xa505e73352c04366">org.quartz.jobs.SampleJob.execute.enabled = false</code><button class="clipboard" data-clipboard-target="#xa505e73352c04366"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -465,23 +467,23 @@ on/off job is implementing by pausing (job off) and then resume (job on) operati
 <div class="title">Quartz API</div>
 
 <div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xc1b28562178d4414">import io.jooby.quartz.QuartzApp
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xd2c1afeb378f491b">import io.jooby.quartz.QuartzApp
 import io.jooby.quartz.QuartzModule;
 
 {
   install(new QuartzModule(SampleJob.class));
 
   use("/scheduler", new QuartzApp());
-}</code><button class="clipboard" data-clipboard-target="#xc1b28562178d4414"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#xd2c1afeb378f491b"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="xe9594f9be6374ff1">import io.jooby.quartz.QuartzApp
+<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="xb2249a5673cb4102">import io.jooby.quartz.QuartzApp
 import io.jooby.quartz.QuartzModule
 
 {
   install(QuartzModule(SampleJob::class.java))
 
   use("/scheduler", QuartzApp())
-}</code><button class="clipboard" data-clipboard-target="#xe9594f9be6374ff1"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#xb2249a5673cb4102"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -703,6 +705,34 @@ if (!hljs.initHighlighting.called) {
       });
     } else {
       console.warn("Hamburger menu: Could not find the navigation element to toggle.");
+    }
+  });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/@docsearch/js@3"></script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // 1. Find Asciidoctor's auto-generated TOC
+    const toc = document.getElementById('toc');
+
+    if (toc) {
+      // 2. Create the search container dynamically
+      const searchContainer = document.createElement('div');
+      searchContainer.id = 'docsearch';
+
+      // 3. Inject it at the very top of the TOC, above the title
+      toc.insertBefore(searchContainer, toc.firstChild);
+
+      // 4. Initialize Algolia into that new container
+      docsearch({
+        appId: '9U2WK2CSJ7',
+        apiKey: '113e159f5c587fdac629948dd80dd993',
+        indexName: 'jooby',
+        container: '#docsearch'
+      });
+    } else {
+      console.warn("Could not find the #toc element to inject the search bar.");
     }
   });
 </script>

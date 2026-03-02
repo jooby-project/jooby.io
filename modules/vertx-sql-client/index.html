@@ -11,8 +11,10 @@
 <title>jooby: vertx sql client module</title>
 <link rel="stylesheet" href="../../js/styles/theme.css">
 <link rel="stylesheet" href="../../js/styles/atom-one-dark.min.css">
+<meta name="algolia-site-verification" content="B92EF92B303805F4">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet">
 <script>
   // This MUST be in the <head>. It runs before the body is rendered, preventing the white flash.
@@ -72,7 +74,7 @@
 
 
 <div class="switch"><div class="switch--item option-1 selected">Maven</div><div class="switch--item option-2">Gradle</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="x2d5fdbfd2e194abf">&lt;!-- Vertx Module--&gt;
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="xaf8b69fb12b54014">&lt;!-- Vertx Module--&gt;
 &lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
   &lt;artifactId&gt;jooby-vertx&lt;/artifactId&gt;
@@ -84,13 +86,13 @@
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
   &lt;artifactId&gt;jooby-vertx-mysql-client&lt;/artifactId&gt;
   &lt;version&gt;4.0.16&lt;/version&gt;
-&lt;/dependency&gt;</code><button class="clipboard" data-clipboard-target="#x2d5fdbfd2e194abf"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+&lt;/dependency&gt;</code><button class="clipboard" data-clipboard-target="#xaf8b69fb12b54014"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-gradle hljs" data-lang="gradle" id="x52ecd3d33ebf4c8f">// Vertx Module
+<pre class="highlightjs highlight"><code class="language-gradle hljs" data-lang="gradle" id="x110be3d20d53404b">// Vertx Module
 implementation 'io.jooby:jooby-vertx:4.0.16'
 
 // mysql Client
-implementation 'io.jooby:jooby-vertx-mysql-client:4.0.16'</code><button class="clipboard" data-clipboard-target="#x52ecd3d33ebf4c8f"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+implementation 'io.jooby:jooby-vertx-mysql-client:4.0.16'</code><button class="clipboard" data-clipboard-target="#x110be3d20d53404b"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -99,17 +101,17 @@ implementation 'io.jooby:jooby-vertx-mysql-client:4.0.16'</code><button class="c
 <div class="listingblock">
 <div class="title">application.conf</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-properties hljs" data-lang="properties" id="x35e61989c84b4ff4">db = mysql//dbuser:secretpassword@localhost:3306/mydb</code><button class="clipboard" data-clipboard-target="#x35e61989c84b4ff4"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+<pre class="highlightjs highlight"><code class="language-properties hljs" data-lang="properties" id="x44251d183174688">db = mysql//dbuser:secretpassword@localhost:3306/mydb</code><button class="clipboard" data-clipboard-target="#x44251d183174688"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div>
 </div>
 <div class="listingblock">
 <div class="title">application.conf</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-properties hljs" data-lang="properties" id="x9cc59a3acc544ded">db.host = localhost
+<pre class="highlightjs highlight"><code class="language-properties hljs" data-lang="properties" id="x8291d884490248dd">db.host = localhost
 db.port = 3306
 db.database = mydb
 db.user = dbuser
-db.password = secretpassword</code><button class="clipboard" data-clipboard-target="#x9cc59a3acc544ded"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+db.password = secretpassword</code><button class="clipboard" data-clipboard-target="#x8291d884490248dd"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -119,7 +121,7 @@ db.password = secretpassword</code><button class="clipboard" data-clipboard-targ
 
 
 <div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xde901e84a1b64607">import io.jooby.vertx.VertxModule;
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x6742649b917740d9">import io.jooby.vertx.VertxModule;
 import io.jooby.vertx.VertxMySQLModule;
 import static io.jooby.vertx.VertxHandler.vertx;
 
@@ -139,9 +141,9 @@ import static io.jooby.vertx.VertxHandler.vertx;
           return new World(row.getInteger(0), row.getInteger(1));
         });
   });
-}</code><button class="clipboard" data-clipboard-target="#xde901e84a1b64607"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x6742649b917740d9"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="x6a45f2e2eed84e7c">import io.jooby.vertx.VertxModule
+<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="xff412f46485c4c52">import io.jooby.vertx.VertxModule
 import io.jooby.vertx.VertxMySQLModule
 import static io.jooby.vertx.VertxHandler.vertx
 
@@ -161,7 +163,7 @@ import static io.jooby.vertx.VertxHandler.vertx
           World(row.getInteger(0), row.getInteger(1))
         })
   }
-}</code><button class="clipboard" data-clipboard-target="#x6a45f2e2eed84e7c"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#xff412f46485c4c52"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="colist arabic">
@@ -189,11 +191,11 @@ import static io.jooby.vertx.VertxHandler.vertx
 <div class="listingblock">
 <div class="title">Client</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xccdab5d9f4fc4101">{
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x15105a5c33d844ae">{
   ...
   install(new VertxMySQLModule(MySQLBuilder::client));
   ...
-}</code><button class="clipboard" data-clipboard-target="#xccdab5d9f4fc4101"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x15105a5c33d844ae"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div>
 </div>
 </div>
@@ -206,7 +208,7 @@ import static io.jooby.vertx.VertxHandler.vertx
 
 
 <div class="switch"><div class="switch--item option-1 selected">Maven</div><div class="switch--item option-2">Gradle</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="x4f87069b6e2d433e">&lt;!-- Vertx Module--&gt;
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="x6285e5ec4c1c48f2">&lt;!-- Vertx Module--&gt;
 &lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
   &lt;artifactId&gt;jooby-vertx&lt;/artifactId&gt;
@@ -218,13 +220,13 @@ import static io.jooby.vertx.VertxHandler.vertx
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
   &lt;artifactId&gt;jooby-vertx-pg-client&lt;/artifactId&gt;
   &lt;version&gt;4.0.16&lt;/version&gt;
-&lt;/dependency&gt;</code><button class="clipboard" data-clipboard-target="#x4f87069b6e2d433e"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+&lt;/dependency&gt;</code><button class="clipboard" data-clipboard-target="#x6285e5ec4c1c48f2"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-gradle hljs" data-lang="gradle" id="xf230d9e8bbd94308">// Vertx Module
+<pre class="highlightjs highlight"><code class="language-gradle hljs" data-lang="gradle" id="x6c169fc0fe3f4b74">// Vertx Module
 implementation 'io.jooby:jooby-vertx:4.0.16'
 
 // postgresql Client
-implementation 'io.jooby:jooby-vertx-pg-client:4.0.16'</code><button class="clipboard" data-clipboard-target="#xf230d9e8bbd94308"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+implementation 'io.jooby:jooby-vertx-pg-client:4.0.16'</code><button class="clipboard" data-clipboard-target="#x6c169fc0fe3f4b74"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -233,17 +235,17 @@ implementation 'io.jooby:jooby-vertx-pg-client:4.0.16'</code><button class="clip
 <div class="listingblock">
 <div class="title">application.conf</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-properties hljs" data-lang="properties" id="x6d490b6a82ec472d">db = postgresql//dbuser:secretpassword@localhost:5432/mydb</code><button class="clipboard" data-clipboard-target="#x6d490b6a82ec472d"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+<pre class="highlightjs highlight"><code class="language-properties hljs" data-lang="properties" id="xc53b2a29706a4970">db = postgresql//dbuser:secretpassword@localhost:5432/mydb</code><button class="clipboard" data-clipboard-target="#xc53b2a29706a4970"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div>
 </div>
 <div class="listingblock">
 <div class="title">application.conf</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-properties hljs" data-lang="properties" id="xe159d75483ed45ca">db.host = localhost
+<pre class="highlightjs highlight"><code class="language-properties hljs" data-lang="properties" id="x1a605a7e9e8b4d83">db.host = localhost
 db.port = 5432
 db.database = mydb
 db.user = dbuser
-db.password = secretpassword</code><button class="clipboard" data-clipboard-target="#xe159d75483ed45ca"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+db.password = secretpassword</code><button class="clipboard" data-clipboard-target="#x1a605a7e9e8b4d83"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -253,7 +255,7 @@ db.password = secretpassword</code><button class="clipboard" data-clipboard-targ
 
 
 <div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x702a9062c07c45c0">import io.jooby.vertx.VertxModule;
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xf57c9cd4fc7648cf">import io.jooby.vertx.VertxModule;
 import io.jooby.vertx.VertxPgModule;
 import static io.jooby.vertx.VertxHandler.vertx;
 
@@ -273,9 +275,9 @@ import static io.jooby.vertx.VertxHandler.vertx;
           return new World(row.getInteger(0), row.getInteger(1));
         });
   });
-}</code><button class="clipboard" data-clipboard-target="#x702a9062c07c45c0"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#xf57c9cd4fc7648cf"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="x7d373498afea4770">import io.jooby.vertx.VertxModule
+<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="x97e523a3b3254270">import io.jooby.vertx.VertxModule
 import io.jooby.vertx.VertxPgModule
 import static io.jooby.vertx.VertxHandler.vertx
 
@@ -295,7 +297,7 @@ import static io.jooby.vertx.VertxHandler.vertx
           World(row.getInteger(0), row.getInteger(1))
         })
   }
-}</code><button class="clipboard" data-clipboard-target="#x7d373498afea4770"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x97e523a3b3254270"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="colist arabic">
@@ -323,11 +325,11 @@ import static io.jooby.vertx.VertxHandler.vertx
 <div class="listingblock">
 <div class="title">Client</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x90b57e00bb7f4aa5">{
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xc1190d35eb4080">{
   ...
   install(new VertxPgModule(PgBuilder::client));
   ...
-}</code><button class="clipboard" data-clipboard-target="#x90b57e00bb7f4aa5"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#xc1190d35eb4080"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div>
 </div>
 </div>
@@ -495,6 +497,34 @@ if (!hljs.initHighlighting.called) {
       });
     } else {
       console.warn("Hamburger menu: Could not find the navigation element to toggle.");
+    }
+  });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/@docsearch/js@3"></script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // 1. Find Asciidoctor's auto-generated TOC
+    const toc = document.getElementById('toc');
+
+    if (toc) {
+      // 2. Create the search container dynamically
+      const searchContainer = document.createElement('div');
+      searchContainer.id = 'docsearch';
+
+      // 3. Inject it at the very top of the TOC, above the title
+      toc.insertBefore(searchContainer, toc.firstChild);
+
+      // 4. Initialize Algolia into that new container
+      docsearch({
+        appId: '9U2WK2CSJ7',
+        apiKey: '113e159f5c587fdac629948dd80dd993',
+        indexName: 'jooby',
+        container: '#docsearch'
+      });
+    } else {
+      console.warn("Could not find the #toc element to inject the search bar.");
     }
   });
 </script>

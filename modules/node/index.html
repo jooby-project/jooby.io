@@ -11,8 +11,10 @@
 <title>jooby: node module</title>
 <link rel="stylesheet" href="../../js/styles/theme.css">
 <link rel="stylesheet" href="../../js/styles/atom-one-dark.min.css">
+<meta name="algolia-site-verification" content="B92EF92B303805F4">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet">
 <script>
   // This MUST be in the <head>. It runs before the body is rendered, preventing the white flash.
@@ -70,13 +72,13 @@
 
 
 <div class="switch"><div class="switch--item option-1 selected">Maven</div><div class="switch--item option-2">Gradle</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="x9ac095112e9d4d31">&lt;dependency&gt;
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="xc20090a5323a4e05">&lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
   &lt;artifactId&gt;jooby-node&lt;/artifactId&gt;
   &lt;version&gt;4.0.16&lt;/version&gt;
-&lt;/dependency&gt;</code><button class="clipboard" data-clipboard-target="#x9ac095112e9d4d31"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+&lt;/dependency&gt;</code><button class="clipboard" data-clipboard-target="#xc20090a5323a4e05"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-gradle hljs" data-lang="gradle" id="xf1984e30577249ae">implementation 'io.jooby:jooby-node:4.0.16'</code><button class="clipboard" data-clipboard-target="#xf1984e30577249ae"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+<pre class="highlightjs highlight"><code class="language-gradle hljs" data-lang="gradle" id="x9b10f306beea46f3">implementation 'io.jooby:jooby-node:4.0.16'</code><button class="clipboard" data-clipboard-target="#x9b10f306beea46f3"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -85,13 +87,13 @@
 <div class="listingblock">
 <div class="title">package.json</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json" id="xebf369fab6d945bc">{
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json" id="x648ac438c02145ba">{
   "name": "myapp",
   "version": "1.0.0",
   "scripts": {
     "build": "echo \"Default task\""         <b class="conum">(1)</b>
   }
-}</code><button class="clipboard" data-clipboard-target="#xebf369fab6d945bc"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x648ac438c02145ba"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -101,17 +103,17 @@
 
 
 <div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xce49050272b40eb">import io.jooby.node.NpmModule;
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xcbcf6a54e775466a">import io.jooby.node.NpmModule;
 
 {
   install(new NpmModule("v12.16.1"));        <b class="conum">(2)</b>
-}</code><button class="clipboard" data-clipboard-target="#xce49050272b40eb"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#xcbcf6a54e775466a"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="x4b610f9d36c4e82">import io.jooby.node.NpmModule
+<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="x6f41317f7e844360">import io.jooby.node.NpmModule
 
 {
   install(NpmModule("v12.16.1"))             <b class="conum">(2)</b>
-}</code><button class="clipboard" data-clipboard-target="#x4b610f9d36c4e82"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x6f41317f7e844360"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="colist arabic">
@@ -161,21 +163,21 @@
 
 
 <div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x3c7a5aa474ca4772">import io.jooby.node.NpmModule;
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xda74b093da0b4aec">import io.jooby.node.NpmModule;
 
 {
   install(new NpmModule("v12.16.1")
     .execute("run", "local")                 <b class="conum">(1)</b>
   );
-}</code><button class="clipboard" data-clipboard-target="#x3c7a5aa474ca4772"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#xda74b093da0b4aec"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="x427ee6ab2b8e4409">import io.jooby.node.NpmModule
+<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="xaa3636d91731447f">import io.jooby.node.NpmModule
 
 {
   install(NpmModule("v12.16.1")
     .execute("run", "local")                 <b class="conum">(1)</b>
   )
-}</code><button class="clipboard" data-clipboard-target="#x427ee6ab2b8e4409"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#xaa3636d91731447f"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="colist arabic">
@@ -267,7 +269,7 @@ If you are a Gradle user, you might want to try the <a href="https://github.com/
 <div class="listingblock">
 <div class="title">pom.xml</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="x1839c0b30f0640dc">&lt;build&gt;
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="xc40e8fce0df14aa4">&lt;build&gt;
   &lt;plugins&gt;
     ...
     &lt;plugin&gt;
@@ -315,7 +317,7 @@ If you are a Gradle user, you might want to try the <a href="https://github.com/
       &lt;/plugin&gt;
       ...
   &lt;/plugins&gt;
-&lt;/build&gt;</code><button class="clipboard" data-clipboard-target="#x1839c0b30f0640dc"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+&lt;/build&gt;</code><button class="clipboard" data-clipboard-target="#xc40e8fce0df14aa4"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div>
 </div>
 <div class="colist arabic">
@@ -500,6 +502,34 @@ if (!hljs.initHighlighting.called) {
       });
     } else {
       console.warn("Hamburger menu: Could not find the navigation element to toggle.");
+    }
+  });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/@docsearch/js@3"></script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // 1. Find Asciidoctor's auto-generated TOC
+    const toc = document.getElementById('toc');
+
+    if (toc) {
+      // 2. Create the search container dynamically
+      const searchContainer = document.createElement('div');
+      searchContainer.id = 'docsearch';
+
+      // 3. Inject it at the very top of the TOC, above the title
+      toc.insertBefore(searchContainer, toc.firstChild);
+
+      // 4. Initialize Algolia into that new container
+      docsearch({
+        appId: '9U2WK2CSJ7',
+        apiKey: '113e159f5c587fdac629948dd80dd993',
+        indexName: 'jooby',
+        container: '#docsearch'
+      });
+    } else {
+      console.warn("Could not find the #toc element to inject the search bar.");
     }
   });
 </script>

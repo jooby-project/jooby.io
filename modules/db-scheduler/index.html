@@ -11,8 +11,10 @@
 <title>jooby: db scheduler module</title>
 <link rel="stylesheet" href="../../js/styles/theme.css">
 <link rel="stylesheet" href="../../js/styles/atom-one-dark.min.css">
+<meta name="algolia-site-verification" content="B92EF92B303805F4">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet">
 <script>
   // This MUST be in the <head>. It runs before the body is rendered, preventing the white flash.
@@ -62,7 +64,7 @@
 
 
 <div class="switch"><div class="switch--item option-1 selected">Maven</div><div class="switch--item option-2">Gradle</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="xd83107e85fa84ac7">&lt;!-- DataSource via HikariCP--&gt;
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="xaacf1fa4b0074e8a">&lt;!-- DataSource via HikariCP--&gt;
 &lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
   &lt;artifactId&gt;jooby-hikari&lt;/artifactId&gt;
@@ -74,13 +76,13 @@
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
   &lt;artifactId&gt;jooby-db-scheduler&lt;/artifactId&gt;
   &lt;version&gt;4.0.16&lt;/version&gt;
-&lt;/dependency&gt;</code><button class="clipboard" data-clipboard-target="#xd83107e85fa84ac7"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+&lt;/dependency&gt;</code><button class="clipboard" data-clipboard-target="#xaacf1fa4b0074e8a"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-gradle hljs" data-lang="gradle" id="xa35ee4e0a82c44d9">// DataSource via HikariCP
+<pre class="highlightjs highlight"><code class="language-gradle hljs" data-lang="gradle" id="xe94337da468c4580">// DataSource via HikariCP
 implementation 'io.jooby:jooby-hikari:4.0.16'
 
 // Db Scheduler Module
-implementation 'io.jooby:jooby-db-scheduler:4.0.16'</code><button class="clipboard" data-clipboard-target="#xa35ee4e0a82c44d9"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+implementation 'io.jooby:jooby-db-scheduler:4.0.16'</code><button class="clipboard" data-clipboard-target="#xe94337da468c4580"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -90,13 +92,13 @@ implementation 'io.jooby:jooby-db-scheduler:4.0.16'</code><button class="clipboa
 
 
 <div class="switch"><div class="switch--item option-1 selected">Maven</div><div class="switch--item option-2">Gradle</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="xd3018585e7cf4ae8">&lt;dependency&gt;
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="x34f111486f8d4390">&lt;dependency&gt;
   &lt;groupId&gt;mysql&lt;/groupId&gt;
   &lt;artifactId&gt;mysql-connector-java&lt;/artifactId&gt;
   &lt;version&gt;${mysql-connector-java.version}&lt;/version&gt;
-&lt;/dependency&gt;</code><button class="clipboard" data-clipboard-target="#xd3018585e7cf4ae8"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+&lt;/dependency&gt;</code><button class="clipboard" data-clipboard-target="#x34f111486f8d4390"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-gradle hljs" data-lang="gradle" id="x50ff0bd6d9634e52">implementation 'mysql:mysql-connector-java:${mysql-connector-java.version}'</code><button class="clipboard" data-clipboard-target="#x50ff0bd6d9634e52"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+<pre class="highlightjs highlight"><code class="language-gradle hljs" data-lang="gradle" id="xfe578ef221f44002">implementation 'mysql:mysql-connector-java:${mysql-connector-java.version}'</code><button class="clipboard" data-clipboard-target="#xfe578ef221f44002"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -106,18 +108,18 @@ implementation 'io.jooby:jooby-db-scheduler:4.0.16'</code><button class="clipboa
 
 
 <div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xe414aaee86754eca">import io.jooby.dbscheduler.DbSchedulerModule;
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x1bef3a1fb8dd436e">import io.jooby.dbscheduler.DbSchedulerModule;
 
 {
   install(new HikariModule());
   install(new DbSchedulerModule(Tasks.recurring(...)));
-}</code><button class="clipboard" data-clipboard-target="#xe414aaee86754eca"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x1bef3a1fb8dd436e"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="x2cb1312d00824b1e">import io.jooby.dbscheduler.DbSchedulerModule
+<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="x19f06e462e054169">import io.jooby.dbscheduler.DbSchedulerModule
 
 {
   install(DbSchedulerModule(Tasks.recurring(...)))
-}</code><button class="clipboard" data-clipboard-target="#x2cb1312d00824b1e"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x19f06e462e054169"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 </div>
@@ -131,7 +133,7 @@ you can annotate a method with the <a href="https://www.javadoc.io/doc/io.jooby/
 <div class="title">Sample Job</div>
 
 <div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x74d4701c2bcf4951">import io.jooby.dbscheduler.Scheduled;
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x1df8028a06db444d">import io.jooby.dbscheduler.Scheduled;
 
 public class SampleJob {
 
@@ -139,9 +141,9 @@ public class SampleJob {
   public void everyMinute() {
     ...
   }
-}</code><button class="clipboard" data-clipboard-target="#x74d4701c2bcf4951"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x1df8028a06db444d"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="x98cd204692334545">import io.jooby.dbscheduler.Scheduled
+<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="xa5cd5a75828c41af">import io.jooby.dbscheduler.Scheduled
 
 class SampleJob {
 
@@ -149,7 +151,7 @@ class SampleJob {
   fun everyMinute() : Unit {
     ...
   }
-}</code><button class="clipboard" data-clipboard-target="#x98cd204692334545"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#xa5cd5a75828c41af"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -158,12 +160,12 @@ class SampleJob {
 <div class="listingblock">
 <div class="title">Bean Tasks</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xcd457de496e34401">import io.jooby.dbscheduler.BeanTasks;
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xbb69f03989e04910">import io.jooby.dbscheduler.BeanTasks;
 
 {
     install(new HikariModule());
     install(new DbSchedulerModule(BeanTasks.recurring(this, SampleJob.class)));
-}</code><button class="clipboard" data-clipboard-target="#xcd457de496e34401"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#xbb69f03989e04910"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -237,7 +239,7 @@ properties to your application configuration file:</p>
 <div class="listingblock">
 <div class="title">Options</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-properties hljs" data-lang="properties" id="x78cd69f638e6411e"># Turn on/off scheduler.
+<pre class="highlightjs highlight"><code class="language-properties hljs" data-lang="properties" id="x71f83cfa81334ada"># Turn on/off scheduler.
 db-scheduler.enabled = true
 # Set number of threads to use, default is to use the number of available processor
 db-scheduler.threads = 8
@@ -246,7 +248,7 @@ db-scheduler.alwaysPersistTimestampInUTC = true
 db-scheduler.enableImmediateExecution = false
 # No need to use registerShutdownHook, the scheduler is shutdown on application shutdown
 db-scheduler.registerShutdownHook = false
-db-scheduler.shutdownMaxWait = 1s</code><button class="clipboard" data-clipboard-target="#x78cd69f638e6411e"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+db-scheduler.shutdownMaxWait = 1s</code><button class="clipboard" data-clipboard-target="#x71f83cfa81334ada"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -262,23 +264,23 @@ db-scheduler.shutdownMaxWait = 1s</code><button class="clipboard" data-clipboard
 <div class="title">Scheduler API</div>
 
 <div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x6336026c28dd4883">import io.jooby.dbscheduler.DbSchedulerApp;
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x2cf17d5f75524683">import io.jooby.dbscheduler.DbSchedulerApp;
 import io.jooby.dbscheduler.DbSchedulerModule;
 
 {
   install(new DbScheduler(SampleJob.class));
 
   mount("/scheduler", new DbSchedulerApp());
-}</code><button class="clipboard" data-clipboard-target="#x6336026c28dd4883"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x2cf17d5f75524683"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="xe9c38d903dfe43f4">import io.jooby.dbscheduler.DbSchedulerApp
+<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="x455fd751673141bf">import io.jooby.dbscheduler.DbSchedulerApp
 import io.jooby.dbscheduler.DbSchedulerModule
 
 {
   install(DbScheduler(SampleJob::class.java))
 
   mount("/scheduler", DbSchedulerApp())
-}</code><button class="clipboard" data-clipboard-target="#xe9c38d903dfe43f4"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x455fd751673141bf"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -491,6 +493,34 @@ if (!hljs.initHighlighting.called) {
       });
     } else {
       console.warn("Hamburger menu: Could not find the navigation element to toggle.");
+    }
+  });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/@docsearch/js@3"></script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // 1. Find Asciidoctor's auto-generated TOC
+    const toc = document.getElementById('toc');
+
+    if (toc) {
+      // 2. Create the search container dynamically
+      const searchContainer = document.createElement('div');
+      searchContainer.id = 'docsearch';
+
+      // 3. Inject it at the very top of the TOC, above the title
+      toc.insertBefore(searchContainer, toc.firstChild);
+
+      // 4. Initialize Algolia into that new container
+      docsearch({
+        appId: '9U2WK2CSJ7',
+        apiKey: '113e159f5c587fdac629948dd80dd993',
+        indexName: 'jooby',
+        container: '#docsearch'
+      });
+    } else {
+      console.warn("Could not find the #toc element to inject the search bar.");
     }
   });
 </script>
