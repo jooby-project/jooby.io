@@ -11,8 +11,10 @@
 <title>jooby: hikari module</title>
 <link rel="stylesheet" href="../../js/styles/theme.css">
 <link rel="stylesheet" href="../../js/styles/atom-one-dark.min.css">
+<meta name="algolia-site-verification" content="B92EF92B303805F4">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet">
 <script>
   // This MUST be in the <head>. It runs before the body is rendered, preventing the white flash.
@@ -63,13 +65,13 @@
 
 
 <div class="switch"><div class="switch--item option-1 selected">Maven</div><div class="switch--item option-2">Gradle</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="x359f20c3b7024b0f">&lt;dependency&gt;
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="x103b50ce0e974c78">&lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
   &lt;artifactId&gt;jooby-hikari&lt;/artifactId&gt;
   &lt;version&gt;4.0.16&lt;/version&gt;
-&lt;/dependency&gt;</code><button class="clipboard" data-clipboard-target="#x359f20c3b7024b0f"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+&lt;/dependency&gt;</code><button class="clipboard" data-clipboard-target="#x103b50ce0e974c78"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-gradle hljs" data-lang="gradle" id="x757568b2ba2342d2">implementation 'io.jooby:jooby-hikari:4.0.16'</code><button class="clipboard" data-clipboard-target="#x757568b2ba2342d2"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+<pre class="highlightjs highlight"><code class="language-gradle hljs" data-lang="gradle" id="x18fd298547fa48cc">implementation 'io.jooby:jooby-hikari:4.0.16'</code><button class="clipboard" data-clipboard-target="#x18fd298547fa48cc"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -79,13 +81,13 @@
 
 
 <div class="switch"><div class="switch--item option-1 selected">Maven</div><div class="switch--item option-2">Gradle</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="x5a3682f7264c402c">&lt;dependency&gt;
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="x8ff26c7a134d40bc">&lt;dependency&gt;
   &lt;groupId&gt;mysql&lt;/groupId&gt;
   &lt;artifactId&gt;mysql-connector-java&lt;/artifactId&gt;
   &lt;version&gt;${mysql-connector-java.version}&lt;/version&gt;
-&lt;/dependency&gt;</code><button class="clipboard" data-clipboard-target="#x5a3682f7264c402c"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+&lt;/dependency&gt;</code><button class="clipboard" data-clipboard-target="#x8ff26c7a134d40bc"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-gradle hljs" data-lang="gradle" id="x8c70a0ca7dee4e66">implementation 'mysql:mysql-connector-java:${mysql-connector-java.version}'</code><button class="clipboard" data-clipboard-target="#x8c70a0ca7dee4e66"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+<pre class="highlightjs highlight"><code class="language-gradle hljs" data-lang="gradle" id="x2180467e0354421">implementation 'mysql:mysql-connector-java:${mysql-connector-java.version}'</code><button class="clipboard" data-clipboard-target="#x2180467e0354421"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -94,9 +96,9 @@
 <div class="listingblock">
 <div class="title">application.conf</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-properties hljs" data-lang="properties" id="x40c92fe96e6d4abe">db.url = "jdbc:mysql://localhost/mydb"
+<pre class="highlightjs highlight"><code class="language-properties hljs" data-lang="properties" id="x6854ed1ba46c4e5c">db.url = "jdbc:mysql://localhost/mydb"
 db.user = myuser
-db.password = mypass</code><button class="clipboard" data-clipboard-target="#x40c92fe96e6d4abe"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+db.password = mypass</code><button class="clipboard" data-clipboard-target="#x6854ed1ba46c4e5c"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -106,7 +108,7 @@ db.password = mypass</code><button class="clipboard" data-clipboard-target="#x40
 
 
 <div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xe6b4cd19c7ae46c9">import io.jooby.hikari.HikariModule;
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x76883ba842954b1a">import io.jooby.hikari.HikariModule;
 
 {
   install(new HikariModule());
@@ -115,9 +117,9 @@ db.password = mypass</code><button class="clipboard" data-clipboard-target="#x40
     DataSource ds = require(DataSource.class);
     // work with data source
   });
-}</code><button class="clipboard" data-clipboard-target="#xe6b4cd19c7ae46c9"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x76883ba842954b1a"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="xa03870f99b334325">import io.jooby.hikari.HikariModule
+<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="xb5cb20e452b44b3c">import io.jooby.hikari.HikariModule
 
 {
   install(HikariModule())
@@ -126,7 +128,7 @@ db.password = mypass</code><button class="clipboard" data-clipboard-target="#x40
     val ds = require(DataSource::class)
     // work with data source
   }
-}</code><button class="clipboard" data-clipboard-target="#xa03870f99b334325"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#xb5cb20e452b44b3c"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 </div>
@@ -141,17 +143,17 @@ database prefix:</p>
 <div class="title">Custom database prefix</div>
 
 <div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x3076b70cec384cc1">import io.jooby.hikari.HikariModule;
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xdecab727975f40ff">import io.jooby.hikari.HikariModule;
 
 {
   install(new HikariModule("mydb"));
-}</code><button class="clipboard" data-clipboard-target="#x3076b70cec384cc1"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#xdecab727975f40ff"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="x88d291aadd474a">import io.jooby.hikari.HikariModule
+<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="x77f4565e496a488e">import io.jooby.hikari.HikariModule
 
 {
   install(HikariModule("mydb"))
-}</code><button class="clipboard" data-clipboard-target="#x88d291aadd474a"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x77f4565e496a488e"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -161,17 +163,17 @@ database prefix:</p>
 <div class="title">No properties</div>
 
 <div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xc7952ed02f8e424f">import io.jooby.hikari.HikariModule;
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xca386a6bca9c4210">import io.jooby.hikari.HikariModule;
 
 {
   install(new HikariModule("jdbc:mysql://localhost/mydb"));
-}</code><button class="clipboard" data-clipboard-target="#xc7952ed02f8e424f"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#xca386a6bca9c4210"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="x1a9c0b456d0940af">import io.jooby.hikari.HikariModule
+<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="x291bcc42d3464216">import io.jooby.hikari.HikariModule
 
 {
   install(HikariModule("jdbc:mysql://localhost/mydb"))
-}</code><button class="clipboard" data-clipboard-target="#x1a9c0b456d0940af"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x291bcc42d3464216"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 </div>
@@ -202,20 +204,20 @@ database prefix:</p>
 <div class="listingblock">
 <div class="title">application.conf</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-properties hljs" data-lang="properties" id="x4cf26f9a02554a2b">maindb.url = "jdbc:mysql://localhost/main"
+<pre class="highlightjs highlight"><code class="language-properties hljs" data-lang="properties" id="x7e25e457b2aa4886">maindb.url = "jdbc:mysql://localhost/main"
 maindb.user = myuser
 maindb.password = mypass
 
 auditdb.url = "jdbc:mysql://localhost/audit"
 auditdb.user = myuser
-auditdb.password = mypass</code><button class="clipboard" data-clipboard-target="#x4cf26f9a02554a2b"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+auditdb.password = mypass</code><button class="clipboard" data-clipboard-target="#x7e25e457b2aa4886"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div>
 </div>
 <div class="listingblock primary">
 <div class="title">Multiple data sources</div>
 
 <div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x990e935fc5b74769">import io.jooby.hikari.HikariModule;
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x8fa3d2978cfd4dc1">import io.jooby.hikari.HikariModule;
 
 {
   install(new HikariModule("maindb"));
@@ -228,9 +230,9 @@ auditdb.password = mypass</code><button class="clipboard" data-clipboard-target=
     DataSource auditdb = require(DataSource.class, "auditdb");
     // ...
   });
-}</code><button class="clipboard" data-clipboard-target="#x990e935fc5b74769"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x8fa3d2978cfd4dc1"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="xf9a0950807ee4c29">import io.jooby.hikari.HikariModule
+<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="xf9875438a02b41b8">import io.jooby.hikari.HikariModule
 
 {
   install(HikariModule("maindb"))
@@ -242,7 +244,7 @@ auditdb.password = mypass</code><button class="clipboard" data-clipboard-target=
     val auditdb = require(DataSource::class, "auditdb")
     // ...
   }
-}</code><button class="clipboard" data-clipboard-target="#xf9a0950807ee4c29"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#xf9875438a02b41b8"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 </div>
@@ -254,10 +256,10 @@ auditdb.password = mypass</code><button class="clipboard" data-clipboard-target=
 <div class="listingblock">
 <div class="title">Maximum Pool Size</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-properties hljs" data-lang="properties" id="xd539044508674c15">db.url = "jdbc:mysql://localhost/main"
+<pre class="highlightjs highlight"><code class="language-properties hljs" data-lang="properties" id="xd5153b176df344e2">db.url = "jdbc:mysql://localhost/main"
 db.user = myuser
 
-hikari.maximumPoolSize = 10</code><button class="clipboard" data-clipboard-target="#xd539044508674c15"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+hikari.maximumPoolSize = 10</code><button class="clipboard" data-clipboard-target="#xd5153b176df344e2"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -266,7 +268,7 @@ hikari.maximumPoolSize = 10</code><button class="clipboard" data-clipboard-targe
 <div class="listingblock">
 <div class="title">Maximum Pool Size</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-properties hljs" data-lang="properties" id="xe1a446fc76e14348">maindb.url = "jdbc:mysql://localhost/main"
+<pre class="highlightjs highlight"><code class="language-properties hljs" data-lang="properties" id="x29d57853021b4e2e">maindb.url = "jdbc:mysql://localhost/main"
 maindb.user = myuser
 maindb.password = mypass
 
@@ -276,7 +278,7 @@ auditdb.url = "jdbc:mysql://localhost/audit"
 auditdb.user = myuser
 auditdb.password = mypass
 
-auditdb.hikari.maximumPoolSize = 15</code><button class="clipboard" data-clipboard-target="#xe1a446fc76e14348"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+auditdb.hikari.maximumPoolSize = 15</code><button class="clipboard" data-clipboard-target="#x29d57853021b4e2e"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div>
 </div>
 </div>
@@ -444,6 +446,34 @@ if (!hljs.initHighlighting.called) {
       });
     } else {
       console.warn("Hamburger menu: Could not find the navigation element to toggle.");
+    }
+  });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/@docsearch/js@3"></script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // 1. Find Asciidoctor's auto-generated TOC
+    const toc = document.getElementById('toc');
+
+    if (toc) {
+      // 2. Create the search container dynamically
+      const searchContainer = document.createElement('div');
+      searchContainer.id = 'docsearch';
+
+      // 3. Inject it at the very top of the TOC, above the title
+      toc.insertBefore(searchContainer, toc.firstChild);
+
+      // 4. Initialize Algolia into that new container
+      docsearch({
+        appId: '9U2WK2CSJ7',
+        apiKey: '113e159f5c587fdac629948dd80dd993',
+        indexName: 'jooby',
+        container: '#docsearch'
+      });
+    } else {
+      console.warn("Could not find the #toc element to inject the search bar.");
     }
   });
 </script>

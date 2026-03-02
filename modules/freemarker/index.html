@@ -11,8 +11,10 @@
 <title>jooby: freemarker module</title>
 <link rel="stylesheet" href="../../js/styles/theme.css">
 <link rel="stylesheet" href="../../js/styles/atom-one-dark.min.css">
+<meta name="algolia-site-verification" content="B92EF92B303805F4">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet">
 <script>
   // This MUST be in the <head>. It runs before the body is rendered, preventing the white flash.
@@ -62,13 +64,13 @@
 
 
 <div class="switch"><div class="switch--item option-1 selected">Maven</div><div class="switch--item option-2">Gradle</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="xa1946fcefd8c4a95">&lt;dependency&gt;
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="x574b6fc7ffbc43b2">&lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
   &lt;artifactId&gt;jooby-freemarker&lt;/artifactId&gt;
   &lt;version&gt;4.0.16&lt;/version&gt;
-&lt;/dependency&gt;</code><button class="clipboard" data-clipboard-target="#xa1946fcefd8c4a95"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+&lt;/dependency&gt;</code><button class="clipboard" data-clipboard-target="#x574b6fc7ffbc43b2"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-gradle hljs" data-lang="gradle" id="xcd3d6aa9547d4744">implementation 'io.jooby:jooby-freemarker:4.0.16'</code><button class="clipboard" data-clipboard-target="#xcd3d6aa9547d4744"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+<pre class="highlightjs highlight"><code class="language-gradle hljs" data-lang="gradle" id="xc4373e4ff70d400c">implementation 'io.jooby:jooby-freemarker:4.0.16'</code><button class="clipboard" data-clipboard-target="#xc4373e4ff70d400c"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -77,7 +79,7 @@
 <div class="listingblock">
 <div class="title">views/index.ftl</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html" id="x10d6befad06b4234">&lt;p&gt; Hello ${name}! &lt;/p&gt;</code><button class="clipboard" data-clipboard-target="#x10d6befad06b4234"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html" id="xd71bee02a6c0406a">&lt;p&gt; Hello ${name}! &lt;/p&gt;</code><button class="clipboard" data-clipboard-target="#xd71bee02a6c0406a"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -87,7 +89,7 @@
 
 
 <div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xdef946778c214174">import io.jooby.freemarker.FreemarkerModule;
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xac45fa96f34d4404">import io.jooby.freemarker.FreemarkerModule;
 
 {
   install(new FreemarkerModule());
@@ -96,9 +98,9 @@
     return new MapModelAndView("index.ftl")
         .put("name", "Jooby");
   });
-}</code><button class="clipboard" data-clipboard-target="#xdef946778c214174"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#xac45fa96f34d4404"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="x22c16085db6b4786">import io.jooby.freemarker.FreemarkerModule
+<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="x89b67aa942954cc6">import io.jooby.freemarker.FreemarkerModule
 
 {
   install(FreemarkerModule())
@@ -107,7 +109,7 @@
     MapModelAndView("index.ftl")
         .put("name", "Jooby")
   }
-}</code><button class="clipboard" data-clipboard-target="#x22c16085db6b4786"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x89b67aa942954cc6"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -143,8 +145,8 @@ environment it use a <a href="https://freemarker.apache.org/docs/pgui_config_tem
 <div class="listingblock">
 <div class="title">application.conf</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-properties hljs" data-lang="properties" id="x1d6af5db015f46f9">freemarker.cacheStorage = soft
-freemarker.strictSyntax = yes</code><button class="clipboard" data-clipboard-target="#x1d6af5db015f46f9"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+<pre class="highlightjs highlight"><code class="language-properties hljs" data-lang="properties" id="x968a49d6be08435b">freemarker.cacheStorage = soft
+freemarker.strictSyntax = yes</code><button class="clipboard" data-clipboard-target="#x968a49d6be08435b"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -154,21 +156,21 @@ freemarker.strictSyntax = yes</code><button class="clipboard" data-clipboard-tar
 
 
 <div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x53afd402fe924fae">import io.jooby.freemarker.FreemarkerModule;
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xaa8b12c438f54683">import io.jooby.freemarker.FreemarkerModule;
 
 {
   Configuration freemarker = new Configuration();
 
   install(new FreemarkerModule(freemarker));
-}</code><button class="clipboard" data-clipboard-target="#x53afd402fe924fae"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#xaa8b12c438f54683"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="x44529444ecbd487b">import io.jooby.freemarker.FreemarkerModule
+<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="x189c9559d61f48d6">import io.jooby.freemarker.FreemarkerModule
 
 {
   val freemarker = Configuration()
 
   install(FreemarkerModule(freemarker))
-}</code><button class="clipboard" data-clipboard-target="#x44529444ecbd487b"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x189c9559d61f48d6"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 </div>
@@ -336,6 +338,34 @@ if (!hljs.initHighlighting.called) {
       });
     } else {
       console.warn("Hamburger menu: Could not find the navigation element to toggle.");
+    }
+  });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/@docsearch/js@3"></script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // 1. Find Asciidoctor's auto-generated TOC
+    const toc = document.getElementById('toc');
+
+    if (toc) {
+      // 2. Create the search container dynamically
+      const searchContainer = document.createElement('div');
+      searchContainer.id = 'docsearch';
+
+      // 3. Inject it at the very top of the TOC, above the title
+      toc.insertBefore(searchContainer, toc.firstChild);
+
+      // 4. Initialize Algolia into that new container
+      docsearch({
+        appId: '9U2WK2CSJ7',
+        apiKey: '113e159f5c587fdac629948dd80dd993',
+        indexName: 'jooby',
+        container: '#docsearch'
+      });
+    } else {
+      console.warn("Could not find the #toc element to inject the search bar.");
     }
   });
 </script>
