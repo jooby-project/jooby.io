@@ -70,13 +70,13 @@
 
 
 <div class="switch"><div class="switch--item option-1 selected">Maven</div><div class="switch--item option-2">Gradle</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="x75f5320b370f40cf">&lt;dependency&gt;
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="xefc6d59ff64c4b9c">&lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
   &lt;artifactId&gt;jooby-jte&lt;/artifactId&gt;
   &lt;version&gt;4.0.16&lt;/version&gt;
-&lt;/dependency&gt;</code><button class="clipboard" data-clipboard-target="#x75f5320b370f40cf"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+&lt;/dependency&gt;</code><button class="clipboard" data-clipboard-target="#xefc6d59ff64c4b9c"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-gradle hljs" data-lang="gradle" id="xcd3f5894f53c478f">implementation 'io.jooby:jooby-jte:4.0.16'</code><button class="clipboard" data-clipboard-target="#xcd3f5894f53c478f"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+<pre class="highlightjs highlight"><code class="language-gradle hljs" data-lang="gradle" id="xaba9c0315be8450a">implementation 'io.jooby:jooby-jte:4.0.16'</code><button class="clipboard" data-clipboard-target="#xaba9c0315be8450a"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -86,7 +86,7 @@
 
 
 <div class="switch"><div class="switch--item option-1 selected">Maven</div><div class="switch--item option-2">Gradle</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="x47221f531a104498">&lt;plugin&gt;
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="xdabc50f7040b4169">&lt;plugin&gt;
     &lt;groupId&gt;gg.jte&lt;/groupId&gt;
     &lt;artifactId&gt;jte-maven-plugin&lt;/artifactId&gt;
     &lt;version&gt;3.2.3&lt;/version&gt;
@@ -102,9 +102,9 @@
             &lt;/goals&gt;
         &lt;/execution&gt;
     &lt;/executions&gt;
-&lt;/plugin&gt;</code><button class="clipboard" data-clipboard-target="#x47221f531a104498"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+&lt;/plugin&gt;</code><button class="clipboard" data-clipboard-target="#xdabc50f7040b4169"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-groovy hljs" data-lang="groovy" id="x8ac395cbed1b4e0a">plugins {
+<pre class="highlightjs highlight"><code class="language-groovy hljs" data-lang="groovy" id="xdd13182e5cca466e">plugins {
     id 'java'
     id 'gg.jte.gradle' version '3.2.3'
 }
@@ -115,7 +115,7 @@ dependencies {
 
 jte {
     generate()
-}</code><button class="clipboard" data-clipboard-target="#x8ac395cbed1b4e0a"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#xdd13182e5cca466e"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="admonitionblock note">
@@ -136,9 +136,9 @@ Complete code generator options are <a href="https://github.com/casid/jte/blob/m
 <div class="listingblock">
 <div class="title">src/main/jte/hello.jte</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html" id="x9ea548a7c7d54782">@param String name
+<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html" id="x74ee1e076b5c4b20">@param String name
 
-&lt;p&gt;Hello ${name}!&lt;/p&gt;</code><button class="clipboard" data-clipboard-target="#x9ea548a7c7d54782"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+&lt;p&gt;Hello ${name}!&lt;/p&gt;</code><button class="clipboard" data-clipboard-target="#x74ee1e076b5c4b20"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -148,7 +148,7 @@ Complete code generator options are <a href="https://github.com/casid/jte/blob/m
 
 
 <div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x3bca68c8fdb74331">import io.jooby.jte.JteModule;
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xb92c008be6d45a5">import io.jooby.jte.JteModule;
 
 {
   install(new JteModule(Paths.get("src", "main", "jte")));         <b class="conum">(1)</b>
@@ -156,9 +156,9 @@ Complete code generator options are <a href="https://github.com/casid/jte/blob/m
   get("/", ctx -&gt; {
     return new MapModelAndView("hello.jte", Map.of("name", "Jte"));  <b class="conum">(2)</b>
   });
-}</code><button class="clipboard" data-clipboard-target="#x3bca68c8fdb74331"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#xb92c008be6d45a5"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="x9e27f10972214a25">import io.jooby.jte.JteModule
+<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="x4ce2ca41601e4017">import io.jooby.jte.JteModule
 
 {
   install(JteModule(Paths.get("src", "main", "jte")))              <b class="conum">(1)</b>
@@ -166,7 +166,7 @@ Complete code generator options are <a href="https://github.com/casid/jte/blob/m
   get("/") {
     MapModelAndView("hello.jte", Map.of("name", "Jte"))              <b class="conum">(2)</b>
   }
-}</code><button class="clipboard" data-clipboard-target="#x9e27f10972214a25"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x4ce2ca41601e4017"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="colist arabic">
@@ -199,13 +199,13 @@ will put all the generated classes in <code>src/main/jte/jte-classes</code>.</p>
 
 
 <div class="switch"><div class="switch--item option-1 selected">Maven</div><div class="switch--item option-2">Gradle</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="xa4c8dad529e840f4">&lt;dependency&gt;
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="x422ae77b75bc4b4b">&lt;dependency&gt;
   &lt;groupId&gt;gg.jte&lt;/groupId&gt;
   &lt;artifactId&gt;jte-models&lt;/artifactId&gt;
   &lt;version&gt;3.2.3&lt;/version&gt;
-&lt;/dependency&gt;</code><button class="clipboard" data-clipboard-target="#xa4c8dad529e840f4"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+&lt;/dependency&gt;</code><button class="clipboard" data-clipboard-target="#x422ae77b75bc4b4b"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-gradle hljs" data-lang="gradle" id="xf948d1e605864ac6">implementation 'gg.jte:jte-models:3.2.3'</code><button class="clipboard" data-clipboard-target="#xf948d1e605864ac6"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+<pre class="highlightjs highlight"><code class="language-gradle hljs" data-lang="gradle" id="x6c46478cfe17424d">implementation 'gg.jte:jte-models:3.2.3'</code><button class="clipboard" data-clipboard-target="#x6c46478cfe17424d"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -215,7 +215,7 @@ will put all the generated classes in <code>src/main/jte/jte-classes</code>.</p>
 
 
 <div class="switch"><div class="switch--item option-1 selected">Maven</div><div class="switch--item option-2">Gradle</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="xf4f175072cb24151">&lt;plugin&gt;
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="x9190e62b69024577">&lt;plugin&gt;
     &lt;groupId&gt;gg.jte&lt;/groupId&gt;
     &lt;artifactId&gt;jte-maven-plugin&lt;/artifactId&gt;
     &lt;version&gt;3.2.3&lt;/version&gt;
@@ -243,9 +243,9 @@ will put all the generated classes in <code>src/main/jte/jte-classes</code>.</p>
             &lt;version&gt;3.2.3&lt;/version&gt;
         &lt;/dependency&gt;
     &lt;/dependencies&gt;
-&lt;/plugin&gt;</code><button class="clipboard" data-clipboard-target="#xf4f175072cb24151"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+&lt;/plugin&gt;</code><button class="clipboard" data-clipboard-target="#x9190e62b69024577"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-groovy hljs" data-lang="groovy" id="x9672b7ce2de44a6">plugins {
+<pre class="highlightjs highlight"><code class="language-groovy hljs" data-lang="groovy" id="xb872dbb711fe4e0b">plugins {
     id 'gg.jte.gradle' version '3.2.3'
 }
 
@@ -258,7 +258,7 @@ jte {
     generate()
     binaryStaticContent = true
     jteExtension 'gg.jte.models.generator.ModelExtension'
-}</code><button class="clipboard" data-clipboard-target="#x9672b7ce2de44a6"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#xb872dbb711fe4e0b"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="sect3">
@@ -267,7 +267,7 @@ jte {
 
 
 <div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x4d48279f2f1b4bff">import io.jooby.jte.JteModule;
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x299f566771a411e">import io.jooby.jte.JteModule;
 
 {
   install(new JteModule(Paths.get("src", "main", "jte")));
@@ -281,9 +281,9 @@ jte {
     var templates = new DynamicTemplates(require(TemplateEngine.class));
     return templates.helloWorld("Hi!");
   });
-}</code><button class="clipboard" data-clipboard-target="#x4d48279f2f1b4bff"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x299f566771a411e"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="x6279693778b845c0">import io.jooby.jte.JteModule
+<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="xc69e4bc4e1a34c88">import io.jooby.jte.JteModule
 
 {
   install(JteModule(Paths.get("src", "main", "jte")))
@@ -297,7 +297,7 @@ jte {
     val templates = DynamicTemplates(require(TemplateEngine::class))
     templates.helloWorld("Hi!")
   }
-}</code><button class="clipboard" data-clipboard-target="#x6279693778b845c0"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#xc69e4bc4e1a34c88"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -324,7 +324,7 @@ jte {
 
 
 <div class="switch"><div class="switch--item option-1 selected">Maven</div><div class="switch--item option-2">Gradle</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="x1493785b53974752">&lt;plugin&gt;
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="x6b517a6e7a6c45ed">&lt;plugin&gt;
     &lt;groupId&gt;gg.jte&lt;/groupId&gt;
     &lt;artifactId&gt;jte-maven-plugin&lt;/artifactId&gt;
     &lt;version&gt;${jte.version}&lt;/version&gt;
@@ -341,9 +341,9 @@ jte {
             &lt;/goals&gt;
         &lt;/execution&gt;
     &lt;/executions&gt;
-&lt;/plugin&gt;</code><button class="clipboard" data-clipboard-target="#x1493785b53974752"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+&lt;/plugin&gt;</code><button class="clipboard" data-clipboard-target="#x6b517a6e7a6c45ed"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-groovy hljs" data-lang="groovy" id="x3c3c877763d845c0">plugins {
+<pre class="highlightjs highlight"><code class="language-groovy hljs" data-lang="groovy" id="xe2a1871b779e4a02">plugins {
     id 'java'
     id 'gg.jte.gradle' version '${jte.version}'
 }
@@ -354,7 +354,7 @@ dependencies {
 
 jte {
     generate()
-}</code><button class="clipboard" data-clipboard-target="#x3c3c877763d845c0"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#xe2a1871b779e4a02"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -368,8 +368,8 @@ jte {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x2c17b28735ba401b">    var templateEngine = TemplateEngine.create(...) or TemplateEngine.createPrecompiled(..)
-    install(new JteModule(templateEngine));</code><button class="clipboard" data-clipboard-target="#x2c17b28735ba401b"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x2e49d0c4b8664f90">    var templateEngine = TemplateEngine.create(...) or TemplateEngine.createPrecompiled(..)
+    install(new JteModule(templateEngine));</code><button class="clipboard" data-clipboard-target="#x2e49d0c4b8664f90"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div>
 </div>
 </div>
