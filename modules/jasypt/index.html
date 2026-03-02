@@ -11,10 +11,8 @@
 <title>jooby: jasypt module</title>
 <link rel="stylesheet" href="../../js/styles/theme.css">
 <link rel="stylesheet" href="../../js/styles/atom-one-dark.min.css">
-<meta name="algolia-site-verification" content="B92EF92B303805F4">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet">
 <script>
   // This MUST be in the <head>. It runs before the body is rendered, preventing the white flash.
@@ -28,7 +26,6 @@
 </head>
 <body class="book toc2 toc-left">
 <div class="mobile-nav-bar">
-  <span style="font-weight: 700; color: var(--heading-color);">Jooby</span>
   <button id="menu-toggle" class="hamburger" aria-label="Toggle Menu">
     <span></span><span></span><span></span>
   </button>
@@ -67,13 +64,13 @@
 
 
 <div class="switch"><div class="switch--item option-1 selected">Maven</div><div class="switch--item option-2">Gradle</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="x3ef97eb928de479c">&lt;dependency&gt;
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="xd90beb325c4f4bda">&lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
   &lt;artifactId&gt;jooby-jasypt&lt;/artifactId&gt;
   &lt;version&gt;4.0.16&lt;/version&gt;
-&lt;/dependency&gt;</code><button class="clipboard" data-clipboard-target="#x3ef97eb928de479c"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+&lt;/dependency&gt;</code><button class="clipboard" data-clipboard-target="#xd90beb325c4f4bda"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-gradle hljs" data-lang="gradle" id="x4866ee7313554baa">implementation 'io.jooby:jooby-jasypt:4.0.16'</code><button class="clipboard" data-clipboard-target="#x4866ee7313554baa"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+<pre class="highlightjs highlight"><code class="language-gradle hljs" data-lang="gradle" id="xf82baaa9533a4b30">implementation 'io.jooby:jooby-jasypt:4.0.16'</code><button class="clipboard" data-clipboard-target="#xf82baaa9533a4b30"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -82,9 +79,9 @@
 <div class="listingblock">
 <div class="title">application.conf</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-properties hljs" data-lang="properties" id="x182f829ea75a42a1">jasypt.password = password                              <b class="conum">(1)</b>
+<pre class="highlightjs highlight"><code class="language-properties hljs" data-lang="properties" id="x90a8717e2e79482c">jasypt.password = password                              <b class="conum">(1)</b>
 
-enc.property = "uTSqb9grs1+vUv3iN8lItC0kl65lMG+8"       <b class="conum">(2)</b></code><button class="clipboard" data-clipboard-target="#x182f829ea75a42a1"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+enc.property = "uTSqb9grs1+vUv3iN8lItC0kl65lMG+8"       <b class="conum">(2)</b></code><button class="clipboard" data-clipboard-target="#x90a8717e2e79482c"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -94,7 +91,7 @@ enc.property = "uTSqb9grs1+vUv3iN8lItC0kl65lMG+8"       <b class="conum">(2)</b>
 
 
 <div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xce2193948d0e4bee">import io.jooby.jasypt.JasyptModule;
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x6a7eb02019c74450">import io.jooby.jasypt.JasyptModule;
 
 {
   install(new JasyptModule());                          <b class="conum">(3)</b>
@@ -102,9 +99,9 @@ enc.property = "uTSqb9grs1+vUv3iN8lItC0kl65lMG+8"       <b class="conum">(2)</b>
   String property = getConfig().getString("property");  <b class="conum">(4)</b>
 
   System.out.println(property);
-}</code><button class="clipboard" data-clipboard-target="#xce2193948d0e4bee"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x6a7eb02019c74450"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin" id="x28233cc6c1c34bac">import io.jooby.jasypt.JasyptModule
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin" id="x209f6020b8434da6">import io.jooby.jasypt.JasyptModule
 
 {
   install(JasyptModule())                               <b class="conum">(3)</b>
@@ -112,7 +109,7 @@ enc.property = "uTSqb9grs1+vUv3iN8lItC0kl65lMG+8"       <b class="conum">(2)</b>
   val property = config.getString("property")           <b class="conum">(4)</b>
 
   println(property)
-}</code><button class="clipboard" data-clipboard-target="#x28233cc6c1c34bac"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x209f6020b8434da6"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="colist arabic">
@@ -151,21 +148,21 @@ your own/preferred prefix:</p>
 
 
 <div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xdbbe801a33c746b4">import io.jooby.jasypt.JasyptModule;
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xae026bb6be9a4262">import io.jooby.jasypt.JasyptModule;
 
 {
   install(new JasyptModule());
 
   PBEStringEncryptor encryptor = require(PBEStringEncryptor.class);
-}</code><button class="clipboard" data-clipboard-target="#xdbbe801a33c746b4"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#xae026bb6be9a4262"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin" id="x9c156b0b2afa4572">import io.jooby.jasypt.JasyptModule
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin" id="x35564d9a0d014b50">import io.jooby.jasypt.JasyptModule
 
 {
   install(JasyptModule())
 
   val encryptor = require(PBEStringEncryptor::class)
-}</code><button class="clipboard" data-clipboard-target="#x9c156b0b2afa4572"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x35564d9a0d014b50"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="sect3">
@@ -190,8 +187,8 @@ property name. It is important to keep your password safe and private.</p>
 <div class="listingblock">
 <div class="title">application.conf</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-properties hljs" data-lang="properties" id="x785c56e864c54aca">jasypt.password = mypassword
-jasypt.password = ${?JASYPT_PASSWORD}</code><button class="clipboard" data-clipboard-target="#x785c56e864c54aca"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+<pre class="highlightjs highlight"><code class="language-properties hljs" data-lang="properties" id="xf83e0a4315ea4718">jasypt.password = mypassword
+jasypt.password = ${?JASYPT_PASSWORD}</code><button class="clipboard" data-clipboard-target="#xf83e0a4315ea4718"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -204,11 +201,11 @@ password provider:</p>
 <div class="listingblock">
 <div class="title">File password provider</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xf6cf2f68c0714408">{
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x688f76ae1fd24ea0">{
   install(new JasyptModule(config -&gt; {
     return new String(Files.path(Paths.get("mypassword"), UTF-8));
   }));
-}</code><button class="clipboard" data-clipboard-target="#xf6cf2f68c0714408"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x688f76ae1fd24ea0"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -223,14 +220,14 @@ password provider:</p>
 <div class="listingblock">
 <div class="title">application.conf</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-properties hljs" data-lang="properties" id="x91636e5b637d4629">jasypt.password = mypassword
+<pre class="highlightjs highlight"><code class="language-properties hljs" data-lang="properties" id="xf146e1ca34014b81">jasypt.password = mypassword
 
 jasypt.algorithm = PBEWithMD5AndDES
 jasypt.keyObtentionIterations = 1000
 jasypt.poolSize = 2
 jasypt.ivGeneratorClassName = classname
 jasypt.saltGeneratorClassName = org.jasypt.salt.RandomSaltGenerator
-jasypt.providerName = SunJCE</code><button class="clipboard" data-clipboard-target="#x91636e5b637d4629"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+jasypt.providerName = SunJCE</code><button class="clipboard" data-clipboard-target="#xf146e1ca34014b81"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -402,34 +399,6 @@ if (!hljs.initHighlighting.called) {
       });
     } else {
       console.warn("Hamburger menu: Could not find the navigation element to toggle.");
-    }
-  });
-</script>
-
-<script src="https://cdn.jsdelivr.net/npm/@docsearch/js@3"></script>
-
-<script>
-  document.addEventListener('DOMContentLoaded', function() {
-    // 1. Find Asciidoctor's auto-generated TOC
-    const toc = document.getElementById('toc');
-
-    if (toc) {
-      // 2. Create the search container dynamically
-      const searchContainer = document.createElement('div');
-      searchContainer.id = 'docsearch';
-
-      // 3. Inject it at the very top of the TOC, above the title
-      toc.insertBefore(searchContainer, toc.firstChild);
-
-      // 4. Initialize Algolia into that new container
-      docsearch({
-        appId: '9U2WK2CSJ7',
-        apiKey: '113e159f5c587fdac629948dd80dd993',
-        indexName: 'jooby',
-        container: '#docsearch'
-      });
-    } else {
-      console.warn("Could not find the #toc element to inject the search bar.");
     }
   });
 </script>

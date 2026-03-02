@@ -11,10 +11,8 @@
 <title>jooby: camel module</title>
 <link rel="stylesheet" href="../../js/styles/theme.css">
 <link rel="stylesheet" href="../../js/styles/atom-one-dark.min.css">
-<meta name="algolia-site-verification" content="B92EF92B303805F4">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet">
 <script>
   // This MUST be in the <head>. It runs before the body is rendered, preventing the white flash.
@@ -28,7 +26,6 @@
 </head>
 <body class="book toc2 toc-left">
 <div class="mobile-nav-bar">
-  <span style="font-weight: 700; color: var(--heading-color);">Jooby</span>
   <button id="menu-toggle" class="hamburger" aria-label="Toggle Menu">
     <span></span><span></span><span></span>
   </button>
@@ -64,13 +61,13 @@
 
 
 <div class="switch"><div class="switch--item option-1 selected">Maven</div><div class="switch--item option-2">Gradle</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="xa11e8d400c604728">&lt;dependency&gt;
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="xa9520e8da5264bd3">&lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
   &lt;artifactId&gt;jooby-camel&lt;/artifactId&gt;
   &lt;version&gt;4.0.16&lt;/version&gt;
-&lt;/dependency&gt;</code><button class="clipboard" data-clipboard-target="#xa11e8d400c604728"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+&lt;/dependency&gt;</code><button class="clipboard" data-clipboard-target="#xa9520e8da5264bd3"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-gradle hljs" data-lang="gradle" id="xa43461ba6ea747a0">implementation 'io.jooby:jooby-camel:4.0.16'</code><button class="clipboard" data-clipboard-target="#xa43461ba6ea747a0"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+<pre class="highlightjs highlight"><code class="language-gradle hljs" data-lang="gradle" id="x52fb7291220c4126">implementation 'io.jooby:jooby-camel:4.0.16'</code><button class="clipboard" data-clipboard-target="#x52fb7291220c4126"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -80,7 +77,7 @@
 
 
 <div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x96a0a7cbc7924473">import io.jooby.camel.CamelModule;
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xbebedfa7ffcc46ad">import io.jooby.camel.CamelModule;
 
 {
   install(new CamelModule(new MyRoutes()));                       <b class="conum">(1)</b>
@@ -100,9 +97,9 @@ public class MyRoutes extends RouteBuilder {
     from("direct://foo")
         .log("${body}");
   }
-}</code><button class="clipboard" data-clipboard-target="#x96a0a7cbc7924473"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#xbebedfa7ffcc46ad"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="x1f91a4014baf4ff2">import io.jooby.camel.CamelModule
+<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="xbae332adcea4096">import io.jooby.camel.CamelModule
 
 {
   install(CamelModule(MyRoutes()))                                <b class="conum">(1)</b>
@@ -122,7 +119,7 @@ class MyRoutes: RouteBuilder() {
         .bean(FooService.class)
         .log("${body}")
   }
-}</code><button class="clipboard" data-clipboard-target="#x1f91a4014baf4ff2"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#xbae332adcea4096"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="colist arabic">
@@ -147,29 +144,29 @@ class MyRoutes: RouteBuilder() {
 <div class="listingblock">
 <div class="title">application.conf</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-properties hljs" data-lang="properties" id="x3ccfff27d2174496">myprop = "my prop value"</code><button class="clipboard" data-clipboard-target="#x3ccfff27d2174496"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+<pre class="highlightjs highlight"><code class="language-properties hljs" data-lang="properties" id="x326f9a325c124c53">myprop = "my prop value"</code><button class="clipboard" data-clipboard-target="#x326f9a325c124c53"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div>
 </div>
 <div class="listingblock primary">
 
 
 <div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x135b1d1c1c97473d">public class MyRoutes extends RouteBuilder {
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xc1fe6d25eb7147f0">public class MyRoutes extends RouteBuilder {
 
   @Override public void configure() throws Exception {
     from("direct://foo")
         .log("{{myprop}}");
   }
-}</code><button class="clipboard" data-clipboard-target="#x135b1d1c1c97473d"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#xc1fe6d25eb7147f0"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="x98ba97f1fb014f6e">class MyRoutes: RouteBuilder() {
+<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="x190b83facd6d4623">class MyRoutes: RouteBuilder() {
 
   fun configure(): Unit {
     from("direct://foo")
         .bean(FooService.class)
         .log("{{myprop}}")
   }
-}</code><button class="clipboard" data-clipboard-target="#x98ba97f1fb014f6e"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x190b83facd6d4623"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -185,7 +182,7 @@ class MyRoutes: RouteBuilder() {
 
 
 <div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xdc0e397c01be4d8d">import io.jooby.guice.GuiceModule;
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x55fec27247414b34">import io.jooby.guice.GuiceModule;
 import io.jooby.camel.CamelModule;
 
 {
@@ -201,9 +198,9 @@ public class MyRoutes extends RouteBuilder {
         .bean(FooService.class)              <b class="conum">(3)</b>
         .log("${body}");
   }
-}</code><button class="clipboard" data-clipboard-target="#xdc0e397c01be4d8d"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x55fec27247414b34"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="x8e1cc43870d4348">import io.jooby.guice.GuiceModule
+<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="xf909f5bba379477e">import io.jooby.guice.GuiceModule
 import io.jooby.camel.CamelModule
 
 {
@@ -219,7 +216,7 @@ class MyRoutes: RouteBuilder() {
         .bean(FooService.class)               <b class="conum">(3)</b>
         .log("${body}");
   }
-}</code><button class="clipboard" data-clipboard-target="#x8e1cc43870d4348"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#xf909f5bba379477e"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="colist arabic">
@@ -259,8 +256,8 @@ framework you choose.</p>
 <div class="listingblock">
 <div class="title">application.conf</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-properties hljs" data-lang="properties" id="x174346b609ed4cd4">camel.main.name = My Camel Context
-camel.threadpool.poolSize = 10</code><button class="clipboard" data-clipboard-target="#x174346b609ed4cd4"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+<pre class="highlightjs highlight"><code class="language-properties hljs" data-lang="properties" id="x9240fe7176dc4ad5">camel.main.name = My Camel Context
+camel.threadpool.poolSize = 10</code><button class="clipboard" data-clipboard-target="#x9240fe7176dc4ad5"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -431,34 +428,6 @@ if (!hljs.initHighlighting.called) {
       });
     } else {
       console.warn("Hamburger menu: Could not find the navigation element to toggle.");
-    }
-  });
-</script>
-
-<script src="https://cdn.jsdelivr.net/npm/@docsearch/js@3"></script>
-
-<script>
-  document.addEventListener('DOMContentLoaded', function() {
-    // 1. Find Asciidoctor's auto-generated TOC
-    const toc = document.getElementById('toc');
-
-    if (toc) {
-      // 2. Create the search container dynamically
-      const searchContainer = document.createElement('div');
-      searchContainer.id = 'docsearch';
-
-      // 3. Inject it at the very top of the TOC, above the title
-      toc.insertBefore(searchContainer, toc.firstChild);
-
-      // 4. Initialize Algolia into that new container
-      docsearch({
-        appId: '9U2WK2CSJ7',
-        apiKey: '113e159f5c587fdac629948dd80dd993',
-        indexName: 'jooby',
-        container: '#docsearch'
-      });
-    } else {
-      console.warn("Could not find the #toc element to inject the search bar.");
     }
   });
 </script>
