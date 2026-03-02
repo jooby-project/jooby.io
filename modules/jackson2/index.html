@@ -8,7 +8,7 @@
 <meta name="description" content="The modular micro web framework for Java">
 <meta name="keywords" content="Java, Modern, Micro, Web, Framework, Reactive, Lightweight, Microservices">
 <link rel="icon" type="image/png" href="../../images/favicon96.png">
-<title>jooby: handlebars module</title>
+<title>jooby: jackson2 module</title>
 <link rel="stylesheet" href="../../js/styles/theme.css">
 <link rel="stylesheet" href="../../js/styles/atom-one-dark.min.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -35,12 +35,11 @@
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#handlebars">Handlebars</a>
+<li><a href="#jackson">Jackson</a>
 <ul class="sectlevel2">
-<li><a href="#handlebars-usage">Usage</a></li>
-<li><a href="#handlebars-templates-location">Templates Location</a></li>
-<li><a href="#handlebars-template-cache">Template Cache</a></li>
-<li><a href="#handlebars-custom-configuration">Custom configuration</a></li>
+<li><a href="#jackson-usage">Usage</a></li>
+<li><a href="#jackson-working-with-objectmapper">Working with ObjectMapper</a></li>
+<li><a href="#jackson-provisioning-jackson-modules">Provisioning Jackson Modules</a></li>
 </ul>
 </li>
 </ul>
@@ -48,13 +47,13 @@
 </div>
 <div id="content">
 <div class="sect1">
-<h2 id="handlebars"><a class="anchor" href="#handlebars"></a><a class="link" href="#handlebars">Handlebars</a></h2>
+<h2 id="jackson"><a class="anchor" href="#jackson"></a><a class="link" href="#jackson">Jackson</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><a href="https://github.com/jknack/handlebars.java" target="_blank">Handlebars templates</a> for Jooby.</p>
+<p>JSON support using <a href="https://github.com/FasterXML/jackson" target="_blank">Jackson 2</a> library.</p>
 </div>
 <div class="sect2">
-<h3 id="handlebars-usage"><a class="anchor" href="#handlebars-usage"></a><a class="link" href="#handlebars-usage">Usage</a></h3>
+<h3 id="jackson-usage"><a class="anchor" href="#jackson-usage"></a><a class="link" href="#jackson-usage">Usage</a></h3>
 <div class="paragraph">
 <p>1) Add the dependency:</p>
 </div>
@@ -62,106 +61,189 @@
 
 
 <div class="switch"><div class="switch--item option-1 selected">Maven</div><div class="switch--item option-2">Gradle</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="x3aceaab57d464f4a">&lt;dependency&gt;
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="x42836cf620384edb">&lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
-  &lt;artifactId&gt;jooby-handlebars&lt;/artifactId&gt;
+  &lt;artifactId&gt;jooby-jackson&lt;/artifactId&gt;
   &lt;version&gt;4.0.16&lt;/version&gt;
-&lt;/dependency&gt;</code><button class="clipboard" data-clipboard-target="#x3aceaab57d464f4a"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+&lt;/dependency&gt;</code><button class="clipboard" data-clipboard-target="#x42836cf620384edb"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-gradle hljs" data-lang="gradle" id="x4d2e49792a594eec">implementation 'io.jooby:jooby-handlebars:4.0.16'</code><button class="clipboard" data-clipboard-target="#x4d2e49792a594eec"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+<pre class="highlightjs highlight"><code class="language-gradle hljs" data-lang="gradle" id="x42d9e682aed246d9">implementation 'io.jooby:jooby-jackson:4.0.16'</code><button class="clipboard" data-clipboard-target="#x42d9e682aed246d9"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="paragraph">
-<p>2) Write your templates inside the <code>views</code> folder</p>
-</div>
-<div class="listingblock">
-<div class="title">views/index.hbs</div>
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html" id="x416fc533edde4bd8">&lt;p&gt; Hello {{name}}! &lt;/p&gt;</code><button class="clipboard" data-clipboard-target="#x416fc533edde4bd8"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>3) Install and use freemarker templates</p>
+<p>2) Install and encode/decode JSON</p>
 </div>
 <div class="listingblock primary">
 
 
 <div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x6a1b0a373c054066">import io.jooby.handlebars.HandlebarsModule;
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x736f04d2a3e4444a">import io.jooby.jackson.JacksonModule;
 
 {
-  install(new HandlebarsModule());
+  install(new JacksonModule());                     <b class="conum">(1)</b>
 
   get("/", ctx -&gt; {
-    return new MapModelAndView("index.hbs")
-        .put("name", "Jooby");
+    MyObject myObject = ...;
+    return myObject;                                <b class="conum">(2)</b>
   });
-}</code><button class="clipboard" data-clipboard-target="#x6a1b0a373c054066"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+
+  post("/", ctx -&gt; {
+    MyObject myObject = ctx.body(MyObject.class);   <b class="conum">(3)</b>
+    ...
+  });
+}</code><button class="clipboard" data-clipboard-target="#x736f04d2a3e4444a"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="x7ddc9c88716b460b">import io.jooby.handlebars.HandlebarsModule
+<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="xd72137c8313242f5">import io.jooby.jackson.JacksonModule;
 
 {
-  install(HandlebarsModule())
+  install(JacksonModule())                          <b class="conum">(1)</b>
 
   get("/") {
-    MapModelAndView("index.hbs")
-        .put("name", "Jooby")
+    val myObject = ...;
+    myObject                                        <b class="conum">(2)</b>
   }
-}</code><button class="clipboard" data-clipboard-target="#x7ddc9c88716b460b"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+
+  post("/") {
+    val myObject = ctx.body&lt;MyObject&gt;()             <b class="conum">(3)</b>
+    ...
+  }
+}</code><button class="clipboard" data-clipboard-target="#xd72137c8313242f5"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
-<div class="paragraph">
-<p>Template engine supports the following file extensions: <code>.hbs</code>, <code>.hbs.html</code> and <code>.html</code>.</p>
+<div class="colist arabic">
+<ol>
+<li>
+<p>Install Jackson</p>
+</li>
+<li>
+<p>Use Jackson to encode an arbitrary object as JSON</p>
+</li>
+<li>
+<p>Use Jackson to decode JSON to a Java object. Client must specify the <code>Content-Type: application/json</code> header</p>
+</li>
+</ol>
 </div>
 </div>
 <div class="sect2">
-<h3 id="handlebars-templates-location"><a class="anchor" href="#handlebars-templates-location"></a><a class="link" href="#handlebars-templates-location">Templates Location</a></h3>
+<h3 id="jackson-working-with-objectmapper"><a class="anchor" href="#jackson-working-with-objectmapper"></a><a class="link" href="#jackson-working-with-objectmapper">Working with ObjectMapper</a></h3>
 <div class="paragraph">
-<p>Template location is set to <code>views</code>. The <code>views</code> folder/location is expected to be at the current
-user directory or at root of classpath.</p>
-</div>
-<div class="paragraph">
-<p>You can override the default location by setting the <code>templates.path</code> property in the application
-configuration file or programmatically at creation time.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="handlebars-template-cache"><a class="anchor" href="#handlebars-template-cache"></a><a class="link" href="#handlebars-template-cache">Template Cache</a></h3>
-<div class="paragraph">
-<p>The handlebars module turn off cache while running in <code>dev</code> or <code>test</code> environment. For any other
-environment it use <a href="https://github.com/jknack/handlebars.java#the-cache-system" target="_blank">HighConcurrencyTemplateCache</a></p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="handlebars-custom-configuration"><a class="anchor" href="#handlebars-custom-configuration"></a><a class="link" href="#handlebars-custom-configuration">Custom configuration</a></h3>
-<div class="paragraph">
-<p>Custom Handlebars object can be provided it programmatically:</p>
+<p>Access to default object mapper is available via require call:</p>
 </div>
 <div class="listingblock primary">
-
+<div class="title">Default object mapper</div>
 
 <div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x78f9f1f8f041480b">import io.jooby.handlebars.HandlebarsModule;
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x5297d14374be3">import io.jooby.jackson.JacksonModule;
 
 {
-  Handlebars handlebars = new Handlebars();
+  install(new JacksonModule());
 
-  // Apply custom configuration
+  ObjectMapper mapper = require(ObjectMapper.class);
 
-  install(new HandlebarsModule(handlebars));
-}</code><button class="clipboard" data-clipboard-target="#x78f9f1f8f041480b"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+  ...
+}</code><button class="clipboard" data-clipboard-target="#x5297d14374be3"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="xcce4fca93636484e">import io.jooby.handlebars.HandlebarsModule
+<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="x1f7ec56779934114">import io.jooby.jackson.JacksonModule
 
 {
-  val handlebars = Handlebars()
+  install(JacksonModule())
 
-  // Apply custom configuration
-
-  install(HandlebarsModule(handlebars))
-}</code><button class="clipboard" data-clipboard-target="#xcce4fca93636484e"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+  val mapper = require&lt;ObjectMapper&gt;()
+}</code><button class="clipboard" data-clipboard-target="#x1f7ec56779934114"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
+<div class="paragraph">
+<p>You can provide your own <code>ObjectMapper</code>:</p>
+</div>
+<div class="listingblock primary">
+<div class="title">Custom ObjectMapper</div>
+
+<div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x2933437c9f7d4082">import io.jooby.jackson.JacksonModule;
+
+{
+  ObjectMapper mapper = new ObjectMapper();
+
+  install(new JacksonModule(mapper));
+}</code><button class="clipboard" data-clipboard-target="#x2933437c9f7d4082"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+</div><div class="content hidden option-2">
+<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="xf68eb67a5b1492c">import io.jooby.jackson.JacksonModule
+
+{
+  val mapper = ObjectMapper()
+
+  install(JacksonModule(mapper))
+}</code><button class="clipboard" data-clipboard-target="#xf68eb67a5b1492c"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+</div></div>
+
+<div class="paragraph">
+<p>This allows to configure JacksonModule for doing <code>xml</code> processing:</p>
+</div>
+<div class="listingblock primary">
+<div class="title">XmlMapper</div>
+
+<div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xedc5cdaadb614132">import io.jooby.jackson.JacksonModule;
+
+{
+  install(new JacksonModule(new XmlMapper()));
+}</code><button class="clipboard" data-clipboard-target="#xedc5cdaadb614132"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+</div><div class="content hidden option-2">
+<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="x7bb84787cbc949c2">import io.jooby.jackson.JacksonModule
+
+{
+  install(JacksonModule(XmlMapper()))
+}</code><button class="clipboard" data-clipboard-target="#x7bb84787cbc949c2"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+</div></div>
+
+<div class="paragraph">
+<p>If you want <code>json</code> and <code>xml</code> processing then install twice:</p>
+</div>
+<div class="listingblock primary">
+<div class="title">XmlMapper</div>
+
+<div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x1d35802870de4c2f">import io.jooby.jackson.JacksonModule;
+
+{
+  install(new JacksonModule(new ObjectMapper()));
+  install(new JacksonModule(new XmlMapper()));
+}</code><button class="clipboard" data-clipboard-target="#x1d35802870de4c2f"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+</div><div class="content hidden option-2">
+<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="xc2af2f1f7bea4f04">import io.jooby.jackson.JacksonModule
+
+{
+  install(JacksonModule(ObjectMapper()))
+  install(JacksonModule(XmlMapper()))
+}</code><button class="clipboard" data-clipboard-target="#xc2af2f1f7bea4f04"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+</div></div>
+
+</div>
+<div class="sect2">
+<h3 id="jackson-provisioning-jackson-modules"><a class="anchor" href="#jackson-provisioning-jackson-modules"></a><a class="link" href="#jackson-provisioning-jackson-modules">Provisioning Jackson Modules</a></h3>
+<div class="paragraph">
+<p>Jackson module can be provided by a <a href="/#ecosystem-services-and-the-registry-dependency-injection-di-bridge">dependency injection</a> framework.</p>
+</div>
+<div class="listingblock primary">
+<div class="title">Provisioning Modules</div>
+
+<div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xeae3f1f08a994eab">import io.jooby.jackson.JacksonModule;
+
+{
+  install(new JacksonModule().module(MyModule.class);
+}</code><button class="clipboard" data-clipboard-target="#xeae3f1f08a994eab"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+</div><div class="content hidden option-2">
+<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="x8cfe14f8088a4b62">import io.jooby.jackson.JacksonModule
+
+{
+  install(JacksonModule().module(MyModule::class.java)
+}</code><button class="clipboard" data-clipboard-target="#x8cfe14f8088a4b62"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+</div></div>
+
+<div class="paragraph">
+<p>At startup time Jooby ask dependency injection framework to provide a <code>MyModule</code> instance.</p>
+</div>
 </div>
 </div>
 </div>
