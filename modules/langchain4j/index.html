@@ -1,0 +1,605 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 2.0.23">
+<meta name="description" content="The modular micro web framework for Java">
+<meta name="keywords" content="Java, Modern, Micro, Web, Framework, Reactive, Lightweight, Microservices">
+<link rel="icon" type="image/png" href="../../images/favicon96.png">
+<title>jooby: langchain4j module</title>
+<link rel="stylesheet" href="../../js/styles/theme.css">
+<link rel="stylesheet" href="../../js/styles/atom-one-dark.min.css">
+<meta name="algolia-site-verification" content="B92EF92B303805F4">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<script>
+  // This MUST be in the <head>. It runs before the body is rendered, preventing the white flash.
+  (function() {
+    const savedTheme = localStorage.getItem('jooby-theme');
+    if (savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+      document.documentElement.setAttribute('data-theme', 'dark');
+    }
+  })();
+</script>
+</head>
+<body class="book toc2 toc-left">
+<div class="mobile-nav-bar">
+  <span style="font-weight: 700; color: var(--heading-color);">Jooby</span>
+  <button id="menu-toggle" class="hamburger" aria-label="Toggle Menu">
+    <span></span><span></span><span></span>
+  </button>
+</div>
+<div id="header">
+<div id="toc" class="toc2">
+<div id="toctitle">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#langchain4j">LangChain4j</a>
+<ul class="sectlevel2">
+<li><a href="#langchain4j-usage">Usage</a></li>
+<li><a href="#langchain4j-streaming-responses">Streaming Responses</a></li>
+<li><a href="#langchain4j-resilience-fallbacks">Resilience &amp; Fallbacks</a></li>
+<li><a href="#langchain4j-registering-custom-providers">Registering Custom Providers</a>
+<ul class="sectlevel3">
+<li><a href="#langchain4j-registering-custom-providers-accessing-the-concrete-implementation">Accessing the Concrete Implementation</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div id="content">
+<div class="sect1">
+<h2 id="langchain4j"><a class="anchor" href="#langchain4j"></a><a class="link" href="#langchain4j">LangChain4j</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>AI and Large Language Model (LLM) integration using the <a href="https://github.com/langchain4j/langchain4j" target="_blank">LangChain4j</a> framework.</p>
+</div>
+<div class="paragraph">
+<p>This module automates the instantiation and registration of <code>ChatModel</code> and <code>StreamingChatModel</code> components based on your application configuration. It supports built-in providers (OpenAI, Anthropic, Ollama, Jlama), seamless fallback routing for high availability, and custom provider registration.</p>
+</div>
+<div class="sect2">
+<h3 id="langchain4j-usage"><a class="anchor" href="#langchain4j-usage"></a><a class="link" href="#langchain4j-usage">Usage</a></h3>
+<div class="paragraph">
+<p>1) Add the dependency:</p>
+</div>
+<div class="listingblock primary">
+
+
+<div class="switch"><div class="switch--item option-1 selected">Maven</div><div class="switch--item option-2">Gradle</div></div><div class="content option-1">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="xbe48ea838f244878">&lt;dependency&gt;
+  &lt;groupId&gt;io.jooby&lt;/groupId&gt;
+  &lt;artifactId&gt;jooby-langchain4j&lt;/artifactId&gt;
+  &lt;version&gt;4.1.0&lt;/version&gt;
+&lt;/dependency&gt;</code><button class="clipboard" data-clipboard-target="#xbe48ea838f244878"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+</div><div class="content hidden option-2">
+<pre class="highlightjs highlight"><code class="language-gradle hljs" data-lang="gradle" id="xfb4e3c1e470d4fe7">implementation 'io.jooby:jooby-langchain4j:4.1.0'</code><button class="clipboard" data-clipboard-target="#xfb4e3c1e470d4fe7"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+</div></div>
+
+<div class="paragraph">
+<p>2) Add the dependency for your chosen AI provider (e.g., OpenAI):</p>
+</div>
+<div class="listingblock primary">
+
+
+<div class="switch"><div class="switch--item option-1 selected">Maven</div><div class="switch--item option-2">Gradle</div></div><div class="content option-1">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="x610b8be76cd44968">&lt;dependency&gt;
+  &lt;groupId&gt;dev.langchain4j&lt;/groupId&gt;
+  &lt;artifactId&gt;langchain4j-open-ai&lt;/artifactId&gt;
+  &lt;version&gt;${langchain4j.version}&lt;/version&gt;
+&lt;/dependency&gt;</code><button class="clipboard" data-clipboard-target="#x610b8be76cd44968"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+</div><div class="content hidden option-2">
+<pre class="highlightjs highlight"><code class="language-gradle hljs" data-lang="gradle" id="xee2cc4dbceee4e3c">implementation 'dev.langchain4j:langchain4j-open-ai:${langchain4j.version}'</code><button class="clipboard" data-clipboard-target="#xee2cc4dbceee4e3c"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+</div></div>
+
+<div class="paragraph">
+<p>3) Configure your models in <code>application.conf</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-hocon hljs" data-lang="hocon" id="xf59a2c0e64bd4310">langchain4j {
+  models {
+    gpt-assistant {
+      provider = "openai"
+      api-key = ${OPENAI_API_KEY}
+      model-name = "gpt-4o-mini"
+      timeout = 30s
+    }
+  }
+}</code><button class="clipboard" data-clipboard-target="#xf59a2c0e64bd4310"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>4) Install the module and require the model:</p>
+</div>
+<div class="listingblock primary">
+
+
+<div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xbf4929d4645d4672">import io.jooby.langchain4j.LangChain4jModule;
+import dev.langchain4j.model.chat.ChatModel;
+
+{
+  install(new LangChain4jModule());                                 <b class="conum">(1)</b>
+
+  get("/chat", ctx -&gt; {
+    ChatModel ai = require(ChatModel.class);                        <b class="conum">(2)</b>
+    String prompt = ctx.query("q").value("Tell me a joke");
+
+    return ai.chat(prompt);                                         <b class="conum">(3)</b>
+  });
+}</code><button class="clipboard" data-clipboard-target="#xbf4929d4645d4672"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+</div><div class="content hidden option-2">
+<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="x65f2147324f647d1">import io.jooby.langchain4j.LangChain4jModule
+import dev.langchain4j.model.chat.ChatModel
+
+{
+  install(LangChain4jModule())                                      <b class="conum">(1)</b>
+
+  get("/chat") {
+    val ai = require&lt;ChatModel&gt;()                                   <b class="conum">(2)</b>
+    val prompt = ctx.query("q").value("Tell me a joke")
+
+    ai.chat(prompt)                                                 <b class="conum">(3)</b>
+  }
+}</code><button class="clipboard" data-clipboard-target="#x65f2147324f647d1"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+</div></div>
+
+<div class="colist arabic">
+<ol>
+<li>
+<p>Install the LangChain4j module. It will automatically parse the configuration and build the models.</p>
+</li>
+<li>
+<p>Request the default <code>ChatModel</code> from the service registry.</p>
+</li>
+<li>
+<p>Execute the blocking chat request.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="langchain4j-streaming-responses"><a class="anchor" href="#langchain4j-streaming-responses"></a><a class="link" href="#langchain4j-streaming-responses">Streaming Responses</a></h3>
+<div class="paragraph">
+<p>If your provider supports streaming, the module automatically registers a <code>StreamingChatModel</code> which pairs perfectly with Jooby’s Server-Sent Events (SSE).</p>
+</div>
+<div class="listingblock primary">
+
+
+<div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x8591dd0779144674">import dev.langchain4j.model.chat.StreamingChatModel;
+import dev.langchain4j.model.chat.response.StreamingChatResponseHandler;
+import dev.langchain4j.model.chat.response.ChatResponse;
+
+{
+  sse("/chat/stream", sse -&gt; {
+    StreamingChatModel ai = require(StreamingChatModel.class);
+
+    ai.chat("Write a long story", new StreamingChatResponseHandler() {
+      @Override
+      public void onPartialResponse(String token) {
+        sse.send(token);                                            <b class="conum">(1)</b>
+      }
+
+      @Override
+      public void onCompleteResponse(ChatResponse response) {
+        sse.close();                                                <b class="conum">(2)</b>
+      }
+
+      @Override
+      public void onError(Throwable error) {
+        sse.send("[ERROR] " + error.getMessage());
+        sse.close();
+      }
+    });
+  });
+}</code><button class="clipboard" data-clipboard-target="#x8591dd0779144674"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+</div><div class="content hidden option-2">
+<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="xf11af27615b94f9a">import dev.langchain4j.model.chat.StreamingChatModel
+import dev.langchain4j.model.chat.response.StreamingChatResponseHandler
+import dev.langchain4j.model.chat.response.ChatResponse
+
+{
+  sse("/chat/stream") { sse -&gt;
+    val ai = require&lt;StreamingChatModel&gt;()
+
+    ai.chat("Write a long story", object : StreamingChatResponseHandler {
+      override fun onPartialResponse(token: String) {
+        sse.send(token)                                             <b class="conum">(1)</b>
+      }
+
+      override fun onCompleteResponse(response: ChatResponse) {
+        sse.close()                                                 <b class="conum">(2)</b>
+      }
+
+      override fun onError(error: Throwable) {
+        sse.send("[ERROR] ${error.message}")
+        sse.close()
+      }
+    })
+  }
+}</code><button class="clipboard" data-clipboard-target="#xf11af27615b94f9a"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+</div></div>
+
+<div class="colist arabic">
+<ol>
+<li>
+<p>Stream partial tokens back to the client as they are generated.</p>
+</li>
+<li>
+<p>Close the SSE connection when the model finishes.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="langchain4j-resilience-fallbacks"><a class="anchor" href="#langchain4j-resilience-fallbacks"></a><a class="link" href="#langchain4j-resilience-fallbacks">Resilience &amp; Fallbacks</a></h3>
+<div class="paragraph">
+<p>Network timeouts and API rate limits happen. You can configure a chain of fallbacks to ensure high availability. If the primary model fails, the module automatically routes the request to the next configured fallback.</p>
+</div>
+<div class="paragraph">
+<p>1) Configure the fallback chain in <code>application.conf</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-hocon hljs" data-lang="hocon" id="x2db4564c4a594744">langchain4j.models {
+  primary-agent {
+    provider = "openai"
+    api-key = ${OPENAI_API_KEY}
+    fallback = ["local-failover"]                                   <b class="conum">(1)</b>
+  }
+
+  local-failover {
+    provider = "jlama"
+    model-name = "tjake/Llama-3.2-1B-Instruct-JQ4"
+  }
+}</code><button class="clipboard" data-clipboard-target="#x2db4564c4a594744"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+</div>
+</div>
+<div class="colist arabic">
+<ol>
+<li>
+<p>Instructs the module to wrap <code>primary-agent</code> with a fallback decorator pointing to <code>local-failover</code>.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>2) Attach a listener to monitor when failovers occur:</p>
+</div>
+<div class="listingblock primary">
+
+
+<div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xf9d7b05545b4385">import io.jooby.langchain4j.LangChain4jModule;
+
+{
+  install(new LangChain4jModule()
+    .failoverListener((modelName, error) -&gt; {
+      System.err.println("Model " + modelName + " failed: " + error.getMessage());
+    })
+  );
+}</code><button class="clipboard" data-clipboard-target="#xf9d7b05545b4385"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+</div><div class="content hidden option-2">
+<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="x4e22032b4e29425a">import io.jooby.langchain4j.LangChain4jModule
+
+{
+  install(LangChain4jModule()
+    .failoverListener { modelName, error -&gt;
+      println("Model $modelName failed: ${error.message}")
+    }
+  )
+}</code><button class="clipboard" data-clipboard-target="#x4e22032b4e29425a"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+</div></div>
+
+</div>
+<div class="sect2">
+<h3 id="langchain4j-registering-custom-providers"><a class="anchor" href="#langchain4j-registering-custom-providers"></a><a class="link" href="#langchain4j-registering-custom-providers">Registering Custom Providers</a></h3>
+<div class="paragraph">
+<p>The module includes built-in support for <code>openai</code>, <code>anthropic</code>, <code>ollama</code>, and <code>jlama</code>. To add support for an unlisted provider (e.g., Google Vertex AI), you can register a custom <code>ChatModelFactory</code>.</p>
+</div>
+<div class="listingblock primary">
+
+
+<div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xdbd574b2571474c">import io.jooby.langchain4j.LangChain4jModule;
+import io.jooby.langchain4j.ChatModelFactory;
+import dev.langchain4j.model.chat.ChatModel;
+import dev.langchain4j.model.chat.StreamingChatModel;
+import com.typesafe.config.Config;
+
+{
+  install(new LangChain4jModule()
+    .register("vertex", new ChatModelFactory() {                    <b class="conum">(1)</b>
+      @Override
+      public ChatModel createChatModel(Config config) {
+        return VertexAiGeminiChatModel.builder()
+          .project(config.getString("project"))
+          .location(config.getString("location"))
+          .build();
+      }
+
+      @Override
+      public StreamingChatModel createStreamingModel(Config config) {
+        return VertexAiGeminiStreamingChatModel.builder()           <b class="conum">(2)</b>
+          .project(config.getString("project"))
+          .location(config.getString("location"))
+          .build();
+      }
+    })
+  );
+}</code><button class="clipboard" data-clipboard-target="#xdbd574b2571474c"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+</div><div class="content hidden option-2">
+<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="x984d3a54f59e4e82">import io.jooby.langchain4j.LangChain4jModule
+import io.jooby.langchain4j.ChatModelFactory
+import dev.langchain4j.model.chat.ChatModel
+import dev.langchain4j.model.chat.StreamingChatModel
+import com.typesafe.config.Config
+
+{
+  install(LangChain4jModule()
+    .register("vertex", object : ChatModelFactory {                 <b class="conum">(1)</b>
+      override fun createChatModel(config: Config): ChatModel {
+        return VertexAiGeminiChatModel.builder()
+          .project(config.getString("project"))
+          .location(config.getString("location"))
+          .build()
+      }
+
+      override fun createStreamingModel(config: Config): StreamingChatModel {
+        return VertexAiGeminiStreamingChatModel.builder()           <b class="conum">(2)</b>
+          .project(config.getString("project"))
+          .location(config.getString("location"))
+          .build()
+      }
+    })
+  )
+}</code><button class="clipboard" data-clipboard-target="#x984d3a54f59e4e82"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+</div></div>
+
+<div class="colist arabic">
+<ol>
+<li>
+<p>Register the custom provider name matching the <code>provider</code> key in your <code>.conf</code> file.</p>
+</li>
+<li>
+<p><code>createStreamingModel</code> is implemented as an optional default method in the interface. Not all providers support streaming. If your chosen provider does not support it, simply do not override this method (it returns <code>null</code> by default).</p>
+</li>
+</ol>
+</div>
+<div class="sect3">
+<h4 id="langchain4j-registering-custom-providers-accessing-the-concrete-implementation"><a class="anchor" href="#langchain4j-registering-custom-providers-accessing-the-concrete-implementation"></a><a class="link" href="#langchain4j-registering-custom-providers-accessing-the-concrete-implementation">Accessing the Concrete Implementation</a></h4>
+<div class="paragraph">
+<p>While you should generally interact with models via the standard <code>ChatModel</code> and <code>StreamingChatModel</code> interfaces, the module also registers the exact class implementation in Jooby’s Service Registry.</p>
+</div>
+<div class="paragraph">
+<p>If you need to access provider-specific methods on the actual builder output, you can require the concrete class directly:</p>
+</div>
+<div class="listingblock primary">
+
+
+<div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xcfe708591ac4625">import dev.langchain4j.model.vertexai.VertexAiGeminiChatModel;
+
+{
+  get("/vertex-specific", ctx -&gt; {
+    // Retrieve the exact underlying implementation
+    VertexAiGeminiChatModel gemini = require(VertexAiGeminiChatModel.class);
+    // ...
+  });
+}</code><button class="clipboard" data-clipboard-target="#xcfe708591ac4625"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+</div><div class="content hidden option-2">
+<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="x9950f824f67d4d29">import dev.langchain4j.model.vertexai.VertexAiGeminiChatModel
+
+{
+  get("/vertex-specific") {
+    // Retrieve the exact underlying implementation
+    val gemini = require&lt;VertexAiGeminiChatModel&gt;()
+    // ...
+  }
+}</code><button class="clipboard" data-clipboard-target="#x9950f824f67d4d29"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+</div></div>
+
+</div>
+</div>
+</div>
+</div>
+</div>
+<script src="../../js/highlight.min.js"></script>
+<script>
+if (!hljs.initHighlighting.called) {
+  hljs.configure({ignoreUnescapedHTML: true});hljs.initHighlighting.called = true
+  ;[].slice.call(document.querySelectorAll('pre.highlight > code[data-lang]')).forEach(function (el) { hljs.highlightElement(el) })
+}
+</script>
+<button id="theme-toggle" class="theme-toggle" aria-label="Toggle Dark Mode">
+  <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24"><path d="M12 2.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM7.5 12a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM18.894 6.166a.75.75 0 00-1.06-1.06l-1.591 1.59a.75.75 0 101.06 1.061l1.591-1.59zM21.75 12a.75.75 0 01-.75.75h-2.25a.75.75 0 010-1.5H21a.75.75 0 01.75.75zM17.834 18.894a.75.75 0 001.06-1.06l-1.59-1.591a.75.75 0 10-1.061 1.06l1.59 1.591zM12 18.75a.75.75 0 01.75.75V21a.75.75 0 01-1.5 0v-1.5a.75.75 0 01.75-.75zM6.166 18.894a.75.75 0 01-1.06-1.06l1.59-1.591a.75.75 0 111.061 1.06l-1.59 1.591zM2.25 12a.75.75 0 01.75-.75h2.25a.75.75 0 010 1.5H3a.75.75 0 01-.75-.75zM5.106 6.166a.75.75 0 011.06-1.06l1.591 1.59a.75.75 0 11-1.06 1.061l-1.591-1.59z" /></svg>
+  <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24"><path fill-rule="evenodd" d="M9.528 1.718a.75.75 0 01.162.819A8.97 8.97 0 009 6a9 9 0 009 9 8.97 8.97 0 003.463-.69.75.75 0 01.981.98 10.503 10.503 0 01-9.694 6.46c-5.799 0-10.5-4.701-10.5-10.5 0-4.368 2.667-8.112 6.46-9.694a.75.75 0 01.818.162z" clip-rule="evenodd" /></svg>
+</button>
+
+<script src="/../../js/clipboard.min.js"></script>
+<script src="/../../js/toc.js"></script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+
+    /** 1. Theme Switcher Logic */
+    const themeToggle = document.getElementById('theme-toggle');
+    const htmlElement = document.documentElement;
+    const hljsThemeLink = document.getElementById('hljs-theme'); // Grab the CSS link
+
+    if (themeToggle) {
+      themeToggle.addEventListener('click', () => {
+        if (htmlElement.getAttribute('data-theme') === 'dark') {
+          // Switch to Light Mode
+          htmlElement.removeAttribute('data-theme');
+          localStorage.setItem('jooby-theme', 'light');
+
+          // Switch code block to Agate
+          if (hljsThemeLink) hljsThemeLink.href = '../../js/styles/agate.min.css';
+
+        } else {
+          // Switch to Dark Mode
+          htmlElement.setAttribute('data-theme', 'dark');
+          localStorage.setItem('jooby-theme', 'dark');
+
+          // Switch code block to Atom One Dark
+          if (hljsThemeLink) hljsThemeLink.href = 'https://cdnjs.cloudflare.com/ajax/libs/highlight.../../js/11.9.0/styles/atom-one-dark.min.css';
+        }
+      });
+    }
+
+    /** 2. Tabs Logic */
+    const tabButtons = document.querySelectorAll('.primary .switch .switch--item');
+    const contents = document.querySelectorAll('.primary .content');
+
+    tabButtons.forEach(button => {
+      button.addEventListener('click', function () {
+        const match = this.className.match(/option-(\d+)/);
+        if (!match) return;
+        const option = match[1];
+
+        // Reset states
+        tabButtons.forEach(btn => btn.classList.remove('selected'));
+        contents.forEach(content => content.classList.add('hidden'));
+
+        // Set active states
+        document.querySelectorAll(`.primary .switch .switch--item.option-${option}`)
+            .forEach(el => el.classList.add('selected'));
+
+        document.querySelectorAll(`.primary .content.option-${option}`)
+            .forEach(el => el.classList.remove('hidden'));
+      });
+    });
+
+    /** 3. Clipboard.js Initialization */
+    const clipboard = new ClipboardJS('.clipboard');
+    clipboard.on('success', (e) => {
+      e.clearSelection();
+      const btn = e.trigger;
+      const originalHTML = btn.innerHTML;
+
+      // Temporarily change background and insert a checkmark SVG
+      btn.style.backgroundColor = '#10b981'; // Tailwind emerald-500
+      btn.style.borderColor = '#059669';
+      btn.innerHTML = `<svg fill="none" stroke="white" stroke-width="2.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg>`;
+
+      // Revert back after 2 seconds
+      setTimeout(() => {
+        btn.style.backgroundColor = '';
+        btn.style.borderColor = '';
+        btn.innerHTML = originalHTML;
+      }, 2000);
+    });
+  });
+  /** 4. Code Callout Badges (Zero-Flash & Auto-Format) */
+  document.querySelectorAll('pre.highlightjs').forEach(pre => {
+    // Check every 10ms if highlight.js has finished formatting this block
+    const checkInterval = setInterval(() => {
+      if (pre.dataset.highlighted === "yes" || pre.querySelector('.hljs')) {
+        clearInterval(checkInterval);
+
+        const codeEl = pre.querySelector('code');
+        if (codeEl) {
+          // Upgraded regex to handle consecutive callouts like: // (1) (2)
+          // The "Lookahead" (?= ... ) now checks if the rest of the line
+          // is empty OR contains subsequent (N) callout numbers.
+          const calloutRegex = /(\/\/\s*|\s+)\(\s*(?:<[^>]+>\s*)*(\d+)\s*(?:<[^>]+>\s*)*\)(?=\s*(?:<[^>]+>\s*)*(?:\(\s*(?:<[^>]+>\s*)*\d+\s*(?:<[^>]+>\s*)*\)\s*(?:<[^>]+>\s*)*)*(\n|<|$))/g;
+
+          codeEl.innerHTML = codeEl.innerHTML.replace(
+              calloutRegex,
+              (match, prefix, num) => {
+                // Injects a hidden "//" before EVERY badge so that
+                // multiple badges paste safely as "// 1 // 2"
+                return ` <span class="visually-hidden">//</span> <span class="conum-badge">${num}</span>`;
+              }
+          );
+        }
+
+        // Reveal the block smoothly
+        pre.classList.add('badges-loaded');
+      }
+    }, 10);
+
+    // Fallback: Reveal the block anyway after 500ms
+    setTimeout(() => {
+      pre.classList.add('badges-loaded');
+      clearInterval(checkInterval);
+    }, 500);
+  });
+  /** 5. Copy Header Anchor Links to Clipboard */
+  document.querySelectorAll('a.anchor').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+      // We do NOT prevent default, so the browser still scrolls to the header naturally
+
+      // Construct the full absolute URL for the clipboard
+      const fullUrl = window.location.origin + window.location.pathname + window.location.search + this.getAttribute('href');
+
+      // Use native clipboard API
+      navigator.clipboard.writeText(fullUrl).then(() => {
+        // Add the 'copied' class for visual feedback
+        this.classList.add('copied');
+
+        // Remove the checkmark after 2 seconds
+        setTimeout(() => {
+          this.classList.remove('copied');
+        }, 2000);
+      }).catch(err => console.error('Failed to copy anchor:', err));
+    });
+  });
+  /** 6. Hamburger Menu */
+  document.addEventListener('DOMContentLoaded', function() {
+    const menuToggle = document.getElementById('menu-toggle');
+
+    // Try to find the Toc (Table of Contents) or the Navigation Container
+    const sidebar = document.getElementById('toc') ||
+        document.querySelector('.nav-container') ||
+        document.getElementById('sidebar');
+
+    if (menuToggle && sidebar) {
+      menuToggle.addEventListener('click', function() {
+        sidebar.classList.toggle('active');
+        menuToggle.classList.toggle('open');
+
+        // Optional: Prevent body scrolling when menu is open
+        document.body.classList.toggle('menu-open');
+      });
+    } else {
+      console.warn("Hamburger menu: Could not find the navigation element to toggle.");
+    }
+  });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/@docsearch/js@3"></script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // 1. Find Asciidoctor's auto-generated TOC
+    const toc = document.getElementById('toc');
+
+    if (toc) {
+      // 2. Create the search container dynamically
+      const searchContainer = document.createElement('div');
+      searchContainer.id = 'docsearch';
+
+      // 3. Inject it at the very top of the TOC, above the title
+      toc.insertBefore(searchContainer, toc.firstChild);
+
+      // 4. Initialize Algolia into that new container
+      docsearch({
+        appId: '9U2WK2CSJ7',
+        apiKey: '113e159f5c587fdac629948dd80dd993',
+        indexName: 'jooby',
+        container: '#docsearch'
+      });
+    } else {
+      console.warn("Could not find the #toc element to inject the search bar.");
+    }
+  });
+</script>
+</body>
+</html>

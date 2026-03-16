@@ -28,6 +28,7 @@
 </head>
 <body class="book toc2 toc-left">
 <div class="mobile-nav-bar">
+  <span style="font-weight: 700; color: var(--heading-color);">Jooby</span>
   <button id="menu-toggle" class="hamburger" aria-label="Toggle Menu">
     <span></span><span></span><span></span>
   </button>
@@ -63,13 +64,13 @@
 
 
 <div class="switch"><div class="switch--item option-1 selected">Maven</div><div class="switch--item option-2">Gradle</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="x20f3b7460f3e4f03">&lt;dependency&gt;
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="x16fc7d13a66c4ed3">&lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
   &lt;artifactId&gt;jooby-pebble&lt;/artifactId&gt;
-  &lt;version&gt;4.0.16&lt;/version&gt;
-&lt;/dependency&gt;</code><button class="clipboard" data-clipboard-target="#x20f3b7460f3e4f03"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+  &lt;version&gt;4.1.0&lt;/version&gt;
+&lt;/dependency&gt;</code><button class="clipboard" data-clipboard-target="#x16fc7d13a66c4ed3"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-gradle hljs" data-lang="gradle" id="xbe9a94b295d648fb">implementation 'io.jooby:jooby-pebble:4.0.16'</code><button class="clipboard" data-clipboard-target="#xbe9a94b295d648fb"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+<pre class="highlightjs highlight"><code class="language-gradle hljs" data-lang="gradle" id="x9ed4e40228ff4dc7">implementation 'io.jooby:jooby-pebble:4.1.0'</code><button class="clipboard" data-clipboard-target="#x9ed4e40228ff4dc7"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -78,7 +79,7 @@
 <div class="listingblock">
 <div class="title">views/index.peb</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html" id="x9475471e4dde4bb1">&lt;p&gt; Hello {{name}}! &lt;/p&gt;</code><button class="clipboard" data-clipboard-target="#x9475471e4dde4bb1"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html" id="x426c3306a14443b8">&lt;p&gt; Hello {{name}}! &lt;/p&gt;</code><button class="clipboard" data-clipboard-target="#x426c3306a14443b8"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -88,7 +89,7 @@
 
 
 <div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x3e17e80bf91418a">import io.jooby.pebble.PebbleModule;
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x3e1ab51753454863">import io.jooby.pebble.PebbleModule;
 
 {
   install(new PebbleModule());
@@ -97,9 +98,9 @@
     return new MapModelAndView("index.peb")
         .put("name", "Jooby");
   });
-}</code><button class="clipboard" data-clipboard-target="#x3e17e80bf91418a"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x3e1ab51753454863"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="x1c5f96a465bb4c9a">import io.jooby.pebble.PebbleModule
+<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="xf72358cabb2c4e9c">import io.jooby.pebble.PebbleModule
 
 {
   install(PebbleModule())
@@ -108,7 +109,7 @@
     MapModelAndView("index.peb")
         .put("name", "Jooby")
   }
-}</code><button class="clipboard" data-clipboard-target="#x1c5f96a465bb4c9a"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#xf72358cabb2c4e9c"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -141,7 +142,7 @@ configuration file or programmatically at creation time.</p>
 
 
 <div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x4af50062e3174c55">import io.jooby.pebble.PebbleModule;
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xbb3a79f97b4d489e">import io.jooby.pebble.PebbleModule;
 
 {
   // Apply custom configuration via builder
@@ -151,9 +152,9 @@ configuration file or programmatically at creation time.</p>
     .build(getEnvironment());
 
   install(new PebbleModule(builder));
-}</code><button class="clipboard" data-clipboard-target="#x4af50062e3174c55"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#xbb3a79f97b4d489e"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="x8d9f719ef2449d7">import io.jooby.pebble.PebbleModule
+<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="xf13786f9ce6d4fdf">import io.jooby.pebble.PebbleModule
 
 {
   val builder = PebbleModule.create()
@@ -161,7 +162,7 @@ configuration file or programmatically at creation time.</p>
     .build(getEnvironment())
 
   install(PebbleModule(builder))
-}</code><button class="clipboard" data-clipboard-target="#x8d9f719ef2449d7"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#xf13786f9ce6d4fdf"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 </div>

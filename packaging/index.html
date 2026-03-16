@@ -28,6 +28,7 @@
 </head>
 <body class="book toc2 toc-left">
 <div class="mobile-nav-bar">
+  <span style="font-weight: 700; color: var(--heading-color);">Jooby</span>
   <button id="menu-toggle" class="hamburger" aria-label="Toggle Menu">
     <span></span><span></span><span></span>
   </button>
@@ -74,12 +75,12 @@
 
 
 <div class="switch"><div class="switch--item option-1 selected">Maven (Shade Plugin)</div><div class="switch--item option-2">Gradle (Shadow Plugin)</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="xc6ea3f16c1584edf">&lt;build&gt;
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="xf2f9780dad494b4b">&lt;build&gt;
   &lt;plugins&gt;
     &lt;plugin&gt;
       &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
       &lt;artifactId&gt;maven-shade-plugin&lt;/artifactId&gt;
-      &lt;version&gt;3.6.1&lt;/version&gt;
+      &lt;version&gt;3.6.2&lt;/version&gt;
       &lt;executions&gt;
         &lt;execution&gt;
           &lt;id&gt;uber-jar&lt;/id&gt;
@@ -100,9 +101,9 @@
       &lt;/executions&gt;
     &lt;/plugin&gt;
   &lt;/plugins&gt;
-&lt;/build&gt;</code><button class="clipboard" data-clipboard-target="#xc6ea3f16c1584edf"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+&lt;/build&gt;</code><button class="clipboard" data-clipboard-target="#xf2f9780dad494b4b"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-gradle hljs" data-lang="gradle" id="x2c0a1f9c3e2241e3">plugins {
+<pre class="highlightjs highlight"><code class="language-gradle hljs" data-lang="gradle" id="xb1c82bd48b4941eb">plugins {
   id "com.github.johnrengelman.shadow" version "8.1.1"
 }
 
@@ -113,7 +114,7 @@ shadowJar {
   manifest {
     attributes 'Main-Class': "${mainClassName}"
   }
-}</code><button class="clipboard" data-clipboard-target="#x2c0a1f9c3e2241e3"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#xb1c82bd48b4941eb"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -162,7 +163,7 @@ shadowJar {
 <div class="listingblock">
 <div class="title">stork.yml</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml" id="x28d3a0965244142"># Application name (no spaces)
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml" id="x68bfcb27ca3c4ce6"># Application name (no spaces)
 name: "${project.artifactId}"
 display_name: "${project.name}"
 
@@ -182,7 +183,7 @@ min_java_memory: 512
 max_java_memory: 512
 
 # Create a symbolic link to java as "&lt;app_name&gt;-java" for easier process tracking
-symlink_java: true</code><button class="clipboard" data-clipboard-target="#x28d3a0965244142"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+symlink_java: true</code><button class="clipboard" data-clipboard-target="#x68bfcb27ca3c4ce6"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div>
 </div>
 <div class="olist arabic">
@@ -195,7 +196,7 @@ symlink_java: true</code><button class="clipboard" data-clipboard-target="#x28d3
 <div class="listingblock">
 <div class="title">pom.xml</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="x7f5c3a9990a64e8d">&lt;build&gt;
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="x6ff39253d5f0451c">&lt;build&gt;
   &lt;plugins&gt;
     &lt;plugin&gt;
       &lt;groupId&gt;io.repaint.maven&lt;/groupId&gt;
@@ -204,12 +205,12 @@ symlink_java: true</code><button class="clipboard" data-clipboard-target="#x28d3
       &lt;extensions&gt;true&lt;/extensions&gt;
       &lt;configuration&gt;
         &lt;tiles&gt;
-          &lt;tile&gt;io.jooby:jooby-stork:4.0.16&lt;/tile&gt;
+          &lt;tile&gt;io.jooby:jooby-stork:4.1.0&lt;/tile&gt;
         &lt;/tiles&gt;
       &lt;/configuration&gt;
     &lt;/plugin&gt;
   &lt;/plugins&gt;
-&lt;/build&gt;</code><button class="clipboard" data-clipboard-target="#x7f5c3a9990a64e8d"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+&lt;/build&gt;</code><button class="clipboard" data-clipboard-target="#x6ff39253d5f0451c"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div>
 </div>
 <div class="olist arabic">

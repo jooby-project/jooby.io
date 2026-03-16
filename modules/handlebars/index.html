@@ -28,6 +28,7 @@
 </head>
 <body class="book toc2 toc-left">
 <div class="mobile-nav-bar">
+  <span style="font-weight: 700; color: var(--heading-color);">Jooby</span>
   <button id="menu-toggle" class="hamburger" aria-label="Toggle Menu">
     <span></span><span></span><span></span>
   </button>
@@ -63,13 +64,13 @@
 
 
 <div class="switch"><div class="switch--item option-1 selected">Maven</div><div class="switch--item option-2">Gradle</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="x2257e3b209a44399">&lt;dependency&gt;
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="x6de3da6bfed04ef5">&lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
   &lt;artifactId&gt;jooby-handlebars&lt;/artifactId&gt;
-  &lt;version&gt;4.0.16&lt;/version&gt;
-&lt;/dependency&gt;</code><button class="clipboard" data-clipboard-target="#x2257e3b209a44399"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+  &lt;version&gt;4.1.0&lt;/version&gt;
+&lt;/dependency&gt;</code><button class="clipboard" data-clipboard-target="#x6de3da6bfed04ef5"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-gradle hljs" data-lang="gradle" id="xc08d5e29f8ab4653">implementation 'io.jooby:jooby-handlebars:4.0.16'</code><button class="clipboard" data-clipboard-target="#xc08d5e29f8ab4653"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+<pre class="highlightjs highlight"><code class="language-gradle hljs" data-lang="gradle" id="xe0db40ccb4624cd7">implementation 'io.jooby:jooby-handlebars:4.1.0'</code><button class="clipboard" data-clipboard-target="#xe0db40ccb4624cd7"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -78,7 +79,7 @@
 <div class="listingblock">
 <div class="title">views/index.hbs</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html" id="x2c983963c3d1472a">&lt;p&gt; Hello {{name}}! &lt;/p&gt;</code><button class="clipboard" data-clipboard-target="#x2c983963c3d1472a"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html" id="x55dfdedd90464a54">&lt;p&gt; Hello {{name}}! &lt;/p&gt;</code><button class="clipboard" data-clipboard-target="#x55dfdedd90464a54"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -88,7 +89,7 @@
 
 
 <div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xfb9067c4b3e94c9d">import io.jooby.handlebars.HandlebarsModule;
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xde3608bfa7f74913">import io.jooby.handlebars.HandlebarsModule;
 
 {
   install(new HandlebarsModule());
@@ -97,9 +98,9 @@
     return new MapModelAndView("index.hbs")
         .put("name", "Jooby");
   });
-}</code><button class="clipboard" data-clipboard-target="#xfb9067c4b3e94c9d"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#xde3608bfa7f74913"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="xc463ac57aa5c4d54">import io.jooby.handlebars.HandlebarsModule
+<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="x7a05625e42744112">import io.jooby.handlebars.HandlebarsModule
 
 {
   install(HandlebarsModule())
@@ -108,7 +109,7 @@
     MapModelAndView("index.hbs")
         .put("name", "Jooby")
   }
-}</code><button class="clipboard" data-clipboard-target="#xc463ac57aa5c4d54"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x7a05625e42744112"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -142,7 +143,7 @@ environment it use <a href="https://github.com/jknack/handlebars.java#the-cache-
 
 
 <div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x2c07f3da76744371">import io.jooby.handlebars.HandlebarsModule;
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xc5a88e2f0b1b4b81">import io.jooby.handlebars.HandlebarsModule;
 
 {
   Handlebars handlebars = new Handlebars();
@@ -150,9 +151,9 @@ environment it use <a href="https://github.com/jknack/handlebars.java#the-cache-
   // Apply custom configuration
 
   install(new HandlebarsModule(handlebars));
-}</code><button class="clipboard" data-clipboard-target="#x2c07f3da76744371"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#xc5a88e2f0b1b4b81"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="xf56feff994ef4153">import io.jooby.handlebars.HandlebarsModule
+<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="x4649c553f33440a0">import io.jooby.handlebars.HandlebarsModule
 
 {
   val handlebars = Handlebars()
@@ -160,7 +161,7 @@ environment it use <a href="https://github.com/jknack/handlebars.java#the-cache-
   // Apply custom configuration
 
   install(HandlebarsModule(handlebars))
-}</code><button class="clipboard" data-clipboard-target="#xf56feff994ef4153"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x4649c553f33440a0"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 </div>

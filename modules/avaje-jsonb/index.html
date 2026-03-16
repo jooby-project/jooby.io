@@ -28,6 +28,7 @@
 </head>
 <body class="book toc2 toc-left">
 <div class="mobile-nav-bar">
+  <span style="font-weight: 700; color: var(--heading-color);">Jooby</span>
   <button id="menu-toggle" class="hamburger" aria-label="Toggle Menu">
     <span></span><span></span><span></span>
   </button>
@@ -61,13 +62,13 @@
 
 
 <div class="switch"><div class="switch--item option-1 selected">Maven</div><div class="switch--item option-2">Gradle</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="x697797dde6784bc3">&lt;dependency&gt;
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="xb673665cd1954fc5">&lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
   &lt;artifactId&gt;jooby-avaje-jsonb&lt;/artifactId&gt;
-  &lt;version&gt;4.0.16&lt;/version&gt;
-&lt;/dependency&gt;</code><button class="clipboard" data-clipboard-target="#x697797dde6784bc3"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+  &lt;version&gt;4.1.0&lt;/version&gt;
+&lt;/dependency&gt;</code><button class="clipboard" data-clipboard-target="#xb673665cd1954fc5"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-gradle hljs" data-lang="gradle" id="xf0d0a8d945724f6d">implementation 'io.jooby:jooby-avaje-jsonb:4.0.16'</code><button class="clipboard" data-clipboard-target="#xf0d0a8d945724f6d"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+<pre class="highlightjs highlight"><code class="language-gradle hljs" data-lang="gradle" id="x53d816135039466d">implementation 'io.jooby:jooby-avaje-jsonb:4.1.0'</code><button class="clipboard" data-clipboard-target="#x53d816135039466d"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -77,7 +78,7 @@
 
 
 <div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xaaa4b2189e44430e">import io.jooby.avaje.jsonb.AvajeJsonbModule;
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x22f21043f06a4ebe">import io.jooby.avaje.jsonb.AvajeJsonbModule;
 
 {
   install(new AvajeJsonbModule());                  <b class="conum">(1)</b>
@@ -91,9 +92,9 @@
     MyObject myObject = ctx.body(MyObject.class);   <b class="conum">(3)</b>
     ...
   });
-}</code><button class="clipboard" data-clipboard-target="#xaaa4b2189e44430e"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x22f21043f06a4ebe"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="xc789fe1bf4ad4002">import io.jooby.avaje.jsonb.AvajeJsonbModule
+<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="xcfa8ea02ac2b4765">import io.jooby.avaje.jsonb.AvajeJsonbModule
 
 {
   install(AvajeJsonbModule())                       <b class="conum">(1)</b>
@@ -107,7 +108,7 @@
     val myObject = ctx.body&lt;MyObject&gt;()             <b class="conum">(3)</b>
     ...
   }
-}</code><button class="clipboard" data-clipboard-target="#xc789fe1bf4ad4002"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#xcfa8ea02ac2b4765"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="colist arabic">
@@ -133,7 +134,7 @@
 <div class="title">Default Jsonb</div>
 
 <div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x916c7ca1bf7f406d">import io.jooby.avaje.jsonb.AvajeJsonbModule;
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x9266bf14a70c421a">import io.jooby.avaje.jsonb.AvajeJsonbModule;
 import io.avaje.jsonb.Jsonb;
 
 {
@@ -142,16 +143,16 @@ import io.avaje.jsonb.Jsonb;
   Jsonb jsonb = require(Jsonb.class);
 
   ...
-}</code><button class="clipboard" data-clipboard-target="#x916c7ca1bf7f406d"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x9266bf14a70c421a"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="x72f92888829d4a67">import io.jooby.avaje.jsonb.AvajeJsonbModule
+<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="xcf825d5413df48a7">import io.jooby.avaje.jsonb.AvajeJsonbModule
 import io.avaje.jsonb.Jsonb
 
 {
   install(JacksonModule())
 
   val jsonb = require&lt;Jsonb&gt;()
-}</code><button class="clipboard" data-clipboard-target="#x72f92888829d4a67"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#xcf825d5413df48a7"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -161,23 +162,23 @@ import io.avaje.jsonb.Jsonb
 <div class="title">Custom Jsonb</div>
 
 <div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xdcaf50c002a24f06">import io.jooby.avaje.jsonb.AvajeJsonbModule;
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x1523f18a694c4da9">import io.jooby.avaje.jsonb.AvajeJsonbModule;
 import io.avaje.jsonb.Jsonb;
 
 {
   var jsonb = Jsonb.builder().build();
 
   install(new AvajeJsonbModule(jsonb));
-}</code><button class="clipboard" data-clipboard-target="#xdcaf50c002a24f06"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x1523f18a694c4da9"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="xf342c638518d479e">import io.jooby.avaje.jsonb.AvajeJsonbModule
+<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="xbafccf77d67b4ba2">import io.jooby.avaje.jsonb.AvajeJsonbModule
 import io.avaje.jsonb.Jsonb
 
 {
   var jsonb = Jsonb.builder().build()
 
   install(AvajeJsonbModule(jsonb))
-}</code><button class="clipboard" data-clipboard-target="#xf342c638518d479e"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#xbafccf77d67b4ba2"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 </div>
