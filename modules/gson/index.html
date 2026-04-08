@@ -62,13 +62,13 @@
 
 
 <div class="switch"><div class="switch--item option-1 selected">Maven</div><div class="switch--item option-2">Gradle</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="x1d8a9e2faf604dfb">&lt;dependency&gt;
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="xb8bda74139264b51">&lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
   &lt;artifactId&gt;jooby-gson&lt;/artifactId&gt;
-  &lt;version&gt;4.2.0&lt;/version&gt;
-&lt;/dependency&gt;</code><button class="clipboard" data-clipboard-target="#x1d8a9e2faf604dfb"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+  &lt;version&gt;4.3.0&lt;/version&gt;
+&lt;/dependency&gt;</code><button class="clipboard" data-clipboard-target="#xb8bda74139264b51"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-gradle hljs" data-lang="gradle" id="x779df25db33745a2">implementation 'io.jooby:jooby-gson:4.2.0'</code><button class="clipboard" data-clipboard-target="#x779df25db33745a2"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+<pre class="highlightjs highlight"><code class="language-gradle hljs" data-lang="gradle" id="x183b0b0eea19482f">implementation 'io.jooby:jooby-gson:4.3.0'</code><button class="clipboard" data-clipboard-target="#x183b0b0eea19482f"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -78,7 +78,7 @@
 
 
 <div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xa3b7a95d43984556">import io.jooby.gson.GsonModule;
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xa3b2759eda164cc3">import io.jooby.gson.GsonModule;
 
 {
   install(new GsonModule());                        <b class="conum">(1)</b>
@@ -92,9 +92,9 @@
     MyObject myObject = ctx.body(MyObject.class);   <b class="conum">(3)</b>
     ...
   });
-}</code><button class="clipboard" data-clipboard-target="#xa3b7a95d43984556"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#xa3b2759eda164cc3"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="xfd56d8666ea74d93">import io.jooby.gson.GsonModule
+<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="x257db5d3c6c74df2">import io.jooby.gson.GsonModule
 
 {
   install(GsonModule())                             <b class="conum">(1)</b>
@@ -108,7 +108,7 @@
     val myObject = ctx.body&lt;MyObject&gt;()             <b class="conum">(3)</b>
     ...
   }
-}</code><button class="clipboard" data-clipboard-target="#xfd56d8666ea74d93"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x257db5d3c6c74df2"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="colist arabic">
@@ -134,7 +134,7 @@
 <div class="title">Default object mapper</div>
 
 <div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x5446b84d44314a47">import io.jooby.gson.GsonModule;
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x24656c63bf9d4de3">import io.jooby.gson.GsonModule;
 
 {
   install(new GsonModule());
@@ -142,15 +142,15 @@
   Gson gson = require(Gson.class);
 
   ...
-}</code><button class="clipboard" data-clipboard-target="#x5446b84d44314a47"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x24656c63bf9d4de3"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="x8275ace4fc9946de">import io.jooby.gson.GsonModule
+<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="x6d0e6bf43a3744dc">import io.jooby.gson.GsonModule
 
 {
   install(GsonModule())
 
   val mapper = require&lt;Gson&gt;()
-}</code><button class="clipboard" data-clipboard-target="#x8275ace4fc9946de"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x6d0e6bf43a3744dc"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -160,21 +160,21 @@
 <div class="title">Custom ObjectMapper</div>
 
 <div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xbc357b57391247bb">import io.jooby.gson.GsonModule;
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x349333494a4947f0">import io.jooby.gson.GsonModule;
 
 {
   Gson gson = new GsonBuilder().create();
 
   install(new GsonModule(gson));
-}</code><button class="clipboard" data-clipboard-target="#xbc357b57391247bb"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x349333494a4947f0"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="x7f538833c7164ec6">import io.jooby.gson.GsonModule
+<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="x2c23a67de10e4dec">import io.jooby.gson.GsonModule
 
 {
   val gson = GsonBuilder().create()
 
   install(GsonModule(gson))
-}</code><button class="clipboard" data-clipboard-target="#x7f538833c7164ec6"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x2c23a67de10e4dec"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 </div>

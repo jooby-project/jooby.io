@@ -8,7 +8,7 @@
 <meta name="description" content="The modular micro web framework for Java">
 <meta name="keywords" content="Java, Modern, Micro, Web, Framework, Reactive, Lightweight, Microservices">
 <link rel="icon" type="image/png" href="../../images/favicon96.png">
-<title>jooby: flyway module</title>
+<title>jooby: json rpc module</title>
 <link rel="stylesheet" href="../../js/styles/theme.css">
 <link rel="stylesheet" href="../../js/styles/atom-one-dark.min.css">
 <meta name="algolia-site-verification" content="B92EF92B303805F4">
@@ -37,10 +37,17 @@
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#flyway">Flyway</a>
+<li><a href="#json-rpc">JSON-RPC</a>
 <ul class="sectlevel2">
-<li><a href="#flyway-usage">Usage</a></li>
-<li><a href="#flyway-multiple-databases">Multiple databases</a></li>
+<li><a href="#json-rpc-usage">Usage</a></li>
+<li><a href="#json-rpc-registration">Registration</a></li>
+<li><a href="#json-rpc-json-engine-support">JSON Engine Support</a></li>
+<li><a href="#json-rpc-error-mapping">Error Mapping</a>
+<ul class="sectlevel3">
+<li><a href="#json-rpc-error-mapping-standard-protocol-errors">Standard Protocol Errors</a></li>
+</ul>
+</li>
+<li><a href="#json-rpc-batch-processing">Batch Processing</a></li>
 </ul>
 </li>
 </ul>
@@ -48,169 +55,235 @@
 </div>
 <div id="content">
 <div class="sect1">
-<h2 id="flyway"><a class="anchor" href="#flyway"></a><a class="link" href="#flyway">Flyway</a></h2>
+<h2 id="json-rpc"><a class="anchor" href="#json-rpc"></a><a class="link" href="#json-rpc">JSON-RPC</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><a href="https://flywaydb.org" target="_blank">Flyway</a> database migrations module.</p>
+<p>Jooby provides full support for the JSON-RPC 2.0 specification, allowing you to build robust RPC APIs using standard Java and Kotlin controllers.</p>
+</div>
+<div class="paragraph">
+<p>The implementation leverages Jooby’s Annotation Processing Tool (APT) to generate highly optimized, reflection-free dispatchers at compile time.</p>
 </div>
 <div class="sect2">
-<h3 id="flyway-usage"><a class="anchor" href="#flyway-usage"></a><a class="link" href="#flyway-usage">Usage</a></h3>
+<h3 id="json-rpc-usage"><a class="anchor" href="#json-rpc-usage"></a><a class="link" href="#json-rpc-usage">Usage</a></h3>
 <div class="paragraph">
-<p>1) Add the dependencies (hikari + flyway):</p>
+<p>Add dependencies:</p>
 </div>
 <div class="listingblock primary">
 
 
 <div class="switch"><div class="switch--item option-1 selected">Maven</div><div class="switch--item option-2">Gradle</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="xd938426e38794ceb">&lt;!-- DataSource via HikariCP--&gt;
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="x3e558e44c4b84446">&lt;!-- Jackson module--&gt;
 &lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
-  &lt;artifactId&gt;jooby-hikari&lt;/artifactId&gt;
+  &lt;artifactId&gt;jooby-jackson3&lt;/artifactId&gt;
   &lt;version&gt;4.3.0&lt;/version&gt;
 &lt;/dependency&gt;
 
-&lt;!-- Flyway Module--&gt;
+&lt;!-- Jackson JSON-RPC implementation--&gt;
 &lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
-  &lt;artifactId&gt;jooby-flyway&lt;/artifactId&gt;
+  &lt;artifactId&gt;jooby-jsonrpc-jackson3&lt;/artifactId&gt;
   &lt;version&gt;4.3.0&lt;/version&gt;
-&lt;/dependency&gt;</code><button class="clipboard" data-clipboard-target="#xd938426e38794ceb"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
-</div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-gradle hljs" data-lang="gradle" id="xe597dfe51c4a455f">// DataSource via HikariCP
-implementation 'io.jooby:jooby-hikari:4.3.0'
+&lt;/dependency&gt;
 
-// Flyway Module
-implementation 'io.jooby:jooby-flyway:4.3.0'</code><button class="clipboard" data-clipboard-target="#xe597dfe51c4a455f"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+&lt;!-- JSON-RPC Module--&gt;
+&lt;dependency&gt;
+  &lt;groupId&gt;io.jooby&lt;/groupId&gt;
+  &lt;artifactId&gt;jooby-jsonrpc&lt;/artifactId&gt;
+  &lt;version&gt;4.3.0&lt;/version&gt;
+&lt;/dependency&gt;</code><button class="clipboard" data-clipboard-target="#x3e558e44c4b84446"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+</div><div class="content hidden option-2">
+<pre class="highlightjs highlight"><code class="language-gradle hljs" data-lang="gradle" id="x8b448dc79d084f8a">// Jackson module
+implementation 'io.jooby:jooby-jackson3:4.3.0'
+
+// Jackson JSON-RPC implementation
+implementation 'io.jooby:jooby-jsonrpc-jackson3:4.3.0'
+
+// JSON-RPC Module
+implementation 'io.jooby:jooby-jsonrpc:4.3.0'</code><button class="clipboard" data-clipboard-target="#x8b448dc79d084f8a"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="paragraph">
-<p>2) Add database driver (mySQL here):</p>
+<p>To expose a JSON-RPC endpoint, annotate your controller or service with <code>@JsonRpc</code>. You can optionally provide a namespace to the annotation, which will prefix all generated method names for that class.</p>
 </div>
 <div class="listingblock primary">
-
-
-<div class="switch"><div class="switch--item option-1 selected">Maven</div><div class="switch--item option-2">Gradle</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="x923a3f8e661846a4">&lt;dependency&gt;
-  &lt;groupId&gt;mysql&lt;/groupId&gt;
-  &lt;artifactId&gt;mysql-connector-java&lt;/artifactId&gt;
-  &lt;version&gt;${mysql-connector-java.version}&lt;/version&gt;
-&lt;/dependency&gt;</code><button class="clipboard" data-clipboard-target="#x923a3f8e661846a4"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
-</div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-gradle hljs" data-lang="gradle" id="x9ada38e5c5504a25">implementation 'mysql:mysql-connector-java:${mysql-connector-java.version}'</code><button class="clipboard" data-clipboard-target="#x9ada38e5c5504a25"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
-</div></div>
-
-<div class="paragraph">
-<p>3) Set database properties</p>
-</div>
-<div class="listingblock">
-<div class="title">application.conf</div>
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-properties hljs" data-lang="properties" id="xefb847cc1f754a2d">db.url = "jdbc:mysql://localhost/mydb"
-db.user = myuser
-db.password = mypass</code><button class="clipboard" data-clipboard-target="#xefb847cc1f754a2d"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>4) Install and use Flyway</p>
-</div>
-<div class="listingblock primary">
-
+<div class="title">JSON-RPC</div>
 
 <div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xf9488a66e1845a4">import io.jooby.hikari.HikariModule;
-import io.jooby.flyway.FlywayModule;
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x200f5c48813b4cd6">import io.jooby.rpc.jsonrpc.JsonRpc;
 
-{
-  install(new HikariModule());                     <b class="conum">(1)</b>
+@JsonRpc("movies")
+public class MovieService {
 
-  install(new FlywayModule());                     <b class="conum">(2)</b>
-
-}</code><button class="clipboard" data-clipboard-target="#xf9488a66e1845a4"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+  public Movie getById(int id) {
+    return database.stream()
+      .filter(m -&gt; m.id() == id)
+      .findFirst()
+      .orElseThrow(() -&gt; new NotFoundException("Movie not found: " + id));
+  }
+}</code><button class="clipboard" data-clipboard-target="#x200f5c48813b4cd6"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="xf63cc94f7c304238">import io.jooby.hikari.HikariModule
-import io.jooby.jdbi.JdbiModule
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin" id="x9e07ab6675ef4a71">import io.jooby.rpc.jsonrpc.JsonRpc
 
-{
-  install(HikariModule())                          <b class="conum">(1)</b>
+@JsonRpc("movies")
+class MovieService {
 
-  install(FlywayModule())                          <b class="conum">(2)</b>
-}</code><button class="clipboard" data-clipboard-target="#xf63cc94f7c304238"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+  fun getById(id: Int): Movie {
+    return database.asSequence()
+      .filter { it.id == id }
+      .firstOrNull() ?: throw NotFoundException("Movie not found: $id")
+  }
+}</code><button class="clipboard" data-clipboard-target="#x9e07ab6675ef4a71"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
-<div class="colist arabic">
-<ol>
+<div class="paragraph">
+<p>When the Jooby APT detects the <code>@JsonRpc</code> annotation, it generates a class ending in <code>Rpc_</code> (e.g., <code>MovieServiceRpc_</code>) that implements the <code>io.jooby.rpc.jsonrpc.JsonRpcService</code> interface.</p>
+</div>
+<div class="paragraph">
+<p>The annotation dictates how the protocol methods are named and exposed:</p>
+</div>
+<div class="ulist">
+<ul>
 <li>
-<p>Install and creates a <code>DataSource</code></p>
+<p><strong>Class Level:</strong> Placing <code>@JsonRpc</code> on a class treats its public methods as JSON-RPC endpoints. An optional string value defines a namespace prefix for all methods within that class (e.g., <code>@JsonRpc("movies")</code>). If no value is provided, no namespace is applied.</p>
 </li>
 <li>
-<p>Install and run Flyway</p>
+<p><strong>Method Level:</strong> By default, the generated JSON-RPC method name is exactly the name of the Java/Kotlin method, prefixed by the class-level namespace if one is present (e.g., <code>movies.getById</code> or just <code>getById</code> if no namespace was set). You can also place <code>@JsonRpc("customName")</code> directly on specific methods to explicitly override this default naming convention.</p>
 </li>
-</ol>
+</ul>
 </div>
 <div class="paragraph">
-<p>The flyway module runs a <code>migrate</code> command, you can override the default command by setting the <code>flyway.run</code>
-application configuration property:</p>
-</div>
-<div class="listingblock">
-<div class="title">application.conf</div>
-<div class="content">
-<pre>flyway.run = migrate</pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Multiple commands example:</p>
-</div>
-<div class="listingblock">
-<div class="title">application.conf</div>
-<div class="content">
-<pre>flyway.run = [clean, migrate]</pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Available commands: <code>migrate</code>, <code>clean</code>, <code>info</code>, <code>validate</code>, <code>undo</code>, <code>baseline</code> and <code>repair</code>.</p>
+<p><strong>Mixing Annotations:</strong> You can freely mix standard REST annotations (like <code>@GET</code>, <code>@POST</code>) and <code>@JsonRpc</code> on the same class. The APT handles this by generating two entirely separate dispatchers: one standard MVC extension (e.g., <code>MovieService_</code>) and one JSON-RPC service (e.g., <code>MovieServiceRpc_</code>). They do not interfere with each other, allowing you to expose the exact same business logic over both REST and JSON-RPC simultaneously.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="flyway-multiple-databases"><a class="anchor" href="#flyway-multiple-databases"></a><a class="link" href="#flyway-multiple-databases">Multiple databases</a></h3>
+<h3 id="json-rpc-registration"><a class="anchor" href="#json-rpc-registration"></a><a class="link" href="#json-rpc-registration">Registration</a></h3>
 <div class="paragraph">
-<p>Multiple databases are supported too:</p>
+<p>Register the generated <code>JsonRpcService</code> in your application using the <code>jsonrpc</code> method. You must also install a supported JSON engine.</p>
 </div>
 <div class="listingblock primary">
-
+<div class="title">JSON-RPC</div>
 
 <div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x3472455f571b4f0e">import io.jooby.hikari.HikariModule;
-import io.jooby.flyway.FlywayModule;
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x276e86e23dc84ab2">import io.jooby.Jooby;
+import io.jooby.jackson.Jackson3Module;
 
 {
-  install(new HikariModule("main"));
-  install(new FlywayModule("main"));
+  install(new Jackson3Module());                      // <b class="conum">(1)</b>
 
-  install(new HikariModule("audit"));
-  install(new FlywayModule("audit"));
-}</code><button class="clipboard" data-clipboard-target="#x3472455f571b4f0e"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+  install(new JsonRpcJackson3Module());               // <b class="conum">(2)</b>
+
+  install(new JsonRpcModule(new MovieServiceRpc_())); // <b class="conum">(3)</b>
+}</code><button class="clipboard" data-clipboard-target="#x276e86e23dc84ab2"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="x3a78ee3f7e604b68">import io.jooby.hikari.HikariModule
-import io.jooby.jdbi.JdbiModule
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin" id="x70707d563cf843c2">import io.jooby.kt.Kooby
+import io.jooby.jackson.Jackson3Module
 
 {
-  install(HikariModule("main"))
-  install(FlywayModule("main"))
+  install(Jackson3Module())                           // <b class="conum">(1)</b>
 
-  install(HikariModule("audit"))
-  install(FlywayModule("audit"))
-}</code><button class="clipboard" data-clipboard-target="#x3a78ee3f7e604b68"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+  install(JsonRpcJackson3Module())                    // <b class="conum">(2)</b>
+
+  install(JsonRpcModule(MovieServiceRpc_()))          // <b class="conum">(3)</b>
+}</code><button class="clipboard" data-clipboard-target="#x70707d563cf843c2"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Install a JSON engine</p>
+</li>
+<li>
+<p>Install a JSON-RPC implementation</p>
+</li>
+<li>
+<p>Register the generated JSON-RPC service</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="json-rpc-json-engine-support"><a class="anchor" href="#json-rpc-json-engine-support"></a><a class="link" href="#json-rpc-json-engine-support">JSON Engine Support</a></h3>
 <div class="paragraph">
-<p>When using multiple database you need to specify the location of the migration scripts:</p>
+<p>The JSON-RPC extension delegates payload parsing and serialization to Jooby’s standard JSON modules while enforcing strict JSON-RPC 2.0 compliance (such as the mutual exclusivity of <code>result</code> and <code>error</code> fields).</p>
+</div>
+<div class="paragraph">
+<p>Supported engines include:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Jackson 2</strong>: <code>Jackson2Module</code>, <code>JsonRpcJackson2Module</code></p>
+</li>
+<li>
+<p><strong>Jackson 3</strong>: <code>Jackson3Module</code>, <code>JsonRpcJackson3Module</code></p>
+</li>
+<li>
+<p><strong>Avaje JSON-B</strong>: <code>AvajeJsonbModule</code>, <code>JsonRpcAvajeJsonbModule</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>No additional configuration is required. The generated dispatcher automatically hooks into the installed engine using the <code>JsonRpcParser</code> and <code>JsonRpcDecoder</code> interfaces, ensuring primitive types are strictly validated and parsed.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="json-rpc-error-mapping"><a class="anchor" href="#json-rpc-error-mapping"></a><a class="link" href="#json-rpc-error-mapping">Error Mapping</a></h3>
+<div class="paragraph">
+<p>Jooby seamlessly bridges standard Java application exceptions and HTTP status codes into the JSON-RPC 2.0 format using the <code>JsonRpcErrorCode</code> mapping. You do not need to throw custom protocol exceptions for standard failures.</p>
+</div>
+<div class="paragraph">
+<p>When an application exception is thrown (like a <code>NotFoundException</code> with an HTTP 404 status), the dispatcher catches it and translates it into a compliant JSON-RPC error. The standard HTTP status defines the error <code>code</code>, while the specific exception message is safely passed into the <code>data</code> field:</p>
 </div>
 <div class="listingblock">
-<div class="title">application.conf</div>
 <div class="content">
-<pre>main.flyway.locations = "classpath:db/main"
-audit.flyway.locations = "classpath:db/audit"</pre>
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json" id="x4c041b34e7f94837">{
+  "jsonrpc": "2.0",
+  "error": {
+    "code": -32004,
+    "message": "Not found",
+    "data": "Movie not found: 99"
+  },
+  "id": 1
+}</code><button class="clipboard" data-clipboard-target="#x4c041b34e7f94837"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div>
+</div>
+<div class="sect3">
+<h4 id="json-rpc-error-mapping-standard-protocol-errors"><a class="anchor" href="#json-rpc-error-mapping-standard-protocol-errors"></a><a class="link" href="#json-rpc-error-mapping-standard-protocol-errors">Standard Protocol Errors</a></h4>
+<div class="paragraph">
+<p>The engine handles core JSON-RPC 2.0 protocol errors automatically, returning HTTP 200 OK with the corresponding error payload:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>-32700</code>: Parse error (Malformed JSON)</p>
+</li>
+<li>
+<p><code>-32600</code>: Invalid Request (Missing version, ID, or malformed envelope)</p>
+</li>
+<li>
+<p><code>-32601</code>: Method not found</p>
+</li>
+<li>
+<p><code>-32602</code>: Invalid params (Missing arguments, type mismatches)</p>
+</li>
+<li>
+<p><code>-32603</code>: Internal error</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Application-defined errors map standard HTTP status codes to the <code>-32000</code> to <code>-32099</code> range (e.g., an HTTP 404 maps to <code>-32004</code>, an HTTP 401 maps to <code>-32001</code>).</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="json-rpc-batch-processing"><a class="anchor" href="#json-rpc-batch-processing"></a><a class="link" href="#json-rpc-batch-processing">Batch Processing</a></h3>
+<div class="paragraph">
+<p>Batch processing is natively supported. Clients can send an array of JSON-RPC request objects, and the dispatcher will process them and return an array of corresponding response objects.</p>
+</div>
+<div class="paragraph">
+<p>In accordance with the specification, notifications (requests lacking an <code>id</code> field) are processed normally but generate no response payload, leaving no trace in the returned batch array.</p>
 </div>
 </div>
 </div>

@@ -62,13 +62,13 @@
 
 
 <div class="switch"><div class="switch--item option-1 selected">Maven</div><div class="switch--item option-2">Gradle</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="xdff94df0f32047b2">&lt;dependency&gt;
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="xaa137df7c9d94e04">&lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
   &lt;artifactId&gt;jooby-yasson&lt;/artifactId&gt;
-  &lt;version&gt;4.2.0&lt;/version&gt;
-&lt;/dependency&gt;</code><button class="clipboard" data-clipboard-target="#xdff94df0f32047b2"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+  &lt;version&gt;4.3.0&lt;/version&gt;
+&lt;/dependency&gt;</code><button class="clipboard" data-clipboard-target="#xaa137df7c9d94e04"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-gradle hljs" data-lang="gradle" id="x6b4232e9b8ae4324">implementation 'io.jooby:jooby-yasson:4.2.0'</code><button class="clipboard" data-clipboard-target="#x6b4232e9b8ae4324"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+<pre class="highlightjs highlight"><code class="language-gradle hljs" data-lang="gradle" id="x6c6723223b494e08">implementation 'io.jooby:jooby-yasson:4.3.0'</code><button class="clipboard" data-clipboard-target="#x6c6723223b494e08"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -78,7 +78,7 @@
 
 
 <div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x845961c7a3cc4c84">import io.jooby.json.YassonModule;
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x1fcb7f756ba44f5b">import io.jooby.json.YassonModule;
 
 {
   install(new YassonModule());                        <b class="conum">(1)</b>
@@ -92,9 +92,9 @@
     MyObject myObject = ctx.body(MyObject.class);   <b class="conum">(3)</b>
     ...
   });
-}</code><button class="clipboard" data-clipboard-target="#x845961c7a3cc4c84"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x1fcb7f756ba44f5b"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="xda7a2c10b0df45d0">import io.jooby.json.YassonModule
+<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="x346976588787436a">import io.jooby.json.YassonModule
 
 {
   install(YassonModule())                             <b class="conum">(1)</b>
@@ -108,7 +108,7 @@
     val myObject = ctx.body&lt;MyObject&gt;()             <b class="conum">(3)</b>
     ...
   }
-}</code><button class="clipboard" data-clipboard-target="#xda7a2c10b0df45d0"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x346976588787436a"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="colist arabic">
@@ -134,7 +134,7 @@
 <div class="title">Default object mapper</div>
 
 <div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xd24050c1e2a04f15">import io.jooby.json.YassonModule;
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x6b75a4863d004544">import io.jooby.json.YassonModule;
 
 {
   install(new YassonModule());
@@ -142,15 +142,15 @@
   Jsonb jsonb = require(Jsonb.class);
 
   ...
-}</code><button class="clipboard" data-clipboard-target="#xd24050c1e2a04f15"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x6b75a4863d004544"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="x991aaaa276c34cb7">import io.jooby.json.YassonModule
+<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="xd707207b76ab4f07">import io.jooby.json.YassonModule
 
 {
   install(YassonModule())
 
   val mapper = require&lt;Jsonb&gt;()
-}</code><button class="clipboard" data-clipboard-target="#x991aaaa276c34cb7"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#xd707207b76ab4f07"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -160,21 +160,21 @@
 <div class="title">Custom ObjectMapper</div>
 
 <div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x46150852d886407d">import io.jooby.json.YassonModule;
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x2e84682031994d18">import io.jooby.json.YassonModule;
 
 {
   Jsonb jsonb = JsonbBuilder.create();
 
   install(new YassonModule(jsonb));
-}</code><button class="clipboard" data-clipboard-target="#x46150852d886407d"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x2e84682031994d18"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="x9d1e6ff6150c4280">import io.jooby.json.YassonModule
+<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="xd0ef613c6a424b35">import io.jooby.json.YassonModule
 
 {
   val jsonb = JsonbBuilder.create()
 
   install(YassonModule(jsonb))
-}</code><button class="clipboard" data-clipboard-target="#x9d1e6ff6150c4280"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#xd0ef613c6a424b35"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 </div>
