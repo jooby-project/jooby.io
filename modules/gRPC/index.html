@@ -70,20 +70,20 @@
 
 
 <div class="switch"><div class="switch--item option-1 selected">Maven</div><div class="switch--item option-2">Gradle</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="xdcad2a8b6f6546c6">&lt;dependency&gt;
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="x8d5ab8b3ff1f4354">&lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
   &lt;artifactId&gt;jooby-grpc&lt;/artifactId&gt;
   &lt;version&gt;4.4.0&lt;/version&gt;
-&lt;/dependency&gt;</code><button class="clipboard" data-clipboard-target="#xdcad2a8b6f6546c6"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+&lt;/dependency&gt;</code><button class="clipboard" data-clipboard-target="#x8d5ab8b3ff1f4354"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-gradle hljs" data-lang="gradle" id="x6eae0e9b5b424a5b">implementation 'io.jooby:jooby-grpc:4.4.0'</code><button class="clipboard" data-clipboard-target="#x6eae0e9b5b424a5b"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+<pre class="highlightjs highlight"><code class="language-gradle hljs" data-lang="gradle" id="x8744cf06652947ad">implementation 'io.jooby:jooby-grpc:4.4.0'</code><button class="clipboard" data-clipboard-target="#x8744cf06652947ad"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="listingblock primary">
 
 
 <div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x8c0fcaeacb394dac">import io.jooby.Jooby;
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x517d592f5248485e">import io.jooby.Jooby;
 import io.jooby.ServerOptions;
 import io.jooby.grpc.GrpcModule;
 
@@ -91,9 +91,9 @@ import io.jooby.grpc.GrpcModule;
   setServerOptions(new ServerOptions().setHttp2(true)); // <b class="conum">(1)</b>
 
   install(new GrpcModule(new GreeterService()));        // <b class="conum">(2)</b>
-}</code><button class="clipboard" data-clipboard-target="#x8c0fcaeacb394dac"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x517d592f5248485e"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin" id="x26a96cfb98424e61">import io.jooby.ServerOptions
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin" id="x98b014e96ff94ec0">import io.jooby.ServerOptions
 import io.jooby.grpc.GrpcModule
 import io.jooby.kt.Kooby
 
@@ -101,7 +101,7 @@ import io.jooby.kt.Kooby
   serverOptions = ServerOptions().setHttp2(true)          // <b class="conum">(1)</b>
 
   install(GrpcModule(GreeterService()))                   // <b class="conum">(2)</b>
-}</code><button class="clipboard" data-clipboard-target="#x26a96cfb98424e61"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x98b014e96ff94ec0"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="colist arabic">
@@ -124,7 +124,7 @@ import io.jooby.kt.Kooby
 
 
 <div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x226c5a952f4d41af">import io.jooby.Jooby;
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xe8ed6cb586c343f3">import io.jooby.Jooby;
 import io.jooby.di.GuiceModule;
 import io.jooby.grpc.GrpcModule;
 
@@ -132,9 +132,9 @@ import io.jooby.grpc.GrpcModule;
   install(new GuiceModule());
 
   install(new GrpcModule(GreeterService.class));  // <b class="conum">(1)</b>
-}</code><button class="clipboard" data-clipboard-target="#x226c5a952f4d41af"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#xe8ed6cb586c343f3"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin" id="xb8c50013a0e24d87">import io.jooby.di.GuiceModule
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin" id="x8d9fe93d6ca14cce">import io.jooby.di.GuiceModule
 import io.jooby.grpc.GrpcModule
 import io.jooby.kt.Kooby
 
@@ -142,7 +142,7 @@ import io.jooby.kt.Kooby
   install(GuiceModule())
 
   install(GrpcModule(GreeterService::class.java)) // <b class="conum">(1)</b>
-}</code><button class="clipboard" data-clipboard-target="#xb8c50013a0e24d87"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x8d9fe93d6ca14cce"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="colist arabic">
@@ -177,7 +177,7 @@ gRPC services are registered as <strong>Singletons</strong>. Ensure your service
 
 
 <div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xace6984271be4e3b">import io.grpc.protobuf.services.ProtoReflectionServiceV1;
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xfe5974a7a4644ff2">import io.grpc.protobuf.services.ProtoReflectionServiceV1;
 import io.jooby.Jooby;
 import io.jooby.grpc.GrpcModule;
 
@@ -186,9 +186,9 @@ import io.jooby.grpc.GrpcModule;
       new GreeterService(),
       ProtoReflectionServiceV1.newInstance() // <b class="conum">(1)</b>
   ));
-}</code><button class="clipboard" data-clipboard-target="#xace6984271be4e3b"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#xfe5974a7a4644ff2"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin" id="x1bbb3cf5fa9e4523">import io.grpc.protobuf.services.ProtoReflectionServiceV1
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin" id="x847075f03424826">import io.grpc.protobuf.services.ProtoReflectionServiceV1
 import io.jooby.grpc.GrpcModule
 import io.jooby.kt.Kooby
 
@@ -197,7 +197,7 @@ import io.jooby.kt.Kooby
       GreeterService(),
       ProtoReflectionServiceV1.newInstance() // <b class="conum">(1)</b>
   ))
-}</code><button class="clipboard" data-clipboard-target="#x1bbb3cf5fa9e4523"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x847075f03424826"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="colist arabic">

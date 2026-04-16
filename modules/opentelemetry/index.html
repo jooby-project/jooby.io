@@ -82,15 +82,15 @@
 
 
 <div class="switch"><div class="switch--item option-1 selected">Maven</div><div class="switch--item option-2">Gradle</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="xe2e6e2562c8b4eff">&lt;!-- OpenTelemetry Module--&gt;
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="xed1f0e6502c64740">&lt;!-- OpenTelemetry Module--&gt;
 &lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
   &lt;artifactId&gt;jooby-opentelemetry&lt;/artifactId&gt;
   &lt;version&gt;4.4.0&lt;/version&gt;
-&lt;/dependency&gt;</code><button class="clipboard" data-clipboard-target="#xe2e6e2562c8b4eff"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+&lt;/dependency&gt;</code><button class="clipboard" data-clipboard-target="#xed1f0e6502c64740"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-gradle hljs" data-lang="gradle" id="x7205311f37234d82">// OpenTelemetry Module
-implementation 'io.jooby:jooby-opentelemetry:4.4.0'</code><button class="clipboard" data-clipboard-target="#x7205311f37234d82"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+<pre class="highlightjs highlight"><code class="language-gradle hljs" data-lang="gradle" id="x62fe81e6e8c34028">// OpenTelemetry Module
+implementation 'io.jooby:jooby-opentelemetry:4.4.0'</code><button class="clipboard" data-clipboard-target="#x62fe81e6e8c34028"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -100,7 +100,7 @@ implementation 'io.jooby:jooby-opentelemetry:4.4.0'</code><button class="clipboa
 
 
 <div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xbd7f8c8eb9334c06">import io.jooby.opentelemetry.OtelModule;
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xd2a71c44f5e04941">import io.jooby.opentelemetry.OtelModule;
 import io.jooby.opentelemetry.OtelHttpTracing;
 
 {
@@ -111,9 +111,9 @@ import io.jooby.opentelemetry.OtelHttpTracing;
   get("/", ctx -&gt; {
     return "Hello OTel";
   });
-}</code><button class="clipboard" data-clipboard-target="#xbd7f8c8eb9334c06"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#xd2a71c44f5e04941"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="xaa94c38a25224eba">import io.jooby.opentelemetry.OtelModule
+<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="xaf8801e6dd254d5e">import io.jooby.opentelemetry.OtelModule
 import io.jooby.opentelemetry.OtelHttpTracing
 
 {
@@ -124,7 +124,7 @@ import io.jooby.opentelemetry.OtelHttpTracing
   get("/") { ctx -&gt;
     "Hello OTel"
   }
-}</code><button class="clipboard" data-clipboard-target="#xaa94c38a25224eba"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#xaf8801e6dd254d5e"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="colist arabic">
@@ -168,14 +168,14 @@ import io.jooby.opentelemetry.OtelHttpTracing
 <div class="listingblock">
 <div class="title">application.conf</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-properties hljs" data-lang="properties" id="x33780326b17c4915">otel {
+<pre class="highlightjs highlight"><code class="language-properties hljs" data-lang="properties" id="xe54620622601487a">otel {
   service.name = "jooby-api"
   traces.exporter = otlp
   metrics.exporter = otlp
   logs.exporter = otlp
   exporter.otlp.protocol = grpc
   exporter.otlp.endpoint = "http://localhost:4317"
-}</code><button class="clipboard" data-clipboard-target="#x33780326b17c4915"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#xe54620622601487a"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div>
 </div>
 </div>
@@ -187,7 +187,7 @@ import io.jooby.opentelemetry.OtelHttpTracing
 <div class="listingblock">
 <div class="title">application.conf</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-properties hljs" data-lang="properties" id="xe681c5c91a4748ad">otel {
+<pre class="highlightjs highlight"><code class="language-properties hljs" data-lang="properties" id="x6f39717feaf54be0">otel {
   service.name = "jooby-api"
   traces.exporter = otlp
   metrics.exporter = otlp
@@ -196,7 +196,7 @@ import io.jooby.opentelemetry.OtelHttpTracing
   exporter.otlp.endpoint = "http://localhost:4318" # Assuming local DataDog Agent
   # If sending directly to DataDog, you would include the API key in headers:
   # exporter.otlp.headers = "DD-API-KEY=your_api_key_here"
-}</code><button class="clipboard" data-clipboard-target="#xe681c5c91a4748ad"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x6f39717feaf54be0"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div>
 </div>
 </div>
@@ -208,14 +208,14 @@ import io.jooby.opentelemetry.OtelHttpTracing
 <div class="listingblock">
 <div class="title">application.conf</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-properties hljs" data-lang="properties" id="x487b44b7955b4785">otel {
+<pre class="highlightjs highlight"><code class="language-properties hljs" data-lang="properties" id="x1d5a986a2dcb4c0a">otel {
   service.name = "jooby-api"
   traces.exporter = otlp
   metrics.exporter = none     # Jaeger is for traces only
   logs.exporter = none        # Jaeger is for traces only
   exporter.otlp.protocol = grpc
   exporter.otlp.endpoint = "http://localhost:4317"
-}</code><button class="clipboard" data-clipboard-target="#x487b44b7955b4785"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x1d5a986a2dcb4c0a"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div>
 </div>
 </div>
@@ -232,7 +232,7 @@ import io.jooby.opentelemetry.OtelHttpTracing
 <div class="title">Manual Tracing</div>
 
 <div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x8ab575ceccac422e">import io.jooby.opentelemetry.Trace;
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x53ddd96ec3ab4862">import io.jooby.opentelemetry.Trace;
 
 {
   get("/books/{isbn}", ctx -&gt; {
@@ -246,9 +246,9 @@ import io.jooby.opentelemetry.OtelHttpTracing
         return repository.findByIsbn(isbn);
       });
   });
-}</code><button class="clipboard" data-clipboard-target="#x8ab575ceccac422e"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x53ddd96ec3ab4862"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="xe863ed1d5fac4af4">import io.jooby.opentelemetry.Trace
+<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="x93beb71344f84412">import io.jooby.opentelemetry.Trace
 
 {
   get("/books/{isbn}") { ctx -&gt;
@@ -262,7 +262,7 @@ import io.jooby.opentelemetry.OtelHttpTracing
         repository.findByIsbn(isbn)
       }
   }
-}</code><button class="clipboard" data-clipboard-target="#xe863ed1d5fac4af4"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x93beb71344f84412"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -297,21 +297,21 @@ import io.jooby.opentelemetry.OtelHttpTracing
 <div class="title">db-scheduler Integration</div>
 
 <div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x4ad11c6ecb45447a">import io.jooby.opentelemetry.instrumentation.OtelDbScheduler;
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x4cace2547b0d44c3">import io.jooby.opentelemetry.instrumentation.OtelDbScheduler;
 
 {
   install(new DbSchedulerModule()
     .withExecutionInterceptor(new OtelDbScheduler(require(OpenTelemetry.class)))
   );
-}</code><button class="clipboard" data-clipboard-target="#x4ad11c6ecb45447a"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x4cace2547b0d44c3"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="x7d8c7ac6d1b940d1">import io.jooby.opentelemetry.instrumentation.OtelDbScheduler
+<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="x445afe1ab3744ea6">import io.jooby.opentelemetry.instrumentation.OtelDbScheduler
 
 {
   install(DbSchedulerModule()
     .withExecutionInterceptor(OtelDbScheduler(require(OpenTelemetry::class)))
   )
-}</code><button class="clipboard" data-clipboard-target="#x7d8c7ac6d1b940d1"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x445afe1ab3744ea6"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 </div>
@@ -327,13 +327,13 @@ import io.jooby.opentelemetry.OtelHttpTracing
 
 
 <div class="switch"><div class="switch--item option-1 selected">Maven</div><div class="switch--item option-2">Gradle</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="x3c312ea2303b4aa1">&lt;dependency&gt;
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="x2aeeebf76b0d4cbc">&lt;dependency&gt;
   &lt;groupId&gt;io.opentelemetry.instrumentation&lt;/groupId&gt;
   &lt;artifactId&gt;opentelemetry-hikaricp-3.0&lt;/artifactId&gt;
   &lt;version&gt;${otel-instrumentation.version}&lt;/version&gt;
-&lt;/dependency&gt;</code><button class="clipboard" data-clipboard-target="#x3c312ea2303b4aa1"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+&lt;/dependency&gt;</code><button class="clipboard" data-clipboard-target="#x2aeeebf76b0d4cbc"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-gradle hljs" data-lang="gradle" id="xc67d5adaf5954511">implementation 'io.opentelemetry.instrumentation:opentelemetry-hikaricp-3.0:${otel-instrumentation.version}'</code><button class="clipboard" data-clipboard-target="#xc67d5adaf5954511"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+<pre class="highlightjs highlight"><code class="language-gradle hljs" data-lang="gradle" id="xd7c098bcb249466f">implementation 'io.opentelemetry.instrumentation:opentelemetry-hikaricp-3.0:${otel-instrumentation.version}'</code><button class="clipboard" data-clipboard-target="#xd7c098bcb249466f"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="admonitionblock note">
@@ -354,23 +354,23 @@ import io.jooby.opentelemetry.OtelHttpTracing
 <div class="title">HikariCP Metrics</div>
 
 <div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xe916e15148f24d24">import io.jooby.hikari.HikariModule;
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x82992a3b77bc4cca">import io.jooby.hikari.HikariModule;
 import io.jooby.opentelemetry.instrumentation.OtelHikari;
 
 {
   install(new OtelModule(new OtelHikari()));
 
   install(new HikariModule());
-}</code><button class="clipboard" data-clipboard-target="#xe916e15148f24d24"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x82992a3b77bc4cca"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="xf0cb385ec3174780">import io.jooby.hikari.HikariModule
+<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="xc017bb9134de45c9">import io.jooby.hikari.HikariModule
 import io.jooby.opentelemetry.instrumentation.OtelHikari
 
 {
   install(OtelModule(OtelHikari()))
 
   install(HikariModule())
-}</code><button class="clipboard" data-clipboard-target="#xf0cb385ec3174780"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#xc017bb9134de45c9"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 </div>
@@ -386,34 +386,34 @@ import io.jooby.opentelemetry.instrumentation.OtelHikari
 
 
 <div class="switch"><div class="switch--item option-1 selected">Maven</div><div class="switch--item option-2">Gradle</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="x702514acc964492d">&lt;dependency&gt;
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="xefa019b566c34ccb">&lt;dependency&gt;
   &lt;groupId&gt;io.opentelemetry.instrumentation&lt;/groupId&gt;
   &lt;artifactId&gt;opentelemetry-log4j-appender-2.17&lt;/artifactId&gt;
   &lt;version&gt;${otel-instrumentation.version}&lt;/version&gt;
-&lt;/dependency&gt;</code><button class="clipboard" data-clipboard-target="#x702514acc964492d"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+&lt;/dependency&gt;</code><button class="clipboard" data-clipboard-target="#xefa019b566c34ccb"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-gradle hljs" data-lang="gradle" id="xb46004d7ffd847d3">implementation 'io.opentelemetry.instrumentation:opentelemetry-log4j-appender-2.17:${otel-instrumentation.version}'</code><button class="clipboard" data-clipboard-target="#xb46004d7ffd847d3"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+<pre class="highlightjs highlight"><code class="language-gradle hljs" data-lang="gradle" id="x9734a26dcbf94521">implementation 'io.opentelemetry.instrumentation:opentelemetry-log4j-appender-2.17:${otel-instrumentation.version}'</code><button class="clipboard" data-clipboard-target="#x9734a26dcbf94521"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="listingblock primary">
 <div class="title">Log4j2 Integration</div>
 
 <div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x19613ef622ba4ff8">import io.jooby.opentelemetry.instrumentation.OtelLog4j2;
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xbf34feb6d2644788">import io.jooby.opentelemetry.instrumentation.OtelLog4j2;
 
 {
   install(new OtelModule(
     new OtelLog4j2()
   ));
-}</code><button class="clipboard" data-clipboard-target="#x19613ef622ba4ff8"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#xbf34feb6d2644788"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="xd728d1b9caa54feb">import io.jooby.opentelemetry.instrumentation.OtelLog4j2
+<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="x31d5a53ea594472c">import io.jooby.opentelemetry.instrumentation.OtelLog4j2
 
 {
   install(OtelModule(
     OtelLog4j2()
   ))
-}</code><button class="clipboard" data-clipboard-target="#xd728d1b9caa54feb"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x31d5a53ea594472c"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 </div>
@@ -429,34 +429,34 @@ import io.jooby.opentelemetry.instrumentation.OtelHikari
 
 
 <div class="switch"><div class="switch--item option-1 selected">Maven</div><div class="switch--item option-2">Gradle</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="xf3b217747085445f">&lt;dependency&gt;
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="xd449b5e688564186">&lt;dependency&gt;
   &lt;groupId&gt;io.opentelemetry.instrumentation&lt;/groupId&gt;
   &lt;artifactId&gt;opentelemetry-logback-appender-1.0&lt;/artifactId&gt;
   &lt;version&gt;${otel-instrumentation.version}&lt;/version&gt;
-&lt;/dependency&gt;</code><button class="clipboard" data-clipboard-target="#xf3b217747085445f"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+&lt;/dependency&gt;</code><button class="clipboard" data-clipboard-target="#xd449b5e688564186"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-gradle hljs" data-lang="gradle" id="x38cefa3caedd458f">implementation 'io.opentelemetry.instrumentation:opentelemetry-logback-appender-1.0:${otel-instrumentation.version}'</code><button class="clipboard" data-clipboard-target="#x38cefa3caedd458f"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+<pre class="highlightjs highlight"><code class="language-gradle hljs" data-lang="gradle" id="x3894bc9a42bd4072">implementation 'io.opentelemetry.instrumentation:opentelemetry-logback-appender-1.0:${otel-instrumentation.version}'</code><button class="clipboard" data-clipboard-target="#x3894bc9a42bd4072"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="listingblock primary">
 <div class="title">Logback Integration</div>
 
 <div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x8086c13a59034c52">import io.jooby.opentelemetry.instrumentation.OtelLogback;
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xa39a7a3e54b4064">import io.jooby.opentelemetry.instrumentation.OtelLogback;
 
 {
   install(new OtelModule(
     new OtelLogback()
   ));
-}</code><button class="clipboard" data-clipboard-target="#x8086c13a59034c52"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#xa39a7a3e54b4064"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="x9d0104f3991a407c">import io.jooby.opentelemetry.instrumentation.OtelLogback
+<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="x6cc514867f364d9b">import io.jooby.opentelemetry.instrumentation.OtelLogback
 
 {
   install(OtelModule(
     OtelLogback()
   ))
-}</code><button class="clipboard" data-clipboard-target="#x9d0104f3991a407c"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x6cc514867f364d9b"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 </div>
@@ -472,36 +472,36 @@ import io.jooby.opentelemetry.instrumentation.OtelHikari
 
 
 <div class="switch"><div class="switch--item option-1 selected">Maven</div><div class="switch--item option-2">Gradle</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="x2f6a56f864f447c4">&lt;dependency&gt;
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="x697d7d31a17f443e">&lt;dependency&gt;
   &lt;groupId&gt;io.opentelemetry.instrumentation&lt;/groupId&gt;
   &lt;artifactId&gt;opentelemetry-quartz-2.0&lt;/artifactId&gt;
   &lt;version&gt;${otel-instrumentation.version}&lt;/version&gt;
-&lt;/dependency&gt;</code><button class="clipboard" data-clipboard-target="#x2f6a56f864f447c4"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+&lt;/dependency&gt;</code><button class="clipboard" data-clipboard-target="#x697d7d31a17f443e"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-gradle hljs" data-lang="gradle" id="xdc944015bfd44a72">implementation 'io.opentelemetry.instrumentation:opentelemetry-quartz-2.0:${otel-instrumentation.version}'</code><button class="clipboard" data-clipboard-target="#xdc944015bfd44a72"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+<pre class="highlightjs highlight"><code class="language-gradle hljs" data-lang="gradle" id="x979a0b04f8dd4117">implementation 'io.opentelemetry.instrumentation:opentelemetry-quartz-2.0:${otel-instrumentation.version}'</code><button class="clipboard" data-clipboard-target="#x979a0b04f8dd4117"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="listingblock primary">
 <div class="title">Quartz Integration</div>
 
 <div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x9f9f5bb596dc4bd1">import io.jooby.quartz.QuartzModule;
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x7c780ff3eb03472d">import io.jooby.quartz.QuartzModule;
 import io.jooby.opentelemetry.instrumentation.OtelQuartz;
 
 {
   install(new OtelModule(new OtelQuartz()));
 
   install(new QuartzModule(MyJobs.class));
-}</code><button class="clipboard" data-clipboard-target="#x9f9f5bb596dc4bd1"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x7c780ff3eb03472d"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="xaa4442f1eb3d483c">import io.jooby.quartz.QuartzModule
+<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="x2dda96cff96c45a2">import io.jooby.quartz.QuartzModule
 import io.jooby.opentelemetry.instrumentation.OtelQuartz
 
 {
   install(OtelModule(OtelQuartz()))
 
   install(QuartzModule(MyJobs::class.java))
-}</code><button class="clipboard" data-clipboard-target="#xaa4442f1eb3d483c"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x2dda96cff96c45a2"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 </div>
@@ -514,21 +514,21 @@ import io.jooby.opentelemetry.instrumentation.OtelQuartz
 <div class="title">Server Metrics</div>
 
 <div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x1a59ba474bc44de1">import io.jooby.opentelemetry.instrumentation.OtelServerMetrics;
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x90d56f528a2b4711">import io.jooby.opentelemetry.instrumentation.OtelServerMetrics;
 
 {
   install(new OtelModule(
     new OtelServerMetrics()
   ));
-}</code><button class="clipboard" data-clipboard-target="#x1a59ba474bc44de1"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x90d56f528a2b4711"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="x2af1b10f320541d8">import io.jooby.opentelemetry.instrumentation.OtelServerMetrics
+<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="xc39de911fa2745ed">import io.jooby.opentelemetry.instrumentation.OtelServerMetrics
 
 {
   install(OtelModule(
     OtelServerMetrics()
   ))
-}</code><button class="clipboard" data-clipboard-target="#x2af1b10f320541d8"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#xc39de911fa2745ed"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 </div>
