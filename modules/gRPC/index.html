@@ -40,6 +40,7 @@
 <li><a href="#grpc">gRPC</a>
 <ul class="sectlevel2">
 <li><a href="#grpc-usage">Usage</a></li>
+<li><a href="#grpc-configuration">Configuration</a></li>
 <li><a href="#grpc-dependency-injection">Dependency Injection</a></li>
 <li><a href="#grpc-server-reflection">Server Reflection</a></li>
 <li><a href="#grpc-routing-fallbacks">Routing &amp; Fallbacks</a></li>
@@ -70,20 +71,20 @@
 
 
 <div class="switch"><div class="switch--item option-1 selected">Maven</div><div class="switch--item option-2">Gradle</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="x8d5ab8b3ff1f4354">&lt;dependency&gt;
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="x881785d39ece4d94">&lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
   &lt;artifactId&gt;jooby-grpc&lt;/artifactId&gt;
-  &lt;version&gt;4.4.0&lt;/version&gt;
-&lt;/dependency&gt;</code><button class="clipboard" data-clipboard-target="#x8d5ab8b3ff1f4354"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+  &lt;version&gt;4.5.0&lt;/version&gt;
+&lt;/dependency&gt;</code><button class="clipboard" data-clipboard-target="#x881785d39ece4d94"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-gradle hljs" data-lang="gradle" id="x8744cf06652947ad">implementation 'io.jooby:jooby-grpc:4.4.0'</code><button class="clipboard" data-clipboard-target="#x8744cf06652947ad"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+<pre class="highlightjs highlight"><code class="language-gradle hljs" data-lang="gradle" id="x856cd26a54874412">implementation 'io.jooby:jooby-grpc:4.5.0'</code><button class="clipboard" data-clipboard-target="#x856cd26a54874412"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="listingblock primary">
 
 
 <div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x517d592f5248485e">import io.jooby.Jooby;
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xff5e72ad42844957">import io.jooby.Jooby;
 import io.jooby.ServerOptions;
 import io.jooby.grpc.GrpcModule;
 
@@ -91,9 +92,9 @@ import io.jooby.grpc.GrpcModule;
   setServerOptions(new ServerOptions().setHttp2(true)); // <b class="conum">(1)</b>
 
   install(new GrpcModule(new GreeterService()));        // <b class="conum">(2)</b>
-}</code><button class="clipboard" data-clipboard-target="#x517d592f5248485e"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#xff5e72ad42844957"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin" id="x98b014e96ff94ec0">import io.jooby.ServerOptions
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin" id="xf84497e8431d451d">import io.jooby.ServerOptions
 import io.jooby.grpc.GrpcModule
 import io.jooby.kt.Kooby
 
@@ -101,7 +102,7 @@ import io.jooby.kt.Kooby
   serverOptions = ServerOptions().setHttp2(true)          // <b class="conum">(1)</b>
 
   install(GrpcModule(GreeterService()))                   // <b class="conum">(2)</b>
-}</code><button class="clipboard" data-clipboard-target="#x98b014e96ff94ec0"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#xf84497e8431d451d"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="colist arabic">
@@ -116,6 +117,70 @@ import io.jooby.kt.Kooby
 </div>
 </div>
 <div class="sect2">
+<h3 id="grpc-configuration"><a class="anchor" href="#grpc-configuration"></a><a class="link" href="#grpc-configuration">Configuration</a></h3>
+<div class="paragraph">
+<p>You can customize the underlying <code>InProcessServerBuilder</code> and <code>InProcessChannelBuilder</code> used by the module to apply advanced gRPC configurations. This is particularly useful for registering global interceptors (like OpenTelemetry traces), adjusting payload limits, or tweaking executor settings.</p>
+</div>
+<div class="paragraph">
+<p>Use the <code>withServer</code> and <code>withChannel</code> callbacks to hook directly into the builders before the server starts:</p>
+</div>
+<div class="listingblock primary">
+
+
+<div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x3ad2c55aa0f449ea">import io.jooby.Jooby;
+import io.jooby.grpc.GrpcModule;
+
+{
+  install(new GrpcModule(new GreeterService())
+      .withServer(server -&gt; {                 // <b class="conum">(1)</b>
+        server.maxInboundMessageSize(1024 * 1024 * 20); // 20MB limit
+      })
+      .withChannel(channel -&gt; {               // <b class="conum">(2)</b>
+        channel.intercept(new MyCustomClientInterceptor());
+      })
+  );
+}</code><button class="clipboard" data-clipboard-target="#x3ad2c55aa0f449ea"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+</div><div class="content hidden option-2">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin" id="x2b330aaca8a64ae1">import io.jooby.grpc.GrpcModule
+import io.jooby.kt.Kooby
+
+{
+  install(GrpcModule(GreeterService())
+      .withServer { server -&gt;                 // <b class="conum">(1)</b>
+        server.maxInboundMessageSize(1024 * 1024 * 20) // 20MB limit
+      }
+      .withChannel { channel -&gt;               // <b class="conum">(2)</b>
+        channel.intercept(MyCustomClientInterceptor())
+      }
+  )
+}</code><button class="clipboard" data-clipboard-target="#x2b330aaca8a64ae1"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+</div></div>
+
+<div class="colist arabic">
+<ol>
+<li>
+<p>Customize the internal gRPC server (e.g., adjust max message sizes, add server-side interceptors).</p>
+</li>
+<li>
+<p>Customize the internal loopback channel (e.g., add client-side interceptors for context propagation).</p>
+</li>
+</ol>
+</div>
+<div class="admonitionblock note">
+<table>
+<tbody><tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+<strong>Size Limits:</strong> By default, Jooby automatically sets the gRPC server’s <code>maxInboundMessageSize</code> and <code>maxInboundMetadataSize</code> to match your web server’s <code>server.maxRequestSize</code> property (which defaults to <code>10mb</code>). If you manually increase these limits on the gRPC server builder, you <strong>must</strong> also increase <code>server.maxRequestSize</code>. If an incoming gRPC payload or metadata exceeds the configured web server limit, the request will be rejected before it ever reaches the gRPC layer.
+</td>
+</tr>
+</tbody></table>
+</div>
+</div>
+<div class="sect2">
 <h3 id="grpc-dependency-injection"><a class="anchor" href="#grpc-dependency-injection"></a><a class="link" href="#grpc-dependency-injection">Dependency Injection</a></h3>
 <div class="paragraph">
 <p>If your gRPC services require external dependencies (like database repositories), you can register the service classes instead of pre-instantiated objects. The module will automatically provision them using your active Dependency Injection framework (e.g., Guice, Spring).</p>
@@ -124,7 +189,7 @@ import io.jooby.kt.Kooby
 
 
 <div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xe8ed6cb586c343f3">import io.jooby.Jooby;
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x233c1892e71f4f04">import io.jooby.Jooby;
 import io.jooby.di.GuiceModule;
 import io.jooby.grpc.GrpcModule;
 
@@ -132,9 +197,9 @@ import io.jooby.grpc.GrpcModule;
   install(new GuiceModule());
 
   install(new GrpcModule(GreeterService.class));  // <b class="conum">(1)</b>
-}</code><button class="clipboard" data-clipboard-target="#xe8ed6cb586c343f3"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x233c1892e71f4f04"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin" id="x8d9fe93d6ca14cce">import io.jooby.di.GuiceModule
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin" id="x753917a353d8463f">import io.jooby.di.GuiceModule
 import io.jooby.grpc.GrpcModule
 import io.jooby.kt.Kooby
 
@@ -142,7 +207,7 @@ import io.jooby.kt.Kooby
   install(GuiceModule())
 
   install(GrpcModule(GreeterService::class.java)) // <b class="conum">(1)</b>
-}</code><button class="clipboard" data-clipboard-target="#x8d9fe93d6ca14cce"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x753917a353d8463f"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="colist arabic">
@@ -177,7 +242,7 @@ gRPC services are registered as <strong>Singletons</strong>. Ensure your service
 
 
 <div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xfe5974a7a4644ff2">import io.grpc.protobuf.services.ProtoReflectionServiceV1;
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x209efdd5de7a44b6">import io.grpc.protobuf.services.ProtoReflectionServiceV1;
 import io.jooby.Jooby;
 import io.jooby.grpc.GrpcModule;
 
@@ -186,9 +251,9 @@ import io.jooby.grpc.GrpcModule;
       new GreeterService(),
       ProtoReflectionServiceV1.newInstance() // <b class="conum">(1)</b>
   ));
-}</code><button class="clipboard" data-clipboard-target="#xfe5974a7a4644ff2"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x209efdd5de7a44b6"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin" id="x847075f03424826">import io.grpc.protobuf.services.ProtoReflectionServiceV1
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin" id="xee6ee8deb5814936">import io.grpc.protobuf.services.ProtoReflectionServiceV1
 import io.jooby.grpc.GrpcModule
 import io.jooby.kt.Kooby
 
@@ -197,7 +262,7 @@ import io.jooby.kt.Kooby
       GreeterService(),
       ProtoReflectionServiceV1.newInstance() // <b class="conum">(1)</b>
   ))
-}</code><button class="clipboard" data-clipboard-target="#x847075f03424826"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#xee6ee8deb5814936"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="colist arabic">

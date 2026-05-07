@@ -44,7 +44,11 @@
 <li><a href="#mcp-schema-descriptions-javadoc">Schema Descriptions &amp; Javadoc</a></li>
 <li><a href="#mcp-transports">Transports</a></li>
 <li><a href="#mcp-output-schema-generation">Output Schema Generation</a></li>
-<li><a href="#mcp-custom-invokers-telemetry">Custom Invokers &amp; Telemetry</a></li>
+<li><a href="#mcp-custom-invokers">Custom Invokers</a>
+<ul class="sectlevel3">
+<li><a href="#mcp-custom-invokers-context-augmentation">Context Augmentation</a></li>
+</ul>
+</li>
 <li><a href="#mcp-multiple-servers">Multiple Servers</a></li>
 <li><a href="#mcp-debugging-testing-mcp-inspector">Debugging &amp; Testing (MCP Inspector)</a>
 <ul class="sectlevel3">
@@ -76,35 +80,35 @@
 
 
 <div class="switch"><div class="switch--item option-1 selected">Maven</div><div class="switch--item option-2">Gradle</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="x5051f50e53e8404f">&lt;!-- Jackson Module--&gt;
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="x1942ce7560e349dd">&lt;!-- Jackson Module--&gt;
 &lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
   &lt;artifactId&gt;jooby-jackson3&lt;/artifactId&gt;
-  &lt;version&gt;4.4.0&lt;/version&gt;
+  &lt;version&gt;4.5.0&lt;/version&gt;
 &lt;/dependency&gt;
 
 &lt;!-- MCP Jackson Module--&gt;
 &lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
   &lt;artifactId&gt;jooby-mcp-jackson3&lt;/artifactId&gt;
-  &lt;version&gt;4.4.0&lt;/version&gt;
+  &lt;version&gt;4.5.0&lt;/version&gt;
 &lt;/dependency&gt;
 
 &lt;!-- MCP Module--&gt;
 &lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
   &lt;artifactId&gt;jooby-mcp&lt;/artifactId&gt;
-  &lt;version&gt;4.4.0&lt;/version&gt;
-&lt;/dependency&gt;</code><button class="clipboard" data-clipboard-target="#x5051f50e53e8404f"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+  &lt;version&gt;4.5.0&lt;/version&gt;
+&lt;/dependency&gt;</code><button class="clipboard" data-clipboard-target="#x1942ce7560e349dd"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-gradle hljs" data-lang="gradle" id="x3edb6b5413b14c62">// Jackson Module
-implementation 'io.jooby:jooby-jackson3:4.4.0'
+<pre class="highlightjs highlight"><code class="language-gradle hljs" data-lang="gradle" id="x753d2a43b57c4dfc">// Jackson Module
+implementation 'io.jooby:jooby-jackson3:4.5.0'
 
 // MCP Jackson Module
-implementation 'io.jooby:jooby-mcp-jackson3:4.4.0'
+implementation 'io.jooby:jooby-mcp-jackson3:4.5.0'
 
 // MCP Module
-implementation 'io.jooby:jooby-mcp:4.4.0'</code><button class="clipboard" data-clipboard-target="#x3edb6b5413b14c62"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+implementation 'io.jooby:jooby-mcp:4.5.0'</code><button class="clipboard" data-clipboard-target="#x753d2a43b57c4dfc"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="admonitionblock note">
@@ -128,7 +132,7 @@ implementation 'io.jooby:jooby-mcp:4.4.0'</code><button class="clipboard" data-c
 
 
 <div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xfcf565a0e99c4bd1">import io.jooby.annotation.mcp.McpTool;
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xaacde4f77e074188">import io.jooby.annotation.mcp.McpTool;
 
 public class CalculatorService {
 
@@ -136,9 +140,9 @@ public class CalculatorService {
   public int add(int a, int b) {
     return a + b;
   }
-}</code><button class="clipboard" data-clipboard-target="#xfcf565a0e99c4bd1"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#xaacde4f77e074188"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="xf02bda0f11984891">import io.jooby.annotation.mcp.McpTool
+<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="x497e18eee52745e3">import io.jooby.annotation.mcp.McpTool
 
 class CalculatorService {
 
@@ -146,7 +150,7 @@ class CalculatorService {
   fun add(a: Int, b: Int): Int {
     return a + b
   }
-}</code><button class="clipboard" data-clipboard-target="#xf02bda0f11984891"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x497e18eee52745e3"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -156,7 +160,7 @@ class CalculatorService {
 
 
 <div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xab970c3f5104531">import io.jooby.jackson3.Jackson3Module;
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x17ec2e42059e4614">import io.jooby.jackson3.Jackson3Module;
 import io.jooby.mcp.jackson3.McpJackson3Module;
 import io.jooby.mcp.McpModule;
 
@@ -166,9 +170,9 @@ import io.jooby.mcp.McpModule;
   install(new McpJackson3Module());                            <b class="conum">(2)</b>
 
   install(new McpModule(new CalculatorServiceMcp_()));         <b class="conum">(3)</b>
-}</code><button class="clipboard" data-clipboard-target="#xab970c3f5104531"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x17ec2e42059e4614"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="x99cd2b559a8f4db6">import io.jooby.jackson3.Jackson3Module
+<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="x2ee1abcb6f564e8d">import io.jooby.jackson3.Jackson3Module
 import io.jooby.mcp.jackson3.McpJackson3Module
 import io.jooby.mcp.McpModule
 
@@ -178,7 +182,7 @@ import io.jooby.mcp.McpModule
   install(McpJackson3Module())                                 <b class="conum">(2)</b>
 
   install(McpModule(CalculatorServiceMcp_()))                  <b class="conum">(3)</b>
-}</code><button class="clipboard" data-clipboard-target="#x99cd2b559a8f4db6"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x2ee1abcb6f564e8d"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="colist arabic">
@@ -228,7 +232,7 @@ import io.jooby.mcp.McpModule
 <div class="listingblock">
 <div class="title">Javadoc Extraction Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x2e51bff41d514c9b">import io.jooby.annotation.mcp.McpTool;
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xadb308a2d17a4aa9">import io.jooby.annotation.mcp.McpTool;
 
 public class WeatherService {
 
@@ -242,7 +246,7 @@ public class WeatherService {
   public WeatherForecast getWeather(String location, String units) {
     // ...
   }
-}</code><button class="clipboard" data-clipboard-target="#x2e51bff41d514c9b"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#xadb308a2d17a4aa9"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -257,12 +261,12 @@ public class WeatherService {
 <div class="listingblock">
 <div class="title">Changing Transport</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xd6176640cc364d16">import io.jooby.mcp.McpModule.Transport;
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x1a9742d2e2d54e13">import io.jooby.mcp.McpModule.Transport;
 
 {
   install(new McpModule(new CalculatorServiceMcp_())
       .transport(Transport.WEBSOCKET));
-}</code><button class="clipboard" data-clipboard-target="#xd6176640cc364d16"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x1a9742d2e2d54e13"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div>
 </div>
 </div>
@@ -274,11 +278,11 @@ public class WeatherService {
 <div class="listingblock">
 <div class="title">Programmatic Global Configuration</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xa222fd68b6124a1c">{
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xb646de78ac444872">{
    // Enable output schema generation for all tools by default
    install(new McpModule(new CalculatorServiceMcp_())
        .generateOutputSchema(true));
-}</code><button class="clipboard" data-clipboard-target="#xa222fd68b6124a1c"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#xb646de78ac444872"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -287,11 +291,11 @@ public class WeatherService {
 <div class="listingblock">
 <div class="title">application.conf</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-properties hljs" data-lang="properties" id="xe7062c5454934ae6"># Global fallback for all servers
+<pre class="highlightjs highlight"><code class="language-properties hljs" data-lang="properties" id="x97c24691bc8e4159"># Global fallback for all servers
 mcp.generateOutputSchema = true
 
 # Per-server override (takes precedence over the global flag)
-mcp.calculator.generateOutputSchema = false</code><button class="clipboard" data-clipboard-target="#xe7062c5454934ae6"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+mcp.calculator.generateOutputSchema = false</code><button class="clipboard" data-clipboard-target="#x97c24691bc8e4159"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -300,7 +304,7 @@ mcp.calculator.generateOutputSchema = false</code><button class="clipboard" data
 <div class="listingblock">
 <div class="title">Per-Method Override</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x57896b876e5545fc">import io.jooby.annotation.mcp.McpTool;
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x7385029323d040e1">import io.jooby.annotation.mcp.McpTool;
 import io.jooby.annotation.mcp.McpOutputSchema;
 
 public class UserService {
@@ -316,7 +320,7 @@ public class UserService {
   public HugeDataset getBigData() {
     // ...
   }
-}</code><button class="clipboard" data-clipboard-target="#x57896b876e5545fc"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x7385029323d040e1"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div>
 </div>
 <div class="colist arabic">
@@ -331,7 +335,7 @@ public class UserService {
 </div>
 </div>
 <div class="sect2">
-<h3 id="mcp-custom-invokers-telemetry"><a class="anchor" href="#mcp-custom-invokers-telemetry"></a><a class="link" href="#mcp-custom-invokers-telemetry">Custom Invokers &amp; Telemetry</a></h3>
+<h3 id="mcp-custom-invokers"><a class="anchor" href="#mcp-custom-invokers"></a><a class="link" href="#mcp-custom-invokers">Custom Invokers</a></h3>
 <div class="paragraph">
 <p>You can inject custom logic (like SLF4J MDC context propagation, tracing, or custom error handling) around every tool, prompt, or resource execution by providing an <code>McpInvoker</code>.</p>
 </div>
@@ -353,18 +357,23 @@ public class UserService {
 <div class="listingblock">
 <div class="title">MDC Invoker Example</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xb901c5ada3e843de">import io.jooby.mcp.McpInvoker;
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x38dd6f4b15ca4bc1">import io.jooby.mcp.McpInvoker;
 import io.jooby.mcp.McpOperation;
+import io.jooby.mcp.McpChain;
+import io.modelcontextprotocol.common.McpTransportContext;
+import io.modelcontextprotocol.server.McpSyncServerExchange;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.MDC;
 
 public class MdcMcpInvoker implements McpInvoker {
   @Override
-  public &lt;R&gt; R invoke(McpOperation operation, SneakyThrows.Supplier&lt;R&gt; action) {
+  public &lt;R&gt; R invoke(@Nullable McpSyncServerExchange exchange, McpTransportContext transportContext, McpOperation operation, McpChain chain) throws Exception {
     try {
-      MDC.put("mcp.id", operation.id());                 <b class="conum">(1)</b>
+      MDC.put("mcp.id", operation.id());                            // <b class="conum">(1)</b>
       MDC.put("mcp.class", operation.className());
       MDC.put("mcp.method", operation.methodName());
-      return action.get();                               <b class="conum">(2)</b>
+
+      return chain.proceed(exchange, transportContext, operation);  // <b class="conum">(2)</b>
     } finally {
       MDC.remove("mcp.id");
       MDC.remove("mcp.class");
@@ -375,8 +384,8 @@ public class MdcMcpInvoker implements McpInvoker {
 
 {
   install(new McpModule(new CalculatorServiceMcp_())
-      .invoker(new MdcMcpInvoker()));                    <b class="conum">(3)</b>
-}</code><button class="clipboard" data-clipboard-target="#xb901c5ada3e843de"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+      .invoker(new MdcMcpInvoker()));                               // <b class="conum">(3)</b>
+}</code><button class="clipboard" data-clipboard-target="#x38dd6f4b15ca4bc1"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div>
 </div>
 <div class="colist arabic">
@@ -385,12 +394,69 @@ public class MdcMcpInvoker implements McpInvoker {
 <p>Extract rich contextual data from the <code>McpOperation</code> record.</p>
 </li>
 <li>
-<p>Proceed with the execution chain.</p>
+<p>Proceed to the next interceptor in the chain or execute the final target handler.</p>
 </li>
 <li>
-<p>Register the invoker. Jooby will safely map any business exceptions thrown by your action into valid MCP JSON-RPC errors.</p>
+<p>Register the invoker. Jooby will safely map any business exceptions thrown by your chain into valid MCP JSON-RPC errors.</p>
 </li>
 </ol>
+</div>
+<div class="sect3">
+<h4 id="mcp-custom-invokers-context-augmentation"><a class="anchor" href="#mcp-custom-invokers-context-augmentation"></a><a class="link" href="#mcp-custom-invokers-context-augmentation">Context Augmentation</a></h4>
+<div class="paragraph">
+<p>You can use an <code>McpInvoker</code> to resolve contextual data (such as an authenticated user, a tenant ID, etc.) and inject it directly into the <code>McpOperation</code>.</p>
+</div>
+<div class="paragraph">
+<p>This allows your tool methods to simply declare the custom type in their method signature, keeping your business logic clean and completely decoupled from transport-layer extraction.</p>
+</div>
+<div class="listingblock">
+<div class="title">Context Injector Example</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x93dba4747a17461d">import io.jooby.mcp.McpInvoker;
+import io.jooby.mcp.McpOperation;
+import io.jooby.mcp.McpChain;
+import io.modelcontextprotocol.common.McpTransportContext;
+import io.modelcontextprotocol.server.McpSyncServerExchange;
+import org.jspecify.annotations.Nullable;
+
+public class UserContextInvoker implements McpInvoker {
+  @Override
+  @SuppressWarnings("unchecked")
+  public &lt;R&gt; R invoke(@Nullable McpSyncServerExchange exchange, McpTransportContext transportContext, McpOperation operation, McpChain chain) throws Exception {
+
+    User currentUser = retrieveUser();
+
+    // 2. Augment the operation with the resolved user
+    operation.setArgument("user", currentUser);
+
+    // 3. Proceed with the augmented operation
+    return (R) chain.proceed(exchange, transportContext, augmentedOp);
+  }
+}</code><button class="clipboard" data-clipboard-target="#x93dba4747a17461d"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Once the invoker is registered, you can seamlessly declare the augmented argument in your MCP controllers. The Jooby Annotation Processor will automatically map the injected argument to your method parameter.</p>
+</div>
+<div class="listingblock">
+<div class="title">Tool Implementation</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x8407dba40bf34ed4">import io.jooby.annotation.mcp.McpTool;
+
+public class BillingService {
+
+  /**
+   * @param user The authenticated user (injected by UserContextInvoker).
+   * Note: Because it is a complex type not present in the JSON request,
+   * it is safely ignored by the JSON schema generator.
+   */
+  @McpTool(description = "Retrieves the billing history for the current user")
+  public InvoiceHistory getMyInvoices(User user, int limit) {
+    return database.findInvoices(user.getId(), limit);
+  }
+}</code><button class="clipboard" data-clipboard-target="#x8407dba40bf34ed4"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+</div>
+</div>
 </div>
 </div>
 <div class="sect2">
@@ -404,25 +470,25 @@ public class MdcMcpInvoker implements McpInvoker {
 <div class="listingblock">
 <div class="title">application.conf</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-properties hljs" data-lang="properties" id="x793ff96ec0bd456b">mcp.default.name = "default-mcp-server"
+<pre class="highlightjs highlight"><code class="language-properties hljs" data-lang="properties" id="x414f07cc605432d">mcp.default.name = "default-mcp-server"
 mcp.default.version = "1.0.0"
 
 mcp.calculator.name = "calculator-mcp-server"
 mcp.calculator.version = "1.0.0"
 mcp.calculator.transport = "sse"
-mcp.calculator.mcpEndpoint = "/mcp/calculator/sse"</code><button class="clipboard" data-clipboard-target="#x793ff96ec0bd456b"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+mcp.calculator.mcpEndpoint = "/mcp/calculator/sse"</code><button class="clipboard" data-clipboard-target="#x414f07cc605432d"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div>
 </div>
 <div class="listingblock">
 <div class="title">Java Bootstrap</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xbcc56114dc294261">{
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xa8896910d5be4230">{
   // Bootstraps services each on their corresponding service base based on the @McpServer mappings
   install(new McpModule(
       new DefaultServiceMcp_(),
       new CalculatorServiceMcp_()
   ));
-}</code><button class="clipboard" data-clipboard-target="#xbcc56114dc294261"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#xa8896910d5be4230"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div>
 </div>
 </div>
@@ -441,15 +507,15 @@ mcp.calculator.mcpEndpoint = "/mcp/calculator/sse"</code><button class="clipboar
 
 
 <div class="switch"><div class="switch--item option-1 selected">Maven</div><div class="switch--item option-2">Gradle</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="xe7ae81c5e7da4e30">&lt;!-- MCP Inspector--&gt;
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="xa9cc6c4f62084858">&lt;!-- MCP Inspector--&gt;
 &lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
   &lt;artifactId&gt;jooby-mcp-inspector&lt;/artifactId&gt;
-  &lt;version&gt;4.4.0&lt;/version&gt;
-&lt;/dependency&gt;</code><button class="clipboard" data-clipboard-target="#xe7ae81c5e7da4e30"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+  &lt;version&gt;4.5.0&lt;/version&gt;
+&lt;/dependency&gt;</code><button class="clipboard" data-clipboard-target="#xa9cc6c4f62084858"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-gradle hljs" data-lang="gradle" id="x984727f1cc614535">// MCP Inspector
-implementation 'io.jooby:jooby-mcp-inspector:4.4.0'</code><button class="clipboard" data-clipboard-target="#x984727f1cc614535"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+<pre class="highlightjs highlight"><code class="language-gradle hljs" data-lang="gradle" id="x6f5f81ab28844ed8">// MCP Inspector
+implementation 'io.jooby:jooby-mcp-inspector:4.5.0'</code><button class="clipboard" data-clipboard-target="#x6f5f81ab28844ed8"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -459,7 +525,7 @@ implementation 'io.jooby:jooby-mcp-inspector:4.4.0'</code><button class="clipboa
 <div class="title">Java Bootstrap</div>
 
 <div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xe67a20bfa5e24329">import io.jooby.mcp.McpModule;
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x8f09f71ee1e543d6">import io.jooby.mcp.McpModule;
 import io.jooby.mcp.inspector.McpInspectorModule;
 
 {
@@ -472,9 +538,9 @@ import io.jooby.mcp.inspector.McpInspectorModule;
   if (getEnvironment().isActive("dev")) {
     install(new McpInspectorModule());
   }
-}</code><button class="clipboard" data-clipboard-target="#xe67a20bfa5e24329"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x8f09f71ee1e543d6"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="x31000c6dca9e4112">import io.jooby.mcp.McpModule
+<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="xcb2b9dbf4524dbe">import io.jooby.mcp.McpModule
 import io.jooby.mcp.inspector.McpInspectorModule
 
 {
@@ -487,7 +553,7 @@ import io.jooby.mcp.inspector.McpInspectorModule
   if (environment.isActive("dev")) {
     install(McpInspectorModule())
   }
-}</code><button class="clipboard" data-clipboard-target="#x31000c6dca9e4112"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#xcb2b9dbf4524dbe"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -502,7 +568,7 @@ import io.jooby.mcp.inspector.McpInspectorModule
 <div class="title">Programmatic Setup</div>
 
 <div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x8ce579d993c8454b">{
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xea083471bb82478e">{
   if (getEnvironment().isActive("dev")) {
     install(new McpInspectorModule()
         .path("/debug/mcp")                           <b class="conum">(1)</b>
@@ -510,9 +576,9 @@ import io.jooby.mcp.inspector.McpInspectorModule
         .autoConnect(true)                            <b class="conum">(3)</b>
     );
   }
-}</code><button class="clipboard" data-clipboard-target="#x8ce579d993c8454b"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#xea083471bb82478e"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="x1882cd4cc4334627">{
+<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="x2db45f2b5d0f40e5">{
   if (environment.isActive("dev")) {
     install(McpInspectorModule()
         .path("/debug/mcp")                           <b class="conum">(1)</b>
@@ -520,7 +586,7 @@ import io.jooby.mcp.inspector.McpInspectorModule
         .autoConnect(true)                            <b class="conum">(3)</b>
     )
   }
-}</code><button class="clipboard" data-clipboard-target="#x1882cd4cc4334627"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x2db45f2b5d0f40e5"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="colist arabic">

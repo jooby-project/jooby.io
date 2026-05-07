@@ -1,0 +1,504 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 2.0.23">
+<meta name="description" content="The modular micro web framework for Java">
+<meta name="keywords" content="Java, Modern, Micro, Web, Framework, Reactive, Lightweight, Microservices">
+<link rel="icon" type="image/png" href="../../images/favicon96.png">
+<title>jooby: htmx module</title>
+<link rel="stylesheet" href="../../js/styles/theme.css">
+<link rel="stylesheet" href="../../js/styles/atom-one-dark.min.css">
+<meta name="algolia-site-verification" content="B92EF92B303805F4">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<script>
+  // This MUST be in the <head>. It runs before the body is rendered, preventing the white flash.
+  (function() {
+    const savedTheme = localStorage.getItem('jooby-theme');
+    if (savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+      document.documentElement.setAttribute('data-theme', 'dark');
+    }
+  })();
+</script>
+</head>
+<body class="book toc2 toc-left">
+<div class="mobile-nav-bar">
+  <span style="font-weight: 700; color: var(--heading-color);">Jooby</span>
+  <button id="menu-toggle" class="hamburger" aria-label="Toggle Menu">
+    <span></span><span></span><span></span>
+  </button>
+</div>
+<div id="header">
+<div id="toc" class="toc2">
+<div id="toctitle">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#htmx">HTMX</a>
+<ul class="sectlevel2">
+<li><a href="#htmx-usage">Usage</a></li>
+<li><a href="#htmx-the-spa-shell-layout-engine">The SPA Shell Layout Engine</a></li>
+<li><a href="#htmx-declarative-api-annotations">Declarative API (Annotations)</a>
+<ul class="sectlevel3">
+<li><a href="#htmx-declarative-api-annotations-scoped-error-handling-validation">Scoped Error Handling &amp; Validation</a></li>
+</ul>
+</li>
+<li><a href="#htmx-imperative-api-htmxresponse">Imperative API (HtmxResponse)</a></li>
+<li><a href="#htmx-global-error-handling">Global Error Handling</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div id="content">
+<div class="sect1">
+<h2 id="htmx"><a class="anchor" href="#htmx"></a><a class="link" href="#htmx">HTMX</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><a href="https://htmx.org" target="_blank">HTMX</a> first-class support for Jooby.</p>
+</div>
+<div class="paragraph">
+<p>The HTMX module provides a seamless bridge between modern, reactive Single Page Application (SPA) mechanics and traditional server-side rendering. It offers both a memory-safe Imperative Builder and a powerful Declarative Annotation API (via APT) to orchestrate HTMX responses without repetitive boilerplate.</p>
+</div>
+<div class="paragraph">
+<p><strong>Note:</strong> <code>HtmxTemplateEngine</code> acts as a composite delegator. You must also install a backing template engine (like Handlebars, Freemarker, or Pebble) to actually render the views.</p>
+</div>
+<div class="paragraph">
+<p>Checkout the <a href="https://github.com/jooby-project/htmx-demo" target="_blank">demo project</a></p>
+</div>
+<div class="sect2">
+<h3 id="htmx-usage"><a class="anchor" href="#htmx-usage"></a><a class="link" href="#htmx-usage">Usage</a></h3>
+<div class="paragraph">
+<p>1) Add the dependencies (HTMX and your preferred template engine):</p>
+</div>
+<div class="listingblock primary">
+
+
+<div class="switch"><div class="switch--item option-1 selected">Maven</div><div class="switch--item option-2">Gradle</div></div><div class="content option-1">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="x7f144addf8a541e5">&lt;dependency&gt;
+  &lt;groupId&gt;io.jooby&lt;/groupId&gt;
+  &lt;artifactId&gt;jooby-htmx&lt;/artifactId&gt;
+  &lt;version&gt;4.5.0&lt;/version&gt;
+&lt;/dependency&gt;
+
+&lt;!-- Handlebars Module--&gt;
+&lt;dependency&gt;
+  &lt;groupId&gt;io.jooby&lt;/groupId&gt;
+  &lt;artifactId&gt;jooby-handlebars&lt;/artifactId&gt;
+  &lt;version&gt;4.5.0&lt;/version&gt;
+&lt;/dependency&gt;</code><button class="clipboard" data-clipboard-target="#x7f144addf8a541e5"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+</div><div class="content hidden option-2">
+<pre class="highlightjs highlight"><code class="language-gradle hljs" data-lang="gradle" id="x3221285bf2b74426">implementation 'io.jooby:jooby-htmx:4.5.0'
+
+// Handlebars Module
+implementation 'io.jooby:jooby-handlebars:4.5.0'</code><button class="clipboard" data-clipboard-target="#x3221285bf2b74426"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+</div></div>
+
+<div class="paragraph">
+<p>2) Write your templates inside the <code>views</code> folder. Notice how the layout dynamically embeds the requested partial using <code>childView</code>.</p>
+</div>
+<div class="listingblock">
+<div class="title">views/layout.hbs</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html" id="xa32d4a23c9e7457d">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+  &lt;nav&gt;My App&lt;/nav&gt;
+  &lt;main&gt;
+    {{&gt; (lookup childView) }}
+  &lt;/main&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code><button class="clipboard" data-clipboard-target="#xa32d4a23c9e7457d"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">views/tasks.hbs</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html" id="xadffc6583f9f421c">&lt;ul id="task-list"&gt;
+  {{#each tasks}}
+    &lt;li&gt;{{title}}&lt;/li&gt;
+  {{/each}}
+&lt;/ul&gt;</code><button class="clipboard" data-clipboard-target="#xadffc6583f9f421c"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>3) Install the module and write your controller.</p>
+</div>
+<div class="listingblock primary">
+
+
+<div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x69fa55b6c2024fc0">import io.jooby.htmx.HtmxModule;
+import io.jooby.handlebars.HandlebarsModule;
+import io.jooby.annotation.htmx.HxView;
+
+{
+  install(new HandlebarsModule());  <b class="conum">(1)</b>
+  install(new HtmxModule());        <b class="conum">(2)</b>
+
+  mvc(new TaskUIHtmx_());           <b class="conum">(3)</b>
+}
+
+public class TaskUI {
+
+  @GET("/tasks")
+  @HxView(value = "tasks.hbs", layout = "layout.hbs")
+  public Map&lt;String, Object&gt; getTasks() {
+    return Map.of("tasks", List.of(new Task("Buy milk")));
+  }
+}</code><button class="clipboard" data-clipboard-target="#x69fa55b6c2024fc0"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+</div><div class="content hidden option-2">
+<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="xc960a5a4414a4b40">import io.jooby.htmx.HtmxModule
+import io.jooby.handlebars.HandlebarsModule
+import io.jooby.annotation.htmx.HxView
+
+{
+  install(HandlebarsModule())       <b class="conum">(1)</b>
+  install(HtmxModule())             <b class="conum">(2)</b>
+
+  mvc(TaskUIHtmx_())                <b class="conum">(3)</b>
+}
+
+class TaskUI {
+
+  @GET("/tasks")
+  @HxView(value = "tasks.hbs", layout = "layout.hbs")
+  fun getTasks(): Map&lt;String, Any&gt; {
+    return mapOf("tasks" to listOf(Task("Buy milk")))
+  }
+}</code><button class="clipboard" data-clipboard-target="#xc960a5a4414a4b40"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+</div></div>
+
+<div class="colist arabic">
+<ol>
+<li>
+<p>Install your base template engine</p>
+</li>
+<li>
+<p>Install the HTMX engine</p>
+</li>
+<li>
+<p>Add generated <code>Htmx_</code> controller</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="htmx-the-spa-shell-layout-engine"><a class="anchor" href="#htmx-the-spa-shell-layout-engine"></a><a class="link" href="#htmx-the-spa-shell-layout-engine">The SPA Shell Layout Engine</a></h3>
+<div class="paragraph">
+<p>The <code>@HxView</code> annotation implements a secure, Fail-Fast Guard Clause for layout management.</p>
+</div>
+<div class="paragraph">
+<p>When you define a <code>layout</code> attribute, the framework intelligently checks the origin of the request:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>HTMX AJAX Requests:</strong> The layout is ignored. The framework responds only with the fast, targeted partial view (<code>tasks.hbs</code>).</p>
+</li>
+<li>
+<p><strong>Direct Browser Requests (F5 / Bookmarks):</strong> The framework intercepts the request, blocks the raw fragment from rendering, and automatically injects the partial inside your defined <code>layout.hbs</code> (passed as the <code>childView</code> attribute).</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>If a method returns a dynamic HTMX fragment but <strong>lacks</strong> a layout, direct browser access is automatically blocked via a <code>406 Not Acceptable</code> exception.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="htmx-declarative-api-annotations"><a class="anchor" href="#htmx-declarative-api-annotations"></a><a class="link" href="#htmx-declarative-api-annotations">Declarative API (Annotations)</a></h3>
+<div class="paragraph">
+<p>When using Jooby’s MVC routes, you can orchestrate complex UI state entirely through annotations:</p>
+</div>
+<div class="listingblock">
+<div class="title">Java</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x1d15b176022e4751">@POST("/tasks")
+@HxView("task_row.hbs")
+@HxOob("task_counter.hbs")         // Automatically appends an Out-Of-Band swap
+@HxTrigger("taskAdded")            // Triggers a client-side JS event
+@HxError("task_error.hbs")         // Scoped Error Handler: Catches validation errors
+public Task addTask(@Valid TaskDto dto) {
+    return db.save(dto);
+}</code><button class="clipboard" data-clipboard-target="#x1d15b176022e4751"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+</div>
+</div>
+<div class="sect3">
+<h4 id="htmx-declarative-api-annotations-scoped-error-handling-validation"><a class="anchor" href="#htmx-declarative-api-annotations-scoped-error-handling-validation"></a><a class="link" href="#htmx-declarative-api-annotations-scoped-error-handling-validation">Scoped Error Handling &amp; Validation</a></h4>
+<div class="paragraph">
+<p>The <code>@HxError</code> annotation acts as a "UI Janitor" for <strong>Scoped Errors</strong> (such as HTTP 400 Bad Request or 422 Unprocessable Entity). If Bean Validation fails, it catches the exception and renders your targeted error template.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Validation Integration:</strong> The model passed to your error template automatically includes a <code>validationResult</code> object that perfectly follows the <code>io.jooby.validation.ValidationResult</code> format. This allows seamless integration with Jooby’s Jakarta validation modules (<code>hibernate-validator</code> or <code>avaje-validator</code>).</p>
+</li>
+<li>
+<p><strong>Auto-Clearing:</strong> Crucially, on a <strong>successful</strong> request, the framework automatically appends an empty OOB swap for the error template, instantly clearing the UI of any previous error messages.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="htmx-imperative-api-htmxresponse"><a class="anchor" href="#htmx-imperative-api-htmxresponse"></a><a class="link" href="#htmx-imperative-api-htmxresponse">Imperative API (HtmxResponse)</a></h3>
+<div class="paragraph">
+<p>For scenarios lacking a primary view (like a <code>DELETE</code> operation), use the fluent <code>HtmxResponse</code> builder to explicitly chain events, headers, and OOB updates.</p>
+</div>
+<div class="listingblock primary">
+
+
+<div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x957fdb5e76f948a1">@DELETE("/tasks/{id}")
+public HtmxResponse deleteTask(@PathParam String id) {
+  db.delete(id);
+
+  return HtmxResponse.empty()
+      .addOob("task_counter.hbs", Map.of("activeCount", db.getActiveCount()))
+      .triggerAfterSettle("showToast", Map.of("message", "Task deleted!"));
+}</code><button class="clipboard" data-clipboard-target="#x957fdb5e76f948a1"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+</div><div class="content hidden option-2">
+<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="x49a9eb6df5924db1">@DELETE("/tasks/{id}")
+fun deleteTask(@PathParam id: String): HtmxResponse {
+  db.delete(id)
+
+  return HtmxResponse.empty()
+      .addOob("task_counter.hbs", mapOf("activeCount" to db.getActiveCount()))
+      .triggerAfterSettle("showToast", mapOf("message" to "Task deleted!"))
+}</code><button class="clipboard" data-clipboard-target="#x49a9eb6df5924db1"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+</div></div>
+
+</div>
+<div class="sect2">
+<h3 id="htmx-global-error-handling"><a class="anchor" href="#htmx-global-error-handling"></a><a class="link" href="#htmx-global-error-handling">Global Error Handling</a></h3>
+<div class="paragraph">
+<p>While <code>@HxError</code> handles scoped validation, you can seamlessly convert <strong>Global Application Errors</strong> (like 500 Server Crashes) into graceful HTMX responses (like OOB toast notifications) by passing a custom <code>HtmxErrorHandler</code> to the module during installation.</p>
+</div>
+<div class="paragraph">
+<p><strong>Smart Interception:</strong> This global handler is highly intelligent. It <strong>only</strong> intercepts requests that contain the <code>HX-Request: true</code> header. If a standard browser request crashes (e.g., a normal page load or hitting F5), this handler is safely bypassed, and the default Jooby global application error handler takes over to display a standard error page.</p>
+</div>
+<div class="listingblock primary">
+
+
+<div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x87a37267c7ba4fde">import io.jooby.htmx.HtmxModule;
+
+{
+  install(new HtmxModule((ctx, cause, code) -&gt; {
+    // Convert the crash into a safe UI notification without breaking the DOM
+    return HtmxResponse.empty(code)
+        .addOob("toast.hbs", Map.of("error", cause.getMessage()));
+  }));
+}</code><button class="clipboard" data-clipboard-target="#x87a37267c7ba4fde"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+</div><div class="content hidden option-2">
+<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="xfe26e3aa5584483a">import io.jooby.htmx.HtmxModule
+
+{
+  install(HtmxModule { ctx, cause, code -&gt;
+    HtmxResponse.empty(code)
+        .addOob("toast.hbs", mapOf("error" to cause.message))
+  })
+}</code><button class="clipboard" data-clipboard-target="#xfe26e3aa5584483a"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+</div></div>
+
+</div>
+</div>
+</div>
+</div>
+<script src="../../js/highlight.min.js"></script>
+<script>
+if (!hljs.initHighlighting.called) {
+  hljs.configure({ignoreUnescapedHTML: true});hljs.initHighlighting.called = true
+  ;[].slice.call(document.querySelectorAll('pre.highlight > code[data-lang]')).forEach(function (el) { hljs.highlightElement(el) })
+}
+</script>
+<button id="theme-toggle" class="theme-toggle" aria-label="Toggle Dark Mode">
+  <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24"><path d="M12 2.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM7.5 12a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM18.894 6.166a.75.75 0 00-1.06-1.06l-1.591 1.59a.75.75 0 101.06 1.061l1.591-1.59zM21.75 12a.75.75 0 01-.75.75h-2.25a.75.75 0 010-1.5H21a.75.75 0 01.75.75zM17.834 18.894a.75.75 0 001.06-1.06l-1.59-1.591a.75.75 0 10-1.061 1.06l1.59 1.591zM12 18.75a.75.75 0 01.75.75V21a.75.75 0 01-1.5 0v-1.5a.75.75 0 01.75-.75zM6.166 18.894a.75.75 0 01-1.06-1.06l1.59-1.591a.75.75 0 111.061 1.06l-1.59 1.591zM2.25 12a.75.75 0 01.75-.75h2.25a.75.75 0 010 1.5H3a.75.75 0 01-.75-.75zM5.106 6.166a.75.75 0 011.06-1.06l1.591 1.59a.75.75 0 11-1.06 1.061l-1.591-1.59z" /></svg>
+  <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24"><path fill-rule="evenodd" d="M9.528 1.718a.75.75 0 01.162.819A8.97 8.97 0 009 6a9 9 0 009 9 8.97 8.97 0 003.463-.69.75.75 0 01.981.98 10.503 10.503 0 01-9.694 6.46c-5.799 0-10.5-4.701-10.5-10.5 0-4.368 2.667-8.112 6.46-9.694a.75.75 0 01.818.162z" clip-rule="evenodd" /></svg>
+</button>
+
+<script src="/../../js/clipboard.min.js"></script>
+<script src="/../../js/toc.js"></script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+
+    /** 1. Theme Switcher Logic */
+    const themeToggle = document.getElementById('theme-toggle');
+    const htmlElement = document.documentElement;
+    const hljsThemeLink = document.getElementById('hljs-theme'); // Grab the CSS link
+
+    if (themeToggle) {
+      themeToggle.addEventListener('click', () => {
+        if (htmlElement.getAttribute('data-theme') === 'dark') {
+          // Switch to Light Mode
+          htmlElement.removeAttribute('data-theme');
+          localStorage.setItem('jooby-theme', 'light');
+
+          // Switch code block to Agate
+          if (hljsThemeLink) hljsThemeLink.href = '../../js/styles/agate.min.css';
+
+        } else {
+          // Switch to Dark Mode
+          htmlElement.setAttribute('data-theme', 'dark');
+          localStorage.setItem('jooby-theme', 'dark');
+
+          // Switch code block to Atom One Dark
+          if (hljsThemeLink) hljsThemeLink.href = 'https://cdnjs.cloudflare.com/ajax/libs/highlight.../../js/11.9.0/styles/atom-one-dark.min.css';
+        }
+      });
+    }
+
+    /** 2. Tabs Logic */
+    const tabButtons = document.querySelectorAll('.primary .switch .switch--item');
+    const contents = document.querySelectorAll('.primary .content');
+
+    tabButtons.forEach(button => {
+      button.addEventListener('click', function () {
+        const match = this.className.match(/option-(\d+)/);
+        if (!match) return;
+        const option = match[1];
+
+        // Reset states
+        tabButtons.forEach(btn => btn.classList.remove('selected'));
+        contents.forEach(content => content.classList.add('hidden'));
+
+        // Set active states
+        document.querySelectorAll(`.primary .switch .switch--item.option-${option}`)
+            .forEach(el => el.classList.add('selected'));
+
+        document.querySelectorAll(`.primary .content.option-${option}`)
+            .forEach(el => el.classList.remove('hidden'));
+      });
+    });
+
+    /** 3. Clipboard.js Initialization */
+    const clipboard = new ClipboardJS('.clipboard');
+    clipboard.on('success', (e) => {
+      e.clearSelection();
+      const btn = e.trigger;
+      const originalHTML = btn.innerHTML;
+
+      // Temporarily change background and insert a checkmark SVG
+      btn.style.backgroundColor = '#10b981'; // Tailwind emerald-500
+      btn.style.borderColor = '#059669';
+      btn.innerHTML = `<svg fill="none" stroke="white" stroke-width="2.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg>`;
+
+      // Revert back after 2 seconds
+      setTimeout(() => {
+        btn.style.backgroundColor = '';
+        btn.style.borderColor = '';
+        btn.innerHTML = originalHTML;
+      }, 2000);
+    });
+  });
+  /** 4. Code Callout Badges (Zero-Flash & Auto-Format) */
+  document.querySelectorAll('pre.highlightjs').forEach(pre => {
+    // Check every 10ms if highlight.js has finished formatting this block
+    const checkInterval = setInterval(() => {
+      if (pre.dataset.highlighted === "yes" || pre.querySelector('.hljs')) {
+        clearInterval(checkInterval);
+
+        const codeEl = pre.querySelector('code');
+        if (codeEl) {
+          // Upgraded regex to handle consecutive callouts like: // (1) (2)
+          // The "Lookahead" (?= ... ) now checks if the rest of the line
+          // is empty OR contains subsequent (N) callout numbers.
+          const calloutRegex = /(\/\/\s*|\s+)\(\s*(?:<[^>]+>\s*)*(\d+)\s*(?:<[^>]+>\s*)*\)(?=\s*(?:<[^>]+>\s*)*(?:\(\s*(?:<[^>]+>\s*)*\d+\s*(?:<[^>]+>\s*)*\)\s*(?:<[^>]+>\s*)*)*(\n|<|$))/g;
+
+          codeEl.innerHTML = codeEl.innerHTML.replace(
+              calloutRegex,
+              (match, prefix, num) => {
+                // Injects a hidden "//" before EVERY badge so that
+                // multiple badges paste safely as "// 1 // 2"
+                return ` <span class="visually-hidden">//</span> <span class="conum-badge">${num}</span>`;
+              }
+          );
+        }
+
+        // Reveal the block smoothly
+        pre.classList.add('badges-loaded');
+      }
+    }, 10);
+
+    // Fallback: Reveal the block anyway after 500ms
+    setTimeout(() => {
+      pre.classList.add('badges-loaded');
+      clearInterval(checkInterval);
+    }, 500);
+  });
+  /** 5. Copy Header Anchor Links to Clipboard */
+  document.querySelectorAll('a.anchor').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+      // We do NOT prevent default, so the browser still scrolls to the header naturally
+
+      // Construct the full absolute URL for the clipboard
+      const fullUrl = window.location.origin + window.location.pathname + window.location.search + this.getAttribute('href');
+
+      // Use native clipboard API
+      navigator.clipboard.writeText(fullUrl).then(() => {
+        // Add the 'copied' class for visual feedback
+        this.classList.add('copied');
+
+        // Remove the checkmark after 2 seconds
+        setTimeout(() => {
+          this.classList.remove('copied');
+        }, 2000);
+      }).catch(err => console.error('Failed to copy anchor:', err));
+    });
+  });
+  /** 6. Hamburger Menu */
+  document.addEventListener('DOMContentLoaded', function() {
+    const menuToggle = document.getElementById('menu-toggle');
+
+    // Try to find the Toc (Table of Contents) or the Navigation Container
+    const sidebar = document.getElementById('toc') ||
+        document.querySelector('.nav-container') ||
+        document.getElementById('sidebar');
+
+    if (menuToggle && sidebar) {
+      menuToggle.addEventListener('click', function() {
+        sidebar.classList.toggle('active');
+        menuToggle.classList.toggle('open');
+
+        // Optional: Prevent body scrolling when menu is open
+        document.body.classList.toggle('menu-open');
+      });
+    } else {
+      console.warn("Hamburger menu: Could not find the navigation element to toggle.");
+    }
+  });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/@docsearch/js@3"></script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // 1. Find Asciidoctor's auto-generated TOC
+    const toc = document.getElementById('toc');
+
+    if (toc) {
+      // 2. Create the search container dynamically
+      const searchContainer = document.createElement('div');
+      searchContainer.id = 'docsearch';
+
+      // 3. Inject it at the very top of the TOC, above the title
+      toc.insertBefore(searchContainer, toc.firstChild);
+
+      // 4. Initialize Algolia into that new container
+      docsearch({
+        appId: '9U2WK2CSJ7',
+        apiKey: '113e159f5c587fdac629948dd80dd993',
+        indexName: 'jooby',
+        container: '#docsearch'
+      });
+    } else {
+      console.warn("Could not find the #toc element to inject the search bar.");
+    }
+  });
+</script>
+</body>
+</html>

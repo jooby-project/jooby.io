@@ -42,6 +42,12 @@
 <li><a href="#json-rpc-usage">Usage</a></li>
 <li><a href="#json-rpc-registration">Registration</a></li>
 <li><a href="#json-rpc-json-engine-support">JSON Engine Support</a></li>
+<li><a href="#json-rpc-middleware-pipeline">Middleware Pipeline</a>
+<ul class="sectlevel3">
+<li><a href="#json-rpc-middleware-pipeline-safe-exception-handling">Safe Exception Handling</a></li>
+<li><a href="#json-rpc-middleware-pipeline-notifications-and-optional-responses">Notifications and Optional Responses</a></li>
+</ul>
+</li>
 <li><a href="#json-rpc-error-mapping">Error Mapping</a>
 <ul class="sectlevel3">
 <li><a href="#json-rpc-error-mapping-standard-protocol-errors">Standard Protocol Errors</a></li>
@@ -72,35 +78,35 @@
 
 
 <div class="switch"><div class="switch--item option-1 selected">Maven</div><div class="switch--item option-2">Gradle</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="x9fd872e0af5240c4">&lt;!-- Jackson module--&gt;
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="x14818a5f17a24289">&lt;!-- Jackson module--&gt;
 &lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
   &lt;artifactId&gt;jooby-jackson3&lt;/artifactId&gt;
-  &lt;version&gt;4.4.0&lt;/version&gt;
+  &lt;version&gt;4.5.0&lt;/version&gt;
 &lt;/dependency&gt;
 
 &lt;!-- Jackson JSON-RPC implementation--&gt;
 &lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
   &lt;artifactId&gt;jooby-jsonrpc-jackson3&lt;/artifactId&gt;
-  &lt;version&gt;4.4.0&lt;/version&gt;
+  &lt;version&gt;4.5.0&lt;/version&gt;
 &lt;/dependency&gt;
 
 &lt;!-- JSON-RPC Module--&gt;
 &lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
   &lt;artifactId&gt;jooby-jsonrpc&lt;/artifactId&gt;
-  &lt;version&gt;4.4.0&lt;/version&gt;
-&lt;/dependency&gt;</code><button class="clipboard" data-clipboard-target="#x9fd872e0af5240c4"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+  &lt;version&gt;4.5.0&lt;/version&gt;
+&lt;/dependency&gt;</code><button class="clipboard" data-clipboard-target="#x14818a5f17a24289"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-gradle hljs" data-lang="gradle" id="x5548a1ad9ef14eb0">// Jackson module
-implementation 'io.jooby:jooby-jackson3:4.4.0'
+<pre class="highlightjs highlight"><code class="language-gradle hljs" data-lang="gradle" id="x78d35f33a094d89">// Jackson module
+implementation 'io.jooby:jooby-jackson3:4.5.0'
 
 // Jackson JSON-RPC implementation
-implementation 'io.jooby:jooby-jsonrpc-jackson3:4.4.0'
+implementation 'io.jooby:jooby-jsonrpc-jackson3:4.5.0'
 
 // JSON-RPC Module
-implementation 'io.jooby:jooby-jsonrpc:4.4.0'</code><button class="clipboard" data-clipboard-target="#x5548a1ad9ef14eb0"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+implementation 'io.jooby:jooby-jsonrpc:4.5.0'</code><button class="clipboard" data-clipboard-target="#x78d35f33a094d89"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -110,7 +116,7 @@ implementation 'io.jooby:jooby-jsonrpc:4.4.0'</code><button class="clipboard" da
 <div class="title">JSON-RPC</div>
 
 <div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x3549bdef2314450b">import io.jooby.rpc.jsonrpc.JsonRpc;
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x782ea1e82b174e08">import io.jooby.rpc.jsonrpc.JsonRpc;
 
 @JsonRpc("movies")
 public class MovieService {
@@ -121,9 +127,9 @@ public class MovieService {
       .findFirst()
       .orElseThrow(() -&gt; new NotFoundException("Movie not found: " + id));
   }
-}</code><button class="clipboard" data-clipboard-target="#x3549bdef2314450b"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x782ea1e82b174e08"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin" id="xa25e901b671040e5">import io.jooby.rpc.jsonrpc.JsonRpc
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin" id="xe72c10c9599d4d69">import io.jooby.rpc.jsonrpc.JsonRpc
 
 @JsonRpc("movies")
 class MovieService {
@@ -133,7 +139,7 @@ class MovieService {
       .filter { it.id == id }
       .firstOrNull() ?: throw NotFoundException("Movie not found: $id")
   }
-}</code><button class="clipboard" data-clipboard-target="#xa25e901b671040e5"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#xe72c10c9599d4d69"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -165,7 +171,7 @@ class MovieService {
 <div class="title">JSON-RPC</div>
 
 <div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x9f8c40ea2604433a">import io.jooby.Jooby;
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x25f53e50199d4562">import io.jooby.Jooby;
 import io.jooby.jackson.Jackson3Module;
 
 {
@@ -174,9 +180,9 @@ import io.jooby.jackson.Jackson3Module;
   install(new JsonRpcJackson3Module());               // <b class="conum">(2)</b>
 
   install(new JsonRpcModule(new MovieServiceRpc_())); // <b class="conum">(3)</b>
-}</code><button class="clipboard" data-clipboard-target="#x9f8c40ea2604433a"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x25f53e50199d4562"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin" id="x255c8fc9f6424596">import io.jooby.kt.Kooby
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin" id="x8365c4aa21f74032">import io.jooby.kt.Kooby
 import io.jooby.jackson.Jackson3Module
 
 {
@@ -185,7 +191,7 @@ import io.jooby.jackson.Jackson3Module
   install(JsonRpcJackson3Module())                    // <b class="conum">(2)</b>
 
   install(JsonRpcModule(MovieServiceRpc_()))          // <b class="conum">(3)</b>
-}</code><button class="clipboard" data-clipboard-target="#x255c8fc9f6424596"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x8365c4aa21f74032"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="olist arabic">
@@ -228,6 +234,98 @@ import io.jooby.jackson.Jackson3Module
 </div>
 </div>
 <div class="sect2">
+<h3 id="json-rpc-middleware-pipeline"><a class="anchor" href="#json-rpc-middleware-pipeline"></a><a class="link" href="#json-rpc-middleware-pipeline">Middleware Pipeline</a></h3>
+<div class="paragraph">
+<p>Jooby provides a dedicated middleware architecture for JSON-RPC using the <code>JsonRpcInvoker</code> and <code>JsonRpcChain</code> APIs. This allows you to intercept RPC calls to apply cross-cutting concerns like logging, security, metrics, or tracing.</p>
+</div>
+<div class="paragraph">
+<p>To create an interceptor, implement the <code>JsonRpcInvoker</code> interface.</p>
+</div>
+<div class="listingblock primary">
+<div class="title">JSON-RPC</div>
+
+<div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xbfedccea70c641dd">import io.jooby.jsonrpc.*;
+import java.util.Optional;
+
+public class LoggingInvoker implements JsonRpcInvoker {
+
+  @Override
+  public Optional&lt;JsonRpcResponse&gt; invoke(Context ctx, JsonRpcRequest request, JsonRpcChain next) {
+    long start = System.currentTimeMillis();
+
+    // Proceed down the chain
+    Optional&lt;JsonRpcResponse&gt; response = next.proceed(ctx, request);
+
+    long took = System.currentTimeMillis() - start;
+
+    // Inspect the response
+    response.ifPresent(res -&gt; {
+      if (res.getError() != null) {
+        ctx.getLog().warn("RPC {} failed in {}ms", request.getMethod(), took);
+      } else {
+        ctx.getLog().info("RPC {} succeeded in {}ms", request.getMethod(), took);
+      }
+    });
+
+    return response;
+  }
+}</code><button class="clipboard" data-clipboard-target="#xbfedccea70c641dd"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+</div><div class="content hidden option-2">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin" id="x946eef8e3c1d4039">import io.jooby.jsonrpc.*
+import java.util.Optional
+
+class LoggingInvoker : JsonRpcInvoker {
+
+  override fun invoke(ctx: Context, request: JsonRpcRequest, next: JsonRpcChain): Optional&lt;JsonRpcResponse&gt; {
+    val start = System.currentTimeMillis()
+
+    // Proceed down the chain
+    val response = next.proceed(ctx, request)
+
+    val took = System.currentTimeMillis() - start
+
+    // Inspect the response
+    response.ifPresent { res -&gt;
+      if (res.error != null) {
+        ctx.log.warn("RPC {} failed in {}ms", request.method, took)
+      } else {
+        ctx.log.info("RPC {} succeeded in {}ms", request.method, took)
+      }
+    }
+
+    return response
+  }
+}</code><button class="clipboard" data-clipboard-target="#x946eef8e3c1d4039"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+</div></div>
+
+<div class="paragraph">
+<p>You register invokers fluently when installing the <code>JsonRpcModule</code>. You can chain multiple invokers together, and they will execute in the order they are added.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xedc7e7168f874206">install(new JsonRpcModule(new MovieServiceRpc_())
+    .invoker(new SecurityInvoker())
+    .invoker(new LoggingInvoker()));</code><button class="clipboard" data-clipboard-target="#xedc7e7168f874206"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+</div>
+</div>
+<div class="sect3">
+<h4 id="json-rpc-middleware-pipeline-safe-exception-handling"><a class="anchor" href="#json-rpc-middleware-pipeline-safe-exception-handling"></a><a class="link" href="#json-rpc-middleware-pipeline-safe-exception-handling">Safe Exception Handling</a></h4>
+<div class="paragraph">
+<p>Notice that you <strong>do not</strong> need to wrap <code>next.proceed()</code> in a <code>try-catch</code> block. The final executor in the JSON-RPC pipeline acts as an ultimate safety net. It catches all unhandled exceptions, protocol failures (like Parse Errors), and routing failures, safely transforming them into a standard <code>JsonRpcResponse</code> containing an <code>ErrorDetail</code>.</p>
+</div>
+<div class="paragraph">
+<p>To react to failures in your middleware, simply inspect <code>response.get().getError() != null</code>.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="json-rpc-middleware-pipeline-notifications-and-optional-responses"><a class="anchor" href="#json-rpc-middleware-pipeline-notifications-and-optional-responses"></a><a class="link" href="#json-rpc-middleware-pipeline-notifications-and-optional-responses">Notifications and Optional Responses</a></h4>
+<div class="paragraph">
+<p>The invocation pipeline returns an <code>Optional&lt;JsonRpcResponse&gt;</code>. This is because the JSON-RPC 2.0 specification explicitly dictates that <strong>Notifications</strong> (requests sent without an <code>id</code> member) must not receive a response. For these requests, the chain will safely execute the target method but return <code>Optional.empty()</code>.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
 <h3 id="json-rpc-error-mapping"><a class="anchor" href="#json-rpc-error-mapping"></a><a class="link" href="#json-rpc-error-mapping">Error Mapping</a></h3>
 <div class="paragraph">
 <p>Jooby seamlessly bridges standard Java application exceptions and HTTP status codes into the JSON-RPC 2.0 format using the <code>JsonRpcErrorCode</code> mapping. You do not need to throw custom protocol exceptions for standard failures.</p>
@@ -237,7 +335,7 @@ import io.jooby.jackson.Jackson3Module
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json" id="x2b5ed27181be41fc">{
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json" id="x21862e0556704c84">{
   "jsonrpc": "2.0",
   "error": {
     "code": -32004,
@@ -245,7 +343,7 @@ import io.jooby.jackson.Jackson3Module
     "data": "Movie not found: 99"
   },
   "id": 1
-}</code><button class="clipboard" data-clipboard-target="#x2b5ed27181be41fc"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x21862e0556704c84"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div>
 </div>
 <div class="sect3">
