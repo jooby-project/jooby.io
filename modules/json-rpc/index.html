@@ -78,35 +78,35 @@
 
 
 <div class="switch"><div class="switch--item option-1 selected">Maven</div><div class="switch--item option-2">Gradle</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="x9846fd01f8144154">&lt;!-- Jackson module--&gt;
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="xb0b83506d790468e">&lt;!-- Jackson module--&gt;
 &lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
   &lt;artifactId&gt;jooby-jackson3&lt;/artifactId&gt;
-  &lt;version&gt;4.5.1&lt;/version&gt;
+  &lt;version&gt;4.5.2&lt;/version&gt;
 &lt;/dependency&gt;
 
 &lt;!-- Jackson JSON-RPC implementation--&gt;
 &lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
   &lt;artifactId&gt;jooby-jsonrpc-jackson3&lt;/artifactId&gt;
-  &lt;version&gt;4.5.1&lt;/version&gt;
+  &lt;version&gt;4.5.2&lt;/version&gt;
 &lt;/dependency&gt;
 
 &lt;!-- JSON-RPC Module--&gt;
 &lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
   &lt;artifactId&gt;jooby-jsonrpc&lt;/artifactId&gt;
-  &lt;version&gt;4.5.1&lt;/version&gt;
-&lt;/dependency&gt;</code><button class="clipboard" data-clipboard-target="#x9846fd01f8144154"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+  &lt;version&gt;4.5.2&lt;/version&gt;
+&lt;/dependency&gt;</code><button class="clipboard" data-clipboard-target="#xb0b83506d790468e"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-gradle hljs" data-lang="gradle" id="x9e1c84fd7f44336">// Jackson module
-implementation 'io.jooby:jooby-jackson3:4.5.1'
+<pre class="highlightjs highlight"><code class="language-gradle hljs" data-lang="gradle" id="xe2a345c64d104e6e">// Jackson module
+implementation 'io.jooby:jooby-jackson3:4.5.2'
 
 // Jackson JSON-RPC implementation
-implementation 'io.jooby:jooby-jsonrpc-jackson3:4.5.1'
+implementation 'io.jooby:jooby-jsonrpc-jackson3:4.5.2'
 
 // JSON-RPC Module
-implementation 'io.jooby:jooby-jsonrpc:4.5.1'</code><button class="clipboard" data-clipboard-target="#x9e1c84fd7f44336"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+implementation 'io.jooby:jooby-jsonrpc:4.5.2'</code><button class="clipboard" data-clipboard-target="#xe2a345c64d104e6e"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -116,7 +116,7 @@ implementation 'io.jooby:jooby-jsonrpc:4.5.1'</code><button class="clipboard" da
 <div class="title">JSON-RPC</div>
 
 <div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x8b2f8b9ac1b5402e">import io.jooby.rpc.jsonrpc.JsonRpc;
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x80f32a60600c400e">import io.jooby.rpc.jsonrpc.JsonRpc;
 
 @JsonRpc("movies")
 public class MovieService {
@@ -127,9 +127,9 @@ public class MovieService {
       .findFirst()
       .orElseThrow(() -&gt; new NotFoundException("Movie not found: " + id));
   }
-}</code><button class="clipboard" data-clipboard-target="#x8b2f8b9ac1b5402e"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x80f32a60600c400e"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin" id="x5d72e7bdfc964ba8">import io.jooby.rpc.jsonrpc.JsonRpc
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin" id="x8c700832b6ef47e6">import io.jooby.rpc.jsonrpc.JsonRpc
 
 @JsonRpc("movies")
 class MovieService {
@@ -139,7 +139,7 @@ class MovieService {
       .filter { it.id == id }
       .firstOrNull() ?: throw NotFoundException("Movie not found: $id")
   }
-}</code><button class="clipboard" data-clipboard-target="#x5d72e7bdfc964ba8"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x8c700832b6ef47e6"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -171,7 +171,7 @@ class MovieService {
 <div class="title">JSON-RPC</div>
 
 <div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xc02521df15f46cb">import io.jooby.Jooby;
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xe2d300666a4b47b9">import io.jooby.Jooby;
 import io.jooby.jackson.Jackson3Module;
 
 {
@@ -180,9 +180,9 @@ import io.jooby.jackson.Jackson3Module;
   install(new JsonRpcJackson3Module());               // <b class="conum">(2)</b>
 
   install(new JsonRpcModule(new MovieServiceRpc_())); // <b class="conum">(3)</b>
-}</code><button class="clipboard" data-clipboard-target="#xc02521df15f46cb"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#xe2d300666a4b47b9"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin" id="x3cb222c6aa7842b1">import io.jooby.kt.Kooby
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin" id="x8384c31f28214701">import io.jooby.kt.Kooby
 import io.jooby.jackson.Jackson3Module
 
 {
@@ -191,7 +191,7 @@ import io.jooby.jackson.Jackson3Module
   install(JsonRpcJackson3Module())                    // <b class="conum">(2)</b>
 
   install(JsonRpcModule(MovieServiceRpc_()))          // <b class="conum">(3)</b>
-}</code><button class="clipboard" data-clipboard-target="#x3cb222c6aa7842b1"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x8384c31f28214701"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="olist arabic">
@@ -245,7 +245,7 @@ import io.jooby.jackson.Jackson3Module
 <div class="title">JSON-RPC</div>
 
 <div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xbad3943397984c80">import io.jooby.jsonrpc.*;
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xfa73fbe99b694988">import io.jooby.jsonrpc.*;
 import java.util.Optional;
 
 public class LoggingInvoker implements JsonRpcInvoker {
@@ -270,9 +270,9 @@ public class LoggingInvoker implements JsonRpcInvoker {
 
     return response;
   }
-}</code><button class="clipboard" data-clipboard-target="#xbad3943397984c80"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#xfa73fbe99b694988"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin" id="xc4695e58f9634257">import io.jooby.jsonrpc.*
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin" id="xbf985c4a3ca3471d">import io.jooby.jsonrpc.*
 import java.util.Optional
 
 class LoggingInvoker : JsonRpcInvoker {
@@ -296,7 +296,7 @@ class LoggingInvoker : JsonRpcInvoker {
 
     return response
   }
-}</code><button class="clipboard" data-clipboard-target="#xc4695e58f9634257"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#xbf985c4a3ca3471d"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -304,9 +304,9 @@ class LoggingInvoker : JsonRpcInvoker {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x9056c017ded640f8">install(new JsonRpcModule(new MovieServiceRpc_())
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xe1fcdcf018244a53">install(new JsonRpcModule(new MovieServiceRpc_())
     .invoker(new SecurityInvoker())
-    .invoker(new LoggingInvoker()));</code><button class="clipboard" data-clipboard-target="#x9056c017ded640f8"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+    .invoker(new LoggingInvoker()));</code><button class="clipboard" data-clipboard-target="#xe1fcdcf018244a53"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div>
 </div>
 <div class="sect3">
@@ -335,7 +335,7 @@ class LoggingInvoker : JsonRpcInvoker {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json" id="xfef502fb110b450e">{
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json" id="xf99a507da9b74472">{
   "jsonrpc": "2.0",
   "error": {
     "code": -32004,
@@ -343,7 +343,7 @@ class LoggingInvoker : JsonRpcInvoker {
     "data": "Movie not found: 99"
   },
   "id": 1
-}</code><button class="clipboard" data-clipboard-target="#xfef502fb110b450e"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#xf99a507da9b74472"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div>
 </div>
 <div class="sect3">
