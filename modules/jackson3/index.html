@@ -63,13 +63,13 @@
 
 
 <div class="switch"><div class="switch--item option-1 selected">Maven</div><div class="switch--item option-2">Gradle</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="x994c633c53654880">&lt;dependency&gt;
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="xf9f62420d5a04abe">&lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
   &lt;artifactId&gt;jooby-jackson3&lt;/artifactId&gt;
-  &lt;version&gt;4.5.2&lt;/version&gt;
-&lt;/dependency&gt;</code><button class="clipboard" data-clipboard-target="#x994c633c53654880"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+  &lt;version&gt;4.5.4&lt;/version&gt;
+&lt;/dependency&gt;</code><button class="clipboard" data-clipboard-target="#xf9f62420d5a04abe"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-gradle hljs" data-lang="gradle" id="x1ac3ee29833f42d1">implementation 'io.jooby:jooby-jackson3:4.5.2'</code><button class="clipboard" data-clipboard-target="#x1ac3ee29833f42d1"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+<pre class="highlightjs highlight"><code class="language-gradle hljs" data-lang="gradle" id="xb197ff20512b48cf">implementation 'io.jooby:jooby-jackson3:4.5.4'</code><button class="clipboard" data-clipboard-target="#xb197ff20512b48cf"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -79,7 +79,7 @@
 
 
 <div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x3219945682164e03">import io.jooby.jackson3.Jackson3Module;
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xf5fa1d64057c41c3">import io.jooby.jackson3.Jackson3Module;
 
 {
   install(new Jackson3Module());                     <b class="conum">(1)</b>
@@ -93,9 +93,9 @@
     MyObject myObject = ctx.body(MyObject.class);   <b class="conum">(3)</b>
     ...
   });
-}</code><button class="clipboard" data-clipboard-target="#x3219945682164e03"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#xf5fa1d64057c41c3"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="xb9b779f6aff24c24">import io.jooby.jackson3.Jackson3Module;
+<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="xf8c3084d776f4eed">import io.jooby.jackson3.Jackson3Module;
 
 {
   install(Jackson3Module())                          <b class="conum">(1)</b>
@@ -109,7 +109,7 @@
     val myObject = ctx.body&lt;MyObject&gt;()             <b class="conum">(3)</b>
     ...
   }
-}</code><button class="clipboard" data-clipboard-target="#xb9b779f6aff24c24"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#xf8c3084d776f4eed"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="colist arabic">
@@ -135,22 +135,22 @@
 <div class="title">Default object mapper</div>
 
 <div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x7a2a3a70703d4c9c">import io.jooby.jackson3.Jackson3Module;
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x4593065390764f51">import io.jooby.jackson3.Jackson3Module;
 
 {
   install(new Jackson3Module());
 
   ObjectMapper mapper = require(ObjectMapper.class);
   ...
-}</code><button class="clipboard" data-clipboard-target="#x7a2a3a70703d4c9c"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x4593065390764f51"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="xb5eb992b51d74049">import io.jooby.jackson3.Jackson3Module
+<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="x8cc512f9f1954309">import io.jooby.jackson3.Jackson3Module
 
 {
   install(Jackson3Module())
 
   val mapper = require&lt;ObjectMapper&gt;()
-}</code><button class="clipboard" data-clipboard-target="#xb5eb992b51d74049"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x8cc512f9f1954309"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -160,21 +160,21 @@
 <div class="title">Custom ObjectMapper</div>
 
 <div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xf90a643906614408">import io.jooby.jackson3.Jackson3Module;
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x100023204b6d4513">import io.jooby.jackson3.Jackson3Module;
 
 {
   ObjectMapper mapper = new ObjectMapper();
 
   install(new Jackson3Module(mapper));
-}</code><button class="clipboard" data-clipboard-target="#xf90a643906614408"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x100023204b6d4513"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="xac85503afc974c4c">import io.jooby.jackson3.Jackson3Module
+<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="x9f61313b854a40e9">import io.jooby.jackson3.Jackson3Module
 
 {
   val mapper = ObjectMapper()
 
   install(Jackson3Module(mapper))
-}</code><button class="clipboard" data-clipboard-target="#xac85503afc974c4c"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x9f61313b854a40e9"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -184,17 +184,17 @@
 <div class="title">XmlMapper</div>
 
 <div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xd735a5aaf93348be">import io.jooby.jackson3.Jackson3Module;
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x25774a0a9ae44fcc">import io.jooby.jackson3.Jackson3Module;
 
 {
   install(new Jackson3Module(new XmlMapper()));
-}</code><button class="clipboard" data-clipboard-target="#xd735a5aaf93348be"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x25774a0a9ae44fcc"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="x34ba6ec2fd3f4780">import io.jooby.jackson3.Jackson3Module
+<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="x1a9a98aea4f34fba">import io.jooby.jackson3.Jackson3Module
 
 {
   install(Jackson3Module(XmlMapper()))
-}</code><button class="clipboard" data-clipboard-target="#x34ba6ec2fd3f4780"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x1a9a98aea4f34fba"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -204,19 +204,19 @@
 <div class="title">XmlMapper+JsonMapper</div>
 
 <div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x23612b5842d640a6">import io.jooby.jackson3.Jackson3Module;
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x74a9de7becfb43cd">import io.jooby.jackson3.Jackson3Module;
 
 {
   install(new Jackson3Module(new JsonMapper()));
   install(new Jackson3Module(new XmlMapper()));
-}</code><button class="clipboard" data-clipboard-target="#x23612b5842d640a6"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x74a9de7becfb43cd"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="x25e69a75c95f4678">import io.jooby.jackson3.Jackson3Module
+<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="x68c5fb6f0dbd464a">import io.jooby.jackson3.Jackson3Module
 
 {
   install(Jackson3Module(JsonMapper()))
   install(Jackson3Module(XmlMapper()))
-}</code><button class="clipboard" data-clipboard-target="#x25e69a75c95f4678"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x68c5fb6f0dbd464a"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 </div>
@@ -229,17 +229,17 @@
 <div class="title">Provisioning Modules</div>
 
 <div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x94ecded086ed4a81">import io.jooby.jackson3.Jackson3Module;
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x2a58bd97833e492a">import io.jooby.jackson3.Jackson3Module;
 
 {
   install(new Jackson3Module().module(MyModule.class);
-}</code><button class="clipboard" data-clipboard-target="#x94ecded086ed4a81"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x2a58bd97833e492a"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="x9d606225aabf4e29">import io.jooby.jackson3.Jackson3Module
+<pre class="highlightjs highlight"><code class="language-kt hljs" data-lang="kt" id="x51f703829c064894">import io.jooby.jackson3.Jackson3Module
 
 {
   install(Jackson3Module().module(MyModule::class.java)
-}</code><button class="clipboard" data-clipboard-target="#x9d606225aabf4e29"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x51f703829c064894"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="paragraph">

@@ -56,13 +56,13 @@
 
 
 <div class="switch"><div class="switch--item option-1 selected">Maven</div><div class="switch--item option-2">Gradle</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="xff9f7d4894a74279">&lt;dependency&gt;
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml" id="xa3bc9ff978b94789">&lt;dependency&gt;
   &lt;groupId&gt;io.jooby&lt;/groupId&gt;
   &lt;artifactId&gt;jooby-guice&lt;/artifactId&gt;
-  &lt;version&gt;4.5.2&lt;/version&gt;
-&lt;/dependency&gt;</code><button class="clipboard" data-clipboard-target="#xff9f7d4894a74279"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+  &lt;version&gt;4.5.4&lt;/version&gt;
+&lt;/dependency&gt;</code><button class="clipboard" data-clipboard-target="#xa3bc9ff978b94789"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-gradle hljs" data-lang="gradle" id="x1d23cdea49f54ca0">implementation 'io.jooby:jooby-guice:4.5.2'</code><button class="clipboard" data-clipboard-target="#x1d23cdea49f54ca0"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+<pre class="highlightjs highlight"><code class="language-gradle hljs" data-lang="gradle" id="x848b66fe14864b76">implementation 'io.jooby:jooby-guice:4.5.4'</code><button class="clipboard" data-clipboard-target="#x848b66fe14864b76"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="paragraph">
@@ -72,7 +72,7 @@
 <div class="title">Installing Guice</div>
 
 <div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xb3399c768cbd444d">import io.jooby.guice.GuiceModule;
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xcdb732899e64202">import io.jooby.guice.GuiceModule;
 import io.jooby.kt.runApp;
 
 public class App extends Jooby {
@@ -89,9 +89,9 @@ public class App extends Jooby {
   public static void main(String[] args) {
     runApp(args, App::new);
   }
-}</code><button class="clipboard" data-clipboard-target="#xb3399c768cbd444d"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#xcdb732899e64202"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin" id="x1b9683f613114ea1">import io.jooby.di.GuiceModule
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin" id="x2e3510cd681c40c4">import io.jooby.di.GuiceModule
 import io.jooby.kt.runApp
 
 fun main(args: Array&lt;String&gt;) {
@@ -103,7 +103,7 @@ fun main(args: Array&lt;String&gt;) {
       service.doSomething()
     }
   }
-}</code><button class="clipboard" data-clipboard-target="#x1b9683f613114ea1"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x2e3510cd681c40c4"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="colist arabic">
@@ -124,14 +124,14 @@ fun main(args: Array&lt;String&gt;) {
 <div class="listingblock">
 <div class="title">application.conf</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash" id="xddf0383af964962">currency = USD</code><button class="clipboard" data-clipboard-target="#xddf0383af964962"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash" id="x7877f35dacf740f8">currency = USD</code><button class="clipboard" data-clipboard-target="#x7877f35dacf740f8"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div>
 </div>
 <div class="listingblock primary">
 
 
 <div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xbdd2420a98324720">import javax.injext.Named;
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="xf8db045774f34945">import javax.injext.Named;
 import javax.injext.Inject;
 
 public class BillingService {
@@ -141,11 +141,11 @@ public class BillingService {
     ...
   }
 
-}</code><button class="clipboard" data-clipboard-target="#xbdd2420a98324720"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#xf8db045774f34945"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin" id="x7040d933ccc746cc">class BillingService @Inject constructor(@Named("currency") currency: String) {
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin" id="x1035ba58cdd944a2">class BillingService @Inject constructor(@Named("currency") currency: String) {
   ...
-}</code><button class="clipboard" data-clipboard-target="#x7040d933ccc746cc"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x1035ba58cdd944a2"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 </div>
@@ -158,7 +158,7 @@ public class BillingService {
 <div class="title">MVC and Guice</div>
 
 <div class="switch"><div class="switch--item option-1 selected">Java</div><div class="switch--item option-2">Kotlin</div></div><div class="content option-1">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x21ab70af8d1e4ef3">import io.jooby.guice.GuiceModule;
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java" id="x6343d718334c4830">import io.jooby.guice.GuiceModule;
 import io.jooby.kt.runApp
 
 public class App extends Jooby {
@@ -172,9 +172,9 @@ public class App extends Jooby {
   public static void main(String[] args) {
     runApp(args, App::new);
   }
-}</code><button class="clipboard" data-clipboard-target="#x21ab70af8d1e4ef3"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x6343d718334c4830"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div><div class="content hidden option-2">
-<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin" id="xa27928e0c95e4e37">import io.jooby.di.GuiceModule
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin" id="x943574f2ff054349">import io.jooby.di.GuiceModule
 import io.jooby.kt.runApp
 
 fun main(args: Array&lt;String&gt;) {
@@ -183,7 +183,7 @@ fun main(args: Array&lt;String&gt;) {
 
     mvc(MyController::class)     <b class="conum">(2)</b>
   }
-}</code><button class="clipboard" data-clipboard-target="#xa27928e0c95e4e37"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
+}</code><button class="clipboard" data-clipboard-target="#x943574f2ff054349"><img src="/../../images/clippy.svg" class="clippy" width="13" alt="Copy to clipboard"></button></pre>
 </div></div>
 
 <div class="colist arabic">
